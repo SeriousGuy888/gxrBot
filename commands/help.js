@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
   }
   
   function readFile(name) {
-    if(!fs.existsSync(`./data/help/${args[0]}.txt`)) return "Error: File `${name}` does not exist."
+    if(!fs.existsSync(`./data/help/${args[0]}.txt`)) return `Error: File \`${name}\` does not exist.`
     let fileContents = fs.readFileSync(`./data/help/${name}.txt`, "utf8")
     return fileContents
   }
