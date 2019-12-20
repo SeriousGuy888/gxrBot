@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
   let observer = doc.onSnapshot(docSnapshot => {
     console.log(`Cult channel change detected: ${docSnapshot._fieldsProto.id.stringValue}`)
     index.cultCache = docSnapshot._fieldsProto.id.stringValue
+    
+    return message.channel.send(index.cultCache)
   }, err => {return})
-
-  return message.channel.send(index.cultCache)
 }
