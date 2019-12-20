@@ -1,0 +1,6 @@
+**WELCOME TO THE G8C BOT**
+This bot is for features that are harder to add to my public
+bot, InsomniCheez, and so are exclusive to the Grade 8 Cult.
+
+The prefix is `c!`; begin all commands with the prefix. (e.g: `c!help`)
+`help cmds` to see commands.
