@@ -15,6 +15,16 @@ let db = admin.firestore()
 const Enmap = require("enmap")
 
 // important declarations and imports ↑
+// caches ↓
+
+var cultCache = {}
+let doc = db.collection("channels").doc("cult");
+let observer = doc.onSnapshot(docSnapshot => {
+  console.log(`Received doc snapshot: ${docSnapshot}`)
+  // ...
+}, err => {return})
+
+// caches ↑
 // exports ↓
 
 module.exports.Discord = Discord
@@ -27,6 +37,8 @@ module.exports.admin = admin
 module.exports.db = db
 
 module.exports.Enmap = Enmap
+
+module.exports.cultCache = cultCache
 
 // exports ↑
 // setup ↓
