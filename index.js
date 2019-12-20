@@ -17,11 +17,11 @@ const Enmap = require("enmap")
 // important declarations and imports ↑
 // caches ↓
 
-var cultCache = {}
+var cultCache = ""
 let doc = db.collection("channels").doc("cult");
 let observer = doc.onSnapshot(docSnapshot => {
-  console.log(`Received doc snapshot: ${docSnapshot._fieldsProto.id.stringValue}`)
-  // ...
+  console.log(`Cult channel change detected: ${docSnapshot._fieldsProto.id.stringValue}`)
+  cultCache = docSnapshot._fieldsProto.id.stringValue
 }, err => {return})
 
 // caches ↑
