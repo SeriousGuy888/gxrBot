@@ -15,7 +15,5 @@ exports.run = async (client, message, args) => {
   }
   
   if(!args[0]) noArgs()
-  else {
-    readFile(args[0])
-  }
+  else message.channel.send(readFile(args[0]))
 }
