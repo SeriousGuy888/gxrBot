@@ -21,6 +21,8 @@ module.exports.Enmap = Enmap
 // exports ↑
 // setup ↓
 
+console.log("============")
+
 fs.readdir("./events", (err, files) => { // load events
   if(err) return console.error(err) // if error, return
   files.forEach(file => { // for each file,
@@ -31,6 +33,7 @@ fs.readdir("./events", (err, files) => { // load events
     console.log(`Loading event ${eventName.toUpperCase()}`) // log on load
     delete require.cache[require.resolve(`./events/${file}`)] // idk
   })
+  console.log("============")
 })
 
 client.commands = new Enmap()
@@ -44,6 +47,7 @@ fs.readdir("./commands/", (err, files) => {
     console.log(`Loading command ${commandName.toUpperCase()}`) // log on load
     client.commands.set(commandName, props)
   })
+  console.log("============")
 })
 
 // setup ↑
