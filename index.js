@@ -20,7 +20,7 @@ const Enmap = require("enmap")
 var cultCache = {}
 let doc = db.collection("channels").doc("cult");
 let observer = doc.onSnapshot(docSnapshot => {
-  console.log(`Received doc snapshot: ${JSON.stringify(docSnapshot)}`)
+  console.log(`Received doc snapshot: ${docSnapshot._fieldsProto.id.stringValue}`)
   // ...
 }, err => {return})
 
