@@ -1,1 +1,4 @@
-test
+**G8C COMMAND LIST**
+The prefix is `c!`
+
+`help` - g8cBot help command
