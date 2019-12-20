@@ -5,6 +5,11 @@ const config = require("./config.json")
 const fs = require("fs")
 const prefix = config.prefix
 
+const admin = require("firebase-admin")
+const functions = require("firebase-functions")
+admin.initializeApp(functions.config().firebase)
+let db = admin.firestore()
+
 const Enmap = require("enmap")
 
 // important declarations and imports ↑
@@ -15,6 +20,10 @@ module.exports.client = client
 module.exports.config = config
 module.exports.fs = fs
 module.exports.prefix = prefix
+
+module.exports.admin = admin
+module.exports.functions = functions
+module.exports.db = db
 
 module.exports.Enmap = Enmap
 
