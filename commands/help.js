@@ -4,8 +4,12 @@ exports.run = async (client, message, args) => {
   const Discord = index.Discord
 
   function noArgs() {
-    let helpHome = fs.readFileSync("./data/help.txt", "utf8")
+    let helpHome = fs.readFileSync("./data/help/help.txt", "utf8")
     message.channel.send(helpHome)
+  }
+  
+  function readFile(name) {
+  
   }
   
   if(!args[0]) noArgs()
