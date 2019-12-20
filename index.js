@@ -5,9 +5,27 @@ const config = require("./config.json")
 const fs = require("fs")
 const prefix = config.prefix
 
+const admin = require("firebase-admin")
+const serviceAccount = require("./secrets/firestoreServiceAccountKey.json")
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+})
+let db = admin.firestore()
+
 const Enmap = require("enmap")
 
 // important declarations and imports ↑
+// caches ↓
+
+var cultCache = ""
+let doc = db.collection("channels").doc("cult");
+let observer = doc.onSnapshot(docSnapshot => {
+  console.log(`Cult channel change detected: ${docSnapshot._fieldsProto.id.stringValue}`)
+  cultCache = docSnapshot._fieldsProto.id.stringValue
+  module.exports.cultCache = cultCache
+}, err => {return})
+
+// caches ↑
 // exports ↓
 
 module.exports.Discord = Discord
@@ -16,7 +34,12 @@ module.exports.config = config
 module.exports.fs = fs
 module.exports.prefix = prefix
 
+module.exports.admin = admin
+module.exports.db = db
+
 module.exports.Enmap = Enmap
+
+module.exports.cultCache = cultCache
 
 // exports ↑
 // setup ↓

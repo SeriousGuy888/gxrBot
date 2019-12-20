@@ -12,10 +12,10 @@ module.exports = (client, message) => {
   if(message.content.toLowerCase().indexOf(prefix) === 0) {
     args = message.content.slice(prefix.length).trim().split(/ +/g)
     command = args.shift().toLowerCase().trim()
+
+    cmd = client.commands.get(command) //grab cmds from enmap
+
+    if(!cmd) return message.channel.send(`\`ERROR\`: Command \`${prefix}${command}\` not found.`)
+    cmd.run(client, message, args)
   }
-
-  cmd = client.commands.get(command) //grab cmds from enmap
-
-  if(!cmd) return message.channel.send(`\`ERROR\`: Command \`${prefix}${command}\` not found.`)
-  cmd.run(client, message, args)
 }
