@@ -9,19 +9,13 @@ exports.run = async (client, message, args) => {
   }
   
   function readFile(name) {
-  
+    if(!fs.existsSync(`./data/help/${args[0]}.txt`)) return "Error: File `${name}` does not exist."
+    let fileContents = fs.readFileSync(`./data/help/${name}.txt`, "utf8")
+    return fileContents
   }
   
   if(!args[0]) noArgs()
   else {
-    switch(args[0]) {
-      case "cmds":
-        message.channel.send("test")
-        break
-      default:
-        message.channel.send("Invalid arguments.")
-        noArgs()
-        break
-    }
+    readFile(args[0])
   }
 }
