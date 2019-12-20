@@ -1,7 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../index.js")
   const Discord = index.Discord
-  const db = index.db
 
-  return message.channel.send(index.cultCache)
+  message.channel.send(`Cult channel is <#${index.cultCache}>`)
 }
