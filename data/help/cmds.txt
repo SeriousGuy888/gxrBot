@@ -2,3 +2,4 @@
 The prefix is `c!`
 
 `help` - g8cBot help command
+`ping` - Get bot latency
