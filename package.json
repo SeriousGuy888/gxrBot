@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/SeriousGuy888/G8C-Bot#readme",
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "enmap": "^5.2.3"
   }
 }
