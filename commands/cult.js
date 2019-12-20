@@ -3,11 +3,5 @@ exports.run = async (client, message, args) => {
   const Discord = index.Discord
   const db = index.db
 
-  let doc = db.collection("channels").doc("cult");
-  let observer = doc.onSnapshot(docSnapshot => {
-    console.log(`Cult channel change detected: ${docSnapshot._fieldsProto.id.stringValue}`)
-    index.cultCache = docSnapshot._fieldsProto.id.stringValue
-    
-    return message.channel.send(index.cultCache)
-  }, err => {return})
+  return message.channel.send(index.cultCache)
 }
