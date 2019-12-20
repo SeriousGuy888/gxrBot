@@ -1,0 +1,22 @@
+{
+  "name": "g8c-bot",
+  "version": "1.0.0",
+  "description": "Bot made for the G8C with features specific to it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeriousGuy888/G8C-Bot.git"
+  },
+  "author": "SeriousGuy888",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeriousGuy888/G8C-Bot/issues"
+  },
+  "homepage": "https://github.com/SeriousGuy888/G8C-Bot#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
