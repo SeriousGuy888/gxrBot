@@ -3,6 +3,8 @@ exports.run = async (client, message, args) => {
   const config = index.config
   const Discord = index.Discord
 
+  let doc = db.collection("channels").doc("cult")
+  
   if(!args[0]) {
     let emb = new Discord.RichEmbed()
       .setColor("#aaaadd")
@@ -21,6 +23,11 @@ exports.run = async (client, message, args) => {
         switch(args[1]) {
           case "channel":
             if(!args[2]) return message.channel.send("Syntax: `c!cult set channel <channel mention>`")
+
+            doc.set({id: args[2]}, {merge: true}).then(() => {
+              message.channel.send("Channel set!")
+            })
+
             break
           case "phrase":
             if(!args[2]) return message.channel.send("Syntax: `c!cult set phrase <words>`")
