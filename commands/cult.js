@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
           case "phrase":
             if(!args[2]) return message.channel.send("Syntax: `c!cult set phrase <words>`")
 
-            doc.set({word: args[2]}, {merge: true}).then(() => {
+            doc.set({word: args.slice(2).join(" ")}, {merge: true}).then(() => {
               message.channel.send("Phrase set!")
             })
 
