@@ -2,5 +2,16 @@ exports.run = async (client, message, args) => {
   const index = require("../index.js")
   const Discord = index.Discord
 
-  message.channel.send(`Cult channel is <#${index.cultCache.id}> and word is ${index.cultCache.word}\nThis command is currently work in progress. There will be a feature to censor all instances of free speech using this feature.`)
+  if(!args[0]) {
+    let emb = new Discord.RichEmbed()
+      .setColor("#aaaadd")
+      .setTitle("Cult Feature Information")
+      .addField("Channel", `<#${index.cultCache.id}>`)
+      .addField("Word", index.cultCache.word)
+    
+    message.channel.send(emb)
+  }
+  else if(args[0]) {
+    message.channel.send("test")
+  }
 }
