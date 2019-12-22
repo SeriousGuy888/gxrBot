@@ -18,10 +18,10 @@ const Enmap = require("enmap")
 // caches ↓
 
 var cultCache = {}
-let doc = db.collection("channels").doc("cult");
+let doc = db.collection("channels").doc("cult")
 let observer = doc.onSnapshot(docSnapshot => {
   let path = docSnapshot._fieldsProto
-  
+
   console.log("Cult channel change detected:")
   console.log(path.id.stringValue + "\n" + path.word.stringValue)
 
