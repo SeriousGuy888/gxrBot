@@ -6,6 +6,7 @@ module.exports = (client, message) => {
   const db = index.db
   let cultCache = index.cultCache
   let cultChannelId = cultCache.id.slice(2, cultCache.id.length - 1) // remove <# and > from channel mention to get id
+  let cultPhrase = cult.word
 
   if(message.author.bot) return //ignore bots
 
@@ -24,6 +25,11 @@ module.exports = (client, message) => {
   }
 
   if(message.channel.id === cultChannelId) {
-    message.channel.send("cult")
+    if(message.content === cultPhrase) return
+    else message.delete().then(() => {
+      message.channel.send(`You are in violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
+        msg.delete(3000) // delete message in 3 seconds
+      })
+    })
   }
 }
