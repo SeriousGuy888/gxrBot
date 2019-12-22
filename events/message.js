@@ -6,7 +6,7 @@ module.exports = (client, message) => {
   const db = index.db
   let cultCache = index.cultCache
   let cultChannelId = cultCache.id.slice(2, cultCache.id.length - 1) // remove <# and > from channel mention to get id
-  let cultPhrase = cult.word
+  let cultPhrase = cultCache.word
 
   if(message.author.bot) return //ignore bots
 
