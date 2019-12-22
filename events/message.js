@@ -3,6 +3,10 @@ module.exports = (client, message) => {
   const config = index.config
   const prefix = index.prefix
 
+  const db = index.db
+  let cultCache = index.cultCache
+  let cultChannelId = cultCache.id.slice(2, str.length - 1) // remove <# and > from channel mention to get id
+
   if(message.author.bot) return //ignore bots
 
   let args
@@ -17,5 +21,9 @@ module.exports = (client, message) => {
 
     if(!cmd) return message.channel.send(`\`ERROR\`: Command \`${prefix}${command}\` not found.`)
     cmd.run(client, message, args)
+  }
+
+  if(message.channel.id === cultChannelId) {
+    message.channel.send("cult")
   }
 }
