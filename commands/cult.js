@@ -3,6 +3,8 @@ exports.run = async (client, message, args) => {
   const config = index.config
   const Discord = index.Discord
 
+  const db = index.db
+
   let doc = db.collection("channels").doc("cult")
   
   if(!args[0]) {
