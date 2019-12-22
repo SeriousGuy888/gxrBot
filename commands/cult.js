@@ -33,6 +33,11 @@ exports.run = async (client, message, args) => {
             break
           case "phrase":
             if(!args[2]) return message.channel.send("Syntax: `c!cult set phrase <words>`")
+
+            doc.set({word: args[2]}, {merge: true}).then(() => {
+              message.channel.send("Phrase set!")
+            })
+
             break
           default:
             message.channel.send("Invalid arguments!")
