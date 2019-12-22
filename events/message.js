@@ -25,7 +25,7 @@ module.exports = (client, message) => {
   }
 
   if(message.channel.id === cultChannelId) {
-    if(message.content === cultPhrase) return
+    if(message.content.toLowerCase() === cultPhrase.toLowerCase()) return
     else message.delete().then(() => {
       message.channel.send(`You are in violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
         msg.delete(3000) // delete message in 3 seconds
