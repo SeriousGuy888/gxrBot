@@ -1,5 +1,9 @@
 **G8C COMMAND LIST**
 The prefix is `c!`
 
+__Basic Commands__
 `help` - g8cBot help command
 `ping` - Get bot latency
+
+__Admin Commands__
+`cult` - Set the cult channel. *WIP
