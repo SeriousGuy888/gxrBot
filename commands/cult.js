@@ -1,5 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../index.js")
+  const config = index.config
   const Discord = index.Discord
 
   if(!args[0]) {
@@ -12,6 +13,7 @@ exports.run = async (client, message, args) => {
     message.channel.send(emb)
   }
   else if(args[0]) {
-    message.channel.send("test")
+    if(!config["admins"].includes(message.author.id)) return message.channel.send("You are not listed as a G8C admin! (If this is inaccurate, contact billzo)")
+    message.channel.send("asbhd")
   }
 }
