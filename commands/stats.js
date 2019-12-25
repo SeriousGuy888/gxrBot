@@ -13,5 +13,16 @@ exports.run = async (client, message, args) => {
   }
 
   // message.channel.send(queryUserId)
-  let doc = db.collection("users").doc(queryUserId)
+  let docRef = db.collection("users").doc(queryUserId)
+
+  docRef.get().then(doc => {
+    if(!doc.exists) {
+      doc.set({balance: 0}).then(() => {
+        message.channel.send("```json\n" + JSON.stringify(doc.data(), null, 4) + "```")
+      })
+    }
+    else {
+      message.channel.send("```json\n" + JSON.stringify(doc.data(), null, 4) + "```")
+    }
+  })
 }
