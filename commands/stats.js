@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
 
   docRef.get().then(doc => {
     if(!doc.exists) {
-      doc.set({balance: 0}).then(() => {
+      docRef.set({balance: 0}).then(() => {
         message.channel.send("```json\n" + JSON.stringify(doc.data(), null, 4) + "```")
       })
     }
