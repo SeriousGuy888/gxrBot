@@ -13,6 +13,7 @@ admin.initializeApp({
 let db = admin.firestore()
 
 const Enmap = require("enmap")
+const timeFormatter = require("seconds-time-formatter")
 
 // important declarations and imports ↑
 // caches ↓
@@ -44,6 +45,7 @@ module.exports.admin = admin
 module.exports.db = db
 
 module.exports.Enmap = Enmap
+module.exports.timeFormatter = timeFormatter
 
 module.exports.cultCache = cultCache
 
