@@ -6,6 +6,9 @@ exports.run = async (client, message, args) => {
   const db = index.db
   let docRef = db.collection("users").doc(message.author.id)
 
+  var cooldown = 1 * 60 * 60 // 1 hour multiplied by sixty minutes by sixty seconds
+  // todo: make this a config option and not a hard coded variable
+
   docRef.get().then(doc => {
     if(doc.exists) {
       var lastWork = new Date(doc.data().lastWork._seconds)
@@ -14,11 +17,15 @@ exports.run = async (client, message, args) => {
       var diffStr = timeFormatter.timeConvert({
         seconds: diff,
         format: "letters"
-      }
-    )
+      })
 
       message.channel.send(`Last worked timestamp: ${lastWork.toISOString()}\nCurrent timestamp: ${now.toISOString()}\n---\nLast worked timestamp difference: ${diffStr}`)
-      // todo: write logic to actually give the money and write code to let server admins set the cooldown for this command.
+      if(diff < cooldown) {
+        return message.channel.send(`Cooldown has ${diffStr} remaining.`)
+      }
+      else if(diff >= cooldown) {
+        return message.channel.send(":D")
+      }
     }
     else return message.channel.send("Before running this command, you must first have your profile created by running the `c!stats` command.")
   })
