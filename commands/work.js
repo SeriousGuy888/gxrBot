@@ -3,7 +3,7 @@ exports.run = async (client, message, args) => {
   const Discord = index.Discord
   
   const db = index.db
-  let docRef = db.collection("users").doc(queryUserId)
+  let docRef = db.collection("users").doc(message.author.id)
 
   docRef.get().then(doc => {
     if(doc.exists) {
