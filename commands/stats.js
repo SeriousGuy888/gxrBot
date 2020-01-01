@@ -20,7 +20,10 @@ exports.run = async (client, message, args) => {
       message.channel.send("```json\n" + JSON.stringify(doc.data(), null, 4) + "```")
     }
     else {
-      docRef.set({balance: 0}).then(() => {
+      docRef.set({
+        balance: 0,
+        lastWork: new Date(0)
+      }).then(() => {
         message.channel.send("```json\n" + JSON.stringify(doc.data(), null, 4) + "```")
       })
     }
