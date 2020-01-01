@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     if(doc.exists) {
       var lastWork = new Date(doc.data().lastWork._seconds)
       var now = new Date()
-      var diff = Math.abs(now - lastWork) * 1000
+      var diff = Math.abs(now - lastWork) / 1000
       var diffStr = timeFormatter.timeConvert({
         seconds: diff,
         format: "letters"
