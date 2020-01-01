@@ -12,19 +12,19 @@ exports.run = async (client, message, args) => {
     else queryUserId = message.mentions.users.first().id
   }
 
-  // message.channel.send(queryUserId)
   let docRef = db.collection("users").doc(queryUserId)
+  let defaultStats = {
+    balance: 0,
+    lastWork: new Date(0)
+  }
 
   docRef.get().then(doc => {
     if(doc.exists) {
       message.channel.send("```json\n" + JSON.stringify(doc.data(), null, 4) + "```")
     }
     else {
-      docRef.set({
-        balance: 0,
-        lastWork: new Date(0)
-      }).then(() => {
-        message.channel.send("```json\n" + JSON.stringify(doc.data(), null, 4) + "```")
+      docRef.set(defaultStats).then(() => {
+        message.channel.send("```json\n" + JSON.stringify(defaultStats, null, 4) + "```")
       })
     }
   })
