@@ -18,6 +18,7 @@ exports.run = async (client, message, args) => {
     )
 
       message.channel.send(`Last worked timestamp: ${lastWork.toISOString()}\nCurrent timestamp: ${now.toISOString()}\n---\nLast worked timestamp difference: ${diffStr}`)
+      // todo: write logic to actually give the money and write code to let server admins set the cooldown for this command.
     }
     else return message.channel.send("Before running this command, you must first have your profile created by running the `c!stats` command.")
   })
