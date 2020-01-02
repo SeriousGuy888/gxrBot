@@ -11,8 +11,9 @@ exports.run = async (client, message, args) => {
 
   docRef.get().then(doc => {
     if(doc.exists) {
-      var lastWork = new Date(doc.data().lastWork._seconds)
-      console.log(doc.data().lastWork._seconds)
+      var lwSec = doc.data().lastWork._seconds
+      var lastWork = new Date(lwSec)
+      console.log(lwSec)
       var now = new Date()
       var diff = Math.abs(now - lastWork) / 1000
       var diffStr = timeFormatter.timeConvert({
