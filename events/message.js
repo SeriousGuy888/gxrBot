@@ -8,13 +8,13 @@ module.exports = (client, message) => {
   let cultChannelId = cultCache.id.slice(2, cultCache.id.length - 1) // remove <# and > from channel mention to get id
   let cultPhrase = cultCache.word
 
-  if(message.author.bot) return //ignore bots
-
   let args
   let command
   let cmd
 
   if(message.content.toLowerCase().indexOf(prefix) === 0) {
+    if(message.author.bot) return //ignore bots
+    
     args = message.content.slice(prefix.length).trim().split(/ +/g)
     command = args.shift().toLowerCase().trim()
 
