@@ -14,7 +14,7 @@ module.exports = (client, message) => {
 
   if(message.content.toLowerCase().indexOf(prefix) === 0) {
     if(message.author.bot) return //ignore bots
-    
+
     args = message.content.slice(prefix.length).trim().split(/ +/g)
     command = args.shift().toLowerCase().trim()
 
@@ -27,6 +27,7 @@ module.exports = (client, message) => {
   if(message.channel.id === cultChannelId) {
     if(message.content.toLowerCase() === cultPhrase.toLowerCase()) return
     else message.delete().then(() => {
+      if(message.author.bot) return
       message.channel.send(`You are in violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
         msg.delete(3000) // delete message in 3 seconds
       })
