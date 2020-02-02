@@ -30,7 +30,7 @@ module.exports = (client, message) => {
       if(message.author.bot) return
       message.channel.send(`You are in violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
         msg.delete(3000) // delete message in 3 seconds
-      })
+      }).catch(err => {})
     })
   }
 }
