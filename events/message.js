@@ -25,6 +25,9 @@ module.exports = (client, message) => {
   }
 
   if(message.channel.id === cultChannelId) {
+    const emojiEquivilants = {}
+    
+
     if(message.content.toLowerCase() === cultPhrase.toLowerCase()) return
     else message.delete().then(() => {
       if(message.author.bot) return
