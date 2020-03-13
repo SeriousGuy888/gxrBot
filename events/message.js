@@ -32,21 +32,22 @@ module.exports = (client, message) => {
     //   emojiEquivilants[letters.charAt(i)] = `:regional_indicator_${letters.charAt(i)}:`
     // }
 
-    function messageIllegal(msg, phrase) {
+    function messageLegal(msg, phrase) {
       if(!msg || !phrase) return console.log("error with cult code in message.js event")
 
       msg = msg.toLowerCase()
       phrase = phrase.toLowerCase()
 
       for(var i = 0; i < letters.length; i++) {
-        msg.replace(new RegExp(`:regional_indicator_${letters.charAt(i)}:`, "gi"), letters.charAt(i))
+        msg = msg.replace(new RegExp(`:regional_indicator_${letters.charAt(i)}:`, "gi"), letters.charAt(i))
       }
+      console.log(msg)
 
       if(msg == phrase) return true
     }
 
-    if(messageIllegal(message.content, cultPhrase)) return
-    
+    if(messageLegal(message.content, cultPhrase)) return
+
     else message.delete().then(() => {
       if(message.author.bot) return
       message.channel.send(`You are in violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
