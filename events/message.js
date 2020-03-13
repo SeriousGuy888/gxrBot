@@ -26,7 +26,13 @@ module.exports = (client, message) => {
 
   if(message.channel.id === cultChannelId) {
     const emojiEquivilants = {}
-    
+    const letters = "abcdefghijklmnopqrstuvwxyz"
+
+    for(var i = 0; i < letters.length; i++) {
+      emojiEquivilants[letters.charAt(i)] = `regional_indicator_${letters.charAt(i)}`
+    }
+
+    console.log(emojiEquivilants)
 
     if(message.content.toLowerCase() === cultPhrase.toLowerCase()) return
     else message.delete().then(() => {
