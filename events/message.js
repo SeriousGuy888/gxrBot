@@ -25,16 +25,28 @@ module.exports = (client, message) => {
   }
 
   if(message.channel.id === cultChannelId) {
-    const emojiEquivilants = {}
+    // const emojiEquivilants = {}
     const letters = "abcdefghijklmnopqrstuvwxyz"
 
-    for(var i = 0; i < letters.length; i++) {
-      emojiEquivilants[letters.charAt(i)] = `regional_indicator_${letters.charAt(i)}`
+    // for(var i = 0; i < letters.length; i++) {
+    //   emojiEquivilants[letters.charAt(i)] = `:regional_indicator_${letters.charAt(i)}:`
+    // }
+
+    function messageIllegal(msg, phrase) {
+      if(!msg || !phrase) return console.log("error with cult code in message.js event")
+
+      msg = msg.toLowerCase()
+      phrase = phrase.toLowerCase()
+
+      for(var i = 0; i < letters.length; i++) {
+        msg.replace(new RegExp(`:regional_indicator_${letters.charAt(i)}:`, "gi"), letters.charAt(i))
+      }
+
+      if(msg == phrase) return true
     }
 
-    console.log(emojiEquivilants)
-
-    if(message.content.toLowerCase() === cultPhrase.toLowerCase()) return
+    if(messageIllegal(message.content, cultPhrase)) return
+    
     else message.delete().then(() => {
       if(message.author.bot) return
       message.channel.send(`You are in violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
