@@ -61,10 +61,10 @@ module.exports = (client, message) => {
       msg = msg.toLowerCase()
       phrase = phrase.toLowerCase()
 
-      for(var i = 0; i < letters.length; i++) {
-        msg = msg.replace(new RegExp(emojiEquivilants[i], "gi"), letters.charAt(i))
-      }
-      console.log(msg)
+      // for(var i = 0; i < letters.length; i++) {
+      //   msg = msg.replace(new RegExp(emojiEquivilants[i], "gi"), letters.charAt(i))
+      // }
+      // console.log(msg)
 
       if(msg == phrase) return true
     }
