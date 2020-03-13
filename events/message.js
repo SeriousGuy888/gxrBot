@@ -25,12 +25,35 @@ module.exports = (client, message) => {
   }
 
   if(message.channel.id === cultChannelId) {
-    // const emojiEquivilants = {}
+    const emojiEquivilants = {
+      a: "🇦",
+      b: "🇧",
+      c: "🇨",
+      d: "🇩",
+      e: "🇪",
+      f: "🇫",
+      g: "🇬",
+      h: "🇭",
+      i: "🇮",
+      j: "🇯",
+      k: "🇰",
+      l: "🇱",
+      m: "🇲",
+      n: "🇳",
+      o: "🇴",
+      p: "🇵",
+      q: "🇶",
+      r: "🇷",
+      s: "🇸",
+      t: "🇹",
+      u: "🇺",
+      v: "🇻",
+      w: "🇼",
+      x: "🇽",
+      y: "🇾",
+      z: "🇿"
+    }
     const letters = "abcdefghijklmnopqrstuvwxyz"
-
-    // for(var i = 0; i < letters.length; i++) {
-    //   emojiEquivilants[letters.charAt(i)] = `:regional_indicator_${letters.charAt(i)}:`
-    // }
 
     function messageLegal(msg, phrase) {
       if(!msg || !phrase) return console.log("error with cult code in message.js event")
@@ -39,7 +62,7 @@ module.exports = (client, message) => {
       phrase = phrase.toLowerCase()
 
       for(var i = 0; i < letters.length; i++) {
-        msg = msg.replace(new RegExp(`:regional_indicator_${letters.charAt(i)}:`, "gi"), letters.charAt(i))
+        msg = msg.replace(new RegExp(emojiEquivilants[i], "gi"), letters.charAt(i))
       }
       console.log(msg)
 
