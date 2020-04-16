@@ -20,7 +20,7 @@ const timeFormatter = require("seconds-time-formatter")
 
 var cultCache = {}
 let cultDoc = db.collection("channels").doc("cult")
-let observer = cultDoc.onSnapshot(docSnapshot => {
+let cultObserver = cultDoc.onSnapshot(docSnapshot => {
   let path = docSnapshot._fieldsProto
 
   console.log("Cult channel change detected:")
@@ -34,7 +34,7 @@ let observer = cultDoc.onSnapshot(docSnapshot => {
 
 var kashCache = {}
 let kashDoc = db.collection("channels").doc("cult")
-let observer = kashDoc.onSnapshot(docSnapshot => {
+let kashObserver = kashDoc.onSnapshot(docSnapshot => {
   let path = docSnapshot._fieldsProto
 
   console.log(path)
