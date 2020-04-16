@@ -82,5 +82,13 @@ fs.readdir("./commands/", (err, files) => {
 })
 
 // setup ↑
+// i dont care enough to do this smartly ↓
+
+client.on("guildMemberAdd", member => {
+  console.log(member)
+})
+
+// i dont care enough to do this smartly ↑
+
 
 client.login(token[0])
