@@ -69,7 +69,7 @@ module.exports = (client, message) => {
       if(msg == phrase) return true
     }
 
-    if(messageLegal(message.content, cultPhrase)) return
+    if(messageLegal(message.content, cultPhrase) && message.author.id != client.user.id) return
 
     else message.delete().then(() => {
       if(message.author.bot) return
