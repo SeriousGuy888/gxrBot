@@ -69,8 +69,9 @@ module.exports = (client, message) => {
       if(msg == phrase) return true
     }
 
-    if(messageLegal(message.content, cultPhrase) || message.author.id == client.user.id) return
+    if(message.author.id == client.user.id) return
 
+    if(messageLegal(message.content, cultPhrase)) return
     else message.delete().then(() => {
       if(message.author.bot) return
       message.channel.send(`You are in violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
