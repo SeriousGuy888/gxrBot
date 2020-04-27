@@ -25,35 +25,35 @@ module.exports = (client, message) => {
   }
 
   if(message.channel.id === cultChannelId) {
-    const emojiEquivilants = {
-      a: "🇦",
-      b: "🇧",
-      c: "🇨",
-      d: "🇩",
-      e: "🇪",
-      f: "🇫",
-      g: "🇬",
-      h: "🇭",
-      i: "🇮",
-      j: "🇯",
-      k: "🇰",
-      l: "🇱",
-      m: "🇲",
-      n: "🇳",
-      o: "🇴",
-      p: "🇵",
-      q: "🇶",
-      r: "🇷",
-      s: "🇸",
-      t: "🇹",
-      u: "🇺",
-      v: "🇻",
-      w: "🇼",
-      x: "🇽",
-      y: "🇾",
-      z: "🇿"
-    }
-    const letters = "abcdefghijklmnopqrstuvwxyz"
+    // const emojiEquivilants = {
+    //   a: "🇦",
+    //   b: "🇧",
+    //   c: "🇨",
+    //   d: "🇩",
+    //   e: "🇪",
+    //   f: "🇫",
+    //   g: "🇬",
+    //   h: "🇭",
+    //   i: "🇮",
+    //   j: "🇯",
+    //   k: "🇰",
+    //   l: "🇱",
+    //   m: "🇲",
+    //   n: "🇳",
+    //   o: "🇴",
+    //   p: "🇵",
+    //   q: "🇶",
+    //   r: "🇷",
+    //   s: "🇸",
+    //   t: "🇹",
+    //   u: "🇺",
+    //   v: "🇻",
+    //   w: "🇼",
+    //   x: "🇽",
+    //   y: "🇾",
+    //   z: "🇿"
+    // }
+    // const letters = "abcdefghijklmnopqrstuvwxyz"
 
     function messageLegal(msg, phrase) {
       if(!msg || !phrase) return console.log("error with cult code in message.js event")
