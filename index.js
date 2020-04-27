@@ -37,9 +37,9 @@ let kashDoc = db.collection("channels").doc("cult")
 let kashObserver = kashDoc.onSnapshot(docSnapshot => {
   let path = docSnapshot._fieldsProto
 
-  console.log(path)
+  // console.log(path)
 
-  console.log("kash change:")
+  // console.log("kash change:")
   // console.log(path.id.stringValue + "\n" + path.word.stringValue)
 
   // kashCache.id = path.id.stringValue
