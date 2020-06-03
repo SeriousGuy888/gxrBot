@@ -78,7 +78,7 @@ module.exports = (client, message) => {
         return
       }
       
-      message.channel.send(`<@<${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
+      message.channel.send(`<@${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
         msg.delete(3000) // delete message in 3 seconds
       }).catch(err => {})
     })
