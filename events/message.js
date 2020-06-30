@@ -4,9 +4,13 @@ module.exports = (client, message) => {
   const prefix = index.prefix
 
   const db = index.db
+
   let cultCache = index.cultCache
   let cultChannelId = cultCache.id.slice(2, cultCache.id.length - 1) // remove <# and > from channel mention to get id
   let cultPhrase = cultCache.word
+
+  let owsCache = index.owsCache
+  let owsChannelId = owsCache.id.slice(2, owsCache.id.length - 1) // remove <# and > from channel mention to get id
 
   let args
   let command
@@ -25,46 +29,11 @@ module.exports = (client, message) => {
   }
 
   if(message.channel.id === cultChannelId) {
-    // const emojiEquivilants = {
-    //   a: "🇦",
-    //   b: "🇧",
-    //   c: "🇨",
-    //   d: "🇩",
-    //   e: "🇪",
-    //   f: "🇫",
-    //   g: "🇬",
-    //   h: "🇭",
-    //   i: "🇮",
-    //   j: "🇯",
-    //   k: "🇰",
-    //   l: "🇱",
-    //   m: "🇲",
-    //   n: "🇳",
-    //   o: "🇴",
-    //   p: "🇵",
-    //   q: "🇶",
-    //   r: "🇷",
-    //   s: "🇸",
-    //   t: "🇹",
-    //   u: "🇺",
-    //   v: "🇻",
-    //   w: "🇼",
-    //   x: "🇽",
-    //   y: "🇾",
-    //   z: "🇿"
-    // }
-    // const letters = "abcdefghijklmnopqrstuvwxyz"
-
     function messageLegal(msg, phrase) {
       if(!msg || !phrase) return console.log("error with cult code in message.js event")
 
       msg = msg.toLowerCase()
       phrase = phrase.toLowerCase()
-
-      // for(var i = 0; i < letters.length; i++) {
-      //   msg = msg.replace(new RegExp(emojiEquivilants[i], "gi"), letters.charAt(i))
-      // }
-      // console.log(msg)
 
       if(msg == phrase) return true
     }
@@ -79,6 +48,30 @@ module.exports = (client, message) => {
       }
       
       message.channel.send(`<@${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
+        msg.delete(3000) // delete message in 3 seconds
+      }).catch(err => {})
+    })
+  }
+  if(message.channel.id === owsChannelId) {
+    function messageLegal(msg) {
+      if(!msg) return console.log("error with ows code in message.js event")
+
+      msg = msg.toLowerCase()
+      
+      if(msg.split(" ").length == 1) return true
+      else return false
+    }
+
+    if(messageLegal(message.content) || message.author.id == client.user.id) {
+      return
+    }
+
+    else message.delete().then(() => {
+      if(message.author.bot) {
+        return
+      }
+      
+      message.channel.send(`<@${message.author.id}>, this is the one word story channel. You are a stupid.`).then(msg => {
         msg.delete(3000) // delete message in 3 seconds
       }).catch(err => {})
     })
