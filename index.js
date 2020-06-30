@@ -48,6 +48,19 @@ let kashObserver = kashDoc.onSnapshot(docSnapshot => {
   module.exports.kashCache = kashCache
 }, err => {return})
 
+var owsCache = {}
+let owsDoc = db.collection("channels").doc("one_word_story")
+let owsObserver = owsDoc.onSnapshot(docSnapshot => {
+  let path = docSnapshot._fieldsProto
+
+  console.log("OWS channel change detected:")
+  console.log(path.id.stringValue)
+
+  owsCache.id = path.id.stringValue
+
+  module.exports.owsCache = owsCache
+}, err => {return})
+
 // caches ↑
 // exports ↓
 
