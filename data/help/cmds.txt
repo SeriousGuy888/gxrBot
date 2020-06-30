@@ -6,4 +6,5 @@ __Basic Commands__
 `ping` - Get bot latency
 
 __Admin Commands__
-`cult` - Set the cult channel. *WIP
+`cult` - Set the cult channel.
+`one_word_story` - Set up the one word story channel.

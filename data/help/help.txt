@@ -1,6 +1,6 @@
-**WELCOME TO THE G8C BOT**
+**WELCOME TO THE ~~G8C~~ G9L BOT**
 This bot is for features that are harder to add to my public
-bot, InsomniCheez, and so are exclusive to the Grade 8 Cult.
+bot, InsomniCheez, and so are exclusive to the ~~Grade 8 Cult~~ Grade 9 League.
 
 The prefix is `c!`; begin all commands with the prefix. (e.g: `c!help`)
 `help cmds` to see commands.
