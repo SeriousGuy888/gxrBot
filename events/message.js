@@ -56,7 +56,7 @@ module.exports = (client, message) => {
     function messageLegal(msg) {
       if(!msg) return console.log("error with ows code in message.js event")
 
-      msg = msg.toLowerCase()
+      msg = msg.toLowerCase().replace(/[^a-z]/gi, "")
       
       if(msg.split(" ").length == 1) return true
       else return false
