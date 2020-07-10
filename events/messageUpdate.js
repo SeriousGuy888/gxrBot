@@ -12,7 +12,7 @@ module.exports = (client, oldMessage, newMessage) => {
   let owsCache = index.owsCache
   let owsChannelId = owsCache.id.slice(2, owsCache.id.length - 1) // remove <# and > from channel mention to get id
 
-  console.log(client)
+  // console.log(client)
   console.log(oldMessage)
   console.log(newMessage)
 
