@@ -89,7 +89,7 @@ fs.readdir("./events", (err, files) => { // load events
     if(!file.endsWith(".js")) return // make sure file is a js file
     const event = require(`./events/${file}`) // import event file
     let eventName = file.split(".")[0] // event name is file name minus extention
-    client.on(eventName, message => event(client, message)) // declare event listener
+    client.on(eventName, (message, newMessage) => event(client, message, newMessage)) // declare event listener
     console.log(`Loading event ${eventName.toUpperCase()}`) // log on load
     delete require.cache[require.resolve(`./events/${file}`)] // idk
   })
