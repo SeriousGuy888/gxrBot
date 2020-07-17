@@ -1,16 +1,17 @@
 ## ~~g8cBot~~ g9lBot
-A bot with features exclusive to making the Grade 9 League betterer.
+A bot with features exclusive to making the Grade 9 League better.
 
 *(Newly not grade 8! Can you imagine being a grade 8? I certainly can't)*
 
 
-**Features Include**
+**Features**
 
- - [ ] A channel for participating in cult activities (By which I mean repeating a word)
- - [ ] A channel for writing an incoherent mess that we claim is a story
- - [ ] A non-functional economy system!
- - [ ] A help command and a ping command
-
-
+ - [x] A channel for cult activities (by which I mean repeating a word)
+ - [x] A channel for practising teamwork and collaboration by writing an incoherent mess of a story
+ - [x] A non-functional economy system!
+ - [x] A help command
+ - [x] A ping command
+ - [x] Code stolen from the InsomniCheez codebase
+ - [ ] Automatic homework completer
 
 > g9lBot: Infinitely in Beta since December 12th, 2019
