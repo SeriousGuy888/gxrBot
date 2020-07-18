@@ -7,5 +7,5 @@ exports.run = async (client, message, args) => {
 
   const randArrElem = (arr) => arr[Math.floor(Math.random() * arr.length)]
 
-  message.channel.send(`billzo the ${randArrElem(adjectives)} ${randArrElem(noun)}`)
+  message.channel.send(`billzo the ${randArrElem(adjectives)} ${randArrElem(nouns)}`)
 }
