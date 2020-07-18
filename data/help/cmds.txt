@@ -5,6 +5,9 @@ __Basic Commands__
 `help` - g8cBot help command
 `ping` - Get bot latency
 
+__Fun Commands__
+`billzo` - Know all the different editions of billzo.
+
 __Admin Commands__
 `cult` - Set the cult channel.
 `one_word_story` - Set up the one word story channel.
