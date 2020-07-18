@@ -6,6 +6,7 @@ This bot is for features that are exclusive to the Grade 9 League.
 The prefix is `c!`; begin all commands with the prefix. (e.g: `c!help`)
 `help cmds` to see commands.
 
+If you want to make suggestions for the server or the bot, you can do so in <#727381232236625921>
 
 **Features**
 
