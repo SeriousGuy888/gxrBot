@@ -14,4 +14,4 @@ A bot with features exclusive to making the Grade 9 League better.
  - [x] Code stolen from the InsomniCheez codebase
  - [ ] Automatic homework completer
 
-> g9lBot: Infinitely in Beta since December 12th, 2019
+> g9lBot: Infinitely in beta since December 12th, 2019
