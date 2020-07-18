@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
   ]
 
   // tag the variations that are too long to be set as a nickname
-  for(i of variations) if(variations[i].length > 32) variations[i] += " `[>32]`"
+  for(i in variations) if(variations[i].length > 32) variations[i] += " `[>32]`"
 
   message.channel.send(variations.join("\n"))
 }
