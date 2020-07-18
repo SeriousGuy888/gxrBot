@@ -4,10 +4,15 @@ exports.run = async (client, message, args) => {
   const thes = require("../data/billzo/thes.json")
 
   const randArrElem = arr => arr[Math.floor(Math.random() * arr.length)]
-  let billzo = "billzo"
-  let the = randArrElem(thes)
-  let adj = randArrElem(adjectives)
-  let noun = randArrElem(nouns)
+  let billzo
+  let the
+  let adj
+  let noun
+
+  billzo = "billzo"
+  the = randArrElem(thes)
+  adj = randArrElem(adjectives)
+  noun = randArrElem(nouns)
 
   let variations = [
     `${billzo} ${the} ${adj} ${noun}`,
