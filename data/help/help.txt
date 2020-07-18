@@ -10,12 +10,12 @@ The prefix is `c!`; begin all commands with the prefix. (e.g: `c!help`)
 
 **Features**
 
- - A channel for cult activities (by which I mean repeating a word)
- - A channel for practising teamwork and collaboration by writing an incoherent mess of a story
- - A non-functional economy system!
- - A help command
- - A ping command
- - Code stolen from the InsomniCheez codebase
- - ~~Automatic homework completer~~
+- A channel for cult activities (by which I mean repeating a word)
+- A channel for practising teamwork and collaboration by writing an incoherent mess of a story
+- A non-functional economy system!
+- A help command
+- A ping command
+- Code stolen from the InsomniCheez codebase
+- ~~Automatic homework completer~~
 
 > g9lBot: Infinitely in Beta since December 12th, 2019
