@@ -1,5 +1,4 @@
 exports.run = async (client, message, args) => {
-  const index = require("../index.js")
   const adjectives = require("../data/billzo/adjectives.json")
   const nouns = require("../data/billzo/nouns.json")
 
