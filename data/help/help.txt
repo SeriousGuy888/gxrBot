@@ -1,6 +1,21 @@
-**WELCOME TO THE ~~G8C~~ G9L BOT**
-This bot is for features that are harder to add to my public
-bot, InsomniCheez, and so are exclusive to the ~~Grade 8 Cult~~ Grade 9 League.
+__**WELCOME TO THE ~~G8C~~ G9L BOT**__
+
+This bot is for features that are
+exclusive to the ~~Grade 8 Cult~~ Grade 9 League.
+*(Newly not grade 8! Can you imagine being a grade 8? I certainly can't)*
 
 The prefix is `c!`; begin all commands with the prefix. (e.g: `c!help`)
 `help cmds` to see commands.
+
+
+**Features**
+
+ - A channel for cult activities (by which I mean repeating a word)
+ - A channel for practising teamwork and collaboration by writing an incoherent mess of a story
+ - A non-functional economy system!
+ - A help command
+ - A ping command
+ - Code stolen from the InsomniCheez codebase
+ - ~~Automatic homework completer~~
+
+> g9lBot: Infinitely in Beta since December 12th, 2019
