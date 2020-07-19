@@ -32,22 +32,6 @@ let cultObserver = cultDoc.onSnapshot(docSnapshot => {
   module.exports.cultCache = cultCache
 }, err => {return})
 
-var kashCache = {}
-let kashDoc = db.collection("channels").doc("cult")
-let kashObserver = kashDoc.onSnapshot(docSnapshot => {
-  let path = docSnapshot._fieldsProto
-
-  // console.log(path)
-
-  // console.log("kash change:")
-  // console.log(path.id.stringValue + "\n" + path.word.stringValue)
-
-  // kashCache.id = path.id.stringValue
-  // kashCache.word = path.word.stringValue
-
-  module.exports.kashCache = kashCache
-}, err => {return})
-
 var owsCache = {}
 let owsDoc = db.collection("channels").doc("one_word_story")
 let owsObserver = owsDoc.onSnapshot(docSnapshot => {
@@ -111,23 +95,5 @@ fs.readdir("./commands/", (err, files) => {
 })
 
 // setup ↑
-// i dont care enough to do this smartly ↓
-
-// client.on("guildMemberAdd", member => {
-//   const g8cId = "587769144619958273"
-//   const kashId = "400677037469335582"
-  
-//   // if(member.guild.id != g8cId) return
-//   // if(member.user.id != kashId) return
-
-//   let doc = db.collection("kash").doc("joins")
-
-//   doc.set({count: }, {merge: false}).then(() => {
-//     message.channel.send("Channel set!")
-//   })
-// })
-
-// i dont care enough to do this smartly ↑
-
 
 client.login(token[0])
