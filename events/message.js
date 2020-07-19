@@ -58,8 +58,10 @@ module.exports = (client, message) => {
       let content = msg.content
 
       content = content.toLowerCase().replace(/[^a-z ]/gi, "")
-
-      msg.channel.send(msg.channel.lastMessageID)
+      
+      if(msg.author.id != client.user.id) {
+        msg.channel.send(msg.channel.lastMessageID)
+      }
 
       if(content.split(" ").length == 1) return true
       else return false
