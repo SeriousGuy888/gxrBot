@@ -60,6 +60,8 @@ module.exports = (client, message) => {
       
       if(msg.split(" ").length == 1) return true
       else return false
+
+      msg.channel.send("test " + msg.channel.lastMessageId)
     }
 
     if(messageLegal(message.content) || message.author.id == client.user.id) {
