@@ -62,8 +62,8 @@ module.exports = (client, message) => {
       else return false
     }
 
-    message.channel.send("test " + message.channel.lastMessageID)
     if(messageLegal(message.content) || message.author.id == client.user.id) {
+      message.channel.send("test " + message.channel.lastMessageID)
       return
     }
 
