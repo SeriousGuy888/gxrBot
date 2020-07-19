@@ -55,22 +55,20 @@ module.exports = (client, message) => {
   if(message.channel.id === owsChannelId) {
     function messageLegal(msg) {
       if(!msg) return console.log("error with ows code in message.js event")
+      let content = msg.content
 
-      msg = msg.toLowerCase().replace(/[^a-z ]/gi, "")
+      content = content.toLowerCase().replace(/[^a-z ]/gi, "")
 
-      if(msg.split(" ").length == 1) return true
+      msg.channel.send(msg.channel.lastMessageID)
+
+      if(content.split(" ").length == 1) return true
       else return false
     }
 
-    if(messageLegal(message.content) || message.author.id == client.user.id) {
-      message.channel.send("test " + message.channel.lastMessageID)
-      return
-    }
+    if(messageLegal(message) || message.author.id == client.user.id) return
 
     else message.delete().then(() => {
-      if(message.author.bot) {
-        return
-      }
+      if(message.author.bot) return
       
       message.channel.send(`<@${message.author.id}>, this is the one word story channel. You are a stupid.`).then(msg => {
         msg.delete(3000) // delete message in 3 seconds
