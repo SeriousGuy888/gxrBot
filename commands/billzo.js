@@ -4,11 +4,8 @@ exports.run = async (client, message, args) => {
   const thes = require("../data/billzo/thes.json")
 
   const randArrElem = arr => arr[Math.floor(Math.random() * arr.length)]
-  let billzo
-  let the
-  let adj
-  let noun
-
+  
+  let billzo, the, adj, noun
   billzo = "billzo"
   the = randArrElem(thes)
   adj = randArrElem(adjectives)
@@ -22,6 +19,5 @@ exports.run = async (client, message, args) => {
 
   // tag the variations that are too long to be set as a nickname
   for(i in variations) if(variations[i].length > 32) variations[i] += " `[>32]`"
-
   message.channel.send(variations.join("\n"))
 }
