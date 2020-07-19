@@ -57,13 +57,12 @@ module.exports = (client, message) => {
       if(!msg) return console.log("error with ows code in message.js event")
 
       msg = msg.toLowerCase().replace(/[^a-z ]/gi, "")
-      
+
       if(msg.split(" ").length == 1) return true
       else return false
-
-      msg.channel.send("test " + msg.channel.lastMessageID)
     }
 
+    message.channel.send("test " + message.channel.lastMessageID)
     if(messageLegal(message.content) || message.author.id == client.user.id) {
       return
     }
