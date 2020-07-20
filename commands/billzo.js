@@ -1,6 +1,7 @@
 exports.run = async (client, message, args) => {
   const billzos = require("../data/billzo/billzos.json")
   const thes = require("../data/billzo/thes.json")
+  const adverbs = require("../data/billzo/adverbs.json")
   const adjectives = require("../data/billzo/adjectives.json")
   const nouns = require("../data/billzo/nouns.json")
 
@@ -9,12 +10,15 @@ exports.run = async (client, message, args) => {
   let billzo, the, adj, noun
   billzo = randArrElem(billzos)
   the = randArrElem(thes)
+  adv = randArrElem(adverbs)
   adj = randArrElem(adjectives)
   noun = randArrElem(nouns)
 
   let variations = [
+    `${billzo} ${the} ${adv} ${adj} ${noun}`,
     `${billzo} ${the} ${adj} ${noun}`,
     `${billzo} ${the} ${noun}`,
+    `${adv} ${adj} ${billzo}`
     `${adj} ${billzo}`
   ]
 
