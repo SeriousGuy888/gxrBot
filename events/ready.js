@@ -10,6 +10,6 @@ module.exports = (client, message) => {
   ]
 
   setInterval(() => {
-    client.user.setActivity(statuses[Math.floor(Math.random() * (activities_list.length - 1) + 1)], { type: "WATCHING" })
+    client.user.setActivity(statuses[Math.floor(Math.random() * (statuses.length - 1) + 1)], { type: "WATCHING" })
   }, 10000)
 }
