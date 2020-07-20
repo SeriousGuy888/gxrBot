@@ -6,7 +6,7 @@ module.exports = (client, message) => {
 
   const statuses = [
     `for ${prefix}help`,
-    "Hi, I'm InsomniCheez Lite!"
+    "Stolen InsomniCheez Code"
   ]
 
   setInterval(() => {
