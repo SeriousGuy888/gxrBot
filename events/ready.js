@@ -9,7 +9,10 @@ module.exports = (client, message) => {
     "Stolen InsomniCheez Code"
   ]
 
+  let statusIndex = -1
   setInterval(() => {
-    client.user.setActivity(statuses[Math.floor(Math.random() * (statuses.length - 1))], { type: "WATCHING" })
+    statusIndex++
+    if(statusIndex >= statuses.length) statusIndex = 0
+    client.user.setActivity(statuses[statusIndex], { type: "WATCHING" })
   }, 10000)
 }
