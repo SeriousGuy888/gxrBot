@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
 
   let pingEmb = new Discord.RichEmbed()
     .setColor("#3333ee")
-    .setTitle("Ping")
+    .setTitle("Pong!")
     .setDescription([
       `:arrows_clockwise: Latency: \`${Math.round(client.ping)} ms\``,
       `:clock530: Uptime: \`${uptime}\``
