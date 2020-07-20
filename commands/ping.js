@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
     .setTitle("Pong!")
     .setDescription([
       `:arrows_clockwise: Latency: \`${Math.round(client.ping)} ms\``,
-      `:clock530: Uptime: \`${uptime}\``
+      `:clock530: Uptime: \`${uptime.slice(2)}\``
     ].join("\n"))
     
   message.channel.send(pingEmb)
