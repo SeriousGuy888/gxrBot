@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
 
   const randArrElem = arr => arr[Math.floor(Math.random() * (arr.length - 1))]
   
-  let billzo, the, adj, noun
+  let billzo, the, adv, adj, noun
   billzo = randArrElem(billzos)
   the = randArrElem(thes)
   adv = randArrElem(adverbs)
