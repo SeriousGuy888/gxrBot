@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
     `${billzo} ${the} ${adv} ${adj} ${noun}`,
     `${billzo} ${the} ${adj} ${noun}`,
     `${billzo} ${the} ${noun}`,
-    `${adv} ${adj} ${billzo}`
+    `${adv} ${adj} ${billzo}`,
     `${adj} ${billzo}`
   ]
 
