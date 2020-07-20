@@ -3,10 +3,20 @@ exports.run = async (client, message, args) => {
   const fs = index.fs
   const Discord = index.Discord
 
+  const timeFormatter = index.timeFormatter
+
+  let uptime = timeFormatter.timeConvert({
+    seconds: client.uptime / 1000,
+    format: "letters"
+  })
+
   let pingEmb = new Discord.RichEmbed()
     .setColor("#3333ee")
-    .setTitle("g8cBot Latency")
-    .setDescription(`${Math.round(client.ping)} ms`)
+    .setTitle("Ping")
+    .setDescription([
+      `:arrows_clockwise: Latency: \`${Math.round(client.ping)} ms\``,
+      `:clock530: Uptime: \`${uptime}\``
+    ].join("\n"))
     
   message.channel.send(pingEmb)
 }
