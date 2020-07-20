@@ -6,7 +6,8 @@ module.exports = (client, message) => {
 
   const statuses = [
     `for ${prefix}help`,
-    "Stolen InsomniCheez Code"
+    "InsomniCheez",
+    "Hi, I'm InsomniCheez Lite"
   ]
 
   let statusIndex = -1
