@@ -3,7 +3,5 @@ module.exports = (client, message) => {
   const prefix = index.prefix
 
   console.log("g9lBot Loaded!")
-  client.user.setActivity(`for ${prefix}help`, {
-    type: "WATCHING"
-  })
+  client.user.setActivity(`for ${prefix}help`, { type: "WATCHING" })
 }
