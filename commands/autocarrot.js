@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../index.js")
 
-  const swearCensors = require("../data/swear/censored_words.json")
+  const swearCensors = require("../data/autocarrot/censored_words.json")
   const swearList = Object.keys(swearCensors)
 
 
