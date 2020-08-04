@@ -1,4 +1,4 @@
-**G8C COMMAND LIST**
+**G9LBOT COMMAND LIST**
 The prefix is `%prefix%`
 
 __Basic Commands__
