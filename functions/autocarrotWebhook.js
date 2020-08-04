@@ -3,7 +3,7 @@ exports.run = (client, human, channel, content) => {
 
   let hookName = "g9lBot AutoCarrot"
   let msgAvatar = human.avatarURL
-  let hookAvatar = client.user.avatarURL()
+  let hookAvatar = client.user.avatarURL
 
   // if(!human)    return channel.send("err 12")
   // if(!channel)  return channel.send("err 13")
