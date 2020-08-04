@@ -10,9 +10,9 @@ exports.run = async (client, message, args) => {
   function readFile(name) {
     if(!fs.existsSync(`./data/help/${args[0]}.txt`)) return `Error: File \`${name}\` does not exist.`
     let fileContents = fs.readFileSync(`./data/help/${name}.txt`, "utf8")
-    return fileContents.replace(/%prefix%/gi, index.config.prefix)
+    return fileContents
   }
   
   if(!args[0]) noArgs()
-  else message.channel.send(readFile(args[0]))
+  else message.channel.send(readFile(args[0]).replace(/%prefix%/gi, index.config.prefix))
 }
