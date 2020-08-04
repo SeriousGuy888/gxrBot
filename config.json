@@ -10,5 +10,9 @@
     "billzo",
     "hoang",
     "liam"
-  ]
+  ],
+
+  "autocarrot": {
+    "enabled": true
+  }
 }
