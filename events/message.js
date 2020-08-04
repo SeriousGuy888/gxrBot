@@ -29,7 +29,7 @@ module.exports = (client, message) => {
   }
 
 
-  if(true) { // temporary; will add check for whether autocarrot is enabled
+  if(config.autocarrot.enabled) {
     const autocarrotWebhook = index.autocarrotWebhook
     const swearCensors = require("../data/autocarrot/censored_words.json")
     const swearList = Object.keys(swearCensors)
