@@ -1,5 +1,5 @@
 **G8C COMMAND LIST**
-The prefix is `c!`
+The prefix is `%prefix%`
 
 __Basic Commands__
 `help` - g8cBot help command

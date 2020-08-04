@@ -1,7 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../index.js")
   const fs = index.fs
-  const Discord = index.Discord
 
   function noArgs() {
     let helpHome = fs.readFileSync("./data/help/help.txt", "utf8")
@@ -11,7 +10,7 @@ exports.run = async (client, message, args) => {
   function readFile(name) {
     if(!fs.existsSync(`./data/help/${args[0]}.txt`)) return `Error: File \`${name}\` does not exist.`
     let fileContents = fs.readFileSync(`./data/help/${name}.txt`, "utf8")
-    return fileContents
+    return fileContents.replace(/%prefix%/gi, index.config.prefix)
   }
   
   if(!args[0]) noArgs()
