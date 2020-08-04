@@ -10,7 +10,7 @@
     }
   },
   "autocarrot": {
-    "comment": "Options for g9lBot's AutoCarrot",
+    "comment": "Options for g9lBot's AutoCarrot; exemptRoleName is useless and exemptedUsers is an array of user ids who are exempt from autocarrot",
     "enabled": true,
     "deleteOriginalMessage": true,
     "exemptRoleName": "g9l-AutoCarrotExempt",
