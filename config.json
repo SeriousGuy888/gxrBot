@@ -14,6 +14,7 @@
 
   "autocarrot": {
     "enabled": true,
-    "deleteOriginalMessage": true
+    "deleteOriginalMessage": true,
+    "exemptedUsers": []
   }
 }
