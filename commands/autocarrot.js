@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
   const swearList = Object.keys(swearCensors)
 
 
-  const autoCarrotWebhook = index.autoCarrotWebhook
+  const autocarrotWebhook = index.autocarrotWebhook
   
   var newMsg = args.join(" ")
   
@@ -13,6 +13,6 @@ exports.run = async (client, message, args) => {
     newMsg = newMsg.replace(new RegExp(swearList[i], "gi"), swearCensors[swearList[i]])
   }
   
-  autoCarrotWebhook(message.author, message.channel, newMsg)
+  autocarrotWebhook(message.author, message.channel, newMsg)
   message.delete()
 }
