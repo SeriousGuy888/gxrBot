@@ -13,6 +13,6 @@ exports.run = async (client, message, args) => {
     newMsg = newMsg.replace(new RegExp(swearList[i], "gi"), swearCensors[swearList[i]])
   }
   
-  autoCarrotWebhook(language, message.author, message.channel, newMsg)
+  autoCarrotWebhook(message.author, message.channel, newMsg)
   message.delete()
 }

@@ -1,4 +1,4 @@
-exports.run = (client, human, channel, content, avatarURL) => {
+exports.run = (client, human, channel, content) => {
   // const index = require("../index.js")
 
   let hookName = "g9lBot AutoCarrot"

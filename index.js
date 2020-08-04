@@ -96,7 +96,7 @@ fs.readdir("./functions/", (err, files) => {
 // setup ↑
 // function imports ↓
 
-const autocarrotWebhook = (human, channel, content, avatarURL) => client.functions.get("autocarrotWebhook").run(client, human, channel, content, avatarURL)
+const autocarrotWebhook = (human, channel, content) => client.functions.get("autocarrotWebhook").run(client, human, channel, content)
 
 // function imports ↑
 // exports ↓
