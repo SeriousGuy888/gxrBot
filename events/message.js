@@ -30,23 +30,24 @@ module.exports = (client, message) => {
 
 
   if(config.autocarrot.enabled) {
-    if(!config.autocarrot.exemptedUsers.includes(message.author.id)) {
-      const autocarrotWebhook = index.autocarrotWebhook
-      const swearCensors = require("../data/autocarrot/censored_words.json")
-      const swearList = Object.keys(swearCensors)
-  
-      let needsCorrecting = false
-      for(i in swearList) {
-        if(message.content.toLowerCase().includes(swearList[i])) {
-          needsCorrecting = true
-        }
+    if(config.autocarrot.exemptedUsers.includes(message.author.id)) return
+    if(message.member.roles.some(role => [config.autocarrot.exemptRoleName].includes(r.name))) return
+
+    const autocarrotWebhook = index.autocarrotWebhook
+    const swearCensors = require("../data/autocarrot/censored_words.json")
+    const swearList = Object.keys(swearCensors)
+
+    let needsCorrecting = false
+    for(i in swearList) {
+      if(message.content.toLowerCase().includes(swearList[i])) {
+        needsCorrecting = true
       }
-  
-      if(needsCorrecting) {
-        autocarrotWebhook(message.author, message.channel, message.content)
-        if(config.autocarrot.deleteOriginalMessage) {
-          message.delete()
-        }
+    }
+
+    if(needsCorrecting) {
+      autocarrotWebhook(message.author, message.channel, message.content)
+      if(config.autocarrot.deleteOriginalMessage) {
+        message.delete()
       }
     }
   }
