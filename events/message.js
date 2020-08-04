@@ -31,7 +31,7 @@ module.exports = (client, message) => {
 
   if(config.autocarrot.enabled) {
     if(config.autocarrot.exemptedUsers.includes(message.author.id)) return
-    if(message.member.roles.some(role => [config.autocarrot.exemptRoleName].includes(role.name))) return
+    // if(message.member.roles.some(role => [config.autocarrot.exemptRoleName].includes(role.name))) return
 
     const autocarrotWebhook = index.autocarrotWebhook
     const swearCensors = require("../data/autocarrot/censored_words.json")
