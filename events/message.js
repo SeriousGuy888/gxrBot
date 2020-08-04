@@ -28,6 +28,26 @@ module.exports = (client, message) => {
     cmd.run(client, message, args)
   }
 
+
+  if(true) { // temporary; will add check for whether autocarrot is enabled
+    const autocarrotWebhook = index.autocarrotWebhook
+    const swearCensors = require("../data/autocarrot/censored_words.json")
+    const swearList = Object.keys(swearCensors)
+
+    let needsCorrecting = false
+    for(i in swearList) {
+      if(message.content.toLowerCase().includes(swearList[i])) {
+        needsCorrecting = true
+      }
+    }
+
+    if(needsCorrecting) {
+      autocarrotWebhook(message.author, message.channel, message.content)
+      // message.delete()
+    }
+  }
+
+
   if(message.channel.id === cultChannelId) {
     function messageLegal(msg, phrase) {
       if(!msg || !phrase) return console.log("error with cult code in message.js event")
