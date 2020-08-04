@@ -2,24 +2,13 @@
   "prefix": "-",
 
   "admin": {
-    "comment": "This is the new admin config system: {ID: Comment}. The `admins` and `adminKey` arrays are for legacy support",
+    "comment": "This is the new admin config system: {ID: Comment}.",
     "ids": {
       "323170410818437130": "billzo",
       "192833577883402240": "hoang",
       "427925505581383721": "liam"
     }
   },
-  "admins": [
-    "323170410818437130",
-    "192833577883402240",
-    "427925505581383721"
-  ],
-  "adminKey": [
-    "billzo",
-    "hoang",
-    "liam"
-  ],
-
   "autocarrot": {
     "comment": "Options for g9lBot's AutoCarrot",
     "enabled": true,
