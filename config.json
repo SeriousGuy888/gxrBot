@@ -13,6 +13,7 @@
     "comment": "Options for g9lBot's AutoCarrot",
     "enabled": true,
     "deleteOriginalMessage": true,
+    "exemptRoleName": "g9l-AutoCarrotExempt",
     "exemptedUsers": []
   }
 }
