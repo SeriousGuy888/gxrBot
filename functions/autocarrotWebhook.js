@@ -1,19 +1,21 @@
 exports.run = (client, human, channel, content) => {
   // const index = require("../index.js")
 
-  let hookName = "g9lBot AutoCarrot"
-  let msgAvatar = human.avatarURL
-  let hookAvatar = client.user.avatarURL
+  const hookName = "g9lBot AutoCarrot"
+  const avatarURL = human.avatarURL.replace(/\s/g, "")
+  const hookAvatar = client.user.avatarURL
 
-  // if(!human)    return channel.send("err 12")
-  // if(!channel)  return channel.send("err 13")
-  // if(!content)  return channel.send("err 14")
-  // if(!avatarURL) avatarURL = msgAvatar
+  const swearCensors = require("../data/autocarrot/censored_words.json")
+  const swearList = Object.keys(swearCensors)
 
-  avatarURL = msgAvatar.replace(/\s/g, "")
 
   function sendMsg(webhook) {
-    webhook.send(content, {
+    if(!content.strip()) return // if the message is empty
+
+    let correctedMessage = content
+    for(i in swearList) correctedMessage = correctedMessage.replace(new RegExp(swearList[i], "gi"), swearCensors[swearList[i]])
+
+    webhook.send(correctedMessage, {
       "username": human.username,
       "avatarURL": avatarURL,
       "embeds": []
@@ -21,15 +23,12 @@ exports.run = (client, human, channel, content) => {
     .catch(error => channel.send(error))
   }
 
-  channel.fetchWebhooks()
-    .then(webhook => {
-      let foundHook = webhook.find(webhook => webhook.name, hookName)
-
-      if(!foundHook) {
-        channel.createWebhook(hookName, hookAvatar)
-          .then(webhook => sendMsg(webhook))
-      }
-      else sendMsg(foundHook)
+  channel.fetchWebhooks().then(webhook => {
+    let foundHook = webhook.find(webhook => webhook.name, hookName)
+    if(!foundHook) {
+      channel.createWebhook(hookName, hookAvatar)
+        .then(webhook => sendMsg(webhook))
     }
-  )
+    else sendMsg(foundHook)
+  })
 }
