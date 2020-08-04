@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
     message.channel.send(emb)
   }
   else if(args[0]) {
-    if(!config["admins"].includes(message.author.id)) return message.channel.send("You are not listed as a G8C admin! (If this is inaccurate, contact billzo (contact billzo da magic programmer and not billzo da magic caterpillar))")
+    if(!config.admin.ids[message.author.id]) return message.channel.send("You are not listed as an admin! (If this is inaccurate, contact billzo (contact billzo da magic programmer and not billzo da magic caterpillar))")
     
     switch(args[0]) {
       case "set":
