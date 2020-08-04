@@ -1,0 +1,18 @@
+exports.run = async (client, message, args) => {
+  const index = require("../index.js")
+
+  const swearCensors = require("../data/swear/censored_words.json")
+  const swearList = Object.keys(swearCensors)
+
+
+  const autoCarrotWebhook = index.autoCarrotWebhook
+  
+  var newMsg = args.join(" ")
+  
+  for(i in swearList) {
+    newMsg = newMsg.replace(new RegExp(swearList[i], "gi"), swearCensors[swearList[i]])
+  }
+  
+  autoCarrotWebhook(language, message.author, message.channel, newMsg)
+  message.delete()
+}
