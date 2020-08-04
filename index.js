@@ -46,23 +46,6 @@ let owsObserver = owsDoc.onSnapshot(docSnapshot => {
 }, err => {return})
 
 // caches ↑
-// exports ↓
-
-module.exports.Discord = Discord
-module.exports.client = client
-module.exports.config = config
-module.exports.fs = fs
-module.exports.prefix = prefix
-
-module.exports.admin = admin
-module.exports.db = db
-
-module.exports.Enmap = Enmap
-module.exports.timeFormatter = timeFormatter
-
-module.exports.cultCache = cultCache
-
-// exports ↑
 // setup ↓
 
 console.log("============")
@@ -94,6 +77,46 @@ fs.readdir("./commands/", (err, files) => {
   console.log("============")
 })
 
+client.functions = new Enmap()
+
+fs.readdir("./functions/", (err, files) => {
+  if(err) return console.error(err)
+
+  files.forEach(file => {
+    if(!file.endsWith(".js")) return
+    let props = require(`./functions/${file}`)
+    let funcName = file.split(".")[0]
+    
+    console.log(`Loading function ${funcName.toUpperCase()}`)
+    client.functions.set(funcName, props)
+  })
+  console.log("============")
+})
+
 // setup ↑
+// function imports ↓
+
+const autocarrotWebhook = (human, channel, content, avatarURL) => client.functions.get("autocarrotWebhook").run(client, human, channel, content, avatarURL)
+
+// function imports ↑
+// exports ↓
+
+module.exports.Discord = Discord
+module.exports.client = client
+module.exports.config = config
+module.exports.fs = fs
+module.exports.prefix = prefix
+
+module.exports.admin = admin
+module.exports.db = db
+
+module.exports.Enmap = Enmap
+module.exports.timeFormatter = timeFormatter
+
+module.exports.cultCache = cultCache
+
+module.exports.autocarrotWebhook = autocarrotWebhook
+
+// exports ↑
 
 client.login(token[0])
