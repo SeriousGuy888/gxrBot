@@ -2,7 +2,7 @@ exports.run = async (client, message, args) => {
   const index = require("../index.js")
   const autocarrotWebhook = index.autocarrotWebhook
   
-  message.channel.send("Current autocarrot config in raw JSON :D\n```json" + JSON.stringify(index.config.autocarrot, null, 2) + "```")
+  message.channel.send("Current autocarrot config in raw JSON :D\n```json\n" + JSON.stringify(index.config.autocarrot, null, 2) + "\n```")
 
   // return message.channel.send("Command disabled.")
   // autocarrotWebhook(message.author, message.channel, args.join(" "))
