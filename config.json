@@ -10,16 +10,13 @@
     }
   },
   "autocarrot": {
-    "comment": [
-      "Options for g9lBot's AutoCarrot",
-      "",
-      "exemptAllBots sets whether discord bots are affected by autocarrot",
-      "exemptedUsers is an array of user ids who are exempt from autocarrot",
-      "g9lbot itself is always exempt from autocarrot"
-    ],
+    "comment": "Options for g9lBot's AutoCarrot",
     "enabled": true,
     "deleteOriginalMessage": true,
-    "exemptAllBots": false,
-    "exemptedUsers": []
+    "exempt": {
+      "comment": "You can choose to exempt bot messages, or have a list of exempted user IDs.",
+      "bots": false,
+      "userList": []
+    }
   }
 }
