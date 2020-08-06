@@ -32,6 +32,7 @@ module.exports = (client, message) => {
   if(config.autocarrot.enabled) {
     if(message.author.id == client.user.id) return
     if(config.autocarrot.exempt.bots && message.author.bot) return
+    if(config.autocarrot.exempt.webhooks && message.webhookID) return
     if(config.autocarrot.exempt.userList.includes(message.author.id)) return
 
     const autocarrotWebhook = index.autocarrotWebhook

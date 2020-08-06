@@ -14,8 +14,9 @@
     "enabled": true,
     "deleteOriginalMessage": true,
     "exempt": {
-      "comment": "You can choose to exempt bot messages, or have a list of exempted user IDs.",
+      "comment": "You can choose to exempt bot messages, messages from webhooks, or have a list of exempted user IDs.",
       "bots": false,
+      "webhooks": false,
       "userList": []
     }
   }
