@@ -16,7 +16,7 @@
     "exempt": {
       "comment": "You can choose to exempt bot messages, messages from webhooks, or have a list of exempted user IDs.",
       "bots": false,
-      "webhooks": false,
+      "webhooks": true,
       "userList": []
     }
   }
