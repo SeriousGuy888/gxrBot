@@ -19,15 +19,15 @@ exports.run = (client, human, channel, content) => {
       "username": human.username,
       "avatarURL": avatarURL,
       "embeds": []
-    })
-    .catch(error => channel.send(error))
+    }).catch(error => channel.send(error))
   }
 
   channel.fetchWebhooks().then(webhook => {
     let foundHook = webhook.find(webhook => webhook.name, hookName)
     if(!foundHook) {
-      channel.createWebhook(hookName, hookAvatar)
-        .then(webhook => sendMsg(webhook))
+      channel.createWebhook(hookName, hookAvatar).then(webhook => {
+        sendMsg(webhook)
+      })
     }
     else sendMsg(foundHook)
   })
