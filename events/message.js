@@ -31,6 +31,7 @@ module.exports = (client, message) => {
 
   if(config.autocarrot.enabled) {
     if(message.author.id == client.user.id) return
+    if(config.autocarrot.exemptAllBots && message.author.bot) return
     if(config.autocarrot.exemptedUsers.includes(message.author.id)) return
     // if(message.member.roles.find(role => role.name == config.autocarrot.exemptRoleName)) return
 

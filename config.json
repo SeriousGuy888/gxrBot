@@ -14,12 +14,14 @@
       "Options for g9lBot's AutoCarrot",
       "",
       "exemptRoleName is useless",
+      "exemptAllBots sets whether discord bots are affected by autocarrot",
       "exemptedUsers is an array of user ids who are exempt from autocarrot",
       "g9lbot itself is always exempt from autocarrot"
     ],
     "enabled": true,
     "deleteOriginalMessage": true,
     "exemptRoleName": "g9l-AutoCarrotExempt",
+    "exemptAllBots": false,
     "exemptedUsers": []
   }
 }
