@@ -45,6 +45,12 @@ let owsObserver = owsDoc.onSnapshot(docSnapshot => {
   module.exports.owsCache = owsCache
 }, err => {return})
 
+
+
+let gameCache = {
+  hangman: {}
+}
+
 // caches ↑
 // setup ↓
 
@@ -106,15 +112,12 @@ module.exports.client = client
 module.exports.config = config
 module.exports.fs = fs
 module.exports.prefix = prefix
-
 module.exports.admin = admin
 module.exports.db = db
-
 module.exports.Enmap = Enmap
 module.exports.timeFormatter = timeFormatter
-
 module.exports.cultCache = cultCache
-
+module.exports.gameCache = gameCache
 module.exports.autocarrotWebhook = autocarrotWebhook
 
 // exports ↑
