@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
       .setTitle("**__g9lBot Hangman__**")
       .setDescription(`**WORD SET:** ${playerData.set}\n**MAX INCORRECT GUESSES:** ${playerData.maxIncorrectGuesses}`)
       .addBlankField()
-      .addField("Word", blanks, false)
+      .addField(`Word (Length ${word.length})`, blanks, false)
       .addBlankField()
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
