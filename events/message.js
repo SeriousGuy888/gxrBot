@@ -54,6 +54,14 @@ module.exports = (client, message) => {
     }
   }
 
+  if(index.gameCache.hangman[message.author.id]) {
+    cmd = client.commands.get("hangman")
+    args = ["guess"]
+    let msgContent = message.content.split(" ")
+    for(i in msgContent) args.push(msgContent[i])
+    cmd.run(client, message, args)
+  }
+
 
   if(message.channel.id === cultChannelId) {
     function messageLegal(msg, phrase) {
