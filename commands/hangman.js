@@ -30,8 +30,8 @@ exports.run = async (client, message, args) => {
     }
 
     let emb = new Discord.RichEmbed()
-      .setColor("#ad3232")
-      .setTitle("guess the word or this human gets executed")
+      .setColor(config.hangman.embedColour)
+      .setTitle("Hangman")
       .setDescription(blanks)
     return emb
   }

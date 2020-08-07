@@ -21,6 +21,7 @@
     }
   },
   "hangman": {
-    "hiddenLetterPlaceholder": "□"
+    "hiddenLetterPlaceholder": "□",
+    "embedColour": "#be3232"
   }
 }
