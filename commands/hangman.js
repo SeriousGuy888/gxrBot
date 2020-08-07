@@ -68,7 +68,7 @@ exports.run = async (client, message, args) => {
         setName = "[ALL]"
         wordSet = []
         for(loopSetName of config.hangman.defaultSets) {
-          wordSet = wordSet.concat(loopSetName)
+          wordSet = wordSet.concat(words[loopSetName])
         }
       }
 
