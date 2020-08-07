@@ -80,9 +80,9 @@ exports.run = async (client, message, args) => {
 
       let setName = args[1]
       let chosenSet = words[args[1]]
-      if(!words[args[1]]) {
+      if(!chosenSet) {
         setName = "[ALL]"
-        chosenSet = words[Math.floor(Math.random() * words.length)]
+        chosenSet = words[Object.keys(words)[Math.floor(Math.random() * Object.keys(words).length)]]
       }
       let setMaxIncorrectGuesses = chosenSet.maxGuesses
       let wordSet = chosenSet.words
