@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
   const gameEmbed = new Discord.RichEmbed()
     .setColor("#ad3232")
     .setTitle("guess the word or this human gets executed")
-    .setDescription("_".repeat(hangmanCache[message.author.id].word.length))
+    .setDescription("\\_ ".repeat(hangmanCache[message.author.id].word.length))
   const msg = await message.channel.send(gameEmbed)
 
   await msg.react(cancelEmoji)
