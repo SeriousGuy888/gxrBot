@@ -63,7 +63,7 @@ exports.run = async (client, message, args) => {
 
       hangmanCache[message.author.id] = {
         word: "abc",
-        maxGuesses: 5,
+        maxIncorrectGuesses: 5,
         guesses: 0,
         incorrectGuesses: 0,
         attempedLetters: []
