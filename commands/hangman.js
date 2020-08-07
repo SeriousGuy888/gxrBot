@@ -16,12 +16,10 @@ exports.run = async (client, message, args) => {
     const word = hangmanCache[message.author.id].word
     const attempedLetters = hangmanCache[message.author.id].attempedLetters
     let blanks = hidden.repeat(word.length)
-    let lettersGuessed = 0
 
     for(let i = 0; i < word.length; i++) {
       if(attempedLetters.includes(word.charAt(i))) {
         blanks = blanks.substr(0, i) + word.charAt(i) + blanks.substr(i + 1)
-        lettersGuessed++
       }
     }
     
@@ -36,7 +34,7 @@ exports.run = async (client, message, args) => {
       .setFooter(`Play hangman with me with the command ${config.prefix}hangman :D`)
     
     let msg = await channel.send(message.channel.send(embed))
-    if(lettersGuessed == word.length) {
+    if(!blanks.includes(config.hangman.hiddenLetterPlaceholder)) {
       clearUserHangman(message.author)
       await msg.react(config.hangman.winReaction)
     }
