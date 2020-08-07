@@ -42,28 +42,30 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  if(args[0] == "guess") {
-    if(!hangmanCache[message.author.id]) return message.channel.send("You are not currently playing hangman.")
-    if(!args[1]) return message.channel.send("Please specify a letter, you idiot.")
-    
-    const guessChar = args[1].charAt(0).toLowerCase()
-    if(!guessChar.match(/[a-z]/gi)) return message.channel.send("You have to guess a letter in the English Alphabet, idiot.")
-    if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) return message.channel.send("You've already guessed this letter, idiot.")
+  switch(args[0]) {
+    case "guess":
+      if(!hangmanCache[message.author.id]) return message.channel.send("You are not currently playing hangman.")
+      if(!args[1]) return message.channel.send("Please specify a letter, you idiot.")
+      
+      const guessChar = args[1].charAt(0).toLowerCase()
+      if(!guessChar.match(/[a-z]/gi)) return message.channel.send("You have to guess a letter in the English Alphabet, idiot.")
+      if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) return message.channel.send("You've already guessed this letter, idiot.")
 
-    hangmanCache[message.author.id].guesses++
-    if(!hangmanCache[message.author.id].word.includes(guessChar)) hangmanCache[message.author.id].incorrectGuesses++
-    hangmanCache[message.author.id].attempedLetters.push(guessChar)
-    hangmanEmbed(message.channel)
-  }
-  else {
-    if(hangmanCache[message.author.id]) return message.channel.send("You are already playing a game of Hangman. Make a guess or forfeit the game.")
-    hangmanCache[message.author.id] = {
-      word: "abc",
-      guesses: 0,
-      incorrectGuesses: 0,
-      attempedLetters: []
-    }
-
-    hangmanEmbed(message.channel)
+      hangmanCache[message.author.id].guesses++
+      if(!hangmanCache[message.author.id].word.includes(guessChar)) hangmanCache[message.author.id].incorrectGuesses++
+      hangmanCache[message.author.id].attempedLetters.push(guessChar)
+      hangmanEmbed(message.channel)
+      break
+    default:
+      if(hangmanCache[message.author.id]) return message.channel.send("You are already playing a game of Hangman. Make a guess or forfeit the game.")
+      hangmanCache[message.author.id] = {
+        word: "abc",
+        guesses: 0,
+        incorrectGuesses: 0,
+        attempedLetters: []
+      }
+  
+      hangmanEmbed(message.channel)
+      break
   }
 }
