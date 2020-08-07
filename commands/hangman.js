@@ -24,10 +24,6 @@ exports.run = async (client, message, args) => {
       }
     }
 
-    if(lettersGuessed == word.length) {
-      message.channel.send(":tada:")
-      clearUserHangman(message.author)
-    }
 
     let emb = new Discord.RichEmbed()
       .setColor(config.hangman.embedColour)
@@ -35,7 +31,10 @@ exports.run = async (client, message, args) => {
       .setDescription(blanks)
     
     let msg = await channel.send(emb)
-    await msg.react(config.hangman.winReaction)
+    if(lettersGuessed == word.length) {
+      clearUserHangman(message.author)
+      await msg.react(config.hangman.winReaction)
+    }
   }
 
   if(args[0] == "guess") {
