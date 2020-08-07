@@ -1,7 +1,13 @@
 {
   "easy": [
     "duck",
-    "hat"
+    "hat",
+    "cat",
+    "bat",
+    "mat",
+    "kill",
+    "stab",
+    "sleep"
   ],
   "normal": [
     "abruptly",
@@ -36,7 +42,6 @@
     "buzzard",
     "buzzing",
     "buzzwords",
-    "caliph",
     "cobweb",
     "croquet",
     "crypt",
@@ -68,8 +73,6 @@
     "gabby",
     "galaxy",
     "galvanize",
-    "gazebo",
-    "giaour",
     "gizmo",
     "glowworm",
     "glyph",
@@ -171,7 +174,6 @@
     "transcript",
     "transgress",
     "transplant",
-    "triphthong",
     "twelfth",
     "unknown",
     "unworthy",
