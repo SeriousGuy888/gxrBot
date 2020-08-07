@@ -60,7 +60,7 @@ exports.run = async (client, message, args) => {
       let msg = await message.channel.send("Are you sure you want to forfeit this game of hangman?")
       await msg.react(config.hangman.confirmReaction)
       const filter = (reaction, user) => reaction.emoji.name == config.hangman.confirmReaction && user.id == message.author.id
-      message.awaitReactions(filter, { time: 15000 })
+      message.awaitReactions(filter, { max: 1, time: 15000, errors: ["time"] })
         .then(collected => {
           const reaction = collected.first()
           if(reaction.emoji.name == config.hangman.confirmReaction) {
