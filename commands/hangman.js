@@ -15,9 +15,8 @@ exports.run = async (client, message, args) => {
 
   hangmanCache[message.author.id] = {
     word: "quack",
-    guesses: -1,
-    attempedLetters: [],
-    stupid: true
+    guesses: 0,
+    attempedLetters: []
   }
   message.channel.send(JSON.stringify(hangmanCache, null, 2))
 
