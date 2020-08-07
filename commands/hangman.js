@@ -36,7 +36,7 @@ exports.run = async (client, message, args) => {
       .addBlankField()
       .addField(`Word (Length ${word.length})`, blanks, false)
       .addBlankField()
-      .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.join(", ")}]`, true)
+      .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
       .setFooter(`Give up? ${config.prefix}hangman quit`)
     
