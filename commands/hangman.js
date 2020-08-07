@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     let blanks = "-".repeat(word.length)
     for(let i = 0; i < word.length; i++) {
       if(attempedLetters.includes(word.charAt(i))) {
-        blanks.charAt(i) = word.charAt(i)
+        blanks = blanks.substr(0, i) + word.charAt(i) + blanks.substr(i + 1)
       }
     }
 
