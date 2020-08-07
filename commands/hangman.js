@@ -29,6 +29,7 @@ exports.run = async (client, message, args) => {
       .setAuthor(message.author.tag, message.author.avatarURL)
       .setTitle("**__g9lBot Hangman__**")
       .setDescription(`**WORD SET:** ${playerData.set}\n**MAX INCORRECT GUESSES:** ${playerData.maxIncorrectGuesses}`)
+      .addBlankField()
       .addField("Word", blanks, false)
       .addBlankField()
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.join(", ")}]`, true)
