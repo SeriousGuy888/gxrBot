@@ -25,11 +25,14 @@ exports.run = async (client, message, args) => {
     }
 
 
+    let attemptedLettersList = "[None]"
+    if(attempedLetters.length >= 1) attempedLettersList = attempedLetters.join(", ")
+    
     let embed = new Discord.RichEmbed()
       .setColor(config.hangman.embedColour)
       .setTitle("Hangman")
       .addField("Word", blanks, false)
-      .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, attempedLetters ? attempedLetters.join(", ") : "[None]", true)
+      .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, attempedLettersList, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
       .setFooter(`${message.author.tag}'s Hangman Game (${config.prefix}hangman)`)
     
