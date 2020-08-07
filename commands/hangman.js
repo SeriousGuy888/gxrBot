@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
       .addBlankField()
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
-      .setFooter(`Play hangman with me with the command ${config.prefix}hangman :D`)
+      .setFooter(`Give up? ${config.prefix}hangman quit`)
     
     let msg = await channel.send(embed)
     if(blanks == word) {
