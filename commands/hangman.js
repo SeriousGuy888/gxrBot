@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     delete hangmanCache[user.id]
   }
 
-  const hangmanEmbed = () => {
+  const hangmanEmbed = channel => {
     const hidden = config.hangman.hiddenLetterPlaceholder
 
     const word = hangmanCache[message.author.id].word
@@ -33,7 +33,9 @@ exports.run = async (client, message, args) => {
       .setColor(config.hangman.embedColour)
       .setTitle("Hangman")
       .setDescription(blanks)
-    return emb
+    
+    let msg = await channel.send(emb)
+    await msg.react(config.hangman.winReaction)
   }
 
   if(args[0] == "guess") {
@@ -47,17 +49,17 @@ exports.run = async (client, message, args) => {
     hangmanCache[message.author.id].guesses++
     hangmanCache[message.author.id].attempedLetters.push(guessChar)
     message.channel.send(JSON.stringify(hangmanCache, null, 2))
-    message.channel.send(hangmanEmbed())
+    hangmanEmbed(message.channel)
   }
   else {
     if(hangmanCache[message.author.id]) return message.channel.send("you are already playing a game of hangman probably")
     hangmanCache[message.author.id] = {
-      word: "quack",
+      word: "abc",
       guesses: 0,
       attempedLetters: []
     }
 
     message.channel.send(JSON.stringify(hangmanCache, null, 2))
-    message.channel.send(hangmanEmbed())
+    hangmanEmbed(message.channel)
   }
 }
