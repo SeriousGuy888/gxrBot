@@ -75,7 +75,6 @@ exports.run = async (client, message, args) => {
       hangmanCache[message.author.id] = {
         word: wordSet[Math.floor(Math.random() * wordSet.length)],
         set: setName,
-        setaifusj: JSON.stringify(wordSet),
         maxIncorrectGuesses: 5,
         guesses: 0,
         incorrectGuesses: 0,
