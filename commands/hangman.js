@@ -74,7 +74,7 @@ exports.run = async (client, message, args) => {
       hangmanEmbed(message.channel)
       break
     default:
-      message.channel.send(`${prefix}hangman <play | quit | guess> [Params]`)
+      message.channel.send(`${config.prefix}hangman <play | quit | guess> [Params]`)
       break
   }
 }
