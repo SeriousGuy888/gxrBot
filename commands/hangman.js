@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
       .setColor(config.hangman.embedColour)
       .setTitle("Hangman")
       .addField("Word", blanks, false)
-      .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, attempedLettersList, true)
+      .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, attemptedLettersList, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
       .setFooter(`${message.author.tag}'s Hangman Game (${config.prefix}hangman)`)
     
