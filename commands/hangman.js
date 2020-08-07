@@ -82,10 +82,7 @@ exports.run = async (client, message, args) => {
       let chosenSet = words[args[1]]
       if(!words[args[1]]) {
         setName = "[ALL]"
-        chosenSet = []
-        for(loopSetName of config.hangman.defaultSets) {
-          chosenSet = chosenSet.concat(words[loopSetName])
-        }
+        chosenSet = words[Math.floor(Math.random() * words.length)]
       }
       let setMaxIncorrectGuesses = chosenSet.maxGuesses
       let wordSet = chosenSet.words
