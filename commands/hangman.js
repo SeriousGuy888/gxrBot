@@ -18,8 +18,10 @@ exports.run = async (client, message, args) => {
       }
     }
 
-    if(!blanks.includes("-")) message.channel.send("you did it good job")
-    clearUserHangman(message.author)
+    if(!blanks.includes("-")) {
+      message.channel.send("you did it good job")
+      clearUserHangman(message.author)
+    }
 
     let emb = new Discord.RichEmbed()
       .setColor("#ad3232")
