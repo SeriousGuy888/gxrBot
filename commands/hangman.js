@@ -8,6 +8,11 @@ exports.run = async (client, message, args) => {
   const collectorTimeout = 30
   const cancelEmoji = "❌"
 
+  const clearUserHangman = user => {
+    hangmanCache[user.id] = undefined
+    delete hangmanCache[user.id]
+  }
+
   hangmanCache[message.author.id] = {
     word: "quack",
     guesses: -1,
@@ -32,12 +37,12 @@ exports.run = async (client, message, args) => {
 
     if(reaction.emoji.name === cancelEmoji) {
       message.channel.send("cancelled?")
+      clearUserHangman(message.author)
     }
   }).catch(collected => {
     msg.edit("time expired or maybe you chose an invalid option", {
       embed: {}
     })
-    hangmanCache[message.author.id] = undefined
-    delete hangmanCache[message.author.id]
+    clearUserHangman(message.author)
   })
 }
