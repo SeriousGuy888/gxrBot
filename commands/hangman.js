@@ -36,6 +36,7 @@ exports.run = async (client, message, args) => {
     if(!guessChar.match(/[a-z]/gi)) return message.channel.send("You have to guess a letter in the English Alphabet, idiot.")
     if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) return message.channel.send("You've already guessed this letter, idiot.")
 
+    hangmanCache[message.author.id].guesses++
     hangmanCache[message.author.id].attempedLetters.push(guessChar)
     message.channel.send(JSON.stringify(hangmanCache, null, 2))
     message.channel.send(hangmanEmbed())
