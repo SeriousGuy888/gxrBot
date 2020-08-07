@@ -27,6 +27,7 @@ exports.run = async (client, message, args) => {
       .setColor(config.hangman.embedColour)
       .setAuthor(message.author.tag, message.author.avatarURL)
       .setTitle("**__g9lBot Hangman__**")
+      .setDescription(JSON.stringify(hangmanCache[message.author.id], null, 2))
       .addField("Word", blanks, false)
       .addBlankField()
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.join(", ")}]`, true)
@@ -69,8 +70,9 @@ exports.run = async (client, message, args) => {
       }
 
       hangmanCache[message.author.id] = {
-        word: wordSet[Math.floor(Math.random() * wordSet.length)],
+        word: "wordSet[Math.floor(Math.random() * wordSet.length)]",
         set: setName,
+        setaifusj: JSON.stringify(wordSet),
         maxIncorrectGuesses: 5,
         guesses: 0,
         incorrectGuesses: 0,
