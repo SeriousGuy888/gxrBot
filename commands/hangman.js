@@ -60,16 +60,21 @@ exports.run = async (client, message, args) => {
       message.channel.send(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
       clearUserHangman(message.author)
       break
-    default:
-      if(hangmanCache[message.author.id]) return message.channel.send("You are already playing a game of Hangman. Make a guess or forfeit the game.")
+    case "play":
+      if(hangmanCache[message.author.id]) return message.channel.send(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.prefix}hangman quit\`.`)
+
       hangmanCache[message.author.id] = {
         word: "abc",
+        maxGuesses: 5,
         guesses: 0,
         incorrectGuesses: 0,
         attempedLetters: []
       }
   
       hangmanEmbed(message.channel)
+      break
+    default:
+      message.channel.send(`${prefix}hangman <play | quit | guess> [Params]`)
       break
   }
 }
