@@ -1,5 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../index.js")
+  const words = require("../data/hangman/words.json")
   const config = index.config
   const Discord = index.Discord
   const hangmanCache = index.gameCache.hangman
