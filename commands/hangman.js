@@ -66,7 +66,9 @@ exports.run = async (client, message, args) => {
       let wordSet = words[args[1]]
       if(!words[args[1]]) {
         setName = "[ALL]"
-        wordSet = [].concat(words[config.hangman.defaultSets]).flat()
+        for(loopSetName of config.hangman.defaultSets) {
+          wordSet = wordSet.concat(loopSetName)
+        }
       }
 
       hangmanCache[message.author.id] = {
