@@ -23,7 +23,11 @@
   "hangman": {
     "hiddenLetterPlaceholder": "□",
     "winReaction": "🎉",
-    "confirmReaction": "✅",
-    "embedColour": "#be3232"
+    "embedColour": "#be3232",
+    "defaultSets": [
+      "easy",
+      "normal",
+      "hard"
+    ]
   }
 }
