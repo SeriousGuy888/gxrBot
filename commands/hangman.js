@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     
     const guessChar = args[1].charAt(0).toLowerCase()
     if(!guessChar.match(/[a-z]/gi)) return message.channel.send("You have to guess a letter in the English Alphabet, idiot.")
-    if(hangmanCache[message.author.id].attempedLetters.contains(guessChar)) return message.channel.send("You've already guessed this letter, idiot.")
+    if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) return message.channel.send("You've already guessed this letter, idiot.")
 
     message.channel.send(JSON.stringify(hangmanCache, null, 2))
     hangmanCache[message.author.id].attempedLetters.push(guessChar)
