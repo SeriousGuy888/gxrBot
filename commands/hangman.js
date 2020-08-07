@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
       .addBlankField()
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
-      .setFooter(`${message.author.tag}'s Hangman Game (${config.prefix}hangman)`)
+      .setFooter(`Play hangman with me with the command ${config.prefix}hangman :D`)
     
     let msg = await channel.send(message.channel.send(JSON.stringify(hangmanCache, null, 2)), { embed })
     if(lettersGuessed == word.length) {
