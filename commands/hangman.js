@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     delete hangmanCache[user.id]
   }
 
-  const hangmanEmbed = channel => {
+  const hangmanEmbed = async channel => {
     const hidden = config.hangman.hiddenLetterPlaceholder
 
     const word = hangmanCache[message.author.id].word
