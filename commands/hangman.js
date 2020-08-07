@@ -61,8 +61,16 @@ exports.run = async (client, message, args) => {
     case "play":
       if(hangmanCache[message.author.id]) return message.channel.send(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.prefix}hangman quit\`.`)
 
+      let setName = args[1]
+      let wordSet = words[args[1]]
+      if(!words[args[1]]) {
+        setName = "[ALL]"
+        wordSet = [].concat(words[config.hangman.defaultSets]).flat()
+      }
+
       hangmanCache[message.author.id] = {
-        word: "abc",
+        word: wordSet[Math.floor(Math.random() * wordSet.length)],
+        set: setName,
         maxIncorrectGuesses: 5,
         guesses: 0,
         incorrectGuesses: 0,
@@ -71,8 +79,11 @@ exports.run = async (client, message, args) => {
   
       hangmanEmbed(message.channel)
       break
+    case "sets":
+      message.channel.send(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nYou can choose which set to use with ${config.prefix}hangman play [set name].\nIf you don't specify, a random word will be chosen from the sets \`${config.hangman.defaultSets.join(", ")}\`.`)
+      break
     default:
-      message.channel.send(`${config.prefix}hangman <play | quit | guess> [Params]`)
+      message.channel.send(`${config.prefix}hangman <play | sets | quit | guess> [Params]`)
       break
   }
 }
