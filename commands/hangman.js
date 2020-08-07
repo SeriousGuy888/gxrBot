@@ -1,5 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../index.js")
+  const config = index.config
   const Discord = index.Discord
   const hangmanCache = index.gameCache.hangman
 
@@ -9,17 +10,22 @@ exports.run = async (client, message, args) => {
   }
 
   const hangmanEmbed = () => {
+    const hidden = config.hangman.hiddenLetterPlaceholder
+
     const word = hangmanCache[message.author.id].word
     const attempedLetters = hangmanCache[message.author.id].attempedLetters
-    let blanks = "-".repeat(word.length)
+    let blanks = hidden.repeat(word.length)
+    let lettersGuessed = 0
+
     for(let i = 0; i < word.length; i++) {
       if(attempedLetters.includes(word.charAt(i))) {
         blanks = blanks.substr(0, i) + word.charAt(i) + blanks.substr(i + 1)
+        lettersGuessed++
       }
     }
 
-    if(!blanks.includes("-")) {
-      message.channel.send("you did it good job")
+    if(lettersGuessed == word.length) {
+      message.channel.send(":tada:")
       clearUserHangman(message.author)
     }
 
