@@ -5,8 +5,6 @@ exports.run = async (client, message, args) => {
   const Discord = index.Discord
   const hangmanCache = index.gameCache.hangman
 
-  const playerData = hangmanCache[message.author.id]
-
   const clearUserHangman = user => {
     hangmanCache[user.id] = undefined
     delete hangmanCache[user.id]
@@ -15,6 +13,7 @@ exports.run = async (client, message, args) => {
   const hangmanEmbed = async channel => {
     const hidden = config.hangman.hiddenLetterPlaceholder
 
+    const playerData = hangmanCache[message.author.id]
     const word = playerData.word
     const attempedLetters = playerData.attempedLetters
     let blanks = hidden.repeat(word.length)
@@ -56,6 +55,7 @@ exports.run = async (client, message, args) => {
 
   switch(args[0]) {
     case "guess":
+      const playerData = hangmanCache[message.author.id]
       if(!hangmanCache[message.author.id]) return message.channel.send("You are not currently playing hangman.")
       if(!args[1]) return message.channel.send("Please specify a letter, you idiot.")
       
