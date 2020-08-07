@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
 
 
     let attemptedLettersList = "[None]"
-    if(attempedLetters.length >= 1) attempedLettersList = attempedLetters.join(", ")
+    if(attempedLetters) attempedLettersList = attempedLetters.join(", ")
     
     let embed = new Discord.RichEmbed()
       .setColor(config.hangman.embedColour)
