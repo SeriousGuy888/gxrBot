@@ -24,8 +24,9 @@ exports.run = async (client, message, args) => {
   }).then(collected => {
     const reaction = collected.first()
 
-    if(reaction.emoji.name === cancelEmoji) message.channel.send("Correct")
-    else message.channel.send("Incorrect")
+    if(reaction.emoji.name === cancelEmoji) {
+      message.channel.send("cancelled?")
+    }
   }).catch(collected => {
     msg.edit("time expired or maybe you chose an invalid option", {
       embed: {}
