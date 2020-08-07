@@ -5,6 +5,8 @@ exports.run = async (client, message, args) => {
   const Discord = index.Discord
   const hangmanCache = index.gameCache.hangman
 
+  const playerData = hangmanCache[message.author.id]
+
   const clearUserHangman = user => {
     hangmanCache[user.id] = undefined
     delete hangmanCache[user.id]
@@ -13,7 +15,6 @@ exports.run = async (client, message, args) => {
   const hangmanEmbed = async channel => {
     const hidden = config.hangman.hiddenLetterPlaceholder
 
-    const playerData = hangmanCache[message.author.id]
     const word = playerData.word
     const attempedLetters = playerData.attempedLetters
     let blanks = hidden.repeat(word.length)
@@ -24,6 +25,10 @@ exports.run = async (client, message, args) => {
       }
     }
     
+    if(playerData.failure) {
+      blanks = word
+    }
+
     let embed = new Discord.RichEmbed()
       .setColor(config.hangman.embedColour)
       .setAuthor(message.author.tag, message.author.avatarURL)
@@ -36,9 +41,15 @@ exports.run = async (client, message, args) => {
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
       .setFooter(`Give up? ${config.prefix}hangman quit`)
     
-    let msg = await channel.send(`You win! The word was \`${playerData.word}\``, { embed })
-    if(blanks == word) {
+    let msg = await channel.send(embed)
+    if(playerData.failure) {
       clearUserHangman(message.author)
+      await msg.edit(`You lose! The word was \`${playerData.word}\``)
+      await msg.react(config.hangman.failureReaction)
+    }
+    else if(blanks == word) {
+      clearUserHangman(message.author)
+      await msg.edit(`You win! The word was \`${playerData.word}\``)
       await msg.react(config.hangman.winReaction)
     }
   }
@@ -53,8 +64,11 @@ exports.run = async (client, message, args) => {
       if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) return message.channel.send("You've already guessed this letter, idiot.")
 
       hangmanCache[message.author.id].guesses++
-      if(!hangmanCache[message.author.id].word.includes(guessChar)) hangmanCache[message.author.id].incorrectGuesses++
+      if(!hangmanCache[message.author.id].word.includes(guessChar)) playerData.incorrectGuesses++
       hangmanCache[message.author.id].attempedLetters.push(guessChar)
+
+      if(playerData.incorrectGuesses >= playerData.maxIncorrectGuesses) playerData.failure = true
+
       hangmanEmbed(message.channel)
       break
     case "quit":
@@ -80,7 +94,8 @@ exports.run = async (client, message, args) => {
         maxIncorrectGuesses: 5,
         guesses: 0,
         incorrectGuesses: 0,
-        attempedLetters: []
+        attempedLetters: [],
+        failure: false
       }
   
       hangmanEmbed(message.channel)
