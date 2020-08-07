@@ -25,12 +25,12 @@ exports.run = async (client, message, args) => {
     }
 
 
-    let emb = new Discord.RichEmbed()
+    let embed = new Discord.RichEmbed()
       .setColor(config.hangman.embedColour)
       .setTitle("Hangman")
       .setDescription(blanks)
     
-    let msg = await channel.send(emb)
+    let msg = await channel.send(message.channel.send(JSON.stringify(hangmanCache, null, 2)), { embed })
     if(lettersGuessed == word.length) {
       clearUserHangman(message.author)
       await msg.react(config.hangman.winReaction)
@@ -47,7 +47,6 @@ exports.run = async (client, message, args) => {
 
     hangmanCache[message.author.id].guesses++
     hangmanCache[message.author.id].attempedLetters.push(guessChar)
-    message.channel.send(JSON.stringify(hangmanCache, null, 2))
     hangmanEmbed(message.channel)
   }
   else {
@@ -58,7 +57,6 @@ exports.run = async (client, message, args) => {
       attempedLetters: []
     }
 
-    message.channel.send(JSON.stringify(hangmanCache, null, 2))
     hangmanEmbed(message.channel)
   }
 }
