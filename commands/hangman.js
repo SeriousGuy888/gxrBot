@@ -28,7 +28,10 @@ exports.run = async (client, message, args) => {
     let embed = new Discord.RichEmbed()
       .setColor(config.hangman.embedColour)
       .setTitle("Hangman")
-      .setDescription(blanks)
+      .addField("Word", blanks, false)
+      .addField(`Guessed Letters ${hangmanCache[message.author.id].guesses}`, attempedLetters.join(", "), true)
+      .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
+      .setFooter(`${message.author.tag}'s Hangman Game (-hangman)`)
     
     let msg = await channel.send(message.channel.send(JSON.stringify(hangmanCache, null, 2)), { embed })
     if(lettersGuessed == word.length) {
@@ -46,6 +49,7 @@ exports.run = async (client, message, args) => {
     if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) return message.channel.send("You've already guessed this letter, idiot.")
 
     hangmanCache[message.author.id].guesses++
+    if(!hangmanCache[message.author.id].word.includes(guessChar)) hangmanCache[message.author.id].incorrectGuesses++
     hangmanCache[message.author.id].attempedLetters.push(guessChar)
     hangmanEmbed(message.channel)
   }
@@ -54,6 +58,7 @@ exports.run = async (client, message, args) => {
     hangmanCache[message.author.id] = {
       word: "abc",
       guesses: 0,
+      incorrectGuesses: 0,
       attempedLetters: []
     }
 
