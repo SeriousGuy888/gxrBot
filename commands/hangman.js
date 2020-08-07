@@ -23,9 +23,6 @@ exports.run = async (client, message, args) => {
         lettersGuessed++
       }
     }
-
-
-    let attemptedLettersList = `(${attempedLetters.join(", ")})`
     
     let embed = new Discord.RichEmbed()
       .setColor(config.hangman.embedColour)
