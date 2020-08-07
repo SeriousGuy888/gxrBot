@@ -19,5 +19,8 @@
       "webhooks": false,
       "userList": []
     }
+  },
+  "hangman": {
+    "hiddenLetterPlaceholder": "□"
   }
 }
