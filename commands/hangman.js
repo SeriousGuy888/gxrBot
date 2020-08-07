@@ -13,8 +13,9 @@ exports.run = async (client, message, args) => {
   const hangmanEmbed = async channel => {
     const hidden = config.hangman.hiddenLetterPlaceholder
 
-    const word = hangmanCache[message.author.id].word
-    const attempedLetters = hangmanCache[message.author.id].attempedLetters
+    const playerData = hangmanCache[message.author.id]
+    const word = playerData.word
+    const attempedLetters = playerData.attempedLetters
     let blanks = hidden.repeat(word.length)
 
     for(let i = 0; i < word.length; i++) {
@@ -27,7 +28,7 @@ exports.run = async (client, message, args) => {
       .setColor(config.hangman.embedColour)
       .setAuthor(message.author.tag, message.author.avatarURL)
       .setTitle("**__g9lBot Hangman__**")
-      .setDescription(JSON.stringify(hangmanCache[message.author.id], null, 2))
+      .setDescription(`**WORD SET:** ${playerData.set}\n**MAX INCORRECT GUESSES:** ${playerData.maxIncorrectGuesses}`)
       .addField("Word", blanks, false)
       .addBlankField()
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.join(", ")}]`, true)
