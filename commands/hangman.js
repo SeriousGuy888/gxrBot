@@ -35,7 +35,7 @@ exports.run = async (client, message, args) => {
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
       .setFooter(`Play hangman with me with the command ${config.prefix}hangman :D`)
     
-    let msg = await channel.send(message.channel.send(JSON.stringify(hangmanCache, null, 2)), { embed })
+    let msg = await channel.send(message.channel.send(embed))
     if(lettersGuessed == word.length) {
       clearUserHangman(message.author)
       await msg.react(config.hangman.winReaction)
