@@ -57,18 +57,8 @@ exports.run = async (client, message, args) => {
       hangmanEmbed(message.channel)
       break
     case "quit":
-      let msg = await message.channel.send("Are you sure you want to forfeit this game of hangman?")
-      await msg.react(config.hangman.confirmReaction)
-      const filter = (reaction, user) => reaction.emoji.name == config.hangman.confirmReaction && user.id == message.author.id
-      message.awaitReactions(filter, { max: 1, time: 15000, errors: ["time"] })
-        .then(collected => {
-          const reaction = collected.first()
-          if(reaction.emoji.name == config.hangman.confirmReaction) {
-            message.channel.send(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
-            clearUserHangman(message.author)
-          }
-        })
-        .catch(console.error)
+      message.channel.send(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
+      clearUserHangman(message.author)
       break
     default:
       if(hangmanCache[message.author.id]) return message.channel.send("You are already playing a game of Hangman. Make a guess or forfeit the game.")
