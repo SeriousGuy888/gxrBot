@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
     let embed = new Discord.RichEmbed()
       .setColor(config.hangman.embedColour)
       .setAuthor(message.author.tag, message.author.avatarURL)
-      .setTitle("Hangman")
+      .setTitle("**__g9lBot Hangman__**")
       .addField("Word", blanks, false)
       .addBlankField()
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.join(", ")}]`, true)
