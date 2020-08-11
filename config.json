@@ -1,5 +1,9 @@
 {
   "prefix": "-",
+  "botNames": {
+    "lowerCamelCase": "g9lBot",
+    "upperCase": "G9LBOT"
+  },
 
   "admin": {
     "comment": "This is the new admin config system: {ID: Comment}.",

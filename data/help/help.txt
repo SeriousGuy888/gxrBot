@@ -1,4 +1,4 @@
-__**WELCOME TO THE ~~G8C~~ G9L BOT**__
+__**WELCOME TO THE ~~G8C~~ %uppername%**__
 
 This bot is for features that are exclusive to the Grade 9 League.
 *(Newly not grade 8! Can you imagine being a grade 8? I certainly can't)*
@@ -18,4 +18,4 @@ If you want to make suggestions for the server or the bot, you can do so in <#72
 - Code stolen from the InsomniCheez codebase
 - ~~Automatic homework completer~~
 
-> g9lBot: Infinitely in beta since December 12th, 2019
+> %lowername%: Infinitely in beta since December 12th, 2019

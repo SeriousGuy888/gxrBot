@@ -4,7 +4,7 @@
 `one_word_story` - asdf
 
 **AutoCarrot**
-In g9lBot's config.json file, under autocarrot, you can
+In %lowername%'s config.json file, under autocarrot, you can
 configure whether this is enabled and who is exempt.
 You can also give people a special role to be exempted from
 autocarrot. It's pretty amazing.

@@ -10,7 +10,12 @@ exports.run = async (client, message, args) => {
   function readFile(name) {
     if(!fs.existsSync(`./data/help/${name}.txt`)) return `Error: File \`${name}\` does not exist.`
     let fileContents = fs.readFileSync(`./data/help/${name}.txt`, "utf8")
-    return fileContents.replace(/%prefix%/gi, index.config.prefix)
+    let fixedContents = fileContents
+      .replace(/%prefix%/gi, index.config.prefix)
+      .replace(/%lowername%/gi, index.config.botNames.lowerCamelCase)
+      .replace(/%uppername%/gi, index.config.botNames.upperCase)
+    
+    return fixedContents
   }
   
   if(!args[0]) noArgs()
