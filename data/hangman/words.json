@@ -9,7 +9,6 @@
       "mat",
       "kill",
       "kiss",
-      "stab",
       "sleep",
       "wave"
     ]
@@ -23,6 +22,7 @@
       "affix",
       "amazing",
       "askew",
+      "awkward",
       "banjo",
       "boxes",
       "cycle",
@@ -42,6 +42,7 @@
       "query",
       "quiz",
       "shiv",
+      "stab",
       "mystify",
       "quiz",
       "wavy",
@@ -53,7 +54,6 @@
     "maxGuesses": 12,
     "words": [
       "avenue",
-      "awkward",
       "axiom",
       "aquamarine",
       "bagpipes",
