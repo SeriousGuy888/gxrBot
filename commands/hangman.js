@@ -93,6 +93,8 @@ exports.run = async (client, message, args) => {
         failure: false,
         message: null
       }
+
+      hangmanEmbed(message.channel)
       break
     case "quit":
       message.channel.send(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
