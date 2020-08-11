@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     delete hangmanCache[user.id]
   }
 
-  const hangmanEmbed = async channel => {
+  const hangmanEmbed = async (channel, init) => {
     const hidden = config.hangman.hiddenLetterPlaceholder
 
     const playerData = hangmanCache[message.author.id]
@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => {
       blanks = word
     }
 
-    message.delete()
+    if(!init) message.delete()
 
     let embed = new Discord.RichEmbed()
       .setColor(config.hangman.embedColour)
@@ -96,7 +96,7 @@ exports.run = async (client, message, args) => {
         message: null
       }
 
-      hangmanEmbed(message.channel)
+      hangmanEmbed(message.channel, true)
       break
     case "quit":
       message.channel.send(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
