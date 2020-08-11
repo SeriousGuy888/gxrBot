@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
       .addBlankField()
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
-      .setFooter(`Give up? ${config.prefix}hangman quit`)
+      .setFooter(`Please guess a letter. (Give up? ${config.prefix}hangman quit)`)
     
     let msg = await channel.send(embed)
     if(playerData.failure) {
