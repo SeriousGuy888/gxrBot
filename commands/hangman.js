@@ -46,7 +46,12 @@ exports.run = async (client, message, args) => {
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
       .setFooter(`Please guess a letter. (Give up? ${config.prefix}hangman quit)`)
     
-    let msg = await channel.send(embed)
+    let msg
+    if(!playerData.message) msg = await channel.send(embed)
+    else {
+      msg = playerData.message
+      msg.edit(embed)
+    }
     if(playerData.failure) {
       clearUserHangman(message.author)
       await msg.edit(`You lose! The word was \`${playerData.word}\``)
@@ -57,8 +62,8 @@ exports.run = async (client, message, args) => {
       await msg.edit(`You win! The word was \`${playerData.word}\``)
       await msg.react(config.hangman.winReaction)
     }
-
-    return msg
+    
+    if(!playerData.message) playerData.message = msg
   }
 
   switch(args[0]) {
@@ -86,7 +91,7 @@ exports.run = async (client, message, args) => {
         incorrectGuesses: 0,
         attempedLetters: [],
         failure: false,
-        message: hangmanEmbed(message.channel)
+        message: null
       }
       break
     case "quit":
