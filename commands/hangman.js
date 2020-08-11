@@ -32,7 +32,13 @@ exports.run = async (client, message, args) => {
       .setColor(config.hangman.embedColour)
       .setAuthor(message.author.tag, message.author.avatarURL)
       .setTitle("**__g9lBot Hangman__**")
-      .setDescription(`**WORD SET:** ${playerData.set}\n**MAX INCORRECT GUESSES:** ${playerData.maxIncorrectGuesses}`)
+      .setDescription([
+        `**WORD SET:** ${playerData.set}`,
+        `**MAX INCORRECT GUESSES:** ${playerData.maxIncorrectGuesses}`,
+        "",
+        `[ℹ️ Why can't I see the execution? (Hover)](https://www.example.com "Because there isnt a good way to display a hanging with variable guess counts.")`,
+        `[ℹ️ How the duck do I play this? (Hover)](https://www.example.com "Just reply with the letter you want to guess.")`
+      ].join("\n"))
       .addBlankField()
       .addField(`Word (Length ${word.length})`, blanks, false)
       .addBlankField()
