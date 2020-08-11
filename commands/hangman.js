@@ -62,12 +62,16 @@ exports.run = async (client, message, args) => {
   switch(args[0]) {
     case "play":
       if(hangmanCache[message.author.id]) return message.channel.send(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.prefix}hangman quit\`.`)
-
-      let setName = `[${args[1].split(",").join(", ")}]`
-      let chosenSet = words[args[1].split(",")[Math.floor(Math.random() * args[1].split(",").length)]]
-      if(!chosenSet) {
+      
+      let setName, chosenSet
+      
+      if(!args[1]) {
         setName = `[${config.hangman.defaultSets.join(", ")}]`
         chosenSet = words[config.hangman.defaultSets[Math.floor(Math.random() * config.hangman.defaultSets.length)]]
+      }
+      else {
+        setName = `[${args[1].split(",").join(", ")}]`
+        chosenSet = words[args[1].split(",")[Math.floor(Math.random() * args[1].split(",").length)]]
       }
       let setMaxIncorrectGuesses = chosenSet.maxGuesses
       let wordSet = chosenSet.words
