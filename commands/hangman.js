@@ -90,7 +90,7 @@ exports.run = async (client, message, args) => {
       hangmanCache[message.author.id] = {
         word: wordSet[Math.floor(Math.random() * wordSet.length)],
         set: setName,
-        maxIncorrectGuesses: Math.abs(parseInt(args[2])) || setMaxIncorrectGuesses,
+        maxIncorrectGuesses: Math.min(Math.abs(parseInt(args[2])) || setMaxIncorrectGuesses, config.hangman.maxAllowedGuesses),
         guesses: 0,
         incorrectGuesses: 0,
         attempedLetters: [],
