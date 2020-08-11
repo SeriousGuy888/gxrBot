@@ -28,6 +28,8 @@ exports.run = async (client, message, args) => {
       blanks = word
     }
 
+    message.delete()
+
     let embed = new Discord.RichEmbed()
       .setColor(config.hangman.embedColour)
       .setAuthor(message.author.tag, message.author.avatarURL)
