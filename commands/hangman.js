@@ -67,7 +67,7 @@ exports.run = async (client, message, args) => {
       let chosenSet = words[args[1]]
       if(!chosenSet) {
         setName = `[${config.hangman.defaultSets.join(", ")}]`
-        chosenSet = words[Object.keys(words)[Math.floor(Math.random() * Object.keys(words).length)]]
+        chosenSet = words[config.hangman.defaultSets[Math.floor(Math.random() * config.hangman.defaultSets.length)]]
       }
       let setMaxIncorrectGuesses = chosenSet.maxGuesses
       let wordSet = chosenSet.words
