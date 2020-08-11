@@ -57,6 +57,8 @@ exports.run = async (client, message, args) => {
       await msg.edit(`You win! The word was \`${playerData.word}\``)
       await msg.react(config.hangman.winReaction)
     }
+
+    return msg
   }
 
   switch(args[0]) {
@@ -83,10 +85,9 @@ exports.run = async (client, message, args) => {
         guesses: 0,
         incorrectGuesses: 0,
         attempedLetters: [],
-        failure: false
+        failure: false,
+        message: hangmanEmbed(message.channel)
       }
-  
-      hangmanEmbed(message.channel)
       break
     case "quit":
       message.channel.send(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
