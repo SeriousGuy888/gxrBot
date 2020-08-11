@@ -1,8 +1,8 @@
-**G9LBOT COMMAND LIST**
+**%uppername% COMMAND LIST**
 The prefix is `%prefix%`
 
 __Basic Commands__
-`help` - g8cBot help command
+`help` - %lowername% help command
 `ping` - Get bot latency
 
 __Fun Commands__
