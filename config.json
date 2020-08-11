@@ -21,6 +21,7 @@
     }
   },
   "hangman": {
+    "maxAllowedGuesses": 25,
     "hiddenLetterPlaceholder": "█",
     "winReaction": "🎉",
     "failureReaction": "❌",
