@@ -27,6 +27,14 @@ module.exports = (client, message) => {
     if(!cmd) return message.channel.send(`\`ERROR\`: Command \`${prefix}${command}\` not found.`)
     cmd.run(client, message, args)
   }
+  
+  else if(index.gameCache.hangman[message.author.id]) {
+    cmd = client.commands.get("hangman")
+    args = ["guess"]
+    let msgContent = message.content.split(" ")
+    for(i in msgContent) args.push(msgContent[i])
+    cmd.run(client, message, args)
+  }
 
 
   if(config.autocarrot.enabled) {
@@ -52,14 +60,6 @@ module.exports = (client, message) => {
         message.delete()
       }
     }
-  }
-
-  if(index.gameCache.hangman[message.author.id]) {
-    cmd = client.commands.get("hangman")
-    args = ["guess"]
-    let msgContent = message.content.split(" ")
-    for(i in msgContent) args.push(msgContent[i])
-    cmd.run(client, message, args)
   }
 
 
