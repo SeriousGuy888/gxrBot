@@ -63,8 +63,8 @@ exports.run = async (client, message, args) => {
     case "play":
       if(hangmanCache[message.author.id]) return message.channel.send(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.prefix}hangman quit\`.`)
 
-      let setName = args[1]
-      let chosenSet = words[args[1]]
+      let setName = `[${args[1].split(",").trim().join(", ")}]`
+      let chosenSet = words[args[1].split(",").trim()[Math.floor(Math.random() * args[1].split(",").trim().length)]]
       if(!chosenSet) {
         setName = `[${config.hangman.defaultSets.join(", ")}]`
         chosenSet = words[config.hangman.defaultSets[Math.floor(Math.random() * config.hangman.defaultSets.length)]]
@@ -110,7 +110,7 @@ exports.run = async (client, message, args) => {
       break
     default:
       message.channel.send([
-        `\`${config.prefix}hangman play [word set] [max incorrect guess count]\` - Play hangman. (Guess count must be between 1 and ${config.hangman.maxAllowedGuesses})`,
+        `\`${config.prefix}hangman play [word set (if multiple, separate with commas)] [max incorrect guess count]\` - Play hangman. (Guess count must be between 1 and ${config.hangman.maxAllowedGuesses})`,
         `\`${config.prefix}hangman quit\` - Forfeit a hangman game.`,
         `\`${config.prefix}hangman sets\` - See available word sets.`,
         `\`${config.prefix}hangman guess <letter>\` - Make a hangman guess.`
