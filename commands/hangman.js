@@ -60,27 +60,6 @@ exports.run = async (client, message, args) => {
   }
 
   switch(args[0]) {
-    case "guess":
-      const playerData = hangmanCache[message.author.id]
-      if(!hangmanCache[message.author.id]) return message.channel.send("You are not currently playing hangman.")
-      if(!args[1]) return message.channel.send("Please specify a letter, you idiot.")
-      
-      const guessChar = args[1].charAt(0).toLowerCase()
-      if(!guessChar.match(/[a-z]/gi)) return message.channel.send("You have to guess a letter in the English Alphabet, idiot.")
-      if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) return message.channel.send("You've already guessed this letter, idiot.")
-
-      hangmanCache[message.author.id].guesses++
-      if(!hangmanCache[message.author.id].word.includes(guessChar)) playerData.incorrectGuesses++
-      hangmanCache[message.author.id].attempedLetters.push(guessChar)
-
-      if(playerData.incorrectGuesses >= playerData.maxIncorrectGuesses) playerData.failure = true
-
-      hangmanEmbed(message.channel)
-      break
-    case "quit":
-      message.channel.send(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
-      clearUserHangman(message.author)
-      break
     case "play":
       if(hangmanCache[message.author.id]) return message.channel.send(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.prefix}hangman quit\`.`)
 
@@ -105,8 +84,29 @@ exports.run = async (client, message, args) => {
   
       hangmanEmbed(message.channel)
       break
+    case "quit":
+      message.channel.send(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
+      clearUserHangman(message.author)
+      break
     case "sets":
       message.channel.send(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nUse \`${config.prefix}hangman\` to see how to choose a set.\nIf you don't specify, a random word will be chosen from the sets \`${config.hangman.defaultSets.join(", ")}\`.`)
+      break
+    case "guess":
+      const playerData = hangmanCache[message.author.id]
+      if(!hangmanCache[message.author.id]) return message.channel.send("You are not currently playing hangman.")
+      if(!args[1]) return message.channel.send("Please specify a letter, you idiot.")
+      
+      const guessChar = args[1].charAt(0).toLowerCase()
+      if(!guessChar.match(/[a-z]/gi)) return message.channel.send("You have to guess a letter in the English Alphabet, idiot.")
+      if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) return message.channel.send("You've already guessed this letter, idiot.")
+
+      hangmanCache[message.author.id].guesses++
+      if(!hangmanCache[message.author.id].word.includes(guessChar)) playerData.incorrectGuesses++
+      hangmanCache[message.author.id].attempedLetters.push(guessChar)
+
+      if(playerData.incorrectGuesses >= playerData.maxIncorrectGuesses) playerData.failure = true
+
+      hangmanEmbed(message.channel)
       break
     default:
       message.channel.send([
