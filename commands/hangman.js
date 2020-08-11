@@ -100,10 +100,15 @@ exports.run = async (client, message, args) => {
       hangmanEmbed(message.channel)
       break
     case "sets":
-      message.channel.send(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nYou can choose which set to use with ${config.prefix}hangman play [set name].\nIf you don't specify, a random word will be chosen from the sets \`${config.hangman.defaultSets.join(", ")}\`.`)
+      message.channel.send(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nUse \`${config.prefix}hangman\` to see how to choose a set.\nIf you don't specify, a random word will be chosen from the sets \`${config.hangman.defaultSets.join(", ")}\`.`)
       break
     default:
-      message.channel.send(`${config.prefix}hangman <play | sets | quit | guess> [Params]`)
+      message.channel.send([
+        `\`${config.prefix}hangman play [word set] [max incorrect guess count]\` - Play hangman. (Guess count must be between 1 and ${config.hangman.maxAllowedGuesses})`,
+        `\`${config.prefix}hangman quit\` - Forfeit a hangman game.`,
+        `\`${config.prefix}hangman sets\` - See available word sets.`,
+        `\`${config.prefix}hangman guess <letter>\` - Make a hangman guess.`
+      ].join("\n"))
       break
   }
 }
