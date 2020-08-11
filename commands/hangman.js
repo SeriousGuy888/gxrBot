@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
       .setAuthor(message.author.tag, message.author.avatarURL)
       .setTitle("**__g9lBot Hangman__**")
       .setDescription([
-        `**WORD SET:** ${playerData.set}`,
+        `**WORD SETS:** ${playerData.set}`,
         `**MAX INCORRECT GUESSES:** ${playerData.maxIncorrectGuesses}`,
         "",
         `ℹ️ Why can't I see the execution? [Hover](https://www.example.com "Because there isnt a good way to display a hanging with variable guess counts.")`,
