@@ -111,8 +111,20 @@ exports.run = async (client, message, args) => {
       if(!args[1]) return message.channel.send("Please specify a letter, you idiot.")
       
       const guessChar = args[1].charAt(0).toLowerCase()
-      if(!guessChar.match(/[a-z]/gi)) return message.channel.send("You have to guess a letter in the English Alphabet, idiot.")
-      if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) return message.channel.send("You've already guessed this letter, idiot.")
+      if(!guessChar.match(/[a-z]/gi)) {
+        return message.channel.send("You have to guess a letter in the English Alphabet, idiot.").then(msg => {
+          setTimeout(() => {
+            msg.delete()
+          }, 3000)
+        })
+      }
+      if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) {
+        return message.channel.send("You've already guessed this letter, idiot.").then(msg => {
+          setTimeout(() => {
+            msg.delete()
+          }, 3000)
+        })
+      }
 
       hangmanCache[message.author.id].guesses++
       if(!hangmanCache[message.author.id].word.includes(guessChar)) playerData.incorrectGuesses++
