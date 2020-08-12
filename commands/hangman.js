@@ -112,18 +112,18 @@ exports.run = async (client, message, args) => {
       
       const guessChar = args[1].charAt(0).toLowerCase()
       if(!guessChar.match(/[a-z]/gi)) {
-        return message.channel.send("You have to guess a letter in the English Alphabet, idiot.").then(msg => {
-          setTimeout(() => {
-            msg.delete()
-          }, 3000)
-        })
+        message.delete()
+        message.channel.send("You have to guess a letter in the English Alphabet, idiot.").then(msg => setTimeout(() => {
+          msg.delete()
+        }, config.hangman.errMsgDelTimeout))
+        return
       }
       if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) {
-        return message.channel.send("You've already guessed this letter, idiot.").then(msg => {
-          setTimeout(() => {
-            msg.delete()
-          }, 3000)
-        })
+        message.delete()
+        message.channel.send("You've already guessed this letter, idiot.").then(msg => setTimeout(() => {
+          msg.delete()
+        }, config.hangman.errMsgDelTimeout))
+        return
       }
 
       hangmanCache[message.author.id].guesses++
