@@ -26,6 +26,7 @@
   },
   "hangman": {
     "maxAllowedGuesses": 25,
+    "errMsgDelTimeout": 3000,
     "hiddenLetterPlaceholder": "█",
     "winReaction": "🎉",
     "failureReaction": "❌",
