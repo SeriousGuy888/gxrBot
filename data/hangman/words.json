@@ -1,6 +1,6 @@
 {
   "easy": {
-    "maxGuesses": 8,
+    "maxGuesses": 6,
     "words": [
       "duck",
       "hat",
@@ -14,7 +14,7 @@
     ]
   },
   "normal": {
-    "maxGuesses": 12,
+    "maxGuesses": 10,
     "words": [
       "abruptly",
       "absurd",
@@ -62,7 +62,7 @@
     ]
   },
   "hard": {
-    "maxGuesses": 15,
+    "maxGuesses": 14,
     "words": [
       "atheism",
       "avenue",
@@ -178,7 +178,7 @@
     ]
   },
   "impossible": {
-    "maxGuesses": 20,
+    "maxGuesses": 18,
     "words": [
       "buzzwords",
       "croquet",
