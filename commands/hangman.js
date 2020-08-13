@@ -5,6 +5,8 @@ exports.run = async (client, message, args) => {
   const Discord = index.Discord
   const hangmanCache = index.gameCache.hangman
 
+  const uniqueCharCount = arr => arr.filter((x, i, a) => a.indexOf(x) === i)
+
   const clearUserHangman = user => {
     hangmanCache[user.id] = undefined
     delete hangmanCache[user.id]
@@ -84,11 +86,12 @@ exports.run = async (client, message, args) => {
       }
       let setMaxIncorrectGuesses = chosenSet.maxGuesses
       let wordSet = chosenSet.words
+      let chosenWord = wordSet[Math.floor(Math.random() * wordSet.length)]
 
       hangmanCache[message.author.id] = {
-        word: wordSet[Math.floor(Math.random() * wordSet.length)],
+        word: chosenWord,
         set: setName,
-        maxIncorrectGuesses: Math.min(Math.abs(parseInt(args[2])) || setMaxIncorrectGuesses, config.hangman.maxAllowedGuesses),
+        maxIncorrectGuesses: Math.min(Math.abs(parseInt(args[2])) || setMaxIncorrectGuesses - uniqueCharCount(chosenWord), config.hangman.maxAllowedGuesses),
         guesses: 0,
         incorrectGuesses: 0,
         attempedLetters: [],
