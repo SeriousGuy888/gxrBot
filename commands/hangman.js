@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
   const Discord = index.Discord
   const hangmanCache = index.gameCache.hangman
 
-  const uniqueCharCount = arr => arr.filter((x, i, a) => a.indexOf(x) === i)
+  const uniqueCharCount = word => word.split("").filter((x, i, a) => a.indexOf(x) === i).length
 
   const clearUserHangman = user => {
     hangmanCache[user.id] = undefined
