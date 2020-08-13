@@ -86,8 +86,7 @@ exports.run = async (client, message, args) => {
           }
         }
       }
-      let setName, chosenS
-      et
+      let setName, chosenSet
       if(setNamesLegal) {
         setName = `[${args[1].split(",").join(", ")}]`
         chosenSet = words[allowedSetNames[Math.floor(Math.random() * args[1].split(",").length)]]
