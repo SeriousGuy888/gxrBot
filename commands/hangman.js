@@ -74,26 +74,23 @@ exports.run = async (client, message, args) => {
     case "play":
       if(hangmanCache[message.author.id]) return message.channel.send(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.prefix}hangman quit\`.`)
       
-      let setNamesLegal = false
-      let allowedSetNames
-      if(args[1]) {
-        setNamesLegal = true
-        allowedSetNames = args[1].split(",")
-        for(i in allowedSetNames) {
-          if(!words[allowedSetNames[i]]) {
-            setNamesLegal = false
-            break
-          }
-        }
-      }
       let setName, chosenSet
-      if(setNamesLegal) {
-        setName = `[${args[1].split(",").join(", ")}]`
-        chosenSet = words[allowedSetNames[Math.floor(Math.random() * args[1].split(",").length)]]
-      }
-      else {
+      
+      if(!args[1]) {
         setName = `[${config.hangman.defaultSets.join(", ")}]`
         chosenSet = words[config.hangman.defaultSets[Math.floor(Math.random() * config.hangman.defaultSets.length)]]
+      }
+      else {
+        let allowedSets = args[1].split(",")
+      
+        for(i in allowedSets) {
+          if(!words[allowedSets[i]]) {
+            return message.channel.send("At least one of your specified sets does not exist. Please try again.")
+          }
+        }
+
+        setName = `[${allowedSets.join(", ")}]`
+        chosenSet = words[allowedSets[Math.floor(Math.random() * allowedSets.length)]]
       }
       let setMaxIncorrectGuesses = chosenSet.maxGuesses
       let wordSet = chosenSet.words
