@@ -14,7 +14,7 @@
     ]
   },
   "normal": {
-    "maxGuesses": 10,
+    "maxGuesses": 12,
     "words": [
       "abruptly",
       "absurd",
@@ -61,7 +61,7 @@
     ]
   },
   "hard": {
-    "maxGuesses": 14,
+    "maxGuesses": 15,
     "words": [
       "atheism",
       "avenue",
