@@ -53,7 +53,7 @@ module.exports = (client, message) => {
     if(config.autocarrot.exempt.bots && message.author.bot) return
     if(config.autocarrot.exempt.webhooks && message.webhookID) return
     if(config.autocarrot.exempt.userList.includes(message.author.id)) return
-    if(pauseAutocarrotCache[message.author.id] && config.autocarrot.pause.timespan >= parseInt((pauseAutocarrotCache[message.author.id].issued - Date.now()) / 1000)) return
+    if(pauseAutocarrotCache[message.author.id] && config.autocarrot.pause.timespan >= (pauseAutocarrotCache[message.author.id].issued.getTime() - Date.getTime()) / 1000) return
 
     const autocarrotWebhook = index.autocarrotWebhook
     const swearCensors = require("../data/autocarrot/censored_words.json")
