@@ -46,6 +46,8 @@ let owsObserver = owsDoc.onSnapshot(docSnapshot => {
 }, err => {return})
 
 
+let disableAutocarrotCache = {}
+
 
 let gameCache = {
   hangman: {}
