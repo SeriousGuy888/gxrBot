@@ -12,6 +12,8 @@ module.exports = (client, message) => {
   let owsCache = index.owsCache
   let owsChannelId = owsCache.id.slice(2, owsCache.id.length - 1) // remove <# and > from channel mention to get id
 
+  let disableAutocarrotCache = index.disableAutocarrotCache
+
   let args
   let command
   let cmd
@@ -38,10 +40,20 @@ module.exports = (client, message) => {
 
 
   if(config.autocarrot.enabled) {
+    if(message.content.toLowerCase().includes(config.autocarrot.pause.message)) {
+      disableAutocarrotCache[message.author.id] = {
+        issued: Date.now()
+      }
+
+      message.channel.send(`Okay, I will stop autocarroting you for the next ${config.autocarrot.pause.timespan} seconds.`)
+      return
+    }
+
     if(message.author.id == client.user.id) return
     if(config.autocarrot.exempt.bots && message.author.bot) return
     if(config.autocarrot.exempt.webhooks && message.webhookID) return
     if(config.autocarrot.exempt.userList.includes(message.author.id)) return
+    if(config.autocarrot.pause.timespan >= parseInt((disableAutocarrotCache[message.author.id].issued - Date.now()) / 1000)) return
 
     const autocarrotWebhook = index.autocarrotWebhook
     const swearCensors = require("../data/autocarrot/censored_words.json")
