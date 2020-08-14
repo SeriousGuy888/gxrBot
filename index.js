@@ -46,7 +46,7 @@ let owsObserver = owsDoc.onSnapshot(docSnapshot => {
 }, err => {return})
 
 
-let disableAutocarrotCache = {}
+let pauseAutocarrotCache = {}
 
 
 let gameCache = {
@@ -120,7 +120,7 @@ module.exports.Enmap = Enmap
 module.exports.timeFormatter = timeFormatter
 module.exports.cultCache = cultCache
 module.exports.gameCache = gameCache
-module.exports.disableAutocarrotCache = disableAutocarrotCache
+module.exports.pauseAutocarrotCache = pauseAutocarrotCache
 module.exports.autocarrotWebhook = autocarrotWebhook
 
 // exports ↑
