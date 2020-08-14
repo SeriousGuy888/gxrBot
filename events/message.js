@@ -53,7 +53,7 @@ module.exports = (client, message) => {
     if(config.autocarrot.exempt.bots && message.author.bot) return
     if(config.autocarrot.exempt.webhooks && message.webhookID) return
     if(config.autocarrot.exempt.userList.includes(message.author.id)) return
-    if(pauseAutocarrotCache[message.author.id] && config.autocarrot.pause.timespan >= (pauseAutocarrotCache[message.author.id].issued.getTime() - new Date().getTime()) / 1000) {
+    if(pauseAutocarrotCache[message.author.id] && config.autocarrot.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000) {
       console.log(`q ${pauseAutocarrotCache[message.author.id].issued.getTime()}`)
       console.log(`w ${new Date().getTime()}`)
       return
