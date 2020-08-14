@@ -120,6 +120,7 @@ module.exports.Enmap = Enmap
 module.exports.timeFormatter = timeFormatter
 module.exports.cultCache = cultCache
 module.exports.gameCache = gameCache
+module.exports.disableAutocarrotCache = disableAutocarrotCache
 module.exports.autocarrotWebhook = autocarrotWebhook
 
 // exports ↑
