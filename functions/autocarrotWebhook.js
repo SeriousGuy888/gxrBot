@@ -13,7 +13,7 @@ exports.run = (client, human, channel, content) => {
     if(!content.trim()) return // if the message is empty
 
     let correctedMessage = content
-    for(i in swearList) correctedMessage = correctedMessage.replace(new RegExp(swearList[i], "gi"), swearCensors[swearList[i]])
+    for(let i in swearList) correctedMessage = correctedMessage.replace(new RegExp(swearList[i], "gi"), swearCensors[swearList[i]])
 
     webhook.send(correctedMessage, {
       "username": human.username,
