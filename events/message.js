@@ -128,7 +128,8 @@ module.exports = async (client, message) => {
   if(config.specialChannels.memes.enabled) {
     if(message.channel.id != config.specialChannels.memes.channelId) return
     for(let loopEmoji of config.specialChannels.memes.reactionIds) {
-      await message.react(loopEmoji)
+      try { await message.react(loopEmoji) }
+      catch(error) { console.error(`Failed to add reaction ${loopEmoji} to message ${message.id}`) }
     }
   }
 }
