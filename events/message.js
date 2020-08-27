@@ -34,7 +34,7 @@ module.exports = (client, message) => {
     cmd = client.commands.get("hangman")
     args = ["guess"]
     let msgContent = message.content.split(" ")
-    for(i in msgContent) args.push(msgContent[i])
+    for(let i in msgContent) args.push(msgContent[i])
     cmd.run(client, message, args)
   }
 
@@ -60,7 +60,7 @@ module.exports = (client, message) => {
     const swearList = Object.keys(swearCensors)
 
     let needsCorrecting = false
-    for(i in swearList) {
+    for(let i in swearList) {
       if(message.content.toLowerCase().includes(swearList[i])) {
         needsCorrecting = true
       }
