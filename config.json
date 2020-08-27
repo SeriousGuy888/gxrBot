@@ -40,5 +40,16 @@
       "normal",
       "hard"
     ]
+  },
+  "specialChannels": {
+    "memes": {
+      "comment": "Automatically react to messages with upvote and downvote.",
+      "enabled": true,
+      "channelId": "587793838265991171",
+      "reactionIds": [
+        "713823817004220416",
+        "713824298275569734"
+      ]
+    }
   }
 }

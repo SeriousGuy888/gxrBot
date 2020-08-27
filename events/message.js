@@ -124,4 +124,11 @@ module.exports = async (client, message) => {
       }).catch(err => {})
     })
   }
+
+  if(config.specialChannels.memes.enabled) {
+    if(message.channel.id != config.specialChannels.memes.channelId) return
+    for(let loopEmoji of config.specialChannels.memes.reactionIds) {
+      await message.react(loopEmoji)
+    }
+  }
 }
