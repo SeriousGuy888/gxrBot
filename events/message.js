@@ -3,8 +3,6 @@ module.exports = (client, message) => {
   const config = index.config
   const prefix = index.prefix
 
-  const db = index.db
-
   let cultCache = index.cultCache
   let cultChannelId = cultCache.id.slice(2, cultCache.id.length - 1) // remove <# and > from channel mention to get id
   let cultPhrase = cultCache.word
