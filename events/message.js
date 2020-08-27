@@ -1,4 +1,4 @@
-module.exports = (client, message) => {
+module.exports = async (client, message) => {
   const index = require("../index.js")
   const config = index.config
   const prefix = index.prefix
