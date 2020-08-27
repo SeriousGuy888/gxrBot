@@ -113,8 +113,7 @@ module.exports = (client, message) => {
       //     })
       // }
 
-      if(content.split(" ").length == 1) return true
-      else return false
+      return content.split(" ").length == 1
     }
 
     if(messageLegal(message) || message.author.id == client.user.id) return
