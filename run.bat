@@ -1,4 +1,3 @@
 :a
-node .
-pause
+nodemon .
 goto a
