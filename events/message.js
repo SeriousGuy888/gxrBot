@@ -106,10 +106,10 @@ module.exports = async (client, message) => {
     }
   }
 
-  if(config.autoActions.enabled) {
-    const literalIdPrefix = config.autoActions.literalIdPrefix
-    const emojiKey = config.autoActions.emojiKey
-    const channelData = config.autoActions.channels
+  if(config.autoResponses.enabled) {
+    const literalIdPrefix = config.autoResponses.literalIdPrefix
+    const emojiKey = config.autoResponses.emojiKey
+    const channelData = config.autoResponses.channels
     const channelList = Object.keys(channelData)
 
     if(!channelList.includes(message.channel.id)) return
