@@ -83,7 +83,7 @@ exports.run = async (client, message, args) => {
       else {
         let allowedSets = args[1].split(",")
       
-        for(i in allowedSets) {
+        for(let i in allowedSets) {
           if(!words[allowedSets[i]]) {
             return message.channel.send("At least one of your specified sets does not exist. Please try again.")
           }
