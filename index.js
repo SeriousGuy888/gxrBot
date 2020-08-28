@@ -1,9 +1,9 @@
 const token = require("./secrets/token.json")
+const fs = require("fs")
 const Discord = require("discord.js")
 const client = new Discord.Client()
-const config = require("./config/config.json")
-const fs = require("fs")
-const prefix = config.prefix
+const config = require("./config/config.js")
+const prefix = config.main.prefix
 
 const admin = require("firebase-admin")
 const serviceAccount = require("./secrets/firestoreServiceAccountKey.json")
