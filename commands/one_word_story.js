@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
     
     if(args[0] == "set") {
       if(!args[1]) return message.channel.send("Syntax: `c!one_word_story set channel <channel mention>`")
-      
+
       if(args[1] == "channel") {
         if(!args[2]) return message.channel.send("Syntax: `c!one_word_story set channel <channel mention>`")
 
@@ -34,7 +34,6 @@ exports.run = async (client, message, args) => {
     }
     else {
       message.channel.send("Invalid arguments!")
-      break
     }
   }
 }
