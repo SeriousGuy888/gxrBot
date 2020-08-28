@@ -89,7 +89,7 @@ module.exports = async (client, message) => {
     const deleteMessage = (msg, errorMessage) => {
       msg.delete().then(() => {
         if(msg.author.bot) return
-        msg.channel.send(errorMessage).then(m => m.delete(3000)).catch(err => {})
+        msg.channel.send(errorMessage).then(m => m.delete({ timeout: 3000 })).catch(err => {})
       })
     }
 
@@ -124,7 +124,7 @@ module.exports = async (client, message) => {
           if(loopMessage.options.autoDelete.enabled) {
             let timeout = loopMessage.options.autoDelete.timeout
             timeout = Math.min(Math.max(timeout, 1), 60 * 1000) // clamp timeout between 1ms and 1min
-            msg.delete(timeout)
+            msg.delete({ timeout })
           }
         })
       }
