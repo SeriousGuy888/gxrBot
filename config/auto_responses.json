@@ -61,7 +61,7 @@
     },
     "739976529437524029": {
       "comment": "test - nuke#a",
-      "enabled": true,
+      "enabled": false,
       "messages": [
         {
           "content": "@everyone",
