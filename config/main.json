@@ -4,21 +4,6 @@
     "lowerCamelCase": "g9lBot",
     "upperCase": "G9LBOT"
   },
-  "autocarrot": {
-    "comment": "Options for g9lBot's AutoCarrot",
-    "enabled": true,
-    "deleteOriginalMessage": true,
-    "pause": {
-      "message": "stop autocarroting me",
-      "timespan": 180
-    },
-    "exempt": {
-      "comment": "You can choose to exempt bot messages, messages from webhooks, or have a list of exempted user IDs.",
-      "bots": false,
-      "webhooks": false,
-      "userList": []
-    }
-  },
   "hangman": {
     "maxAllowedGuesses": 25,
     "errMsgDelTimeout": 3000,
