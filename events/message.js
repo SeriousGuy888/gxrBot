@@ -106,33 +106,48 @@ module.exports = async (client, message) => {
     }
   }
 
-  if(config.autoReactions.enabled) {
-    const literalIdPrefix = config.autoReactions.literalIdPrefix
-    const emojiKey = config.autoReactions.emojiKey
-    const channelData = config.autoReactions.channels
+  if(config.autoActions.enabled) {
+    const literalIdPrefix = config.autoActions.literalIdPrefix
+    const emojiKey = config.autoActions.emojiKey
+    const channelData = config.autoActions.channels
     const channelList = Object.keys(channelData)
 
     if(!channelList.includes(message.channel.id)) return
     if(!channelData[message.channel.id].enabled) return
 
     const reactionList = channelData[message.channel.id].reactions
-    let reactionEmojis = []
+    const messageList = channelData[message.channel.id].messages
 
-    for(let i in reactionList) {
-      if(reactionList[i].startsWith(literalIdPrefix)) {
-        let emojiStr = reactionList[i].slice(literalIdPrefix.length)
-        if(!emojiStr) return console.log(`Emoji \`${reactionList[i]}\` invalid; skipping...`)
-        reactionEmojis.push(emojiStr)
-      }
-      else {
-        if(!emojiKey[reactionList[i]]) console.log(`Autoreaction emoji key ${reactionList[i]} not found. Skipping emoji...`)
-        else reactionEmojis.push(emojiKey[reactionList[i]])
+    if(messageList) {
+      for(let loopMessage of messageList) {
+        message.channel.send(loopMessage.content, { embed: loopMessage.embed ? loopMessage.embed : null }).then(msg => {
+          if(loopMessage.options.autoDelete.enabled) {
+            let timeout = loopMessage.options.autoDelete.timeout
+            timeout = Math.min(Math.max(timeout, 1), 60 * 1000) // clamp timeout between 1ms and 1min
+            msg.delete(timeout)
+          }
+        })
       }
     }
-
-    for(let loopEmoji of reactionEmojis) {
-      try { await message.react(loopEmoji) }
-      catch(error) { console.error(`Failed to add reaction ${loopEmoji} to message ${message.id} due to error \`${error}\``) }
+    if(reactionList) {
+      let reactionEmojis = []
+  
+      for(let i in reactionList) {
+        if(reactionList[i].startsWith(literalIdPrefix)) {
+          let emojiStr = reactionList[i].slice(literalIdPrefix.length)
+          if(!emojiStr) return console.log(`Emoji \`${reactionList[i]}\` invalid; skipping...`)
+          reactionEmojis.push(emojiStr)
+        }
+        else {
+          if(!emojiKey[reactionList[i]]) console.log(`Autoreaction emoji key ${reactionList[i]} not found. Skipping emoji...`)
+          else reactionEmojis.push(emojiKey[reactionList[i]])
+        }
+      }
+  
+      for(let loopEmoji of reactionEmojis) {
+        try { await message.react(loopEmoji) }
+        catch(error) { console.error(`Failed to add reaction ${loopEmoji} to message ${message.id} due to error \`${error}\``) }
+      }
     }
   }
 }
