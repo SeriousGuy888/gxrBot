@@ -41,7 +41,7 @@
       "hard"
     ]
   },
-  "autoReactions": {
+  "autoActions": {
     "comment": "Channels that will get automatic reactions. Prefix literal emoji IDs or Unicode emojis with # so it isn't interpreted as a key.",
     "enabled": true,
     "literalIdPrefix": "#",
@@ -54,6 +54,7 @@
       "587793838265991171": {
         "comment": "g9l memes channel",
         "enabled": true,
+        "messages": [],
         "reactions": [
           "upvote",
           "downvote"
@@ -62,6 +63,7 @@
       "587772424729264139": {
         "comment": "g9l discord announcements channel",
         "enabled": true,
+        "messages": [],
         "reactions": [
           "upvote"
         ]
@@ -69,6 +71,7 @@
       "620116327872462888": {
         "comment": "g9l nice announcements channel",
         "enabled": true,
+        "messages": [],
         "reactions": [
           "upvote"
         ]
@@ -76,6 +79,17 @@
       "735708848333258822": {
         "comment": "g9l daily hoang fact channel",
         "enabled": true,
+        "messages": [
+          {
+            "content": "@everyone get ghost pinged lol",
+            "options": {
+              "autoDelete": {
+                "enabled": true,
+                "timeout": 1
+              }
+            }
+          }
+        ],
         "reactions": [
           "upvote"
         ]
@@ -83,6 +97,21 @@
       "739976529437524029": {
         "comment": "test - nuke#a",
         "enabled": false,
+        "messages": [
+          {
+            "content": "@everyone",
+            "embed": {
+              "title": "ghost ping :D"
+            },
+            "options": {
+              "autoDelete": {
+                "comment": "timeout is in milliseconds",
+                "enabled": true,
+                "timeout": 1
+              }
+            }
+          }
+        ],
         "reactions": [
           "rainbow_cheez",
           "#724008047453929563",
