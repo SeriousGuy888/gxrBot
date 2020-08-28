@@ -4,15 +4,6 @@
     "lowerCamelCase": "g9lBot",
     "upperCase": "G9LBOT"
   },
-
-  "admin": {
-    "comment": "This is the new admin config system: {ID: Comment}.",
-    "ids": {
-      "323170410818437130": "billzo",
-      "192833577883402240": "hoang",
-      "427925505581383721": "liam"
-    }
-  },
   "autocarrot": {
     "comment": "Options for g9lBot's AutoCarrot",
     "enabled": true,
