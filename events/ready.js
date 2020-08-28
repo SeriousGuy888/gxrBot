@@ -1,10 +1,12 @@
 module.exports = (client, message) => {
+  const index = require("../index.js")
+
   console.log("g9lBot Loaded!")
 
   client.user.setPresence({
-    status: "idle",
+    status: "online",
     activity: {
-      name: "Maintenence",
+      name: `for ${index.prefix}help`,
       type: "WATCHING"
     }
   })
