@@ -59,6 +59,27 @@
           "downvote"
         ]
       },
+      "587772424729264139": {
+        "comment": "g9l discord announcements channel",
+        "enabled": true,
+        "reactions": [
+          "upvote"
+        ]
+      },
+      "620116327872462888": {
+        "comment": "g9l nice announcements channel",
+        "enabled": true,
+        "reactions": [
+          "upvote"
+        ]
+      },
+      "735708848333258822": {
+        "comment": "g9l daily hoang fact channel",
+        "enabled": true,
+        "reactions": [
+          "upvote"
+        ]
+      },
       "739976529437524029": {
         "comment": "test - nuke#a",
         "enabled": false,
