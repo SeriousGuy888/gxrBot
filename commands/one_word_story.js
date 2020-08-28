@@ -33,6 +33,7 @@ exports.run = async (client, message, args) => {
         else {
           message.channel.send("Invalid arguments!")
         }
+        break
       default:
         message.channel.send("Invalid arguments!")
         break
