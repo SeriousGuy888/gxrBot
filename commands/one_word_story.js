@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
     message.channel.send(emb)
   }
   else if(args[0]) {
-    if(!config.main.admin.ids[message.author.id]) return message.channel.send("You are not listed as an admin! (If this is inaccurate, contact billzo (contact billzo da magic programmer and not billzo da magic caterpillar))")
+    if(!config.admin.ids[message.author.id]) return message.channel.send("You are not listed as an admin! (If this is inaccurate, contact billzo (contact billzo da magic programmer and not billzo da magic caterpillar))")
     
     if(args[0] == "set") {
       if(!args[1]) return message.channel.send("Syntax: `c!one_word_story set channel <channel mention>`")
