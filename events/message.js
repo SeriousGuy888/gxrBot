@@ -74,49 +74,36 @@ module.exports = async (client, message) => {
   }
 
 
-  if(message.channel.id === cultChannelId) {
-    function messageLegal(msg, phrase) {
-      if(!msg || !phrase) return console.log("error with cult code in message.js event")
-
-      msg = msg.toLowerCase()
+  if([cultChannelId, owsChannelId].includes(message.channel.id)) {
+    const cultLegal = (content, phrase) => {
+      if(!content || !phrase) return console.log("error with cult code in message.js event")
+      content = content.toLowerCase()
       phrase = phrase.toLowerCase()
-
-      if(msg == phrase) return true
+      if(content == phrase) return true
     }
-
-    if(messageLegal(message.content, cultPhrase) || message.author.id == client.user.id) {
-      return
-    }
-
-    else message.delete().then(() => {
-      if(message.author.bot) {
-        return
-      }
-      
-      message.channel.send(`<@${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`).then(msg => {
-        msg.delete(3000) // delete message in 3 seconds
-      }).catch(err => {})
-    })
-  }
-  if(message.channel.id === owsChannelId) {
-    function messageLegal(msg) {
-      if(!msg) return console.log("error with ows code in message.js event")
-      let content = msg.content
-
+    const owsLegal = content => {
+      if(!content) return console.log("error with ows code in message.js event")
       content = content.toLowerCase().replace(/[^a-z ]/gi, "")
-      
       return content.split(" ").length == 1
     }
+    const deleteMessage = (msg, errorMessage) => {
+      msg.delete().then(() => {
+        if(msg.author.bot) return
+        msg.channel.send(errorMessage).then(m => m.delete(3000)).catch(err => {})
+      })
+    }
 
-    if(messageLegal(message) || message.author.id == client.user.id) return
-
-    else message.delete().then(() => {
-      if(message.author.bot) return
-      
-      message.channel.send(`<@${message.author.id}>, this is the one word story channel. You are a stupid.`).then(msg => {
-        msg.delete(3000) // delete message in 3 seconds
-      }).catch(err => {})
-    })
+    if(message.author.id == client.user.id) return
+    switch(message.channel.id) {
+      case cultChannelId:
+        if(cultLegal(message.content, cultPhrase)) return
+        else deleteMessage(message, `<@${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`)
+        break
+      case owsChannelId:
+        if(owsLegal(message.content)) return
+        else deleteMessage(message, `<@${message.author.id}>, this is the one word story channel. You are a stupid.`)
+        break
+    }
   }
 
   if(config.autoReactions.enabled) {
