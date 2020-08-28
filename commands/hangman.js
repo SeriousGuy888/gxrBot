@@ -48,7 +48,7 @@ exports.run = async (client, message, args) => {
       .addBlankField()
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
-      .setFooter(`Please guess a letter. (Give up? ${config.prefix}hangman quit)`)
+      .setFooter(`Please guess a letter. (Give up? ${config.main.prefix}hangman quit)`)
     
     let msg
     if(!playerData.message) msg = await channel.send(embed)
@@ -72,7 +72,7 @@ exports.run = async (client, message, args) => {
 
   switch(args[0]) {
     case "play":
-      if(hangmanCache[message.author.id]) return message.channel.send(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.prefix}hangman quit\`.`)
+      if(hangmanCache[message.author.id]) return message.channel.send(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.main.prefix}hangman quit\`.`)
       
       let setName, chosenSet
       
@@ -121,7 +121,7 @@ exports.run = async (client, message, args) => {
       clearUserHangman(message.author)
       break
     case "sets":
-      message.channel.send(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nUse \`${config.prefix}hangman\` to see how to choose a set.\nIf you don't specify, a random word will be chosen from the sets \`${config.hangman.defaultSets.join(", ")}\`.`)
+      message.channel.send(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nUse \`${config.main.prefix}hangman\` to see how to choose a set.\nIf you don't specify, a random word will be chosen from the sets \`${config.hangman.defaultSets.join(", ")}\`.`)
       break
     case "guess":
       const playerData = hangmanCache[message.author.id]
@@ -154,10 +154,10 @@ exports.run = async (client, message, args) => {
       break
     default:
       message.channel.send([
-        `\`${config.prefix}hangman play [word set (if multiple, separate with commas)] [max incorrect guess count]\` - Play hangman. (Guess count must be between 1 and ${config.hangman.maxAllowedGuesses})`,
-        `\`${config.prefix}hangman quit\` - Forfeit a hangman game.`,
-        `\`${config.prefix}hangman sets\` - See available word sets.`,
-        `\`${config.prefix}hangman guess <letter>\` - Make a hangman guess.`
+        `\`${config.main.prefix}hangman play [word set (if multiple, separate with commas)] [max incorrect guess count]\` - Play hangman. (Guess count must be between 1 and ${config.hangman.maxAllowedGuesses})`,
+        `\`${config.main.prefix}hangman quit\` - Forfeit a hangman game.`,
+        `\`${config.main.prefix}hangman sets\` - See available word sets.`,
+        `\`${config.main.prefix}hangman guess <letter>\` - Make a hangman guess.`
       ].join("\n"))
       break
   }

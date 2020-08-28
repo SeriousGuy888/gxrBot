@@ -1,0 +1,13 @@
+{
+  "maxAllowedGuesses": 25,
+  "errMsgDelTimeout": 3000,
+  "hiddenLetterPlaceholder": "█",
+  "winReaction": "🎉",
+  "failureReaction": "❌",
+  "embedColour": "#be3232",
+  "defaultSets": [
+    "easy",
+    "normal",
+    "hard"
+  ]
+}
