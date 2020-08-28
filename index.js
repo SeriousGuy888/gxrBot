@@ -2,7 +2,7 @@ const token = require("./secrets/token.json")
 const fs = require("fs")
 const Discord = require("discord.js")
 const client = new Discord.Client()
-const config = require("./config/config.js")
+const config = require("./config/_config.js")
 const prefix = config.main.prefix
 
 const admin = require("firebase-admin")
