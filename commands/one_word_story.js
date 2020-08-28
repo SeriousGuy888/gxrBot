@@ -18,25 +18,23 @@ exports.run = async (client, message, args) => {
   else if(args[0]) {
     if(!config.admin.ids[message.author.id]) return message.channel.send("You are not listed as an admin! (If this is inaccurate, contact billzo (contact billzo da magic programmer and not billzo da magic caterpillar))")
     
-    switch(args[0]) {
-      case "set":
-        if(!args[1]) return message.channel.send("Syntax: `c!one_word_story set channel <channel mention>`")
-        if(args[1] == "channel") {
-            if(!args[2]) return message.channel.send("Syntax: `c!one_word_story set channel <channel mention>`")
+    if(args[0] == "set") {
+      if(!args[1]) return message.channel.send("Syntax: `c!one_word_story set channel <channel mention>`")
+      
+      if(args[1] == "channel") {
+        if(!args[2]) return message.channel.send("Syntax: `c!one_word_story set channel <channel mention>`")
 
-            doc.set({id: args[2]}, {merge: true}).then(() => {
-              message.channel.send("Channel set!")
-            })
-
-            break
-        }
-        else {
-          message.channel.send("Invalid arguments!")
-        }
-        break
-      default:
+        doc.set({id: args[2]}, {merge: true}).then(() => {
+          message.channel.send("Channel set!")
+        })
+      }
+      else {
         message.channel.send("Invalid arguments!")
-        break
+      }
+    }
+    else {
+      message.channel.send("Invalid arguments!")
+      break
     }
   }
 }
