@@ -1,6 +1,7 @@
 module.exports = async (client, message) => {
   const index = require("../index.js")
   const config = index.config
+  const mainConfig = config.main
   const prefix = index.prefix
 
   let cultCache = index.cultCache
@@ -38,21 +39,21 @@ module.exports = async (client, message) => {
   }
 
 
-  if(config.autocarrot.enabled) {
-    if(message.content.toLowerCase().includes(config.autocarrot.pause.message)) {
+  if(mainConfig.autocarrot.enabled) {
+    if(message.content.toLowerCase().includes(mainConfig.autocarrot.pause.message)) {
       pauseAutocarrotCache[message.author.id] = {
         issued: new Date()
       }
 
-      message.channel.send(`Okay, I will stop autocarroting you for the next ${config.autocarrot.pause.timespan} seconds.`)
+      message.channel.send(`Okay, I will stop autocarroting you for the next ${mainConfig.autocarrot.pause.timespan} seconds.`)
       return
     }
 
     if(message.author.id == client.user.id) return
-    if(config.autocarrot.exempt.bots && message.author.bot) return
-    if(config.autocarrot.exempt.webhooks && message.webhookID) return
-    if(config.autocarrot.exempt.userList.includes(message.author.id)) return
-    if(pauseAutocarrotCache[message.author.id] && config.autocarrot.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000) return
+    if(mainConfig.autocarrot.exempt.bots && message.author.bot) return
+    if(mainConfig.autocarrot.exempt.webhooks && message.webhookID) return
+    if(mainConfig.autocarrot.exempt.userList.includes(message.author.id)) return
+    if(pauseAutocarrotCache[message.author.id] && mainConfig.autocarrot.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000) return
 
     const autocarrotWebhook = index.autocarrotWebhook
     const swearCensors = require("../data/autocarrot/censored_words.json")
@@ -67,7 +68,7 @@ module.exports = async (client, message) => {
 
     if(needsCorrecting) {
       autocarrotWebhook(message.author, message.channel, message.content)
-      if(config.autocarrot.deleteOriginalMessage) {
+      if(mainConfig.autocarrot.deleteOriginalMessage) {
         message.delete()
       }
     }
@@ -106,10 +107,10 @@ module.exports = async (client, message) => {
     }
   }
 
-  if(config.autoResponses.enabled) {
-    const literalIdPrefix = config.autoResponses.literalIdPrefix
-    const emojiKey = config.autoResponses.emojiKey
-    const channelData = config.autoResponses.channels
+  if(mainConfig.autoResponses.enabled) {
+    const literalIdPrefix = mainConfig.autoResponses.literalIdPrefix
+    const emojiKey = mainConfig.autoResponses.emojiKey
+    const channelData = mainConfig.autoResponses.channels
     const channelList = Object.keys(channelData)
 
     if(!channelList.includes(message.channel.id)) return
