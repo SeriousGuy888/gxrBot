@@ -105,13 +105,6 @@ module.exports = async (client, message) => {
 
       content = content.toLowerCase().replace(/[^a-z ]/gi, "")
       
-      // if(msg.author.id != client.user.id) {
-      //   msg.channel.messages.fetch({ limit: 10 })
-      //     .then(messages => {
-      //       msg.channel.send(messages.array())
-      //     })
-      // }
-
       return content.split(" ").length == 1
     }
 
