@@ -41,15 +41,33 @@
       "hard"
     ]
   },
-  "specialChannels": {
-    "memes": {
-      "comment": "Automatically react to messages with upvote and downvote.",
-      "enabled": true,
-      "channelId": "587793838265991171",
-      "reactionIds": [
-        "713823817004220416",
-        "713824298275569734"
-      ]
+  "autoReactions": {
+    "comment": "Channels that will get automatic reactions. Prefix literal emoji IDs or Unicode emojis with # so it isn't interpreted as a key.",
+    "enabled": true,
+    "literalIdPrefix": "#",
+    "emojiKey": {
+      "upvote": "713823817004220416",
+      "downvote": "713824298275569734",
+      "rainbow_cheez": "714923328577470466"
+    },
+    "channels": {
+      "587793838265991171": {
+        "comment": "g9l memes channel",
+        "enabled": true,
+        "reactions": [
+          "upvote",
+          "downvote"
+        ]
+      },
+      "739976529437524029": {
+        "comment": "test - nuke#a",
+        "enabled": false,
+        "reactions": [
+          "rainbow_cheez",
+          "#724008047453929563",
+          "#🥝"
+        ]
+      }
     }
   }
 }

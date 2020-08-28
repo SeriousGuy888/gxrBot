@@ -16,6 +16,7 @@ module.exports = async (client, message) => {
   let command
   let cmd
 
+
   if(message.content.toLowerCase().indexOf(prefix) === 0) {
     if(message.author.bot) return //ignore bots
 
@@ -125,11 +126,33 @@ module.exports = async (client, message) => {
     })
   }
 
-  if(config.specialChannels.memes.enabled) {
-    if(message.channel.id != config.specialChannels.memes.channelId) return
-    for(let loopEmoji of config.specialChannels.memes.reactionIds) {
+  if(config.autoReactions.enabled) {
+    const literalIdPrefix = config.autoReactions.literalIdPrefix
+    const emojiKey = config.autoReactions.emojiKey
+    const channelData = config.autoReactions.channels
+    const channelList = Object.keys(channelData)
+
+    if(!channelList.includes(message.channel.id)) return
+    if(!channelData[message.channel.id].enabled) return
+
+    const reactionList = channelData[message.channel.id].reactions
+    let reactionEmojis = []
+
+    for(let i in reactionList) {
+      if(reactionList[i].startsWith(literalIdPrefix)) {
+        let emojiStr = reactionList[i].slice(literalIdPrefix.length)
+        if(!emojiStr) return console.log(`Emoji \`${reactionList[i]}\` invalid; skipping...`)
+        reactionEmojis.push(emojiStr)
+      }
+      else {
+        if(!emojiKey[reactionList[i]]) console.log(`Autoreaction emoji key ${reactionList[i]} not found. Skipping emoji...`)
+        else reactionEmojis.push(emojiKey[reactionList[i]])
+      }
+    }
+
+    for(let loopEmoji of reactionEmojis) {
       try { await message.react(loopEmoji) }
-      catch(error) { console.error(`Failed to add reaction ${loopEmoji} to message ${message.id}`) }
+      catch(error) { console.error(`Failed to add reaction ${loopEmoji} to message ${message.id} due to error \`${error}\``) }
     }
   }
 }
