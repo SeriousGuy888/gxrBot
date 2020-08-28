@@ -9,13 +9,23 @@ exports.run = (client, human, channel, content) => {
   const swearList = Object.keys(swearCensors)
 
 
-  function sendMsg(webhook) {
-    if(!content.trim()) return // if the message is empty
+  const correctMsg = (webhook, str) => {
+    if(!str.trim()) return // if the message is empty
 
-    let correctedMessage = content
-    for(let i in swearList) correctedMessage = correctedMessage.replace(new RegExp(swearList[i], "gi"), swearCensors[swearList[i]])
+    let correctedMessage = str
+    for(let loopSwear of swearList) {
+      correctedMessage = correctedMessage.replace(new RegExp(loopSwear, "gi"), swearCensors[loopSwear])
+    }
 
-    webhook.send(correctedMessage, {
+
+    let correctedMessageChunks = correctedMessage.match(/.{1,2000}/g)
+    for(let loopChunk of correctedMessageChunks) {
+      sendMsg(webhook, loopChunk)
+    }
+  }
+
+  const sendMsg = (webhook, str) => {
+    webhook.send(str, {
       "username": human.username,
       "avatarURL": avatarURL,
       "embeds": []
@@ -25,10 +35,8 @@ exports.run = (client, human, channel, content) => {
   channel.fetchWebhooks().then(webhook => {
     let foundHook = webhook.find(webhook => webhook.name, hookName)
     if(!foundHook) {
-      channel.createWebhook(hookName, hookAvatar).then(webhook => {
-        sendMsg(webhook)
-      })
+      channel.createWebhook(hookName, hookAvatar).then(createdWebhook => correctMsg(createdWebhook, content))
     }
-    else sendMsg(foundHook)
+    else correctMsg(foundHook, content)
   })
 }
