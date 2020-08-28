@@ -4,5 +4,9 @@
     "323170410818437130": "billzo",
     "192833577883402240": "hoang",
     "427925505581383721": "liam"
+  },
+  "superadmin": {
+    "comment": "Used for commands that only billzo is allowed to use.",
+    "id": "323170410818437130"
   }
 }
