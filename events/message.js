@@ -132,15 +132,15 @@ module.exports = async (client, message) => {
     if(reactionList) {
       let reactionEmojis = []
   
-      for(let i in reactionList) {
-        if(reactionList[i].startsWith(literalIdPrefix)) {
-          let emojiStr = reactionList[i].slice(literalIdPrefix.length)
-          if(!emojiStr) return console.log(`Emoji \`${reactionList[i]}\` invalid; skipping...`)
+      for(let loopReaction of reactionList) {
+        if(loopReaction.startsWith(literalIdPrefix)) {
+          let emojiStr = loopReaction.slice(literalIdPrefix.length)
+          if(!emojiStr) return console.log(`Emoji \`${loopReaction}\` invalid; skipping...`)
           reactionEmojis.push(emojiStr)
         }
         else {
-          if(!emojiKey[reactionList[i]]) console.log(`Autoreaction emoji key ${reactionList[i]} not found. Skipping emoji...`)
-          else reactionEmojis.push(emojiKey[reactionList[i]])
+          if(!emojiKey[loopReaction]) console.log(`Autoreaction emoji key ${loopReaction} not found. Skipping emoji...`)
+          else reactionEmojis.push(emojiKey[loopReaction])
         }
       }
   
