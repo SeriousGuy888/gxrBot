@@ -25,6 +25,23 @@
         "reactions": [
           "upvote"
         ]
+      },
+      {
+        "enabled": true,
+        "conditional": {
+          "enabled": true,
+          "conditions": [
+            {
+              "enabled": true,
+              "type": "regex",
+              "expression": "game night",
+              "flags": "gi"
+            }
+          ]
+        },
+        "reactions": [
+          "#🎮"
+        ]
       }
     ],
     "620116327872462888": [
@@ -68,7 +85,7 @@
     "739976529437524029": [
       {
         "comment": "example - nuke#a",
-        "enabled": true,
+        "enabled": false,
         "messages": [
           {
             "content": "@everyone",
@@ -100,14 +117,14 @@
             {
               "enabled": true,
               "type": "regex",
-              "negate": true,
-              "expression": "[xyz]",
+              "negate": false,
+              "expression": "game night",
               "flags": "gi"
             }
           ]
         },
         "reactions": [
-          "downvote"
+          "#🎮"
         ]
       }
     ]
