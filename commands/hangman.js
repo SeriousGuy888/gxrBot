@@ -1,9 +1,10 @@
 exports.run = async (client, message, args) => {
   const index = require("../index.js")
-  const words = require("../data/hangman/words.json")
-  const config = index.config
   const Discord = index.Discord
   const hangmanCache = index.gameCache.hangman
+  const config = index.config
+  const hangmanSettings = config.hangman.settings
+  const words = require("../data/hangman/words.json")
 
   const uniqueCharCount = word => word.split("").filter((x, i, a) => a.indexOf(x) === i).length
 
@@ -13,7 +14,7 @@ exports.run = async (client, message, args) => {
   }
 
   const hangmanEmbed = async (channel, init) => {
-    const hidden = config.hangman.hiddenLetterPlaceholder
+    const hidden = hangmanSettings.hiddenLetterPlaceholder
 
     const playerData = hangmanCache[message.author.id]
     const word = playerData.word
@@ -33,7 +34,7 @@ exports.run = async (client, message, args) => {
     if(!init) message.delete()
 
     let embed = new Discord.RichEmbed()
-      .setColor(config.hangman.embedColour)
+      .setColor(hangmanSettings.embedColour)
       .setAuthor(message.author.tag, message.author.avatarURL)
       .setTitle("**__g9lBot Hangman__**")
       .setDescription([
@@ -59,12 +60,12 @@ exports.run = async (client, message, args) => {
     if(playerData.failure) {
       clearUserHangman(message.author)
       await msg.edit(`You lose! The word was \`${playerData.word}\``)
-      await msg.react(config.hangman.failureReaction)
+      await msg.react(hangmanSettings.failureReaction)
     }
     else if(blanks == word) {
       clearUserHangman(message.author)
       await msg.edit(`You win! The word was \`${playerData.word}\``)
-      await msg.react(config.hangman.winReaction)
+      await msg.react(hangmanSettings.winReaction)
     }
     
     if(!playerData.message) playerData.message = msg
@@ -77,8 +78,8 @@ exports.run = async (client, message, args) => {
       let setName, chosenSet
       
       if(!args[1]) {
-        setName = `[${config.hangman.defaultSets.join(", ")}]`
-        chosenSet = words[config.hangman.defaultSets[Math.floor(Math.random() * config.hangman.defaultSets.length)]]
+        setName = `[${hangmanSettings.defaultSets.join(", ")}]`
+        chosenSet = words[hangmanSettings.defaultSets[Math.floor(Math.random() * hangmanSettings.defaultSets.length)]]
       }
       else {
         let allowedSets = args[1].split(",")
@@ -105,7 +106,7 @@ exports.run = async (client, message, args) => {
             setMaxIncorrectGuesses - Math.floor(uniqueCharCount(chosenWord) / 2),
             1
           ),
-          config.hangman.maxAllowedGuesses
+          hangmanSettings.maxAllowedGuesses
         ),
         guesses: 0,
         incorrectGuesses: 0,
@@ -121,7 +122,7 @@ exports.run = async (client, message, args) => {
       clearUserHangman(message.author)
       break
     case "sets":
-      message.channel.send(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nUse \`${config.main.prefix}hangman\` to see how to choose a set.\nIf you don't specify, a random word will be chosen from the sets \`${config.hangman.defaultSets.join(", ")}\`.`)
+      message.channel.send(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nUse \`${config.main.prefix}hangman\` to see how to choose a set.\nIf you don't specify, a random word will be chosen from the sets \`${hangmanSettings.defaultSets.join(", ")}\`.`)
       break
     case "guess":
       const playerData = hangmanCache[message.author.id]
@@ -133,14 +134,14 @@ exports.run = async (client, message, args) => {
         message.delete()
         message.channel.send("You have to guess a letter in the English Alphabet, idiot.").then(msg => setTimeout(() => {
           msg.delete()
-        }, config.hangman.errMsgDelTimeout))
+        }, hangmanSettings.errMsgDelTimeout))
         return
       }
       if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) {
         message.delete()
         message.channel.send("You've already guessed this letter, idiot.").then(msg => setTimeout(() => {
           msg.delete()
-        }, config.hangman.errMsgDelTimeout))
+        }, hangmanSettings.errMsgDelTimeout))
         return
       }
 
@@ -154,7 +155,7 @@ exports.run = async (client, message, args) => {
       break
     default:
       message.channel.send([
-        `\`${config.main.prefix}hangman play [word set (if multiple, separate with commas)] [max incorrect guess count]\` - Play hangman. (Guess count must be between 1 and ${config.hangman.maxAllowedGuesses})`,
+        `\`${config.main.prefix}hangman play [word set (if multiple, separate with commas)] [max incorrect guess count]\` - Play hangman. (Guess count must be between 1 and ${hangmanSettings.maxAllowedGuesses})`,
         `\`${config.main.prefix}hangman quit\` - Forfeit a hangman game.`,
         `\`${config.main.prefix}hangman sets\` - See available word sets.`,
         `\`${config.main.prefix}hangman guess <letter>\` - Make a hangman guess.`
