@@ -38,21 +38,21 @@ module.exports = async (client, message) => {
   }
 
 
-  if(config.autocarrot.enabled) {
-    if(message.content.toLowerCase().includes(config.autocarrot.pause.message)) {
+  if(config.autocarrot.settings.enabled) {
+    if(message.content.toLowerCase().includes(config.autocarrot.settings.pause.message)) {
       pauseAutocarrotCache[message.author.id] = {
         issued: new Date()
       }
 
-      message.channel.send(`Okay, I will stop autocarroting you for the next ${config.autocarrot.pause.timespan} seconds.`)
+      message.channel.send(`Okay, I will stop autocarroting you for the next ${config.autocarrot.settings.pause.timespan} seconds.`)
       return
     }
 
     if(message.author.id == client.user.id) return
-    if(config.autocarrot.exempt.bots && message.author.bot) return
-    if(config.autocarrot.exempt.webhooks && message.webhookID) return
-    if(config.autocarrot.exempt.userList.includes(message.author.id)) return
-    if(pauseAutocarrotCache[message.author.id] && config.autocarrot.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000) return
+    if(config.autocarrot.settings.exempt.bots && message.author.bot) return
+    if(config.autocarrot.settings.exempt.webhooks && message.webhookID) return
+    if(config.autocarrot.settings.exempt.userList.includes(message.author.id)) return
+    if(pauseAutocarrotCache[message.author.id] && config.autocarrot.settings.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000) return
 
     const autocarrotWebhook = index.autocarrotWebhook
     const swearCensors = require("../data/autocarrot/censored_words.json")
@@ -67,7 +67,7 @@ module.exports = async (client, message) => {
 
     if(needsCorrecting) {
       autocarrotWebhook(message.author, message.channel, message.content)
-      if(config.autocarrot.deleteOriginalMessage) {
+      if(config.autocarrot.settings.deleteOriginalMessage) {
         message.delete()
       }
     }

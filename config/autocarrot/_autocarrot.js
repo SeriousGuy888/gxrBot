@@ -1,0 +1,1 @@
+module.exports.settings = require("./_settings.json")
