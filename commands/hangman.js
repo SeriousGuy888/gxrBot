@@ -4,7 +4,7 @@ exports.run = async (client, message, args) => {
   const hangmanCache = index.gameCache.hangman
   const config = index.config
   const hangmanSettings = config.hangman.settings
-  const words = require("../data/hangman/words.json")
+  const words = config.hangman.words
 
   const uniqueCharCount = word => word.split("").filter((x, i, a) => a.indexOf(x) === i).length
 
