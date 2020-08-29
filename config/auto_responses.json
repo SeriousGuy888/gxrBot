@@ -12,7 +12,6 @@
       {
         "comment": "g9l memes channel",
         "enabled": false,
-        "messages": [],
         "reactions": [
           "upvote",
           "downvote"
@@ -23,7 +22,6 @@
       {
         "comment": "g9l discord announcements channel",
         "enabled": false,
-        "messages": [],
         "reactions": [
           "upvote"
         ]
@@ -33,7 +31,6 @@
       {
         "comment": "g9l nice announcements channel",
         "enabled": false,
-        "messages": [],
         "reactions": [
           "upvote"
         ]
@@ -63,7 +60,6 @@
       {
         "comment": "g9l happy birthday channel",
         "enabled": false,
-        "messages": [],
         "reactions": [
           "#🍰"
         ]
