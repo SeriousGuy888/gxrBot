@@ -123,7 +123,7 @@ module.exports = async (client, message) => {
       if(!conditional) satisfiesConditions = true
       else {
         if(conditional.enabled) {
-          testResults = [] // an array to store whether each tested condition passed
+          let testResults = [] // an array to store whether each tested condition passed
 
           const conditionList = conditional.conditions
           if(!conditionList) {
