@@ -51,6 +51,23 @@
         "reactions": [
           "upvote"
         ]
+      },
+      {
+        "enabled": true,
+        "conditional": {
+          "enabled": true,
+          "conditions": [
+            {
+              "enabled": true,
+              "type": "regex",
+              "expression": "passed away|died|is no longer with us",
+              "flags": "gi"
+            }
+          ]
+        },
+        "reactions": [
+          "#🇫"
+        ]
       }
     ],
     "735708848333258822": [
