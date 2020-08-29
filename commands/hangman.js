@@ -3,8 +3,7 @@ exports.run = async (client, message, args) => {
   const Discord = index.Discord
   const hangmanCache = index.gameCache.hangman
   const config = index.config
-  const settings = config.hangman.settings
-  const words = config.hangman.words
+  const { settings, words } = config.hangman
 
   const uniqueCharCount = word => word.split("").filter((x, i, a) => a.indexOf(x) === i).length
 
