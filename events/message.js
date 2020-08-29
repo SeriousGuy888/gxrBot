@@ -55,7 +55,7 @@ module.exports = async (client, message) => {
     if(pauseAutocarrotCache[message.author.id] && config.autocarrot.settings.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000) return
 
     const autocarrotWebhook = index.autocarrotWebhook
-    const swearCensors = require("../data/autocarrot/censored_words.json")
+    const swearCensors = config.autocarrot.words
     const swearList = Object.keys(swearCensors)
 
     let needsCorrecting = false
