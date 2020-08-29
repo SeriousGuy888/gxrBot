@@ -33,7 +33,7 @@ exports.run = (client, human, channel, content) => {
   }
 
   channel.fetchWebhooks().then(webhook => {
-    let foundHook = webhook.find(webhook => webhook.name, hookName)
+    let foundHook = webhook.find(w => w.name, hookName)
     if(!foundHook) {
       channel.createWebhook(hookName, hookAvatar).then(createdWebhook => correctMsg(createdWebhook, content))
     }
