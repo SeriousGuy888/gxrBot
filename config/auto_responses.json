@@ -11,7 +11,7 @@
     "587793838265991171": [
       {
         "comment": "g9l memes channel",
-        "enabled": false,
+        "enabled": true,
         "reactions": [
           "upvote",
           "downvote"
@@ -21,7 +21,7 @@
     "587772424729264139": [
       {
         "comment": "g9l discord announcements channel",
-        "enabled": false,
+        "enabled": true,
         "reactions": [
           "upvote"
         ]
@@ -30,7 +30,7 @@
     "620116327872462888": [
       {
         "comment": "g9l nice announcements channel",
-        "enabled": false,
+        "enabled": true,
         "reactions": [
           "upvote"
         ]
@@ -39,7 +39,7 @@
     "735708848333258822": [
       {
         "comment": "g9l daily hoang fact channel",
-        "enabled": false,
+        "enabled": true,
         "messages": [
           {
             "content": "@everyone get ghost pinged lol",
@@ -59,7 +59,7 @@
     "738234090779574386": [
       {
         "comment": "g9l happy birthday channel",
-        "enabled": false,
+        "enabled": true,
         "reactions": [
           "#🍰"
         ]
@@ -68,7 +68,7 @@
     "739976529437524029": [
       {
         "comment": "example - nuke#a",
-        "enabled": false,
+        "enabled": true,
         "messages": [
           {
             "content": "@everyone",
