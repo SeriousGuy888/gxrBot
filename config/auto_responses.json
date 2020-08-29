@@ -8,80 +8,112 @@
     "rainbow_cheez": "714923328577470466"
   },
   "channels": {
-    "587793838265991171": {
-      "comment": "g9l memes channel",
-      "enabled": true,
-      "messages": [],
-      "reactions": [
-        "upvote",
-        "downvote"
-      ]
-    },
-    "587772424729264139": {
-      "comment": "g9l discord announcements channel",
-      "enabled": true,
-      "messages": [],
-      "reactions": [
-        "upvote"
-      ]
-    },
-    "620116327872462888": {
-      "comment": "g9l nice announcements channel",
-      "enabled": true,
-      "messages": [],
-      "reactions": [
-        "upvote"
-      ]
-    },
-    "735708848333258822": {
-      "comment": "g9l daily hoang fact channel",
-      "enabled": true,
-      "messages": [
-        {
-          "content": "@everyone get ghost pinged lol",
-          "options": {
-            "autoDelete": {
-              "enabled": true,
-              "timeout": 1
+    "587793838265991171": [
+      {
+        "comment": "g9l memes channel",
+        "enabled": false,
+        "messages": [],
+        "reactions": [
+          "upvote",
+          "downvote"
+        ]
+      }
+    ],
+    "587772424729264139": [
+      {
+        "comment": "g9l discord announcements channel",
+        "enabled": false,
+        "messages": [],
+        "reactions": [
+          "upvote"
+        ]
+      }
+    ],
+    "620116327872462888": [
+      {
+        "comment": "g9l nice announcements channel",
+        "enabled": false,
+        "messages": [],
+        "reactions": [
+          "upvote"
+        ]
+      }
+    ],
+    "735708848333258822": [
+      {
+        "comment": "g9l daily hoang fact channel",
+        "enabled": false,
+        "messages": [
+          {
+            "content": "@everyone get ghost pinged lol",
+            "options": {
+              "autoDelete": {
+                "enabled": true,
+                "timeout": 1
+              }
             }
           }
-        }
-      ],
-      "reactions": [
-        "upvote"
-      ]
-    },
-    "738234090779574386": {
-      "comment": "g9l happy birthday channel",
-      "enabled": true,
-      "messages": [],
-      "reactions": [
-        "#🍰"
-      ]
-    },
-    "739976529437524029": {
-      "comment": "test - nuke#a",
-      "enabled": false,
-      "messages": [
-        {
-          "content": "@everyone",
-          "embed": {
-            "title": "ghost ping :D"
-          },
-          "options": {
-            "autoDelete": {
-              "comment": "timeout is in milliseconds",
-              "enabled": true,
-              "timeout": 1
+        ],
+        "reactions": [
+          "upvote"
+        ]
+      }
+    ],
+    "738234090779574386": [
+      {
+        "comment": "g9l happy birthday channel",
+        "enabled": false,
+        "messages": [],
+        "reactions": [
+          "#🍰"
+        ]
+      }
+    ],
+    "739976529437524029": [
+      {
+        "comment": "example - nuke#a",
+        "enabled": false,
+        "messages": [
+          {
+            "content": "@everyone",
+            "embed": {
+              "title": "not ghost ping :D"
+            },
+            "options": {
+              "autoDelete": {
+                "comment": "timeout is in milliseconds",
+                "enabled": false,
+                "timeout": 1
+              }
             }
           }
-        }
-      ],
-      "reactions": [
-        "rainbow_cheez",
-        "#724008047453929563",
-        "#🥝"
-      ]
-    }
+        ],
+        "reactions": [
+          "rainbow_cheez",
+          "#724008047453929563",
+          "#🥝"
+        ]
+      },
+      {
+        "enabled": true,
+        "conditional": {
+          "comment": "enabled - whether this response is conditional. allRequired - toggles whether every condition or at least one needs to pass",
+          "enabled": true,
+          "allRequired": false,
+          "conditions": [
+            {
+              "enabled": true,
+              "type": "regex",
+              "negate": true,
+              "expression": "[xyz]",
+              "flags": "gi"
+            }
+          ]
+        },
+        "reactions": [
+          "downvote"
+        ]
+      }
+    ]
   }
 }
