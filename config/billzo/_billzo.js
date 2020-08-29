@@ -1,0 +1,5 @@
+module.exports.adjectives = require("./adjectives.json")
+module.exports.adverbs = require("./adverbs.json")
+module.exports.billzos = require("./billzos.json")
+module.exports.nouns = require("./nouns.json")
+module.exports.thes = require("./thes.json")

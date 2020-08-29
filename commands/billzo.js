@@ -1,9 +1,8 @@
 exports.run = async (client, message, args) => {
-  const billzos = require("../data/billzo/billzos.json")
-  const thes = require("../data/billzo/thes.json")
-  const adverbs = require("../data/billzo/adverbs.json")
-  const adjectives = require("../data/billzo/adjectives.json")
-  const nouns = require("../data/billzo/nouns.json")
+  const index = require("../index.js")
+  const config = index.config
+
+  const { billzos, thes, adverbs, adjectives, nouns } = config.billzo
 
   const randArrElem = arr => arr[Math.floor(Math.random() * (arr.length - 1))]
   
