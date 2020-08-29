@@ -3,18 +3,5 @@
   "botNames": {
     "lowerCamelCase": "g9lBot",
     "upperCase": "G9LBOT"
-  },
-  "hangman": {
-    "maxAllowedGuesses": 25,
-    "errMsgDelTimeout": 3000,
-    "hiddenLetterPlaceholder": "█",
-    "winReaction": "🎉",
-    "failureReaction": "❌",
-    "embedColour": "#be3232",
-    "defaultSets": [
-      "easy",
-      "normal",
-      "hard"
-    ]
   }
 }
