@@ -1,11 +1,12 @@
 exports.run = (client, human, channel, content) => {
-  // const index = require("../index.js")
+  const index = require("../index.js")
+  const config = index.config
 
   const hookName = "g9lBot AutoCarrot"
   const avatarURL = human.avatarURL.replace(/\s/g, "")
   const hookAvatar = client.user.avatarURL
 
-  const swearCensors = require("../data/autocarrot/censored_words.json")
+  const swearCensors = config.autocarrot.words
   const swearList = Object.keys(swearCensors)
 
 
