@@ -109,19 +109,21 @@ const autocarrotWebhook = (human, channel, content) => client.functions.get("aut
 // function imports ↑
 // exports ↓
 
-module.exports.Discord = Discord
-module.exports.client = client
-module.exports.config = config
-module.exports.fs = fs
-module.exports.prefix = prefix
-module.exports.admin = admin
-module.exports.db = db
-module.exports.Enmap = Enmap
-module.exports.timeFormatter = timeFormatter
-module.exports.cultCache = cultCache
-module.exports.gameCache = gameCache
-module.exports.pauseAutocarrotCache = pauseAutocarrotCache
-module.exports.autocarrotWebhook = autocarrotWebhook
+module.exports = {
+  Discord,
+  client,
+  config,
+  fs,
+  prefix,
+  admin,
+  db,
+  Enmap,
+  timeFormatter,
+  cultCache,
+  gameCache,
+  pauseAutocarrotCache,
+  autocarrotWebhook
+}
 
 // exports ↑
 
