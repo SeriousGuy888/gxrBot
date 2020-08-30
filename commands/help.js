@@ -3,14 +3,15 @@ exports.run = async (client, message, args) => {
   const config = index.config
   const fs = index.fs
 
-  function noArgs() {
+  const noArgs = () => {
     let helpHome = readFile("help")
     message.channel.send(helpHome)
   }
   
-  function readFile(name) {
-    if(!fs.existsSync(`./data/help/${name}.txt`)) return `Error: File \`${name}\` does not exist.`
-    let fileContents = fs.readFileSync(`./data/help/${name}.txt`, "utf8")
+  const readFile = name => {
+    const { path } = config.help
+    if(!fs.existsSync(`${path}${name}.txt`)) return `Error: File \`${name}\` does not exist.`
+    let fileContents = fs.readFileSync(`${path}${name}.txt`, "utf8")
     let fixedContents = fileContents
       .replace(/%prefix%/gi, config.main.prefix)
       .replace(/%lowername%/gi, config.main.botNames.lowerCamelCase)
