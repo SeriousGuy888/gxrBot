@@ -106,6 +106,7 @@ fs.readdir("./functions/", (err, files) => {
 // function imports ↓
 
 const autocarrotWebhook = (human, channel, content) => client.functions.get("autocarrotWebhook").run(client, human, channel, content)
+const autoResponses = (message) => client.functions.get("autoResponses").run(client, message)
 
 // function imports ↑
 // exports ↓
@@ -124,7 +125,8 @@ module.exports = {
   cultCache,
   gameCache,
   pauseAutocarrotCache,
-  autocarrotWebhook
+  autocarrotWebhook,
+  autoResponses
 }
 
 // exports ↑
