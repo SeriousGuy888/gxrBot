@@ -99,6 +99,17 @@
         ]
       }
     ],
+    "749430139229700167": [
+      {
+        "comment": "g9l liam's news",
+        "enabled": true,
+        "reactions": [
+          "upvote",
+          "downvote",
+          "rainbow_cheez"
+        ]
+      }
+    ],
     "738234090779574386": [
       {
         "comment": "g9l happy birthday channel",
