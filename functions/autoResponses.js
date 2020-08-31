@@ -1,5 +1,7 @@
+const { getName } = require("emoji-dictionary")
+
 exports.run = async (client, message) => {
-  const { config } = require("../index.js")
+  const { config, emoji, emojiDictionary } = require("../index.js")
   
   const literalIdPrefix = config.autoResponses.literalIdPrefix
   const emojiKey = config.autoResponses.emojiKey
@@ -46,8 +48,7 @@ exports.run = async (client, message) => {
     }
 
     if(satisfiesConditions) {
-      const messageList = loopResponse.messages
-      const reactionList = loopResponse.reactions
+      const { messageList, reactionList, autoEmoji } = loopResponse
 
       if(messageList) {
         for(let loopMessage of messageList) {
@@ -78,6 +79,23 @@ exports.run = async (client, message) => {
         for(let loopEmoji of reactionEmojis) {
           try { await message.react(loopEmoji) }
           catch(error) { console.error(`Failed to add reaction ${loopEmoji} to message ${message.id} due to error \`${error}\``) }
+        }
+      }
+      if(autoEmoji) {
+        if(autoEmoji.enabled) {
+          const { content } = message
+          const messageWords = content.split(" ")
+
+          let successfulReactions = 0
+          for(let loopWord of messageWords) {
+            if(successfulReactions >= autoEmoji.maxEmojiCount) break
+            let loopWordEmoji = emojiDictionary.getUnicode(loopWord)
+            if(loopWordEmoji) {
+              // do not react with national flag emojis if configured as such
+              if(autoEmoji.blacklistNationalFlags && emoji.lib[loopWord].keywords.includes("nation")) continue
+              await message.react(loopWordEmoji).then(() => successfulReactions++).catch(console.error)
+            }
+          }
         }
       }
     }
