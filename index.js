@@ -7,9 +7,7 @@ const prefix = config.main.prefix
 
 const admin = require("firebase-admin")
 const serviceAccount = require("./secrets/firestoreServiceAccountKey.json")
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-})
+admin.initializeApp({ credential: admin.credential.cert(serviceAccount) })
 let db = admin.firestore()
 
 const Enmap = require("enmap")
