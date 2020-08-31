@@ -4,15 +4,15 @@ exports.run = async (client, message, args) => {
   const fs = index.fs
 
   const noArgs = () => {
-    let helpHome = readFile("help")
+    const helpHome = readFile("help")
     message.channel.send(helpHome)
   }
   
   const readFile = name => {
     const { path } = config.help
     if(!fs.existsSync(`${path}${name}.txt`)) return `Error: File \`${name}\` does not exist.`
-    let fileContents = fs.readFileSync(`${path}${name}.txt`, "utf8")
-    let fixedContents = fileContents
+    const fileContents = fs.readFileSync(`${path}${name}.txt`, "utf8")
+    const fixedContents = fileContents
       .replace(/%prefix%/gi, config.main.prefix)
       .replace(/%lowername%/gi, config.main.botNames.lowerCamelCase)
       .replace(/%uppername%/gi, config.main.botNames.upperCase)
