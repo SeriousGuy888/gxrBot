@@ -14,6 +14,7 @@ let db = admin.firestore()
 
 const Enmap = require("enmap")
 const timeFormatter = require("seconds-time-formatter")
+const emoji = require("emojilib")
 const emojiDictionary = require("emoji-dictionary")
 
 // important declarations and imports ↑
@@ -121,6 +122,7 @@ module.exports = {
   db,
   Enmap,
   timeFormatter,
+  emoji,
   emojiDictionary,
   cultCache,
   gameCache,

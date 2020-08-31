@@ -88,6 +88,14 @@
         "reactions": [
           "upvote"
         ]
+      },
+      {
+        "enabled": true,
+        "autoEmoji": {
+          "enabled": true,
+          "maxEmojiCount": 10,
+          "blacklistNationalFlags": true
+        }
       }
     ],
     "749428233270853681": [
@@ -152,6 +160,15 @@
         "reactions": [
           "#🎮"
         ]
+      },
+      {
+        "enabled": true,
+        "autoEmoji": {
+          "comment": "any word that is the name of an emoji will cause a reaction",
+          "enabled": true,
+          "maxEmojiCount": 10,
+          "blacklistNationalFlags": true
+        }
       }
     ]
   }
