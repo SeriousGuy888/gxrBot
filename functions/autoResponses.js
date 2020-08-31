@@ -48,7 +48,9 @@ exports.run = async (client, message) => {
     }
 
     if(satisfiesConditions) {
-      const { messageList, reactionList, autoEmoji } = loopResponse
+      const messageList = loopResponse.messages
+      const reactionList = loopResponse.reactions
+      const { autoEmoji } = loopResponse
 
       if(messageList) {
         for(let loopMessage of messageList) {
