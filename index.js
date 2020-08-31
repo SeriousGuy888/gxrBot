@@ -21,26 +21,27 @@ const emojiDictionary = require("emoji-dictionary")
 // caches ↓
 
 var cultCache = {}
+var owsCache = {}
+
 let cultDoc = db.collection("channels").doc("cult")
-let cultObserver = cultDoc.onSnapshot(docSnapshot => {
-  let path = docSnapshot._fieldsProto
+let owsDoc = db.collection("channels").doc("one_word_story")
+
+cultDoc.onSnapshot(snapshot => {
+  let path = snapshot._fieldsProto
   cultCache.id = path.id.stringValue
   cultCache.word = path.word.stringValue
   module.exports.cultCache = cultCache
-}, err => {return})
+}, err => {})
 
-var owsCache = {}
-let owsDoc = db.collection("channels").doc("one_word_story")
-let owsObserver = owsDoc.onSnapshot(docSnapshot => {
-  let path = docSnapshot._fieldsProto
+owsDoc.onSnapshot(snapshot => {
+  let path = snapshot._fieldsProto
   owsCache.id = path.id.stringValue
   module.exports.owsCache = owsCache
-}, err => {return})
+}, err => {})
+
 
 
 let pauseAutocarrotCache = {}
-
-
 let gameCache = {
   hangman: {}
 }
