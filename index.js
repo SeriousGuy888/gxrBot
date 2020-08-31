@@ -24,13 +24,8 @@ var cultCache = {}
 let cultDoc = db.collection("channels").doc("cult")
 let cultObserver = cultDoc.onSnapshot(docSnapshot => {
   let path = docSnapshot._fieldsProto
-
-  console.log("Cult channel change detected:")
-  console.log(path.id.stringValue + "\n" + path.word.stringValue)
-
   cultCache.id = path.id.stringValue
   cultCache.word = path.word.stringValue
-
   module.exports.cultCache = cultCache
 }, err => {return})
 
@@ -38,12 +33,7 @@ var owsCache = {}
 let owsDoc = db.collection("channels").doc("one_word_story")
 let owsObserver = owsDoc.onSnapshot(docSnapshot => {
   let path = docSnapshot._fieldsProto
-
-  console.log("OWS channel change detected:")
-  console.log(path.id.stringValue)
-
   owsCache.id = path.id.stringValue
-
   module.exports.owsCache = owsCache
 }, err => {return})
 
