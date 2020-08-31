@@ -13,4 +13,3 @@ __Fun Commands__
 __Admin Commands__
 `cult` - Set the cult channel.
 `one_word_story` - Set up the one word story channel.
-`autocarrot` - Autocarrot thing. Look in the `admin` page for more info.
