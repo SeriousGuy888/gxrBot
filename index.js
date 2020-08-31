@@ -47,49 +47,38 @@ let gameCache = {
 // caches ↑
 // setup ↓
 
+const loadEnmap = async (directory, callback) => {
+  fs.readdir(directory, (err, files) => { // load files
+    if(err) return console.error(err)
+    files.forEach(file => {
+      if(!file.endsWith(".js")) return // make sure file is a js file
+      const props = require(`${directory}${file}`) // import file
+      let name = file.split(".")[0] // name is file name minus extention
+
+      callback(name, props, directory, file)
+    })
+    console.log("============")
+  })
+}
+
 console.log("============")
 
-fs.readdir("./events", (err, files) => { // load events
-  if(err) return console.error(err) // if error, return
-  files.forEach(file => { // for each file,
-    if(!file.endsWith(".js")) return // make sure file is a js file
-    const event = require(`./events/${file}`) // import event file
-    let eventName = file.split(".")[0] // event name is file name minus extention
-    client.on(eventName, (message, newMessage) => event(client, message, newMessage)) // declare event listener
-    console.log(`Loading event ${eventName.toUpperCase()}`) // log on load
-    delete require.cache[require.resolve(`./events/${file}`)] // idk
-  })
-  console.log("============")
+loadEnmap("./events/", (name, event, directory, file) => {
+  console.log(`Loading event ${name.toUpperCase()}`) // log on load
+  client.on(name, (message, newMessage) => event(client, message, newMessage)) // declare event listener
+  delete require.cache[require.resolve(`${directory}${file}`)] // deleting a cache or something?
 })
 
 client.commands = new Enmap()
-
-fs.readdir("./commands/", (err, files) => {
-  if(err) return console.error(err) // if error, return
-  files.forEach(file => { // for each file,
-    if(!file.endsWith(".js")) return // make sure file is a js file
-    let props = require(`./commands/${file}`) // import event file
-    let commandName = file.split(".")[0] // event name is file name minus extention
-    console.log(`Loading command ${commandName.toUpperCase()}`) // log on load
-    client.commands.set(commandName, props)
-  })
-  console.log("============")
+loadEnmap("./commands/", (name, command, directory, file) => {
+  console.log(`Loading command ${name.toUpperCase()}`) // log on load
+  client.commands.set(name, command)
 })
 
 client.functions = new Enmap()
-
-fs.readdir("./functions/", (err, files) => {
-  if(err) return console.error(err)
-
-  files.forEach(file => {
-    if(!file.endsWith(".js")) return
-    let props = require(`./functions/${file}`)
-    let funcName = file.split(".")[0]
-    
-    console.log(`Loading function ${funcName.toUpperCase()}`)
-    client.functions.set(funcName, props)
-  })
-  console.log("============")
+loadEnmap("./functions/", (name, func, directory, file) => {
+  console.log(`Loading function ${name.toUpperCase()}`)
+  client.functions.set(name, func)
 })
 
 // setup ↑
