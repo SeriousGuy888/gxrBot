@@ -43,7 +43,25 @@
         "reactions": [
           "gamenight"
         ]
-      }
+      },
+      {
+        "enabled": true,
+        "conditional": {
+          "enabled": true,
+          "allRequired": false,
+          "conditions": [
+            {
+              "enabled": true,
+              "type": "regex",
+              "expression": "skribbl|scribbl",
+              "flags": "gi"
+            }
+          ]
+        },
+        "reactions": [
+          "#✏"
+        ]
+      },
     ],
     "620116327872462888": [
       {
@@ -160,6 +178,24 @@
         },
         "reactions": [
           "gamenight"
+        ]
+      },
+      {
+        "enabled": true,
+        "conditional": {
+          "enabled": true,
+          "allRequired": false,
+          "conditions": [
+            {
+              "enabled": true,
+              "type": "regex",
+              "expression": "skribbl|scribbl",
+              "flags": "gi"
+            }
+          ]
+        },
+        "reactions": [
+          "#✏"
         ]
       },
       {
