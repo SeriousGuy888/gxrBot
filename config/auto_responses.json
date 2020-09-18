@@ -7,7 +7,8 @@
     "downvote": "713824298275569734",
     "rainbow_cheez": "714923328577470466",
     "gamenight": "754194728765095991",
-    "skribbl": "✏️"
+    "skribbl": "✏️",
+    "amongus": "756575662843887656"
   },
   "channels": {
     "587793838265991171": [
@@ -160,7 +161,7 @@
           ]
         },
         "reactions": [
-          "#🔪"
+          "amongus"
         ]
       }
     ],
@@ -206,7 +207,9 @@
           ]
         },
         "reactions": [
-          "gamenight"
+          "gamenight",
+          "amongus",
+          "skribbl"
         ]
       },
       {
