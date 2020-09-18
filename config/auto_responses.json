@@ -125,6 +125,42 @@
           "upvote",
           "gamenight"
         ]
+      },
+      {
+        "enabled": true,
+        "conditional": {
+          "enabled": true,
+          "allRequired": false,
+          "conditions": [
+            {
+              "enabled": true,
+              "type": "regex",
+              "expression": "skribbl|scribbl",
+              "flags": "gi"
+            }
+          ]
+        },
+        "reactions": [
+          "#✏️"
+        ]
+      },
+      {
+        "enabled": true,
+        "conditional": {
+          "enabled": true,
+          "allRequired": false,
+          "conditions": [
+            {
+              "enabled": true,
+              "type": "regex",
+              "expression": "among us",
+              "flags": "gi"
+            }
+          ]
+        },
+        "reactions": [
+          "#🔪"
+        ]
       }
     ],
     "739976529437524029": [
