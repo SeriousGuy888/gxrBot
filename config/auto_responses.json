@@ -43,24 +43,6 @@
         "reactions": [
           "gamenight"
         ]
-      },
-      {
-        "enabled": true,
-        "conditional": {
-          "enabled": true,
-          "allRequired": false,
-          "conditions": [
-            {
-              "enabled": true,
-              "type": "regex",
-              "expression": "skribbl|scribbl",
-              "flags": "gi"
-            }
-          ]
-        },
-        "reactions": [
-          "#✏"
-        ]
       }
     ],
     "620116327872462888": [
@@ -132,6 +114,16 @@
         "enabled": true,
         "reactions": [
           "#🍰"
+        ]
+      }
+    ],
+    "756350070307291178": [
+      {
+        "comment": "g9l game night news",
+        "enabled": true,
+        "reactions": [
+          "upvote",
+          "gamenight"
         ]
       }
     ],
