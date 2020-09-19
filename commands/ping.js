@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     format: "letters"
   })
 
-  let pingEmb = new Discord.RichEmbed()
+  let pingEmb = new Discord.MessageEmbed()
     .setColor("#3333ee")
     .setTitle("Pong!")
     .setDescription([
