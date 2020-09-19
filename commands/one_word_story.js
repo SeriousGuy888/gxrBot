@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
   let doc = db.collection("channels").doc("one_word_story")
   
   if(!args[0]) {
-    let emb = new Discord.RichEmbed()
+    let emb = new Discord.MessageEmbed()
       .setColor("#aaaadd")
       .setTitle("Cult Feature Information")
       .addField("Channel", `${index.owsCache.id}`)
