@@ -1,0 +1,1 @@
+module.exports.cult = require("./cult.json")
