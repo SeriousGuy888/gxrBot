@@ -2,11 +2,11 @@ const { client } = require("..")
 
 // * supposed to make stuff like sending dms easier. sending to a channel is not managed by this.
 exports.dm = (userId, content, callback) => {
-  let message
   client.users.fetch(userId).then(user => {
-    user.send(content).then(msg => message = msg)
+    user.send(content).then(message => {
+      callback(message)
+    })
   }).catch(err => {
     throw new Error(err)
   })
-  callback(message)
 }
