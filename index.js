@@ -83,7 +83,7 @@ loadEnmap("./functions/", (name, func, directory, file) => {
 
 client.util = new Enmap()
 loadEnmap("./util/", (name, tool, directory, file) => {
-  console.log(`Loading util tool ${name.toUpperCase}`)
+  console.log(`Loading util tool ${name.toUpperCase()}`)
   client.util.set(name, tool)
 })
 
