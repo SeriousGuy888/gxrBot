@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     .setColor("#3333ee")
     .setTitle("Pong!")
     .setDescription([
-      `:arrows_clockwise: Latency: \`${Math.round(client.ping)} ms\``,
+      `:arrows_clockwise: Latency: \`${Math.round(client.ws.ping)} ms\``,
       `:clock530: Uptime: \`${uptime.slice(2)}\``
     ].join("\n"))
     
