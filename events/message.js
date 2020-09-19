@@ -93,7 +93,7 @@ module.exports = (client, message) => {
     switch(message.channel.id) {
       case config.coopchannels.cult.channel:
         if(cultLegal(message.content, config.coopchannels.cult.phrase)) return
-        else deleteMessage(message, `<@${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${cultPhrase}\` here.`)
+        else deleteMessage(message, `<@${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${config.coopchannels.cult.phrase}\` here.`)
         break
       case owsChannelId:
         if(owsLegal(message.content)) return
