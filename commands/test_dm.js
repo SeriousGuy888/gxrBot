@@ -1,5 +1,6 @@
 exports.run = async (client, message, args) => {
   const embedder = client.util.get("embedder")
+  const messenger = client.util.get("messenger")
 
   let emb = embedder.newEmbed()
     .setColor("#3333ee")
@@ -9,5 +10,5 @@ exports.run = async (client, message, args) => {
   embedder.addBlankField(emb)
     .addField("def")
     
-  message.channel.send(emb)
+  messenger.dm(args[0], emb)
 }
