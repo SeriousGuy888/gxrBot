@@ -87,15 +87,13 @@ module.exports = (client, message) => {
     }
 
     if(message.author.id == client.user.id) return
-    switch(message.channel.id) {
-      case config.coopchannels.cult.channel:
-        if(cultLegal(message.content, config.coopchannels.cult.phrase)) return
-        else deleteMessage(message, `<@${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${config.coopchannels.cult.phrase}\` here.`)
-        break
-      case config.coopchannels.ows.channel:
-        if(owsLegal(message.content)) return
-        else deleteMessage(message, `<@${message.author.id}>, this is the one word story channel. You are a stupid.`)
-        break
+    if(message.channel.id == config.coopchannels.cult.channel) {
+      if(cultLegal(message.content, config.coopchannels.cult.phrase)) return
+      deleteMessage(message, `<@${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${config.coopchannels.cult.phrase}\` here.`)
+    }
+    else if(message.channel.id == config.coopchannels.ows.channel) {
+      if(owsLegal(message.content)) return
+      deleteMessage(message, `<@${message.author.id}>, this is the one word story channel. You are a stupid.`)
     }
   }
 
