@@ -4,7 +4,7 @@ const { client } = require("..")
 exports.dm = (userId, content, callback) => {
   client.users.fetch(userId).then(user => {
     user.send(content).then(message => {
-      callback(message)
+      if(callback) callback(message)
     })
   }).catch(err => {
     throw new Error(err)
