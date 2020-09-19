@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
 
     if(!init) message.delete()
 
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
       .setColor(settings.embedColour)
       .setAuthor(message.author.tag, message.author.avatarURL)
       .setTitle("**__g9lBot Hangman__**")
