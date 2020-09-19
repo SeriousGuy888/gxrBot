@@ -18,18 +18,8 @@ const emojiDictionary = require("emoji-dictionary")
 // important declarations and imports ↑
 // caches ↓
 
-var cultCache = {}
 var owsCache = {}
-
-let cultDoc = db.collection("channels").doc("cult")
 let owsDoc = db.collection("channels").doc("one_word_story")
-
-cultDoc.onSnapshot(snapshot => {
-  let path = snapshot._fieldsProto
-  cultCache.id = path.id.stringValue
-  cultCache.word = path.word.stringValue
-  module.exports.cultCache = cultCache
-}, err => {})
 
 owsDoc.onSnapshot(snapshot => {
   let path = snapshot._fieldsProto
@@ -108,7 +98,6 @@ module.exports = {
   timeFormatter,
   emoji,
   emojiDictionary,
-  cultCache,
   gameCache,
   pauseAutocarrotCache,
   autocarrotWebhook,

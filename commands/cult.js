@@ -5,10 +5,10 @@ exports.run = async (client, message, args) => {
   
   let emb = new Discord.MessageEmbed()
     .setColor("#aaaadd")
-    .setTitle("Cult Feature Information")
+    .setTitle("Cult Activities Channel Information")
     .setDescription("*Cult channel options have been moved to the config due to infrequent use. You can no longer set them with this command.*")
-    .addField("Channel", `${index.cultCache.id}`)
-    .addField("Word", index.cultCache.word)
+    .addField("Channel", `<#${config.coopchannels.cult.channel}>`)
+    .addField("Phrase", config.coopchannels.cult.phrase)
   
   message.channel.send(emb)
 }
