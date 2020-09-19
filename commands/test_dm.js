@@ -10,7 +10,5 @@ exports.run = async (client, message, args) => {
   embedder.addBlankField(emb)
     .addField("def")
     
-  messenger.dm(args[0], emb, msg => {
-    msg.delete({ delay: 3000 })
-  })
+  messenger.dm(args[0], emb)
 }
