@@ -1,9 +1,9 @@
-exports.run = (client, human, channel, content) => {
+exports.run = (client, author, channel, content) => {
   const index = require("../index.js")
   const config = index.config
 
   const hookName = "g9lBot AutoCarrot"
-  const avatarURL = human.avatarURL.replace(/\s/g, "")
+  const avatarURL = author.avatarURL()
   const hookAvatar = client.user.avatarURL
 
   const swearCensors = config.autocarrot.words
@@ -27,7 +27,7 @@ exports.run = (client, human, channel, content) => {
 
   const sendMsg = (webhook, str) => {
     webhook.send(str, {
-      "username": human.username,
+      "username": author.username,
       "avatarURL": avatarURL,
       "embeds": []
     }).catch(error => channel.send(error))

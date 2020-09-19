@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
 
     if(!init) message.delete()
 
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
       .setColor(settings.embedColour)
       .setAuthor(message.author.tag, message.author.avatarURL)
       .setTitle("**__g9lBot Hangman__**")
@@ -43,9 +43,9 @@ exports.run = async (client, message, args) => {
         `ℹ️ Why can't I see the execution? [Hover](https://www.example.com "Because there isnt a good way to display a hanging with variable guess counts.")`,
         `ℹ️ How the duck do I play this? [Hover](https://www.example.com "Just reply with the letter you want to guess.")`
       ].join("\n"))
-      .addBlankField()
+      .addField("\u200b", "\u200b")
       .addField(`Word (Length ${word.length})`, blanks, false)
-      .addBlankField()
+      .addField("\u200b", "\u200b")
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
       .setFooter(`Please guess a letter. (Give up? ${config.main.prefix}hangman quit)`)
@@ -155,7 +155,7 @@ exports.run = async (client, message, args) => {
     default:
       message.channel.send([
         "[Square brackets] signify optional arguments while <angle brackets> signify required arguments.",
-        ""
+        "",
         `\`${config.main.prefix}hangman play [word set (if multiple, separate with commas)] [max incorrect guess count]\` - Play hangman. (Guess count must be between 1 and ${settings.maxAllowedGuesses})`,
         `\`${config.main.prefix}hangman quit\` - Forfeit a hangman game.`,
         `\`${config.main.prefix}hangman sets\` - See available word sets.`,
