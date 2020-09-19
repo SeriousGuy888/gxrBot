@@ -70,7 +70,7 @@ module.exports = (client, message) => {
   }
 
 
-  if([cultChannelId, owsChannelId].includes(message.channel.id)) {
+  if([config.coopchannels.cult.channel, owsChannelId].includes(message.channel.id)) {
     const cultLegal = (content, phrase) => {
       if(!content || !phrase) return console.log("Cult message validation failed due to missing arguments in message.js")
       content = content.toLowerCase()
