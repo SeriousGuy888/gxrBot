@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
   if(!args[0]) {
     let emb = new Discord.MessageEmbed()
       .setColor("#aaaadd")
-      .setTitle("Cult Feature Information")
+      .setTitle("OWS Info")
       .addField("Channel", `${index.owsCache.id}`)
     
     message.channel.send(emb)
