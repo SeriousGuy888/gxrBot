@@ -3,9 +3,6 @@ module.exports = (client, message) => {
   const config = index.config
   const prefix = index.prefix
 
-  let owsCache = index.owsCache
-  let owsChannelId = owsCache.id.slice(2, owsCache.id.length - 1) // remove <# and > from channel mention to get id
-
   let pauseAutocarrotCache = index.pauseAutocarrotCache
 
   let args
@@ -70,7 +67,7 @@ module.exports = (client, message) => {
   }
 
 
-  if([config.coopchannels.cult.channel, owsChannelId].includes(message.channel.id)) {
+  if([config.coopchannels.cult.channel, config.coopchannels.ows.channel].includes(message.channel.id)) {
     const cultLegal = (content, phrase) => {
       if(!content || !phrase) return console.log("Cult message validation failed due to missing arguments in message.js")
       content = content.toLowerCase()
@@ -95,7 +92,7 @@ module.exports = (client, message) => {
         if(cultLegal(message.content, config.coopchannels.cult.phrase)) return
         else deleteMessage(message, `<@${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${config.coopchannels.cult.phrase}\` here.`)
         break
-      case owsChannelId:
+      case config.coopchannels.ows.channel:
         if(owsLegal(message.content)) return
         else deleteMessage(message, `<@${message.author.id}>, this is the one word story channel. You are a stupid.`)
         break

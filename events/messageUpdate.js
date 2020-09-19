@@ -1,11 +1,6 @@
 const { config } = require("../index.js")
 
 module.exports = (client, oldMessage, newMessage) => {
-  const index = require("../index.js")
-
-  let owsCache = index.owsCache
-  let owsChannelId = owsCache.id.slice(2, owsCache.id.length - 1) // remove <# and > from channel mention to get id
-
   switch(oldMessage.channel.id) {
     case config.coopchannels.cult.channel:
       if(newMessage.content.toLowerCase() == config.coopchannels.cult.phrase || oldMessage.author.id == client.user.id) return
@@ -19,7 +14,7 @@ module.exports = (client, oldMessage, newMessage) => {
         })
       })
       break
-    case owsChannelId:
+    case config.coopchannels.ows.channel:
       if(newMessage.content.split(" ").length == 1 || newMessage.author.id == client.user.id) {
         return
       }
