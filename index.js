@@ -18,17 +18,6 @@ const emojiDictionary = require("emoji-dictionary")
 // important declarations and imports ↑
 // caches ↓
 
-var owsCache = {}
-let owsDoc = db.collection("channels").doc("one_word_story")
-
-owsDoc.onSnapshot(snapshot => {
-  let path = snapshot._fieldsProto
-  owsCache.id = path.id.stringValue
-  module.exports.owsCache = owsCache
-}, err => {})
-
-
-
 let pauseAutocarrotCache = {}
 let gameCache = {
   hangman: {}
