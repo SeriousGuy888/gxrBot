@@ -18,7 +18,7 @@
   "homepage": "https://github.com/SeriousGuy888/G8C-Bot#readme",
   "dependencies": {
     "discord.js": "^12.3.1",
-    "dot-prop": "^5.2.0",
+    "dot-prop": "^5.3.0",
     "emoji-dictionary": "^1.0.11",
     "emojilib": "^2.4.0",
     "enmap": "^5.2.3",
