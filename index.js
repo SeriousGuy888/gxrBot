@@ -5,11 +5,6 @@ const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"]
 const config = require("./config/_config.js")
 const prefix = config.main.prefix
 
-const admin = require("firebase-admin")
-const serviceAccount = require("./secrets/firestoreServiceAccountKey.json")
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount) })
-let db = admin.firestore()
-
 const Enmap = require("enmap")
 const timeFormatter = require("seconds-time-formatter")
 const emoji = require("emojilib")
@@ -81,8 +76,6 @@ module.exports = {
   config,
   fs,
   prefix,
-  admin,
-  db,
   Enmap,
   timeFormatter,
   emoji,
