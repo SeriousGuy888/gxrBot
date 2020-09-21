@@ -1,4 +1,5 @@
 exports.run = async (client, message, args) => {
+  return
   const embedder = client.util.get("embedder")
   const messenger = client.util.get("messenger")
 
