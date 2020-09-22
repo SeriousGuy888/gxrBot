@@ -28,3 +28,7 @@ exports.run = async (client, message, args) => {
   }
   message.channel.send(variations.join("\n"))
 }
+
+exports.help = async (client, message, args) => {
+  message.channel.send("this is a command that replies with a random version of billzo")
+}
