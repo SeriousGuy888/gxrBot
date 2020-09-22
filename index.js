@@ -22,17 +22,28 @@ let gameCache = {
 // setup ↓
 
 const loadEnmap = async (directory, callback) => {
-  fs.readdir(directory, (err, files) => { // load files
-    if(err) return console.error(err)
+  // * crawls through all subdirectories and returns an array of files
+  const crawl = (dir, fileList = []) => {
+    const files = fs.readdirSync(dir)
+    if(!dir.endsWith("/")) dir += "/"
     files.forEach(file => {
-      if(!file.endsWith(".js")) return // make sure file is a js file
-      const props = require(`${directory}${file}`) // import file
-      let name = file.split(".")[0] // name is file name minus extention
-
-      callback(name, props, directory, file)
+      if(fs.statSync(dir + file).isDirectory())
+        fileList = crawl(dir + file + "/", fileList)
+      else {
+        if(file.endsWith(".js")) fileList.push(dir + file)
+      }
     })
-    console.log("============")
-  })
+    return fileList
+  }
+
+  const jsFiles = crawl(directory)
+  for(let loopFile of jsFiles) {
+    const props = require(loopFile) // import file
+    
+    let name = loopFile.split("/").pop().split(".")[0]
+    callback(name, props, directory, loopFile)
+  }
+  console.log("============")
 }
 
 console.log("============")
@@ -40,7 +51,7 @@ console.log("============")
 loadEnmap("./events/", (name, event, directory, file) => {
   console.log(`Loading event ${name.toUpperCase()}`) // log on load
   client.on(name, (message, newMessage) => event(client, message, newMessage)) // declare event listener
-  delete require.cache[require.resolve(`${directory}${file}`)] // deleting a cache or something?
+  delete require.cache[require.resolve(file)] // deleting a cache or something?
 })
 
 client.commands = new Enmap()
