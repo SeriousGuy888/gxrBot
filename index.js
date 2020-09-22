@@ -21,7 +21,7 @@ let gameCache = {
 // caches ↑
 // setup ↓
 
-const loadEnmap = async (directory, callback) => {
+const loadJsFiles = async (directory, callback) => {
   // * crawls through all subdirectories and returns an array of files
   const crawl = (dir, fileList = []) => {
     const files = fs.readdirSync(dir)
@@ -48,26 +48,26 @@ const loadEnmap = async (directory, callback) => {
 
 console.log("============")
 
-loadEnmap("./events/", (name, event, directory, file) => {
+loadJsFiles("./events/", (name, event, directory, file) => {
   console.log(`Loading event ${name.toUpperCase()}`) // log on load
   client.on(name, (message, newMessage) => event(client, message, newMessage)) // declare event listener
   delete require.cache[require.resolve(file)] // deleting a cache or something?
 })
 
 client.commands = new Enmap()
-loadEnmap("./commands/", (name, command, directory, file) => {
+loadJsFiles("./commands/", (name, command, directory, file) => {
   console.log(`Loading command ${name.toUpperCase()}`) // log on load
   client.commands.set(name, command)
 })
 
 client.functions = new Enmap()
-loadEnmap("./functions/", (name, func, directory, file) => {
+loadJsFiles("./functions/", (name, func, directory, file) => {
   console.log(`Loading function ${name.toUpperCase()}`)
   client.functions.set(name, func)
 })
 
 client.util = new Enmap()
-loadEnmap("./util/", (name, tool, directory, file) => {
+loadJsFiles("./util/", (name, tool, directory, file) => {
   console.log(`Loading util tool ${name.toUpperCase()}`)
   client.util.set(name, tool)
 })
