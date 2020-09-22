@@ -19,7 +19,12 @@ module.exports = (client, message) => {
     cmd = client.commands.get(command) //grab cmds from enmap
 
     if(!cmd) message.channel.send(`\`ERROR\`: Command \`${prefix}${command}\` not found.`)
-    else cmd.run(client, message, args)
+    else {
+      let hasHelp = !!cmd.help
+      
+      if(["--help", "-h", "-?"].includes(args[0]) && hasHelp) cmd.help(client, message, args)
+      else cmd.run(client, message, args)
+    }
   }
   
   else if(index.gameCache.hangman[message.author.id]) {
