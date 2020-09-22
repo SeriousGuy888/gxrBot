@@ -23,3 +23,7 @@ exports.run = async (client, message, args) => {
   if(!args[0]) noArgs()
   else message.channel.send(readFile(args[0]))
 }
+
+exports.help = async (client, message, args) => {
+  message.channel.send("this is the ducking help command idot. oiasdlaskmlkn stupid just run it without arguments youian ")
+}

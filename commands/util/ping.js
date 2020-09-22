@@ -19,3 +19,7 @@ exports.run = async (client, message, args) => {
     
   message.channel.send(pingEmb)
 }
+
+exports.help = async (client, message, args) => {
+  message.channel.send("returns the bot ping and the bot uptime")
+}
