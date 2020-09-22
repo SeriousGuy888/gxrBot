@@ -1,6 +1,6 @@
-const { config } = require("../index.js")
-
 module.exports = (client, oldMessage, newMessage) => {
+  const { config } = require("../index.js")
+
   if(config.coopchannels.cult.channel == oldMessage.channel.id) {
     if(newMessage.content.toLowerCase() == config.coopchannels.cult.phrase || oldMessage.author.id == client.user.id) return
     newMessage.delete().then(() => {
