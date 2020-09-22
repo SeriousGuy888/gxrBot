@@ -154,14 +154,22 @@ exports.run = async (client, message, args) => {
       hangmanEmbed(message.channel)
       break
     default:
-      message.channel.send([
-        "[Square brackets] signify optional arguments while <angle brackets> signify required arguments.",
-        "",
-        `\`${config.main.prefix}hangman play [word set(s)] [max incorrect guesses]\` - Play hangman. (Guess count must be between 1 and ${settings.maxAllowedGuesses})`,
-        `\`${config.main.prefix}hangman quit\` - Forfeit a hangman game.`,
-        `\`${config.main.prefix}hangman sets\` - See available word sets.`,
-        `\`${config.main.prefix}hangman guess <letter>\` - Make a hangman guess.`
-      ].join("\n"))
+      client.commands.get("hangman").help(client, message, args)
       break
   }
+}
+
+exports.help = async (client, message, args) => {
+  const index = require("../../index.js")
+  const config = index.config
+  const { settings } = config.hangman
+
+  message.channel.send([
+    "[Square brackets] signify optional arguments while <angle brackets> signify required arguments.",
+    "",
+    `\`${config.main.prefix}hangman play [word set(s)] [max incorrect guesses]\` - Play hangman. (Guess count must be between 1 and ${settings.maxAllowedGuesses})`,
+    `\`${config.main.prefix}hangman quit\` - Forfeit a hangman game.`,
+    `\`${config.main.prefix}hangman sets\` - See available word sets.`,
+    `\`${config.main.prefix}hangman guess <letter>\` - Make a hangman guess.`
+  ].join("\n"))
 }
