@@ -1,5 +1,5 @@
 exports.run = async (client, message, args) => {
-  const index = require("../index.js")
+  const index = require("../../index.js")
   const config = index.config
 
   const { billzos, thes, adverbs, adjectives, nouns } = config.billzo
