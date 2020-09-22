@@ -15,4 +15,4 @@ __Games I Guess__
 
 __Admin Commands__
 `cult` - Set the cult channel.
-`one_word_story` - Set up the one word story channel.
+`ows` - Set up the one word story channel.
