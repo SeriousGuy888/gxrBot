@@ -157,7 +157,7 @@ exports.run = async (client, message, args) => {
       message.channel.send([
         "[Square brackets] signify optional arguments while <angle brackets> signify required arguments.",
         "",
-        `\`${config.main.prefix}hangman play [word set (if multiple, separate with commas)] [max incorrect guess count]\` - Play hangman. (Guess count must be between 1 and ${settings.maxAllowedGuesses})`,
+        `\`${config.main.prefix}hangman play [word set(s)] [max incorrect guesses]\` - Play hangman. (Guess count must be between 1 and ${settings.maxAllowedGuesses})`,
         `\`${config.main.prefix}hangman quit\` - Forfeit a hangman game.`,
         `\`${config.main.prefix}hangman sets\` - See available word sets.`,
         `\`${config.main.prefix}hangman guess <letter>\` - Make a hangman guess.`
