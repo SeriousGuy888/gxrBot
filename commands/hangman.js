@@ -44,7 +44,7 @@ exports.run = async (client, message, args) => {
         `ℹ️ How the duck do I play this? [Hover](https://www.example.com "Just reply with the letter you want to guess.")`
       ].join("\n"))
       .addField("\u200b", "\u200b")
-      .addField(`Word (Length ${word.length})`, blanks, false)
+      .addField(`Word (Length ${word.length})`, `\`${blanks}\``, false)
       .addField("\u200b", "\u200b")
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
