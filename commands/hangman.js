@@ -126,6 +126,7 @@ exports.run = async (client, message, args) => {
     case "guess":
       const playerData = hangmanCache[message.author.id]
       if(!hangmanCache[message.author.id]) return message.channel.send("You are not currently playing hangman.")
+      if(hangmanCache[message.author.id].message.channel.id != message.channel.id) return message.channel.send("You are already playing in another channel. Please use `hangman quit` first.")
       if(!args[1]) return message.channel.send("Please specify a letter, you idiot.")
       
       const guessChar = args[1].charAt(0).toLowerCase()
