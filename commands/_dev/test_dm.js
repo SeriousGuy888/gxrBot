@@ -1,5 +1,4 @@
 exports.run = async (client, message, args) => {
-  return
   const embedder = client.util.get("embedder")
   const messenger = client.util.get("messenger")
 
@@ -11,5 +10,5 @@ exports.run = async (client, message, args) => {
   embedder.addBlankField(emb)
     .addField("def")
     
-  messenger.dm(args[0], emb)
+  messenger.dm(message.author.id, emb)
 }
