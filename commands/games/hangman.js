@@ -1,5 +1,5 @@
 exports.run = async (client, message, args) => {
-  const index = require("../index.js")
+  const index = require("../../index.js")
   const Discord = index.Discord
   const hangmanCache = index.gameCache.hangman
   const config = index.config
