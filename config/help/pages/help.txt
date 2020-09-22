@@ -1,12 +1,8 @@
 __**WELCOME TO ~~G8C~~ %uppername%**__
-
-This bot is for features that are exclusive to the Grade 9 League.
-*(Newly not grade 8! Can you imagine being a grade 8? I certainly can't)*
+`This bot is for features that are made specifically for the Grade 9 League.`
 
 The prefix is `%prefix%`; begin all commands with the prefix. (e.g: `%prefix%help`)
 `help cmds` to see commands.
-
-If you want to make suggestions for the server or the bot, you can do so in <#727381232236625921>
 
 **Features**
 
@@ -16,6 +12,11 @@ If you want to make suggestions for the server or the bot, you can do so in <#72
 - A help command
 - A ping command
 - Code stolen from the InsomniCheez codebase
+- Not grade 8 anymore
 - ~~Automatic homework completer~~
+
+**Developers**
+Developed by billzo and also Liam but mostly billzo.
+(See https://seriousguy888.github.io/G9L-Bot/assets/images/contributions-2020-09-22.png)
 
 > %lowername%: Infinitely in beta since December 12th, 2019
