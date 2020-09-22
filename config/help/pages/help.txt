@@ -1,22 +1,24 @@
-__**WELCOME TO ~~G8C~~ %uppername%**__
-`This bot is for features that are made specifically for the Grade 9 League.`
+__**WELCOME TO %uppername%**__
+*This bot is for features that are made specifically for the Grade 9 League.*
 
 The prefix is `%prefix%`; begin all commands with the prefix. (e.g: `%prefix%help`)
 `help cmds` to see commands.
 
-**Features**
-
+:star: **Features**
 - A channel for cult activities (by which I mean repeating a word)
 - A channel for practising teamwork and collaboration by writing an incoherent mess of a story
-- A non-functional economy system!
 - A help command
 - A ping command
 - Code stolen from the InsomniCheez codebase
 - Not grade 8 anymore
+- Hangman :D
 - ~~Automatic homework completer~~
 
-**Developers**
+
+:computer: **Developers**
 Developed by billzo and also Liam but mostly billzo.
 (See https://seriousguy888.github.io/G9L-Bot/assets/images/contributions-2020-09-22.png)
+
+
 
 > %lowername%: Infinitely in beta since December 12th, 2019
