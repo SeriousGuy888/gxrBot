@@ -23,7 +23,7 @@ module.exports = (client, message) => {
       if(cmd.alias) cmd = client.commands.get(cmd.alias)
 
       let hasHelp = !!cmd.help
-      if(["--help", "-h", "-?"].includes(args[0]) && hasHelp) cmd.help(client, message, args)
+      if(config.main.help.flags.includes(args[0]) && hasHelp) cmd.help(client, message, args)
       else cmd.run(client, message, args)
     }
   }
