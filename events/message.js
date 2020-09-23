@@ -90,7 +90,7 @@ module.exports = (client, message) => {
     const deleteMessage = (msg, errorMessage) => {
       msg.delete().then(() => {
         if(msg.author.bot) return
-        msg.channel.send(errorMessage).then(m => m.delete({ timeout: 3000 })).catch(err => {})
+        messenger.send(client, msg.channel, errorMessage, m => m.delete({ timeout: 3000 }))
       })
     }
 
