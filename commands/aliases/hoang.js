@@ -1,1 +1,1 @@
-exports.run = async (client, message, args) => client.commands.get("hangman").run(client, message, args)
+exports.alias = "hangman"
