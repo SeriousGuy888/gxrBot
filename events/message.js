@@ -22,10 +22,9 @@ module.exports = (client, message) => {
     else {
       if(cmd.alias) cmd = client.commands.get(redirectCommand)
 
-      // let hasHelp = !!cmd.help
-      // if(["--help", "-h", "-?"].includes(args[0]) && hasHelp) cmd.help(client, message, args)
-      // else
-      cmd.run(client, message, args)
+      let hasHelp = !!cmd.help
+      if(["--help", "-h", "-?"].includes(args[0]) && hasHelp) cmd.help(client, message, args)
+      else cmd.run(client, message, args)
     }
   }
   
