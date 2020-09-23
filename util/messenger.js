@@ -7,8 +7,8 @@ exports.validate = content => {
   return content.slice(0, 2000)
 }
 
-exports.send = (client, channel, content, callback) => {
-  channel.send(typeof content === "string" ? this.validate(content) : content)
+exports.send = async (client, channel, content, callback) => {
+  let message = await channel.send(typeof content === "string" ? this.validate(content) : content)
   if(callback) callback(message)
 }
 
