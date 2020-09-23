@@ -3,7 +3,7 @@ module.exports = (client, message) => {
   const config = index.config
   const prefix = index.prefix
   
-  const messenger = client.util.get(messenger)
+  const messenger = client.util.get("messenger")
 
   let pauseAutocarrotCache = index.pauseAutocarrotCache
 
