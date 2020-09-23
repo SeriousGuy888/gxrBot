@@ -32,9 +32,7 @@ module.exports = (client, message) => {
   
   else if(index.gameCache.hangman[message.author.id]) {
     cmd = client.commands.get("hangman")
-    args = ["guess"]
-    let msgContent = message.content.split(" ")
-    for(let i in msgContent) args.push(msgContent[i])
+    args = ["guess"].concat(message.content.split(" "))
     cmd.run(client, message, args)
   }
 
