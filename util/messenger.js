@@ -1,7 +1,9 @@
-const { client } = require("..")
+/*
+  * Made for things like sending DMs which can be really ducking annoying.
+  * Also made for sending messages with user content in them.
+*/
 
-// * supposed to make stuff like sending dms easier. sending to a channel is not managed by this.
-exports.dm = (userId, content, callback) => {
+exports.dm = (client, userId, content, callback) => {
   client.users.fetch(userId).then(user => {
     user.send(content).then(message => {
       if(callback) callback(message)
