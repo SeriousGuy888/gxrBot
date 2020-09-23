@@ -3,7 +3,7 @@
   * Also made for sending messages with user content in them.
 */
 
-exports.validate = content => {
+exports.validate = async content => {
   return content.slice(0, 2000)
 }
 
@@ -12,7 +12,7 @@ exports.send = async (client, channel, content, callback) => {
   if(callback) callback(message)
 }
 
-exports.dm = (client, userId, content, callback) => {
+exports.dm = async (client, userId, content, callback) => {
   client.users.fetch(userId).then(user => {
     user.send(content).then(message => {
       if(callback) callback(message)
