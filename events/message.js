@@ -20,7 +20,7 @@ module.exports = (client, message) => {
 
     if(!cmd) message.channel.send(`\`ERROR\`: Command \`${prefix}${command}\` not found.`)
     else {
-      if(cmd.alias) cmd = client.commands.get(redirectCommand)
+      if(cmd.alias) cmd = client.commands.get(cmd.alias)
 
       let hasHelp = !!cmd.help
       if(["--help", "-h", "-?"].includes(args[0]) && hasHelp) cmd.help(client, message, args)
