@@ -2,6 +2,8 @@ module.exports = (client, message) => {
   const index = require("../index.js")
   const config = index.config
   const prefix = index.prefix
+  
+  const { messenger } = client.util
 
   let pauseAutocarrotCache = index.pauseAutocarrotCache
 
@@ -20,7 +22,7 @@ module.exports = (client, message) => {
 
     
     if(cmd && cmd.alias) cmd = client.commands.get(cmd.alias)
-    if(!cmd) return message.channel.send(`The command \`${command}\` (or the command it points to) does not exist.`)
+    if(!cmd) return messenger.send(client, message.channel, `The command \`${command}\` (or the command it points to) does not exist.`)
 
     if(config.main.help.flags.includes(args[0]) && cmd.help) cmd.help(client, message, args)
     else {
