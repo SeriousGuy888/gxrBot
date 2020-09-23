@@ -19,7 +19,7 @@ module.exports = (client, message) => {
     cmd = client.commands.get(command) //grab cmds from enmap
 
     
-    if(cmd.alias) cmd = client.commands.get(cmd.alias)
+    if(cmd && cmd.alias) cmd = client.commands.get(cmd.alias)
     if(!cmd) return message.channel.send(`The command \`${command}\` (or the command it points to) does not exist.`)
 
     if(config.main.help.flags.includes(args[0]) && cmd.help) cmd.help(client, message, args)
