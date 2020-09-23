@@ -3,8 +3,12 @@
   * Also made for sending messages with user content in them.
 */
 
+exports.validate = content => {
+  return content.slice(0, 2000)
+}
+
 exports.send = (client, channel, content, callback) => {
-  channel.send(content)
+  channel.send(typeof content === "string" ? this.validate(content) : content)
   if(callback) callback(message)
 }
 
