@@ -1,5 +1,6 @@
 {
   "prefix": "-",
+  "maxCommandNameLength": 127,
   "botNames": {
     "lowerCamelCase": "g9lBot",
     "upperCase": "G9LBOT"

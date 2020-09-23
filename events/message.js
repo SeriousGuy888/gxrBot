@@ -16,7 +16,7 @@ module.exports = (client, message) => {
     if(message.author.bot) return //ignore bots
 
     args = message.content.slice(prefix.length).trim().split(/ +/g)
-    command = args.shift().toLowerCase().trim()
+    command = args.shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
 
     cmd = client.commands.get(command) //grab cmds from enmap
 
