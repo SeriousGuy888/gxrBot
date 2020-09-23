@@ -3,8 +3,9 @@
   * Also made for sending messages with user content in them.
 */
 
-exports.send = (client, channel, content) => {
+exports.send = (client, channel, content, callback) => {
   channel.send(content)
+  if(callback) callback(message)
 }
 
 exports.dm = (client, userId, content, callback) => {
