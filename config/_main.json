@@ -3,5 +3,12 @@
   "botNames": {
     "lowerCamelCase": "g9lBot",
     "upperCase": "G9LBOT"
+  },
+  "help": {
+    "flags": [
+      "--help",
+      "-h",
+      "-?"
+    ]
   }
 }
