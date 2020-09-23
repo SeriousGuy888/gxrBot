@@ -3,6 +3,7 @@ The prefix is `%prefix%`
 
 __Basic Commands__
 `help` - %lowername% help command
+  (Alias: `h`)
 `ping` - Get bot latency
 
 __Fun Commands__
