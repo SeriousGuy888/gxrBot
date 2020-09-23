@@ -18,17 +18,16 @@ module.exports = (client, message) => {
 
     cmd = client.commands.get(command) //grab cmds from enmap
 
-    if(!cmd) message.channel.send(`\`ERROR\`: Command \`${prefix}${command}\` not found.`)
-    else {
-      if(cmd.alias) cmd = client.commands.get(cmd.alias)
+    
+    if(cmd.alias) cmd = client.commands.get(cmd.alias)
+    if(!cmd) return message.channel.send(`\`${command}\` does not exist.`)
 
-      let hasHelp = !!cmd.help
-      if(config.main.help.flags.includes(args[0]) && hasHelp) cmd.help(client, message, args)
-      else {
-        if(!cmd.run)
-          message.channel.send(`The command you requested or the command it points to does not have a defined \`run\` function.`)
-        else cmd.run(client, message, args)
-      }
+    let hasHelp = !!cmd.help
+    if(config.main.help.flags.includes(args[0]) && hasHelp) cmd.help(client, message, args)
+    else {
+      if(!cmd.run)
+        message.channel.send(`The command you requested or the command it points to does not have a defined \`run\` function.`)
+      else cmd.run(client, message, args)
     }
   }
   
