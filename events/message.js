@@ -24,7 +24,11 @@ module.exports = (client, message) => {
 
       let hasHelp = !!cmd.help
       if(config.main.help.flags.includes(args[0]) && hasHelp) cmd.help(client, message, args)
-      else cmd.run(client, message, args)
+      else {
+        if(!cmd.run)
+          message.channel.send(`The command you requested or the command it points to does not have a defined \`run\` function.`)
+        else cmd.run(client, message, args)
+      }
     }
   }
   
