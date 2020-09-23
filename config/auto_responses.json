@@ -247,6 +247,23 @@
         "reactions": [
           "#🏅"
         ]
+      },
+      {
+        "enabled": true,
+        "conditional": {
+          "enabled": true,
+          "conditions": [
+            {
+              "enabled": true,
+              "type": "regex",
+              "expression": "00$",
+              "flags": "gi"
+            }
+          ]
+        },
+        "reactions": [
+          "#🎉"
+        ]
       }
     ],
     "739976529437524029": [
