@@ -1,4 +1,7 @@
-const token = require("./secrets/token.json")
+require("dotenv").config()
+
+// .env ↑
+
 const fs = require("fs")
 const Discord = require("discord.js")
 const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] })
@@ -99,4 +102,4 @@ module.exports = {
 
 // exports ↑
 
-client.login(token[0])
+client.login(process.env.TOKEN)
