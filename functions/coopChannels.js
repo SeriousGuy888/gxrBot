@@ -34,6 +34,6 @@ exports.run = (client, message) => {
   }
   else if(message.channel.id == config.coopchannels.ows.channel) {
     if(owsLegal(message.content)) return
-    deleteMessage(message, `<@${message.author.id}>, this is the one word story channel. You are a stupid.`)
+    deleteMessage(message, `<@${message.author.id}>, your message in the OWS channel may only be one word and you may not speak twice in a row.`)
   }
 }
