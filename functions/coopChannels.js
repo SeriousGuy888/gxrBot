@@ -12,13 +12,11 @@ exports.run = (client, message) => {
   }
 
   const cultLegal = (content, phrase) => {
-    if(!content || !phrase) return console.log("Cult message validation failed due to missing arguments in message.js")
     content = content.toLowerCase()
     phrase = phrase.toLowerCase()
     if(content == phrase) return true
   }
   const owsLegal = content => {
-    if(!content) return console.log("error with ows code in message.js event")
     content = content.toLowerCase().replace(/[^a-z ]/gi, "")
     return content.split(" ").length == 1 && notRepeat(message.channel)
   }
