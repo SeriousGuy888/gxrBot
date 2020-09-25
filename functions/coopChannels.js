@@ -2,6 +2,15 @@ exports.run = (client, message) => {
   const index = require("../index.js")
   const config = index.config
 
+  const notRepeat = channel => {
+    channel.messages.fetch({ limit: 2 }).then(res => {
+      const fetchedMessages = res.array()
+      if(fetchedMessages[0].author.id === fetchedMessages[1].author.id)
+        return false
+      return true
+    })
+  }
+
   const cultLegal = (content, phrase) => {
     if(!content || !phrase) return console.log("Cult message validation failed due to missing arguments in message.js")
     content = content.toLowerCase()
@@ -11,7 +20,7 @@ exports.run = (client, message) => {
   const owsLegal = content => {
     if(!content) return console.log("error with ows code in message.js event")
     content = content.toLowerCase().replace(/[^a-z ]/gi, "")
-    return content.split(" ").length == 1
+    return content.split(" ").length == 1 && notRepeat(message.channel)
   }
   const deleteMessage = (msg, errorMessage) => {
     msg.delete().then(() => {
