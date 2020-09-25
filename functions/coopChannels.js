@@ -24,7 +24,7 @@ exports.run = (client, message) => {
   const deleteMessage = (msg, errorMessage) => {
     msg.delete({ timeout: 500 }).then(() => {
       if(msg.author.bot) return
-      messenger.dm(client, msg.author.id, errorMessage, m => m.delete({ timeout: 7500 }))
+      messenger.dm(client, msg.author.id, errorMessage)
     })
   }
 
