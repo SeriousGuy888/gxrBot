@@ -1,13 +1,13 @@
 exports.run = (client, message) => {
   const index = require("../index.js")
   const config = index.config
+  const messenger = client.util.get("messenger")
 
   const notRepeat = channel => {
     channel.messages.fetch({ limit: 2 }).then(res => {
       const fetchedMessages = res.array()
-      if(fetchedMessages[0].author.id === fetchedMessages[1].author.id)
-        return false
-      return true
+      console.log(fetchedMessages[0].author.id != fetchedMessages[1].author.id)
+      return fetchedMessages[0].author.id != fetchedMessages[1].author.id
     })
   }
 
@@ -18,12 +18,13 @@ exports.run = (client, message) => {
   }
   const owsLegal = content => {
     content = content.toLowerCase().replace(/[^a-z ]/gi, "")
-    return content.split(" ").length == 1 && notRepeat(message.channel)
+    if(content.split(" ").length != 1) return false
+    return true
   }
   const deleteMessage = (msg, errorMessage) => {
-    msg.delete().then(() => {
+    msg.delete({ timeout: 500 }).then(() => {
       if(msg.author.bot) return
-      msg.channel.send(errorMessage).then(m => m.delete({ timeout: 7500 })).catch(err => {})
+      messenger.dm(client, msg.author.id, errorMessage, m => m.delete({ timeout: 7500 }))
     })
   }
 
@@ -34,6 +35,6 @@ exports.run = (client, message) => {
   }
   else if(message.channel.id == config.coopchannels.ows.channel) {
     if(owsLegal(message.content)) return
-    deleteMessage(message, `<@${message.author.id}>, your message in the OWS channel may only **be one word** and you may **not speak twice in a row**.`)
+    deleteMessage(message, `<@${message.author.id}>, your message in the OWS channel may only **be one word**.`)
   }
 }
