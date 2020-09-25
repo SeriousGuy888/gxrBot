@@ -30,7 +30,7 @@ exports.run = (client, message) => {
   if(message.author.id == client.user.id) return
   if(message.channel.id == config.coopchannels.cult.channel) {
     if(cultLegal(message.content, config.coopchannels.cult.phrase)) return
-    deleteMessage(message, `<@${message.author.id}>, saying \`${message.content}\` is a violation of the cult rules.\nYou may only say \`${config.coopchannels.cult.phrase}\` here.`)
+    deleteMessage(message, `<@${message.author.id}>, you may only say \`${config.coopchannels.cult.phrase}\` and not \`${message.content}\` here.`)
   }
   else if(message.channel.id == config.coopchannels.ows.channel) {
     if(owsLegal(message.content)) return
