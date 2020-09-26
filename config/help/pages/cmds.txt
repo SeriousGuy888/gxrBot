@@ -16,4 +16,5 @@ __Games I Guess__
 
 __Admin Commands__
 `cult` - Set the cult channel.
+`mute` - Force mute and unmute everyone in a specified VC.
 `ows` - Set up the one word story channel.
