@@ -10,9 +10,9 @@ __Fun Commands__
 `billzo` - Know all the different editions of billzo.
 
 __Games I Guess__
+`coinflip` - Flip a coin.
 `hangman` - Play hangman with %lowername% because %lowername% is very lonely.
   (Alias: `hoang`)
-`coinflip` - Flip a coin.
 
 __Admin Commands__
 `cult` - Set the cult channel.
