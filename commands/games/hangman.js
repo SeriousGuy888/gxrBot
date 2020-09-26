@@ -158,7 +158,7 @@ exports.run = async (client, message, args) => {
       hangmanEmbed(message.channel)
       break
     default:
-      client.commands.get("hangman").help(client, message, args)
+      this.help(client, message, args)
       break
   }
 }
