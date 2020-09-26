@@ -1,0 +1,8 @@
+{
+  "colours": {
+    "failure": "#bf2222",
+    "help": "#22bf22",
+    "unmute": "#2282af",
+    "mute": "#c28231"
+  }
+}
