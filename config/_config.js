@@ -1,9 +1,11 @@
-module.exports.main = require("./_main.json")
-module.exports.admins = require("./admins.json")
-module.exports.autocarrot = require("./autocarrot/_autocarrot.js")
-module.exports.autoResponses = require("./auto_responses.json")
-module.exports.hangman = require("./hangman/_hangman.js")
-module.exports.billzo = require("./billzo/_billzo.js")
-module.exports.help = require("./help/_help.js")
-module.exports.coopchannels = require("./coopchannels/_coopchannels.js")
-module.exports.mute = require("./mute.json")
+module.exports = {
+  main:            require("./_main.json"),
+  admins:          require("./admins.json"),
+  autocarrot:      require("./autocarrot/_autocarrot.js"),
+  autoResponses:   require("./auto_responses.json"),
+  hangman:         require("./hangman/_hangman.js"),
+  billzo:          require("./billzo/_billzo.js"),
+  help:            require("./help/_help.js"),
+  coopchannels:    require("./coopchannels/_coopchannels.js"),
+  mute:            require("./mute.json")
+}
