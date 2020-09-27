@@ -12,6 +12,7 @@ const Enmap = require("enmap")
 const timeFormatter = require("seconds-time-formatter")
 const emoji = require("emojilib")
 const emojiDictionary = require("emoji-dictionary")
+const translate = require("translate-google")
 
 // important declarations and imports ↑
 // caches ↓
@@ -95,6 +96,7 @@ module.exports = {
   timeFormatter,
   emoji,
   emojiDictionary,
+  translate,
   gameCache,
   pauseAutocarrotCache,
   autocarrotWebhook,
