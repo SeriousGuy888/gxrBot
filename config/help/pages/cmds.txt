@@ -8,6 +8,8 @@ __Basic Commands__
 
 __Fun Commands__
 `billzo` - Know all the different editions of billzo.
+`google_translate` - Translate a phrase through several languages.
+  (Alias: `gt`)
 
 __Games I Guess__
 `coinflip` - Flip a coin.
