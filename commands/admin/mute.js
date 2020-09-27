@@ -23,23 +23,29 @@ exports.run = async (client, message, args) => {
     if(!vc || vc.type !== "voice") return message.channel.send("Specified channel ID is not of a voice channel in this guild.")
     
     const membersInVc = allMembers.filter(gm => gm.voice.channelID && gm.voice.channelID === vc.id)
-    if(!membersInVc) return message.channel.send(`The VC ${vc} is currently empty.`)
-
-    const isUnmuting = args[1] && args[1].startsWith("u")
-    let membersMutedCount = 0
-    for(let loopMember of membersInVc) {
-      const guildMember = allMembers.find(gm => gm.id === loopMember[0])
-      guildMember.voice.setMute(!isUnmuting, `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`)
-      membersMutedCount++
+    if(Array.from(membersInVc).length === 0) {
+      outputEmbed
+        .setColor(config.mute.colours.failure)
+        .setTitle("Specified Voice Channel Empty")
+        .setDescription(`The VC ${vc} is currently empty.`)
     }
-
-    const completedAction = isUnmuting ? "Unmuted" : "Muted"
-    outputEmbed
-      .setColor(isUnmuting ? config.mute.colours.unmute : config.mute.colours.mute)
-      .setTitle(`${completedAction} All Users in VC`)
-      .setDescription(isUnmuting ? "To mute again, omit the final argument." : "To unmute, add `u` to the end of the command.")
-      .addField(`Members ${completedAction}`, membersMutedCount)
-      .setFooter("Warning: this only affects people in the VC when the command is executed.")
+    else {
+      const isUnmuting = args[1] && args[1].startsWith("u")
+      let membersMutedCount = 0
+      for(let loopMember of membersInVc) {
+        const guildMember = allMembers.find(gm => gm.id === loopMember[0])
+        guildMember.voice.setMute(!isUnmuting, `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`)
+        membersMutedCount++
+      }
+  
+      const completedAction = isUnmuting ? "Unmuted" : "Muted"
+      outputEmbed
+        .setColor(isUnmuting ? config.mute.colours.unmute : config.mute.colours.mute)
+        .setTitle(`${completedAction} All Users in VC`)
+        .setDescription(isUnmuting ? "To mute again, omit the final argument." : "To unmute, add `u` to the end of the command.")
+        .addField(`Members ${completedAction}`, membersMutedCount)
+        .setFooter("Warning: this only affects people in the VC when the command is executed.")
+    }
   }
 
   return message.channel.send(outputEmbed)
