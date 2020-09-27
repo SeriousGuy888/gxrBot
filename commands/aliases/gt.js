@@ -1,0 +1,1 @@
+exports.alias = "google_translate"
