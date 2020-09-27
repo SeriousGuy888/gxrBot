@@ -1,0 +1,13 @@
+{
+  "comment": "Channels that will get automatic responses. These can be reactions, messages, or both. In emoji responses, prefix literal emoji IDs or Unicode emojis with # so it isn't interpreted as a key.",
+  "enabled": true,
+  "literalIdPrefix": "#",
+  "emojiKey": {
+    "upvote": "713823817004220416",
+    "downvote": "713824298275569734",
+    "rainbow_cheez": "714923328577470466",
+    "gamenight": "754194728765095991",
+    "skribbl": "✏️",
+    "amongus": "756575662843887656"
+  }
+}

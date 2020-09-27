@@ -1,14 +1,11 @@
-const { getName } = require("emoji-dictionary")
-
 exports.run = async (client, message) => {
   const { config, emoji, emojiDictionary } = require("../index.js")
   
-  const literalIdPrefix = config.autoResponses.literalIdPrefix
-  const emojiKey = config.autoResponses.emojiKey
+  const literalIdPrefix = config.autoResponses.settings.literalIdPrefix
+  const emojiKey = config.autoResponses.settings.emojiKey
   const channelData = config.autoResponses.channels
-  const channelList = Object.keys(channelData)
 
-  if(!channelList.includes(message.channel.id)) return
+  if(!channelData[message.channel.id]) return
 
   for(let loopResponse of channelData[message.channel.id]) {
     if(!loopResponse.enabled) continue
