@@ -137,7 +137,7 @@
             {
               "enabled": true,
               "type": "regex",
-              "expression": "skribbl|scribbl",
+              "expression": "skribbl|scribbl|sketchful",
               "flags": "gi"
             }
           ]
