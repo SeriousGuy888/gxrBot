@@ -21,9 +21,9 @@ exports.run = async (client, message, args) => {
   else {
     let queryId = args[0]
     if(args[0] === ".") {
-      if(!authorGuildMember.channelID)
+      if(!authorGuildMember.voice.channelID)
         return message.channel.send("You are not in a VC!")
-      queryId = authorGuildMember.channelID
+      queryId = authorGuildMember.voice.channelID
     }
 
     const vc = guild.channels.resolve(args[0])
