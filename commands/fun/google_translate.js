@@ -6,6 +6,8 @@ exports.run = async (client, message, args) => {
 
   if(!args[0]) return this.help(client, message, args)
 
+  return message.channel.send("Temporarily disabled.")
+
   const msg = await message.channel.send("Waiting for response from Google Translate...")
   const maxOutputFieldLength = 1024
   const maxLanguageCount = 12
