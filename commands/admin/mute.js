@@ -36,8 +36,11 @@ exports.run = async (client, message, args) => {
       let membersMutedCount = 0
       for(let loopMember of membersInVc) {
         const guildMember = allMembers.find(gm => gm.id === loopMember[0])
-        guildMember.voice.setMute(!isUnmuting, `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`)
-        membersMutedCount++
+        if(!isUnmuting !== guildMember.voice.serverMute) {
+          const reason = `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`
+          guildMember.voice.setMute(!isUnmuting, reason)
+          membersMutedCount++
+        }
       }
 
       const endTime = new Date()
