@@ -41,7 +41,7 @@ exports.run = async (client, message, args) => {
       }
 
       const endTime = new Date()
-      const timeDiff = (endTime.getTime() - startTime.getTime()) / 1000
+      const timeDiff = (endTime.getTime() - startTime.getTime())
   
       const completedAction = isUnmuting ? "Unmuted" : "Muted"
       outputEmbed
@@ -49,7 +49,7 @@ exports.run = async (client, message, args) => {
         .setTitle(`${completedAction} All Users in VC`)
         .setDescription(isUnmuting ? "To mute again, omit the final argument." : "To unmute, add `u` to the end of the command.")
         .addField(`Members ${completedAction}`, membersMutedCount, true)
-        .addField(`Time Taken`, timeDiff, true)
+        .addField(`Time Taken`, `${timeDiff} ms`, true)
         .setFooter("Warning: this only affects people in the VC when the command is executed.")
     }
   }
