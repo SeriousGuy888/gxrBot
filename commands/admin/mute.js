@@ -31,19 +31,25 @@ exports.run = async (client, message, args) => {
     }
     else {
       const isUnmuting = args[1] && args[1].startsWith("u")
+      const startTime = new Date()
+
       let membersMutedCount = 0
       for(let loopMember of membersInVc) {
         const guildMember = allMembers.find(gm => gm.id === loopMember[0])
         guildMember.voice.setMute(!isUnmuting, `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`)
         membersMutedCount++
       }
+
+      const endTime = new Date()
+      const timeDiff = (endTime.getTime() - startTime.getTime()) / 1000
   
       const completedAction = isUnmuting ? "Unmuted" : "Muted"
       outputEmbed
         .setColor(isUnmuting ? config.mute.colours.unmute : config.mute.colours.mute)
         .setTitle(`${completedAction} All Users in VC`)
         .setDescription(isUnmuting ? "To mute again, omit the final argument." : "To unmute, add `u` to the end of the command.")
-        .addField(`Members ${completedAction}`, membersMutedCount)
+        .addField(`Members ${completedAction}`, membersMutedCount, true)
+        .addField(`Time Taken`, timeDiff, true)
         .setFooter("Warning: this only affects people in the VC when the command is executed.")
     }
   }
