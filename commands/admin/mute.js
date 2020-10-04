@@ -19,8 +19,16 @@ exports.run = async (client, message, args) => {
       .setFooter("Is this a mistake? Contact server admins.")
   }
   else {
+    let queryId = args[0]
+    if(args[0] === ".") {
+      if(!authorGuildMember.channelID)
+        return message.channel.send("You are not in a VC!")
+      queryId = authorGuildMember.channelID
+    }
+
     const vc = guild.channels.resolve(args[0])
-    if(!vc || vc.type !== "voice") return message.channel.send("Specified channel ID is not of a voice channel in this guild.")
+    if(!vc || vc.type !== "voice")
+      return message.channel.send("Specified channel ID is not of a voice channel in this guild.")
     
     const membersInVc = allMembers.filter(gm => gm.voice.channelID && gm.voice.channelID === vc.id)
     if(Array.from(membersInVc).length === 0) {
