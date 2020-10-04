@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
       queryId = authorGuildMember.voice.channelID
     }
 
-    const vc = guild.channels.resolve(args[0])
+    const vc = guild.channels.resolve(queryId)
     if(!vc || vc.type !== "voice")
       return message.channel.send("Specified channel ID is not of a voice channel in this guild.")
     
