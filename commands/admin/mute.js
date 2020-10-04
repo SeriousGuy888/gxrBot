@@ -77,8 +77,16 @@ exports.help = async (client, message, args) => {
     .setColor(config.mute.colours.help)
     .setTitle("Mute Help")
     .setDescription("Mutes or unmutes all users in a specified VC.")
-    .addField("Syntax", `${config.main.prefix}mute <Channel ID> [u]`)
-    .addField("Examples", `**Mute:** ${config.main.prefix}mute 424242\n**Unmute:** ${config.main.prefix}mute 666666 u`)
+    .addField("Syntax", `${config.main.prefix}mute <ID | .> [u]`)
+    .addField("Examples", [
+      "**__By Channel ID__**",
+      `**Mute:** ${config.main.prefix}mute 430565803293933582`,
+      `**Unmute:** ${config.main.prefix}mute 430565803293933582 u`,
+      "",
+      "**__The VC you are in__**",
+      `**Mute:** ${config.main.prefix}mute .`,
+      `**Unmute:** ${config.main.prefix}mute . u`
+    ].join("\n"))
     .setFooter("This command can only be used in a guild and not a DM.")
   return message.channel.send(emb)
 }
