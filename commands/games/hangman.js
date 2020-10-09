@@ -178,7 +178,7 @@ exports.help = async (client, message, args) => {
     .addField("\u200b", "\u200b")
     .addField("Examples", [
       `**Play with Default Words**`,
-      ` ${config.main.prefix}hangman play.`,
+      ` ${config.main.prefix}hangman play`,
       "",
       `**Play with Custom Settings**`,
       ` ${config.main.prefix}hangman play hard,impossible ${settings.maxAllowedGuesses}`,
