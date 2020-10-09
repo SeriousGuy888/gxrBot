@@ -116,6 +116,7 @@ exports.run = async (client, message, args) => {
 
       hangmanEmbed(message.channel, true)
       break
+    case "forfeit":
     case "quit":
       if(!hangmanCache[message.author.id]) {
         message.channel.send("You do not have an ongoing hangman game!")
