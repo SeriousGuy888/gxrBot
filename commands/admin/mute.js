@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
 
   if(!authorGuildMember.hasPermission(Discord.Permissions.FLAGS.MUTE_MEMBERS)) {
     outputEmbed
-      .setColor(config.mute.colours.failure)
+      .setColor(config.main.colours.error)
       .setTitle("Insufficient Permissions")
       .setDescription("You may not use this command as you do not have the permission `MUTE_MEMBERS`.")
       .setFooter("Is this a mistake? Contact server admins.")
@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
     const membersInVc = allMembers.filter(gm => gm.voice.channelID && gm.voice.channelID === vc.id)
     if(Array.from(membersInVc).length === 0) {
       outputEmbed
-        .setColor(config.mute.colours.failure)
+        .setColor(config.main.colours.error)
         .setTitle("Specified Voice Channel Empty")
         .setDescription(`The VC ${vc} is currently empty.`)
     }
@@ -74,7 +74,7 @@ exports.help = async (client, message, args) => {
   const Discord = index.Discord
 
   const emb = new Discord.MessageEmbed()
-    .setColor(config.mute.colours.help)
+    .setColor(config.main.colours.help)
     .setTitle("Mute Help")
     .setDescription("Mutes or unmutes all users in a specified VC.")
     .addField("Syntax", `${config.main.prefix}mute <ID | .> [u]`)

@@ -33,7 +33,7 @@ exports.run = async (client, message, args) => {
     if(!init) message.delete()
 
     let embed = new Discord.MessageEmbed()
-      .setColor(settings.embedColour)
+      .setColor(config.main.colours.success)
       .setAuthor(message.author.tag, message.author.avatarURL)
       .setTitle("**__g9lBot Hangman__**")
       .setDescription([
@@ -172,7 +172,7 @@ exports.help = async (client, message, args) => {
 
   const embed = new Discord.MessageEmbed()
     .setTitle("**Hangman**")
-    .setColor("#bebe11")
+    .setColor(config.main.colours.help)
     .setDescription("Play a game of hangman!")
     .addField("Syntax", `${config.main.prefix}hangman <play | quit | sets> ([word sets] [max incorrect guesses])`)
     .addField("\u200b", "\u200b")

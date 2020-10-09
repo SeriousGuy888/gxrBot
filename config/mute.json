@@ -1,7 +1,5 @@
 {
   "colours": {
-    "failure": "#bf2222",
-    "help": "#11be11",
     "unmute": "#2282af",
     "mute": "#c28231"
   }

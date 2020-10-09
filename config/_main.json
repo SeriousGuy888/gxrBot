@@ -11,5 +11,10 @@
       "-h",
       "-?"
     ]
+  },
+  "colours": {
+    "help": "#bebe11",
+    "error": "#bf2222",
+    "success": "#21b821"
   }
 }
