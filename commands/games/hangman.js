@@ -167,13 +167,26 @@ exports.help = async (client, message, args) => {
   const index = require("../../index.js")
   const config = index.config
   const { settings } = config.hangman
+  const Discord = index.Discord
 
-  message.channel.send([
-    "[Square brackets] signify optional arguments while <angle brackets> signify required arguments.",
-    "",
-    `\`${config.main.prefix}hangman play [word set(s)] [max incorrect guesses]\` - Play hangman. (Guess count must be between 1 and ${settings.maxAllowedGuesses})`,
-    `\`${config.main.prefix}hangman quit\` - Forfeit a hangman game.`,
-    `\`${config.main.prefix}hangman sets\` - See available word sets.`,
-    `\`${config.main.prefix}hangman guess <letter>\` - Make a hangman guess.`
-  ].join("\n"))
+  const embed = new Discord.MessageEmbed()
+    .setTitle("**Hangman**")
+    .setColor("#bebe11")
+    .setDescription("Play a game of hangman!")
+    .addField("Syntax", `${config.main.prefix}hangman <play | quit | sets> ([word sets] [max incorrect guesses])`)
+    .addField("\u200b", "\u200b")
+    .addField("Examples", [
+      `**Play with Default Words**`,
+      ` ${config.main.prefix}hangman play.`,
+      "",
+      `**Play with Custom Settings**`,
+      ` ${config.main.prefix}hangman play hard,impossible ${settings.maxAllowedGuesses}`,
+      "",
+      `**Forfeit Game**`,
+      ` ${config.main.prefix}hangman quit`,
+      "",
+      `**See Available Word Sets**`,
+      ` ${config.main.prefix}hangman sets`,
+    ].join("\n"))
+  message.channel.send(embed)
 }
