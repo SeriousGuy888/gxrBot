@@ -4,5 +4,5 @@ module.exports = (client, message) => {
   console.log("g9lBot Loaded!")
 
   client.user.setPresence({ status: "online" })
-  client.user.setActivity(`for ${index.prefix}help`, { type: "WATCHING" })
+  client.user.setActivity(`for ${index.prefix}h`, { type: "WATCHING" })
 }
