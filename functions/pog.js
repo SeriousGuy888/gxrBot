@@ -2,13 +2,15 @@ exports.run = (client, message) => { // super secret feature that will get remov
   if(message.author.bot) return
   
   let shouldReply = false
-  for(let loopPog of ["pog", "pogs", "pogger", "poggers"]) {
-    for(let loopArg of args) {
-      if(loopArg.toLowerCase() === loopPog) {
-        shouldReply = true
+  pogLoop:
+    for(let loopPog of ["pog", "pogs", "pogger", "poggers"]) {
+      for(let loopArg of message.split(" ")) {
+        if(loopArg.toLowerCase() === loopPog) {
+          shouldReply = true
+          break pogLoop
+        }
       }
     }
-  }
 
   if(shouldReply) {
     message.channel.send("pog")
