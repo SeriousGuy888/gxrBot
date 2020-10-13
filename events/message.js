@@ -53,6 +53,7 @@ module.exports = (client, message) => {
     if(config.autocarrot.settings.exempt.bots && message.author.bot) return
     if(config.autocarrot.settings.exempt.webhooks && message.webhookID) return
     if(config.autocarrot.settings.exempt.userList.includes(message.author.id)) return
+    if(config.autocarrot.settings.exempt.channels.includes(message.channel.id)) return
     if(pauseAutocarrotCache[message.author.id] && config.autocarrot.settings.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000) return
 
     const autocarrotWebhook = index.autocarrotWebhook

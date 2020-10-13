@@ -10,6 +10,11 @@
     "comment": "You can choose to exempt bot messages, messages from webhooks, or have a list of exempted user IDs.",
     "bots": false,
     "webhooks": false,
-    "userList": []
+    "userList": [],
+    "channels": [
+      "first is counting, next is league activities",
+      "634597235362889728",
+      "727371416449581076"
+    ]
   }
 }
