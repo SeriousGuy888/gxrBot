@@ -78,4 +78,5 @@ module.exports = (client, message) => {
   if([config.coopchannels.cult.channel, config.coopchannels.ows.channel].includes(message.channel.id)) index.coopChannels(message)
   
   if(config.autoResponses.settings.enabled) index.autoResponses(message)
+  index.pog(message)
 }

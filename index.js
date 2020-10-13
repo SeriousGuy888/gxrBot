@@ -82,6 +82,7 @@ loadJsFiles("./util/", (name, tool, directory, file) => {
 const autocarrotWebhook = (human, channel, content) => client.functions.get("autocarrotWebhook").run(client, human, channel, content)
 const autoResponses = (message) => client.functions.get("autoResponses").run(client, message)
 const coopChannels = (message) => client.functions.get("coopChannels").run(client, message)
+const pog = (message) => client.functions.get("pog").run(client, message)
 
 // function imports ↑
 // exports ↓
@@ -101,7 +102,8 @@ module.exports = {
   pauseAutocarrotCache,
   autocarrotWebhook,
   autoResponses,
-  coopChannels
+  coopChannels,
+  pog
 }
 
 // exports ↑
