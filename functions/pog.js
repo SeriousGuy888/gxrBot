@@ -4,7 +4,7 @@ exports.run = (client, message) => { // super secret feature that will get remov
   let shouldReply = false
   pogLoop:
     for(let loopPog of ["pog", "pogs", "pogger", "poggers"]) {
-      for(let loopArg of message.split(" ")) {
+      for(let loopArg of message.content.split(" ")) {
         if(loopArg.toLowerCase() === loopPog) {
           shouldReply = true
           break pogLoop
