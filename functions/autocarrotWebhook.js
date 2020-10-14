@@ -4,7 +4,7 @@ exports.run = (client, author, channel, content) => {
 
   const hookName = "g9lBot AutoCarrot"
   const avatarURL = author.avatarURL()
-  const hookAvatar = client.user.avatarURL
+  const hookAvatar = client.user.avatarURL()
 
   const swearCensors = config.autocarrot.words
   const swearList = Object.keys(swearCensors)
