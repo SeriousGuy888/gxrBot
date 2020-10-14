@@ -34,7 +34,7 @@ exports.run = (client, author, channel, content) => {
   }
 
   channel.fetchWebhooks().then(webhooks => {
-    let foundHook = webhooks.find(w => w.name === hookName)
+    let foundHook = webhooks.find(w => w.name === hookName && w.owner.id === client.user.id)
     if(!foundHook) {
       channel.createWebhook(hookName, {
           avatar: hookAvatar,
