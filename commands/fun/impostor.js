@@ -23,7 +23,10 @@ exports.run = async (client, message, args) => {
         .setDescription(`The VC ${vc} is currently empty.`)
     }
     else {
-      const impostor = membersInVc[Math.floor(Math.random() * membersInVc.length)]
+      let members = []
+      for(let loopMember of membersInVc)
+        members.push(loopMember)
+      const impostor = members[Math.floor(Math.random() * members.length)]
       
       outputEmbed
         .setColor("#dc1212")
