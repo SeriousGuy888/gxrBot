@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => {
       outputEmbed
         .setColor("#dc1212")
         .setTitle(`The Impostor is`)
-        .setDescription(impostor)
+        .setDescription(impostor.nickname ? impostor.nickname : impostor.user.tag)
         .setFooter("Reasoning: N/A")
     }
 
