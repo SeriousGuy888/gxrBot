@@ -60,7 +60,7 @@ exports.run = async (client, message, args) => {
       const completedAction = isUnmuting ? "Unmuted" : "Muted"
       outputEmbed
         .setColor(isUnmuting ? config.mute.colours.unmute : config.mute.colours.mute)
-        .setTitle(`${completedAction} All Users in VC`)
+        .setTitle(`${completedAction} All Users in ${vc.name}`)
         .setDescription(isUnmuting ? "To mute again, omit the final argument." : "To unmute, add `u` to the end of the command.")
         .addField(`Members ${completedAction}`, membersMutedCount, true)
         .addField(`Time Taken`, `${timeDiff} ms`, true)
