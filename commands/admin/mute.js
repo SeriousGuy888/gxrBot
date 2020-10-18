@@ -48,9 +48,9 @@ exports.run = async (client, message, args) => {
           if(!isUnmuting !== guildMember.voice.serverMute) {
             const reason = `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`
             guildMember.voice.setMute(!isUnmuting, reason)
-            membersMutedCount++
           }
         }, 3)
+        membersMutedCount++
       }
 
       const endTime = new Date()
