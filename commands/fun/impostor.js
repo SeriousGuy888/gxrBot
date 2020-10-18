@@ -3,8 +3,6 @@ exports.run = async (client, message, args) => {
   const config = index.config
   const Discord = index.Discord
 
-  if(!message.guild || !args[0]) return this.help(client, message, args)
-
   const outputEmbed = new Discord.MessageEmbed()
   
   const guild = message.guild
