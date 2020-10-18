@@ -50,7 +50,7 @@ exports.run = async (client, message, args) => {
           const reason = `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`
           guildMember.voice.setMute(!isUnmuting, reason)
           membersMutedCount++
-          await delay(20)
+          await delay(50)
         }
       }
 
