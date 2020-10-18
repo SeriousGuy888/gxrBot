@@ -41,16 +41,17 @@ exports.run = async (client, message, args) => {
       const isUnmuting = args[1] && args[1].startsWith("u")
       const startTime = new Date()
 
+      const delay = ms => new Promise(res => setTimeout(res, ms))
+
       let membersMutedCount = 0
       for(let loopMember of membersInVc) {
-        setTimeout(() => {
-          const guildMember = allMembers.find(gm => gm.id === loopMember[0])
-          if(!isUnmuting !== guildMember.voice.serverMute) {
-            const reason = `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`
-            guildMember.voice.setMute(!isUnmuting, reason)
-          }
-        }, 3)
-        membersMutedCount++
+        const guildMember = allMembers.find(gm => gm.id === loopMember[0])
+        if(!isUnmuting !== guildMember.voice.serverMute) {
+          const reason = `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`
+          guildMember.voice.setMute(!isUnmuting, reason)
+          membersMutedCount++
+          await delay(5)
+        }
       }
 
       const endTime = new Date()
