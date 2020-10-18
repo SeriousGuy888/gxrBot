@@ -44,18 +44,8 @@ exports.help = async (client, message, args) => {
 
   const emb = new Discord.MessageEmbed()
     .setColor(config.main.colours.help)
-    .setTitle("Mute Help")
-    .setDescription("Mutes or unmutes all users in a specified VC.")
-    .addField("Syntax", `${config.main.prefix}mute <ID | .> [u]`)
-    .addField("Examples", [
-      "**__By Channel ID__**",
-      `**Mute:** ${config.main.prefix}mute 430565803293933582`,
-      `**Unmute:** ${config.main.prefix}mute 430565803293933582 u`,
-      "",
-      "**__The VC you are in__**",
-      `**Mute:** ${config.main.prefix}mute .`,
-      `**Unmute:** ${config.main.prefix}mute . u`
-    ].join("\n"))
-    .setFooter("This command can only be used in a guild and not a DM.")
+    .setTitle("Impostor Help")
+    .setDescription("Tells you the impostor.")
+    .setFooter("(100% Accurate)")
   return message.channel.send(emb)
 }
