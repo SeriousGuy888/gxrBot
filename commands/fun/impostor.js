@@ -23,9 +23,7 @@ exports.run = async (client, message, args) => {
         .setDescription(`The VC ${vc} is currently empty.`)
     }
     else {
-      let members = []
-      for(let loopMember of membersInVc)
-        members.push(loopMember)
+      let members = Array.from(membersInVc)
       const impostor = members[Math.floor(Math.random() * members.length)]
       
       outputEmbed
