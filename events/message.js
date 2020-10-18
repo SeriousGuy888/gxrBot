@@ -17,6 +17,7 @@ module.exports = (client, message) => {
 
     args = message.content.slice(prefix.length).trim().split(/ +/g)
     command = args.shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
+    if(command.length === 0) return
 
     cmd = client.commands.get(command) //grab cmds from enmap
 
