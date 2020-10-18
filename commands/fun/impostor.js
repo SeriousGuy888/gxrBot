@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
       outputEmbed
         .setColor("#dc1212")
         .setTitle("The Impostor is...")
-        .setDescription(impostor.user)
+        .setDescription(`<@${impostor.id}>`)
         .setFooter("Reasoning: N/A")
       if(!impostor) message.channel.send("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     }
