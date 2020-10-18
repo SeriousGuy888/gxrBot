@@ -53,7 +53,7 @@ const loadJsFiles = async (directory, callback) => {
 console.log("============")
 
 loadJsFiles("./events/", (name, event, directory, file) => {
-  console.log(`Loading event ${name.toUpperCase()} from ${file}`) // log on load
+  console.log(`[✓] Successfully loaded event ${name.toUpperCase()} from ${file}`) // log on load
   client.on(name, (message, newMessage) => event(client, message, newMessage)) // declare event listener
   delete require.cache[require.resolve(file)] // deleting a cache or something?
 })
@@ -61,24 +61,24 @@ loadJsFiles("./events/", (name, event, directory, file) => {
 client.commands = new Enmap()
 loadJsFiles("./commands/", (name, command, directory, file) => {
   if(client.commands.get(name))
-    return console.log(`Failed to load command from ${file} - Name Taken`)
-  console.log(`Loading command ${name.toUpperCase()} from ${file}`) // log on load
+    return console.log(`[✖] Failed to load command from ${file} - Name Taken`)
+  console.log(`[✓] Successfully loaded command ${name.toUpperCase()} from ${file}`) // log on load
   client.commands.set(name, command)
 })
 
 client.functions = new Enmap()
 loadJsFiles("./functions/", (name, func, directory, file) => {
   if(client.functions.get(name))
-    return console.log(`Failed to load function from ${file} - Name Taken`)
-  console.log(`Loading function ${name.toUpperCase()} from ${file}`)
+    return console.log(`[✖] Failed to load function from ${file} - Name Taken`)
+  console.log(`[✓] Successfully loaded function ${name.toUpperCase()} from ${file}`)
   client.functions.set(name, func)
 })
 
 client.util = new Enmap()
 loadJsFiles("./util/", (name, tool, directory, file) => {
   if(client.util.get(name))
-    return console.log(`Failed to load utility from ${file} - Name Taken`)
-  console.log(`Loading utility ${name.toUpperCase()} from ${file}`)
+    return console.log(`[✖] Failed to load utility from ${file} - Name Taken`)
+  console.log(`[✓] Successfully loaded utility ${name.toUpperCase()} from ${file}`)
   client.util.set(name, tool)
 })
 
