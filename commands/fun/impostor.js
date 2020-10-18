@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
       const impostor = membersInVc[Math.floor(Math.random() * membersInVc.length)]
       
       outputEmbed
-        .setColor(isUnmuting ? config.mute.colours.unmute : config.mute.colours.mute)
+        .setColor("#dc1212")
         .setTitle(`The Impostor is`)
         .setDescription(impostor)
         .setFooter("Reasoning: N/A")
