@@ -28,8 +28,8 @@ exports.run = async (client, message, args) => {
       
       outputEmbed
         .setColor("#dc1212")
-        .setTitle(`The Impostor is`)
-        .setDescription(impostor)
+        .setTitle("The Impostor is...")
+        .setDescription(impostor.user)
         .setFooter("Reasoning: N/A")
     }
 
