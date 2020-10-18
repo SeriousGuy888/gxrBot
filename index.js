@@ -25,7 +25,7 @@ let gameCache = {
 // caches ↑
 // setup ↓
 
-const loadJsFiles = async (directory, logMessage, callback) => {
+const loadJsFiles = async (directory, callback) => {
   // * crawls through all subdirectories and returns an array of files
   const crawl = (dir, fileList = []) => {
     const files = fs.readdirSync(dir)
@@ -45,11 +45,6 @@ const loadJsFiles = async (directory, logMessage, callback) => {
     const props = require(loopFile) // import file
     
     let name = loopFile.split("/").pop().split(".")[0]
-    console.log(
-      logMessage
-        .replace(/%file%/gi, loopFile)
-        .replace(/%item%/gi, name.toUpperCase())
-    )
     callback(name, props, directory, loopFile)
   }
   console.log("============")
@@ -57,22 +52,27 @@ const loadJsFiles = async (directory, logMessage, callback) => {
 
 console.log("============")
 
-loadJsFiles("./events/", "Loading event %item% from %file%", (name, event, directory, file) => {
+loadJsFiles("./events/", (name, event, directory, file) => {
+  console.log(`Loading event ${file.toUpperCase()}`) // log on load
   client.on(name, (message, newMessage) => event(client, message, newMessage)) // declare event listener
   delete require.cache[require.resolve(file)] // deleting a cache or something?
 })
 
 client.commands = new Enmap()
-loadJsFiles("./commands/", "Loading command %item% from %file%", (name, command, directory, file) => {
+loadJsFiles("./commands/", (name, command, directory, file) => {
+  console.log(`Loading command ${file.toUpperCase()}`) // log on load
+  client.commands.set(name, command)
 })
 
 client.functions = new Enmap()
-loadJsFiles("./functions/", "Loading function %item% from %file%", (name, func, directory, file) => {
+loadJsFiles("./functions/", (name, func, directory, file) => {
+  console.log(`Loading function ${file.toUpperCase()}`)
   client.functions.set(name, func)
 })
 
 client.util = new Enmap()
-loadJsFiles("./util/", "Loading utility %item% from %file%", (name, tool, directory, file) => {
+loadJsFiles("./util/", (name, tool, directory, file) => {
+  console.log(`Loading util tool ${file.toUpperCase()}`)
   client.util.set(name, tool)
 })
 
