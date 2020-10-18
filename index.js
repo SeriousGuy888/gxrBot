@@ -53,26 +53,26 @@ const loadJsFiles = async (directory, callback) => {
 console.log("============")
 
 loadJsFiles("./events/", (name, event, directory, file) => {
-  console.log(`Loading event ${name.toUpperCase()}`) // log on load
+  console.log(`Loading event ${(directory + name).toUpperCase()}`) // log on load
   client.on(name, (message, newMessage) => event(client, message, newMessage)) // declare event listener
   delete require.cache[require.resolve(file)] // deleting a cache or something?
 })
 
 client.commands = new Enmap()
 loadJsFiles("./commands/", (name, command, directory, file) => {
-  console.log(`Loading command ${name.toUpperCase()}`) // log on load
+  console.log(`Loading command ${(directory + name).toUpperCase()}`) // log on load
   client.commands.set(name, command)
 })
 
 client.functions = new Enmap()
 loadJsFiles("./functions/", (name, func, directory, file) => {
-  console.log(`Loading function ${name.toUpperCase()}`)
+  console.log(`Loading function ${(directory + name).toUpperCase()}`)
   client.functions.set(name, func)
 })
 
 client.util = new Enmap()
 loadJsFiles("./util/", (name, tool, directory, file) => {
-  console.log(`Loading util tool ${name.toUpperCase()}`)
+  console.log(`Loading util tool ${(directory + name).toUpperCase()}`)
   client.util.set(name, tool)
 })
 
