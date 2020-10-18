@@ -64,7 +64,7 @@ exports.run = async (client, message, args) => {
         .setDescription(isUnmuting ? "To mute again, omit the final argument." : "To unmute, add `u` to the end of the command.")
         .addField(`Members ${completedAction}`, membersMutedCount, true)
         .addField(`Time Taken`, `${timeDiff} ms`, true)
-        .setFooter("Warning: this only affects people in the VC when the command is executed.")
+        .setFooter("Warning: Command is often rate limited. Not much I can do about it. -billzo")
     }
   }
 
