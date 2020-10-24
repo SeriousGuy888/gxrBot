@@ -83,9 +83,8 @@ exports.run = async (client, message) => {
       if(autoEmoji) {
         if(autoEmoji.enabled) {
           const { content } = message
-          const messageWords = content.replace(/[^a-z_]/gi, "").split(" ")
-          for(let loopMessageWord of messageWords)
-            loopMessageWord = loopMessageWord.toLowerCase()
+          const messageWords = content.split(" ")
+          for(let loopMessageWord of messageWords) loopMessageWord = loopMessageWord.toLowerCase()
 
           let successfulReactions = 0
           for(let loopWord of messageWords) {
