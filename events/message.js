@@ -12,32 +12,35 @@ module.exports = (client, message) => {
   let cmd
 
 
-  if(message.content.toLowerCase().indexOf(prefix) === 0) {
-    if(message.author.bot) return //ignore bots
+  commands:
+    if(message.content.toLowerCase().indexOf(prefix) === 0) {
+      if(message.author.bot) break commands //ignore bots
 
-    args = message.content.slice(prefix.length).trim().split(/ +/g)
-    command = args.shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
-    if(command.length === 0) return
+      args = message.content.slice(prefix.length).trim().split(/ +/g)
+      command = args.shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
+      if(command.length === 0) break commands
 
-    cmd = client.commands.get(command) //grab cmds from enmap
+      cmd = client.commands.get(command) //grab cmds from enmap
 
-    
-    if(cmd && cmd.alias) cmd = client.commands.get(cmd.alias)
-    if(!cmd) return message.channel.send(`The command \`${command}\` (or the command it points to) does not exist.`)
+      
+      if(cmd && cmd.alias) cmd = client.commands.get(cmd.alias)
+      if(!cmd) {
+        message.channel.send(`The command \`${command}\` (or the command it points to) does not exist.`)
+        break commands
+      }
 
-    if(config.main.help.flags.includes(args[0]) && cmd.help) cmd.help(client, message, args)
-    else {
-      if(!cmd.run)
-        message.channel.send(`The command you requested or the command it points to does not have a defined \`run\` function.`)
-      else cmd.run(client, message, args)
+      if(config.main.help.flags.includes(args[0]) && cmd.help) cmd.help(client, message, args)
+      else {
+        if(!cmd.run)
+          message.channel.send(`The command you requested or the command it points to does not have a defined \`run\` function.`)
+        else cmd.run(client, message, args)
+      }
     }
-  }
-  
-  else if(index.gameCache.hangman[message.author.id]) {
-    cmd = client.commands.get("hangman")
-    args = ["guess"].concat(message.content.split(" "))
-    cmd.run(client, message, args)
-  }
+    else if(index.gameCache.hangman[message.author.id]) {
+      cmd = client.commands.get("hangman")
+      args = ["guess"].concat(message.content.split(" "))
+      cmd.run(client, message, args)
+    }
 
   autocarrot:
     if(config.autocarrot.settings.enabled) {
