@@ -12,9 +12,10 @@ module.exports = (client, message) => {
   let cmd
 
 
+  if(message.author.bot) return //ignore bots
+
   commands:
     if(message.content.toLowerCase().indexOf(prefix) === 0) {
-      if(message.author.bot) break commands //ignore bots
 
       args = message.content.slice(prefix.length).trim().split(/ +/g)
       command = args.shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
