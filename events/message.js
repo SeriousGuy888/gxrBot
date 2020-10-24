@@ -39,42 +39,42 @@ module.exports = (client, message) => {
     cmd.run(client, message, args)
   }
 
+  autocarrot:
+    if(config.autocarrot.settings.enabled) {
+      if(message.content.toLowerCase().includes(config.autocarrot.settings.pause.message)) {
+        pauseAutocarrotCache[message.author.id] = {
+          issued: new Date()
+        }
 
-  if(config.autocarrot.settings.enabled) {
-    if(message.content.toLowerCase().includes(config.autocarrot.settings.pause.message)) {
-      pauseAutocarrotCache[message.author.id] = {
-        issued: new Date()
+        message.channel.send(`Okay, I will stop autocarroting you for the next ${config.autocarrot.settings.pause.timespan} seconds.`)
+        break autocarrot
       }
 
-      message.channel.send(`Okay, I will stop autocarroting you for the next ${config.autocarrot.settings.pause.timespan} seconds.`)
-      return
-    }
+      if(message.author.id == client.user.id) break autocarrot
+      if(config.autocarrot.settings.exempt.bots && message.author.bot) break autocarrot
+      if(config.autocarrot.settings.exempt.webhooks && message.webhookID) break autocarrot
+      if(config.autocarrot.settings.exempt.userList.includes(message.author.id)) break autocarrot
+      if(config.autocarrot.settings.exempt.channels.includes(message.channel.id)) break autocarrot
+      if(pauseAutocarrotCache[message.author.id] && config.autocarrot.settings.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000) break autocarrot
 
-    if(message.author.id == client.user.id) return
-    if(config.autocarrot.settings.exempt.bots && message.author.bot) return
-    if(config.autocarrot.settings.exempt.webhooks && message.webhookID) return
-    if(config.autocarrot.settings.exempt.userList.includes(message.author.id)) return
-    if(config.autocarrot.settings.exempt.channels.includes(message.channel.id)) return
-    if(pauseAutocarrotCache[message.author.id] && config.autocarrot.settings.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000) return
+      const autocarrotWebhook = index.autocarrotWebhook
+      const swearCensors = config.autocarrot.words
+      const swearList = Object.keys(swearCensors)
 
-    const autocarrotWebhook = index.autocarrotWebhook
-    const swearCensors = config.autocarrot.words
-    const swearList = Object.keys(swearCensors)
+      let needsCorrecting = false
+      for(let i in swearList) {
+        if(message.content.toLowerCase().includes(swearList[i])) {
+          needsCorrecting = true
+        }
+      }
 
-    let needsCorrecting = false
-    for(let i in swearList) {
-      if(message.content.toLowerCase().includes(swearList[i])) {
-        needsCorrecting = true
+      if(needsCorrecting) {
+        autocarrotWebhook(message.author, message.channel, message.content)
+        if(config.autocarrot.settings.deleteOriginalMessage) {
+          message.delete()
+        }
       }
     }
-
-    if(needsCorrecting) {
-      autocarrotWebhook(message.author, message.channel, message.content)
-      if(config.autocarrot.settings.deleteOriginalMessage) {
-        message.delete()
-      }
-    }
-  }
 
 
   if([config.coopchannels.cult.channel, config.coopchannels.ows.channel].includes(message.channel.id)) index.coopChannels(message)
