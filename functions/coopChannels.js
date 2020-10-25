@@ -3,20 +3,18 @@ exports.run = (client, message) => {
   const config = index.config
   const messenger = client.util.get("messenger")
 
-  if(message.author.id === client.user.id)
-
-  // const notRepeat = channel => {
-  //   channel.messages.fetch({ limit: 2 }).then(res => {
-  //     const fetchedMessages = res.array()
-  //     console.log(fetchedMessages[0].author.id != fetchedMessages[1].author.id)
-  //     return fetchedMessages[0].author.id != fetchedMessages[1].author.id
-  //   })
-  // }
+  const notRepeat = channel => {
+    channel.messages.fetch({ limit: 2 }).then(res => {
+      const fetchedMessages = res.array()
+      console.log(fetchedMessages[0].author.id != fetchedMessages[1].author.id)
+      return fetchedMessages[0].author.id != fetchedMessages[1].author.id
+    })
+  }
 
   const cultLegal = (content, phrase) => {
     content = content.toLowerCase()
     phrase = phrase.toLowerCase()
-    return content == phrase
+    if(content == phrase) return true
   }
   const owsLegal = content => {
     content = content.toLowerCase().replace(/[^a-z ]/gi, "")
