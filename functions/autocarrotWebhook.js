@@ -7,16 +7,14 @@ exports.run = (client, author, channel, content) => {
   const hookAvatar = client.user.avatarURL()
 
   const swearCensors = config.autocarrot.words
-  const swearList = Object.keys(swearCensors)
 
 
   const correctMsg = (webhook, str) => {
     if(!str.trim()) return // if the message is empty
 
     let correctedMessage = str
-    for(let loopSwear of swearList) {
+    for(let loopSwear in swearCensors)
       correctedMessage = correctedMessage.replace(new RegExp(loopSwear, "gi"), swearCensors[loopSwear])
-    }
 
 
     let correctedMessageChunks = correctedMessage.match(/.{1,2000}/g)
