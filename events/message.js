@@ -64,12 +64,12 @@ module.exports = (client, message) => {
 
       const autocarrotWebhook = index.autocarrotWebhook
       const swearCensors = config.autocarrot.words
-      const swearList = Object.keys(swearCensors)
 
       let needsCorrecting = false
-      for(let i in swearList) {
-        if(message.content.toLowerCase().includes(swearList[i])) {
+      for(let loopSwear in swearCensors) {
+        if(message.content.toLowerCase().includes(loopSwear)) {
           needsCorrecting = true
+          break
         }
       }
 
