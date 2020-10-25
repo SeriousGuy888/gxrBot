@@ -42,7 +42,7 @@ module.exports = (client, message) => {
     }
   }
 
-  autocarrot:
+  autocarrot: {
     if(config.autocarrot.settings.enabled) {
       let pauseAutocarrotCache = index.pauseAutocarrotCache
       
@@ -80,17 +80,21 @@ module.exports = (client, message) => {
         }
       }
     }
+  }
 
-  coopChannels:
+  coopChannels: {
     if([config.coopchannels.cult.channel, config.coopchannels.ows.channel].includes(message.channel.id))
       index.coopChannels(message)
+  }
   
-  autoResponses:
+  autoResponses: {
     if(message.author.bot) return
     if(config.autoResponses.settings.enabled)
       index.autoResponses(message)
+  }
   
-  pog:
+  pog: {
     if(message.author.bot) return
     index.pog(message)
+  }
 }
