@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
         .setDescription(`The VC ${vc} is currently empty.`)
     }
     else {
-      const isUnmuting = args[1] && args[1].startsWith("u")
+      const isUnmuting = args[1] && args[1].toLowerCase().startsWith("u")
       const startTime = new Date()
 
       const delay = ms => new Promise(res => setTimeout(res, ms))
