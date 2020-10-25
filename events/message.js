@@ -6,7 +6,7 @@ module.exports = (client, message) => {
   const messenger = client.util.get("messenger")
 
   commands:
-    if(message.author.bot) return
+    if(message.author.bot) break commands
 
     let args
     let command
@@ -41,9 +41,9 @@ module.exports = (client, message) => {
     }
 
   autocarrot:
-    let pauseAutocarrotCache = index.pauseAutocarrotCache
-
     if(config.autocarrot.settings.enabled) {
+      let pauseAutocarrotCache = index.pauseAutocarrotCache
+      
       if(message.content.toLowerCase().includes(config.autocarrot.settings.pause.message)) {
         pauseAutocarrotCache[message.author.id] = {
           issued: new Date()
