@@ -5,15 +5,16 @@ module.exports = (client, message) => {
   
   const messenger = client.util.get("messenger")
 
-  commands:
-    if(message.author.bot) break commands
+
+  commands: {
+    if(message.author.bot)
+      break commands
 
     let args
     let command
     let cmd
 
     if(message.content.toLowerCase().indexOf(prefix) === 0) {
-
       args = message.content.slice(prefix.length).trim().split(/ +/g)
       command = args.shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
       if(command.length === 0) break commands
@@ -39,6 +40,7 @@ module.exports = (client, message) => {
       args = ["guess"].concat(message.content.split(" "))
       cmd.run(client, message, args)
     }
+  }
 
   autocarrot:
     if(config.autocarrot.settings.enabled) {
