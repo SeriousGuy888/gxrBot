@@ -5,13 +5,16 @@ module.exports = (client, message) => {
   
   const messenger = client.util.get("messenger")
 
+  let pauseAutocarrotCache = index.pauseAutocarrotCache
+
+  let args
+  let command
+  let cmd
+
+
+  if(message.author.bot) return //ignore bots
+
   commands:
-    if(message.author.bot) return
-
-    let args
-    let command
-    let cmd
-
     if(message.content.toLowerCase().indexOf(prefix) === 0) {
 
       args = message.content.slice(prefix.length).trim().split(/ +/g)
@@ -41,8 +44,6 @@ module.exports = (client, message) => {
     }
 
   autocarrot:
-    let pauseAutocarrotCache = index.pauseAutocarrotCache
-
     if(config.autocarrot.settings.enabled) {
       if(message.content.toLowerCase().includes(config.autocarrot.settings.pause.message)) {
         pauseAutocarrotCache[message.author.id] = {
@@ -79,16 +80,9 @@ module.exports = (client, message) => {
       }
     }
 
-  coopChannels:
-    if([config.coopchannels.cult.channel, config.coopchannels.ows.channel].includes(message.channel.id))
-      index.coopChannels(message)
+
+  if([config.coopchannels.cult.channel, config.coopchannels.ows.channel].includes(message.channel.id)) index.coopChannels(message)
   
-  autoResponses:
-    if(message.author.bot) return
-    if(config.autoResponses.settings.enabled)
-      index.autoResponses(message)
-  
-  pog:
-    if(message.author.bot) return
-    index.pog(message)
+  if(config.autoResponses.settings.enabled) index.autoResponses(message)
+  index.pog(message)
 }
