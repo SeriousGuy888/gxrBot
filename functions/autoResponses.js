@@ -5,6 +5,7 @@ exports.run = async (client, message) => {
   const emojiKey = config.autoResponses.settings.emojiKey
   const channelData = config.autoResponses.channels
 
+  if(message.author.id === client.user.id) return
   if(!channelData[message.channel.id]) return
 
   for(let loopResponse of channelData[message.channel.id]) {

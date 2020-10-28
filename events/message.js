@@ -88,13 +88,12 @@ module.exports = (client, message) => {
   }
   
   autoResponses: {
-    if(message.author.bot) return
     if(config.autoResponses.settings.enabled)
       index.autoResponses(message)
   }
   
   pog: {
-    if(message.author.bot) return
+    if(message.author.bot) break pog
     index.pog(message)
   }
 }
