@@ -12,10 +12,11 @@
     "webhooks": false,
     "userList": [],
     "channels": [
-      "first is counting, next is league activities, and the ows",
+      "first is counting, next is league activities, and the ows and ows total",
       "634597235362889728",
       "727371416449581076",
-      "727368232427585607"
+      "727368232427585607",
+      "728815880863088640"
     ]
   }
 }
