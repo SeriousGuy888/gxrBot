@@ -11,15 +11,17 @@ exports.run = (client, message) => {
     })
   }
 
+  const legal = () => message.attachments.array().length === 0
+
   const cultLegal = (content, phrase) => {
     content = content.toLowerCase()
     phrase = phrase.toLowerCase()
-    if(content == phrase) return true
+    if(content == phrase) return legal() && true
   }
   const owsLegal = content => {
     content = content.toLowerCase().replace(/[^a-z ]/gi, "")
     if(content.split(" ").length != 1) return false
-    return true
+    return legal() && true
   }
   const deleteMessage = (msg, errorMessage) => {
     if(!msg.author.bot)
@@ -34,6 +36,6 @@ exports.run = (client, message) => {
   }
   else if(message.channel.id == config.coopchannels.ows.channel) {
     if(owsLegal(message.content)) return
-    deleteMessage(message, `<@${message.author.id}>, your message in the OWS channel may only **be one word**.`)
+    deleteMessage(message, `<@${message.author.id}>, your message in the OWS channel may only **be one word** and you **may not have attachments**.`)
   }
 }
