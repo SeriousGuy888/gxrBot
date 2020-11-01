@@ -5,7 +5,7 @@
   "fuck": "duck",
   "faggot": "forget",
   "fag": "gag",
-  "n(i|1)(gg|bb|66|99)(a|er)": "person whom i judge to likely be of african descent",
+  "n(i|1)(g|b|6|9){1,}(a|er)": "person whom i judge to likely be of african descent",
   "raccoon": "Raycon",
   "coon": "cone",
   "dick": "dock",
