@@ -23,7 +23,10 @@
   ],
   "raccoon": "Raycon",
   "coon": "cone",
-  "dick": "dock",
+  "dick": [
+    "dock",
+    "sick"
+  ],
   "pussy": "pushy",
   "cock": "clock",
   "cuck": "cluck",
