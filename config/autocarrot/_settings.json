@@ -9,7 +9,7 @@
   "exempt": {
     "comment": "You can choose to exempt bot messages, messages from webhooks, or have a list of exempted user IDs.",
     "bots": false,
-    "webhooks": false,
+    "webhooks": true,
     "userList": [],
     "channels": [
       "first is counting, next is league activities, and the ows and ows total",
