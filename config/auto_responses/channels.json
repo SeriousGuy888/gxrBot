@@ -244,6 +244,23 @@
           {
             "enabled": true,
             "type": "regex",
+            "expression": "420$",
+            "flags": "gi"
+          }
+        ]
+      },
+      "reactions": [
+        "#🍀"
+      ]
+    },
+    {
+      "enabled": true,
+      "conditional": {
+        "enabled": true,
+        "conditions": [
+          {
+            "enabled": true,
+            "type": "regex",
             "expression": "00$",
             "flags": "gi"
           }
@@ -251,6 +268,27 @@
       },
       "reactions": [
         "#🎉"
+      ]
+    },
+    {
+      "enabled": true,
+      "conditional": {
+        "enabled": true,
+        "conditions": [
+          {
+            "enabled": true,
+            "type": "regex",
+            "expression": "69$",
+            "flags": "gi"
+          }
+        ]
+      },
+      "reactions": [
+        "#🇫",
+        "#🇺",
+        "#🇳",
+        "#🇲",
+        "#🇾"
       ]
     },
     {
