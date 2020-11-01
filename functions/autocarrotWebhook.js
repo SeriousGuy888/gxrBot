@@ -8,7 +8,7 @@ exports.run = (client, author, channel, content) => {
 
   const swearCensors = config.autocarrot.words
 
-  const randomElem = arr => arr[Math.floor(Math.random() * arr.length) + 1]
+  const randomElem = arr => arr[Math.floor(Math.random() * arr.length)]
 
   const correctMsg = (webhook, str) => {
     if(!str.trim()) return // if the message is empty
