@@ -18,5 +18,9 @@
       "727368232427585607",
       "728815880863088640"
     ]
+  },
+  "randomize": {
+    "comment": "If censors are not randomized, the first one will be chosen every time.",
+    "randomizeCensors": true
   }
 }
