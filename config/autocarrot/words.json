@@ -1,22 +1,35 @@
 {
-  "bastard": "batman",
+  "bastard": [
+    "batman",
+    "Nascar"
+  ],
   "bitch": "birch",
   "cunt": "can't",
   "fuck": "duck",
-  "faggot": "forget",
-  "fag": "gag",
-  "n(i|1)(g|b|q|6|9){1,}(a|er)": "person whom i judge to likely be of african descent",
+  "faggot": [
+    "forgot",
+    "regret"
+  ],
+  "fag": [
+    "flag",
+    "gag"
+  ],
+  "n(i|1)(g|b|q|6|9){1,}(a|er)": [
+    "person whom i judge to likely be of african descent",
+    "insert racial slur here",
+    "neighbour"
+  ],
   "raccoon": "Raycon",
   "coon": "cone",
   "dick": "dock",
   "pussy": "pushy",
   "cock": "clock",
   "cuck": "cluck",
-  "prick": "pinetree",
-  "shit": [
-    "shut",
-    "shirt"
+  "prick": [
+    "pick",
+    "pinetree"
   ],
+  "shit": "shut",
   "slut": "slit",
   "twat": [
     "tweet",
