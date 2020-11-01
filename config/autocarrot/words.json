@@ -5,19 +5,22 @@
   "fuck": "duck",
   "faggot": "forget",
   "fag": "gag",
-  "nigga": "person whom i judge to likely be of african descent",
-  "nigger": "person whom i judge to likely be of african descent",
+  "n(i|1)(gg|bb|66|99)(a|er)": "person whom i judge to likely be of african descent",
   "raccoon": "Raycon",
   "coon": "cone",
   "dick": "dock",
   "pussy": "pushy",
   "cock": "clock",
   "cuck": "cluck",
-  "nibber": "person whom i judge to likely be of african descent",
-  "nibba": "person whom i judge to likely be of african descent",
   "prick": "pinetree",
-  "shit": "shut",
+  "shit": [
+    "shut",
+    "shirt"
+  ],
   "slut": "slit",
-  "twat": "tweet",
+  "twat": [
+    "tweet",
+    "tear"
+  ],
   "whore": "whole"
 }

@@ -8,13 +8,23 @@ exports.run = (client, author, channel, content) => {
 
   const swearCensors = config.autocarrot.words
 
+  const randomElem = arr => arr[Math.floor(Math.random() * arr.length)]
 
   const correctMsg = (webhook, str) => {
     if(!str.trim()) return // if the message is empty
 
+    // uses filters as regexes
     let correctedMessage = str
-    for(let loopSwear in swearCensors)
-      correctedMessage = correctedMessage.replace(new RegExp(loopSwear, "gi"), swearCensors[loopSwear])
+    for(let loopSwear in swearCensors) {
+      if(typeof swearCensors[loopSwear] === "string") // if only one possible censor
+        correctedMessage = correctedMessage.replace(new RegExp(loopSwear, "gi"), swearCensors[loopSwear])
+      else { // array of possible censors
+        if(!swearCensors) // no censors defined
+          continue
+        // get random censor
+        correctedMessage = correctedMessage.replace(new RegExp(loopSwear, "gi"), randomElem(swearCensors[loopSwear]))
+      }
+    }
 
 
     let correctedMessageChunks = correctedMessage.match(/.{1,2000}/g)

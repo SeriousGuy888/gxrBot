@@ -67,7 +67,7 @@ module.exports = (client, message) => {
 
       let needsCorrecting = false
       for(let loopSwear in swearCensors) {
-        if(message.content.toLowerCase().includes(loopSwear)) {
+        if(message.content.toLowerCase().match(new RegExp(loopSwear, "gi"))) {
           needsCorrecting = true
           break
         }
