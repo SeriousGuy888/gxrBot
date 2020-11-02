@@ -21,8 +21,6 @@ exports.run = (client, author, channel, content) => {
       for(let i in occurences) {
         let resWithPreservedCase = ""
         let letterRatio = occurences[i].length / censor.length
-  
-        console.log(letterRatio)
 
         for(let j = 0; j < censor.length; j++) {
           let c = censor.charAt(j)
