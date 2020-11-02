@@ -24,7 +24,7 @@ exports.run = (client, author, channel, content) => {
   
         for(let j = 0; j < occurences[i].length; j++) {
           let c = occurences[i].charAt(j);
-          let p = pattern.charCodeAt(j)
+          let p = censor.charCodeAt(j)
   
           if(p >= 65 && p < 65 + 26) {
             resWithPreservedCase += c.toUpperCase()
