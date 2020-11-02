@@ -16,26 +16,21 @@ exports.run = (client, author, channel, content) => {
     // this function censors the regex filter provided and also keeps casing
     const censorWord = (original, filter, censor) => {
       let replacementResult = original
-
       let occurences = original.match(filter)
       for(let i in occurences) {
         let resWithPreservedCase = ""
         let letterRatio = occurences[i].length / censor.length
-
         for(let j = 0; j < censor.length; j++) {
-          let c = censor.charAt(j)
-          let p = occurences[i].charAt(Math.floor(j * letterRatio))
+          let censorChar = censor.charAt(j)
+          let originalChar = occurences[i].charAt(Math.floor(j * letterRatio))
   
-          if(p.match(/[A-Z]/))
-            resWithPreservedCase += c.toUpperCase()
+          if(originalChar.match(/[A-Z]/))
+            resWithPreservedCase += censorChar.toUpperCase()
           else
-            resWithPreservedCase += c.toLowerCase()
+            resWithPreservedCase += censorChar.toLowerCase()
         }
-
         replacementResult = replacementResult.replace(occurences[i], resWithPreservedCase)
-        // if(channel.guild.id === "430565803293933578") replacementResult += `[RATIO: ${letterRatio}]`
       }
-
       return replacementResult
     }
 
