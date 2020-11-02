@@ -13,18 +13,46 @@ exports.run = (client, author, channel, content) => {
   const correctMsg = (webhook, str) => {
     if(!str.trim()) return // if the message is empty
 
+    // this function censors the regex filter provided and also keeps casing
+    const censorWord = (original, filter, censor) => {
+      let replacementResult = original
+
+      let occurences = original.match(filter)
+      for(let i in occurences) {
+        let resWithPreservedCase = ""
+        // let letterRatio = original.length / censor.length
+  
+        for(let j = 0; j < text.length; j++) {
+          let c = original.charAt(j);
+          let p = pattern.charCodeAt(j)
+  
+          if(p >= 65 && p < 65 + 26) {
+            resWithPreservedCase += c.toUpperCase()
+          }
+          else {
+            resWithPreservedCase += c.toLowerCase()
+          }
+        }
+
+        replacementResult.replace(occurences[i], resWithPreservedCase)
+      }
+
+
+      return replacementResult
+    }
+
     // uses filters as regexes
     let correctedMessage = str
     for(let loopSwear in swearCensors) {
       let filterRegex = new RegExp(loopSwear, "gi")
       if(typeof swearCensors[loopSwear] === "string") // if only one possible censor
-        correctedMessage = correctedMessage.replace(filterRegex, swearCensors[loopSwear])
+        correctedMessage = censorWord(filterRegex, swearCensors[loopSwear])
       else { // array of possible censors
         if(!swearCensors) // no censors defined
           continue
         if(config.autocarrot.settings.randomize.randomizeCensors)
-          correctedMessage = correctedMessage.replace(filterRegex, randomElem(swearCensors[loopSwear]))
-        else correctedMessage = correctedMessage.replace(filterRegex, swearCensors[loopSwear][0])
+          correctedMessage = censorWord(filterRegex, randomElem(swearCensors[loopSwear]))
+        else correctedMessage = censorWord(filterRegex, swearCensors[loopSwear][0])
       }
     }
 
