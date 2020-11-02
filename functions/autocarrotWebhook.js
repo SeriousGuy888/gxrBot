@@ -34,7 +34,7 @@ exports.run = (client, author, channel, content) => {
         }
 
         replacementResult.replace(new RegExp(occurences[i]), resWithPreservedCase)
-        console.log(replacementResult)
+        console.log(occurences[i])
       }
       console.log(replacementResult)
 
