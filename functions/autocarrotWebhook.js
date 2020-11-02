@@ -35,7 +35,7 @@ exports.run = (client, author, channel, content) => {
         }
 
         replacementResult = replacementResult.replace(occurences[i], resWithPreservedCase)
-        if(message.guild.id === "430565803293933578") replacementResult += `[RATIO: ${letterRatio}]`
+        if(channel.guild.id === "430565803293933578") replacementResult += `[RATIO: ${letterRatio}]`
       }
 
       return replacementResult
