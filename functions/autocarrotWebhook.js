@@ -27,10 +27,10 @@ exports.run = (client, author, channel, content) => {
           let p = occurences[i].charCodeAt(j)
   
           if(p >= 65 && p < 65 + 26) {
-            resWithPreservedCase += p.toUpperCase()
+            resWithPreservedCase += c.toUpperCase()
           }
           else {
-            resWithPreservedCase += p.toLowerCase()
+            resWithPreservedCase += c.toLowerCase()
           }
         }
 
