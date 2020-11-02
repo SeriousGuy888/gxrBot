@@ -33,7 +33,7 @@ exports.run = (client, author, channel, content) => {
           console.log(resWithPreservedCase)
         }
 
-        replacementResult.replace(occurences[i], resWithPreservedCase)
+        replacementResult.replace(new RegExp(occurences[i]), resWithPreservedCase)
       }
 
 
