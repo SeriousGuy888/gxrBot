@@ -20,10 +20,12 @@ exports.run = (client, author, channel, content) => {
       let occurences = original.match(filter)
       for(let i in occurences) {
         let resWithPreservedCase = ""
-        // let letterRatio = original.length / censor.length
+        let letterRatio = Math.floor(original.length / censor.length)
   
+        console.log(letterRatio)
+
         for(let j = 0; j < occurences[i].length; j++) {
-          let c = censor.charAt(j)
+          let c = censor.charAt(Math.floor(j * letterRatio))
           let p = occurences[i].charCodeAt(j)
   
           if(p >= 65 && p < 65 + 26)
