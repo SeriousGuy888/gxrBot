@@ -25,8 +25,8 @@ exports.run = (client, author, channel, content) => {
         console.log(letterRatio)
 
         for(let j = 0; j < censor.length; j++) {
-          let c = censor.charAt(Math.floor(j * letterRatio))
-          let p = occurences[i].charCodeAt(j)
+          let c = censor.charAt(j)
+          let p = occurences[i].charCodeAt(Math.floor(j * letterRatio))
   
           if(p >= 65 && p < 65 + 26)
             resWithPreservedCase += c.toUpperCase()
