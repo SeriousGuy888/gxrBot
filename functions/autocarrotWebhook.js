@@ -34,7 +34,7 @@ exports.run = (client, author, channel, content) => {
             resWithPreservedCase += c.toLowerCase()
         }
 
-        replacementResult = replacementResult.replace(occurences[i], resWithPreservedCase)
+        replacementResult = replacementResult.replace(occurences[i], resWithPreservedCase) + `[styrikgn liength raitio or someotighfkjgn: ${letterRatio}]`
       }
 
       return replacementResult
