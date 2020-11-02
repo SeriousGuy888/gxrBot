@@ -24,7 +24,7 @@ exports.run = (client, author, channel, content) => {
   
         console.log(letterRatio)
 
-        for(let j = 0; j < occurences[i].length; j++) {
+        for(let j = 0; j < censor.length; j++) {
           let c = censor.charAt(Math.floor(j / letterRatio))
           let p = occurences[i].charCodeAt(j)
   
