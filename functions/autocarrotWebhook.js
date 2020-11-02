@@ -46,13 +46,13 @@ exports.run = (client, author, channel, content) => {
     for(let loopSwear in swearCensors) {
       let filterRegex = new RegExp(loopSwear, "gi")
       if(typeof swearCensors[loopSwear] === "string") // if only one possible censor
-        correctedMessage = censorWord(filterRegex, swearCensors[loopSwear])
+        correctedMessage = censorWord(correctedMessage, filterRegex, swearCensors[loopSwear])
       else { // array of possible censors
         if(!swearCensors) // no censors defined
           continue
         if(config.autocarrot.settings.randomize.randomizeCensors)
-          correctedMessage = censorWord(filterRegex, randomElem(swearCensors[loopSwear]))
-        else correctedMessage = censorWord(filterRegex, swearCensors[loopSwear][0])
+          correctedMessage = censorWord(correctedMessage, filterRegex, randomElem(swearCensors[loopSwear]))
+        else correctedMessage = censorWord(correctedMessage, filterRegex, swearCensors[loopSwear][0])
       }
     }
 
