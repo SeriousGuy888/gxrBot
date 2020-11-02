@@ -22,8 +22,8 @@ exports.run = (client, author, channel, content) => {
         let resWithPreservedCase = ""
         // let letterRatio = original.length / censor.length
   
-        for(let j = 0; j < text.length; j++) {
-          let c = original.charAt(j);
+        for(let j = 0; j < occurences[i].length; j++) {
+          let c = occurences[i].charAt(j);
           let p = pattern.charCodeAt(j)
   
           if(p >= 65 && p < 65 + 26) {
