@@ -32,10 +32,8 @@ exports.run = (client, author, channel, content) => {
             resWithPreservedCase += c.toLowerCase()
         }
 
-        replacementResult.replace(new RegExp(occurences[i], "gi"), resWithPreservedCase)
-        console.log(occurences[i])
+        replacementResult = replacementResult.replace(occurences[i], resWithPreservedCase)
       }
-
 
       return replacementResult
     }
