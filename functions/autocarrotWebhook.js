@@ -20,7 +20,7 @@ exports.run = (client, author, channel, content) => {
       let occurences = original.match(filter)
       for(let i in occurences) {
         let resWithPreservedCase = ""
-        let letterRatio = Math.floor(original.length / censor.length)
+        let letterRatio = original.length / censor.length
   
         console.log(letterRatio)
 
