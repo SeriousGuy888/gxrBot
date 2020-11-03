@@ -2,7 +2,8 @@ exports.run = (client, author, message) => {
   const index = require("../index.js")
   const config = index.config
 
-  const channel, content = { message }
+  const channel = { message }
+  const content = { message }
 
   const hookName = `${config.main.botNames.lowerCamelCase} AutoCarrot`
   const avatarURL = author.avatarURL()
