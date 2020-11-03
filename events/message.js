@@ -73,9 +73,8 @@ module.exports = (client, message) => {
         }
       }
 
-      if(needsCorrecting) {
+      if(needsCorrecting)
         autocarrotWebhook(message.author, message)
-      }
     }
   }
 
