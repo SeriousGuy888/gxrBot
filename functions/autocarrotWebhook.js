@@ -2,9 +2,6 @@ exports.run = (client, author, message) => {
   const index = require("../index.js")
   const config = index.config
 
-  const channel = { message }
-  const content = { message }
-
   const hookName = `${config.main.botNames.lowerCamelCase} AutoCarrot`
   const avatarURL = author.avatarURL()
   const hookAvatar = client.user.avatarURL()
@@ -75,9 +72,9 @@ exports.run = (client, author, message) => {
           avatar: hookAvatar,
           reason: "AutoCarrot"
         }).then(createdWebhook => {
-          correctMsg(createdWebhook, content)
+          correctMsg(createdWebhook, message.content)
         })
     }
-    else correctMsg(foundHook, content)
+    else correctMsg(foundHook, message.content)
   })
 }
