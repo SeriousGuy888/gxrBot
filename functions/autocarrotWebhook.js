@@ -63,6 +63,10 @@ exports.run = (client, author, message) => {
       "files": message.attachments.array(),
       "embeds": []
     }).catch(error => message.channel.send(error))
+
+    
+    if(config.autocarrot.settings.deleteOriginalMessage)
+      message.delete()
   }
 
   message.channel.fetchWebhooks().then(webhooks => {

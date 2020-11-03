@@ -75,11 +75,6 @@ module.exports = (client, message) => {
 
       if(needsCorrecting) {
         autocarrotWebhook(message.author, message)
-        if(config.autocarrot.settings.deleteOriginalMessage) {
-          for(let loopAttachment of message.attachments)
-            message.channel.send(message.attachments)
-          // message.delete()
-        }
       }
     }
   }
