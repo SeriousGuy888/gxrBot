@@ -63,7 +63,8 @@ exports.run = (client, author, message) => {
       "files": message.attachments.array(),
       "embeds": []
     }).catch(error => message.channel.send(error))
-    message.channel.send(JSON.stringify(message.attachments.array()))
+    for(let loopAttachment of message.attachments)
+      message.channel.send(loopAttachment.url)
   }
 
   message.channel.fetchWebhooks().then(webhooks => {
