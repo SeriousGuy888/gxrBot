@@ -65,13 +65,13 @@ exports.run = (client, author, message) => {
       "avatarURL": avatarURL,
       "files": [...message.attachments.values()],
       "embeds": []
-    }).catch(error => channel.send(error))
+    }).catch(error => message.channel.send(error))
   }
 
-  channel.fetchWebhooks().then(webhooks => {
+  message.channel.fetchWebhooks().then(webhooks => {
     let foundHook = webhooks.find(w => w.name === hookName && w.owner.id === client.user.id)
     if(!foundHook) {
-      channel.createWebhook(hookName, {
+      message.channel.createWebhook(hookName, {
           avatar: hookAvatar,
           reason: "AutoCarrot"
         }).then(createdWebhook => {
