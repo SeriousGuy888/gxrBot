@@ -60,7 +60,7 @@ exports.run = (client, author, message) => {
     webhook.send(str, {
       "username": author.username,
       "avatarURL": avatarURL,
-      "files": [...message.attachments.values()],
+      "files": message.attachments.array(),
       "embeds": []
     }).catch(error => message.channel.send(error))
   }
