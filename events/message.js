@@ -74,7 +74,7 @@ module.exports = (client, message) => {
       }
 
       if(needsCorrecting) {
-        autocarrotWebhook(message.author, message.channel, message.content)
+        autocarrotWebhook(message.author, message)
         if(config.autocarrot.settings.deleteOriginalMessage) {
           message.delete()
         }

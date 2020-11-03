@@ -1,6 +1,8 @@
-exports.run = (client, author, channel, content) => {
+exports.run = (client, author, message) => {
   const index = require("../index.js")
   const config = index.config
+
+  const channel, content = { message }
 
   const hookName = `${config.main.botNames.lowerCamelCase} AutoCarrot`
   const avatarURL = author.avatarURL()
@@ -60,6 +62,7 @@ exports.run = (client, author, channel, content) => {
     webhook.send(str, {
       "username": author.username,
       "avatarURL": avatarURL,
+      "files": [...message.attachments.values()],
       "embeds": []
     }).catch(error => channel.send(error))
   }

@@ -85,7 +85,7 @@ loadJsFiles("./util/", (name, tool, directory, file) => {
 // setup ↑
 // function imports ↓
 
-const autocarrotWebhook = (human, channel, content) => client.functions.get("autocarrotWebhook").run(client, human, channel, content)
+const autocarrotWebhook = (human, message) => client.functions.get("autocarrotWebhook").run(client, human, message)
 const autoResponses = (message) => client.functions.get("autoResponses").run(client, message)
 const coopChannels = (message) => client.functions.get("coopChannels").run(client, message)
 const pog = (message) => client.functions.get("pog").run(client, message)
