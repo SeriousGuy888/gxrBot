@@ -1,28 +1,22 @@
-require("dotenv").config()
-
-// .env ↑
+require("dotenv").config() // .env
 
 const fs = require("fs")
 const Discord = require("discord.js")
-const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] })
-const config = require("./config/_config.js")
-const prefix = config.main.prefix
+const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] }) // discord client with partials
+const config = require("./config/_config.js") // config file
+const prefix = config.main.prefix // bot prefix
 
-const Enmap = require("enmap")
-const timeFormatter = require("seconds-time-formatter")
-const emoji = require("emojilib")
-const emojiDictionary = require("emoji-dictionary")
-const translate = require("translate-google")
+const Enmap = require("enmap") // used for loading in the commands and functions and stuff
+const timeFormatter = require("seconds-time-formatter") // my own npm package that is very badly written 
+const emoji = require("emojilib") // for automatic emoji thing for auto reactions
+const emojiDictionary = require("emoji-dictionary") // also emojis
+const translate = require("translate-google") // google translate i think
 
-// important declarations and imports ↑
-// caches ↓
-
-let pauseAutocarrotCache = {}
-let gameCache = {
+let pauseAutocarrotCache = {} // used for storing when people want g9lbot to stop autocarroting them
+let gameCache = { // for storing when people are playing g9lbot's games
   hangman: {}
 }
 
-// caches ↑
 // setup ↓
 
 const loadJsFiles = async (directory, callback) => {
