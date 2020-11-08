@@ -2,6 +2,7 @@ exports.run = (client, author, message) => {
   const index = require("../index.js")
   const config = index.config
 
+  const searchHookName = `${config.main.botNames.lowerCamelCase} AutoCarrot`
   const hookName = `${config.main.botNames.lowerCamelCase} AutoCarrot #${message.channel.id}`
   const avatarURL = author.avatarURL()
   const hookAvatar = client.user.avatarURL()
@@ -70,15 +71,19 @@ exports.run = (client, author, message) => {
   }
 
   message.channel.fetchWebhooks().then(webhooks => {
-    let foundHook = webhooks.find(w => w.name === hookName && w.owner.id === client.user.id)
+    let foundHook = webhooks.find(w => w.name.includes(searchHookName) && w.owner.id === client.user.id)
     if(!foundHook) {
       message.channel.createWebhook(hookName, {
-          avatar: hookAvatar,
-          reason: "AutoCarrot"
-        }).then(createdWebhook => {
-          correctMsg(createdWebhook, message.content)
-        })
+        avatar: hookAvatar,
+        reason: "AutoCarrot"
+      }).then(createdWebhook => {
+        correctMsg(createdWebhook, message.content)
+      })
     }
-    else correctMsg(foundHook, message.content)
+    else {
+      if(foundHook.name !== hookName || foundHook.avatarURL() !== hookAvatar)
+        foundHook.edit({ name: hookName, avatar: hookAvatar, reason: "Updated legacy autocarrot webhook" })
+      correctMsg(foundHook, message.content)
+    }
   })
 }
