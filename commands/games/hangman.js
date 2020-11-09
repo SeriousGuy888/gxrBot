@@ -51,11 +51,13 @@ exports.run = async (client, message, args) => {
       .setFooter(`Please guess a letter. (Give up? ${config.main.prefix}hangman quit)`)
     
     let msg
-    if(!playerData.message) msg = await channel.send(embed)
+    if(init)
+      msg = await channel.send(embed)
     else {
       msg = playerData.message
       msg.edit(embed)
     }
+
     if(playerData.failure) {
       clearUserHangman(message.author)
       await msg.edit(`You lose! The word was \`${playerData.word}\``)
@@ -67,7 +69,8 @@ exports.run = async (client, message, args) => {
       await msg.react(settings.winReaction)
     }
     
-    if(!playerData.message) playerData.message = msg
+    if(init)
+      playerData.message = msg
   }
 
   switch(args[0]) {
@@ -113,6 +116,12 @@ exports.run = async (client, message, args) => {
         failure: false,
         message: null
       }
+
+      hangmanEmbed(message.channel, true)
+      break
+    case "msg":
+      if(!hangmanCache[message.author.id])
+        return message.reply(`You are not currently playing Hangman!`)
 
       hangmanEmbed(message.channel, true)
       break
