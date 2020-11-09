@@ -23,6 +23,8 @@ exports.run = async (client, message, args) => {
       message.channel.send(err)
     })
 
+  return
+
   const authorGuildMember = allMembers.find(gm => gm.id === message.author.id)
 
   message.channel.send("2")
