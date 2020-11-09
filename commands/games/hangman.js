@@ -43,7 +43,7 @@ exports.run = async (client, message, args) => {
         `ℹ️ How do I guess a letter? [Hover](https://www.youre-not-supposed-to-click-this-idot.com "Send a message with the letter you want to guess.")`
       ].join("\n"))
       .addField("\u200b", "\u200b")
-      .addField(`Word (${word.length})`, `\`${blanks}\`${failure ? "\nThe word was `" + word + "`" : ""}`, false)
+      .addField(`Word (${word.length})`, `\`${blanks}\`${playerData.failure ? "\nThe word was `" + word + "`" : ""}`, false)
       .addField("\u200b", "\u200b")
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
