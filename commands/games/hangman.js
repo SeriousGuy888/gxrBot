@@ -40,8 +40,8 @@ exports.run = async (client, message, args) => {
         `**WORD SETS:** ${playerData.set}`,
         `**MAX INCORRECT GUESSES:** ${playerData.maxIncorrectGuesses}`,
         "",
-        `ℹ️ Why can't I see the execution? [Hover](https://www.example.com "Because there isnt a good way to display a hanging with variable guess counts.")`,
-        `ℹ️ How the duck do I play this? [Hover](https://www.example.com "Just reply with the letter you want to guess.")`
+        `ℹ️ Why can't I see the execution? [Hover](you're_not_supposed_to_click_this_idot "Because there isnt a good way to display a hanging with variable guess counts.")`,
+        `ℹ️ How the duck do I play this? [Hover](you're_not_supposed_to_click_this_idot "Just reply with the letter you want to guess.")`
       ].join("\n"))
       .addField("\u200b", "\u200b")
       .addField(`Word (Length ${word.length})`, `\`${blanks}\``, false)
