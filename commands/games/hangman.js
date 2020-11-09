@@ -72,7 +72,7 @@ exports.run = async (client, message, args) => {
 
   switch(args[0]) {
     case "play":
-      if(hangmanCache[message.author.id]) return message.channel.send(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.main.prefix}hangman quit\`.`)
+      if(hangmanCache[message.author.id]) return message.reply(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.main.prefix}hangman quit\`.`)
       
       let setName, chosenSet
       
@@ -85,7 +85,7 @@ exports.run = async (client, message, args) => {
       
         for(let i in allowedSets) {
           if(!words[allowedSets[i]]) {
-            return message.channel.send("At least one of your specified sets does not exist. Please try again.")
+            return message.reply("At least one of your specified sets does not exist. Please try again.")
           }
         }
 
@@ -119,32 +119,32 @@ exports.run = async (client, message, args) => {
     case "forfeit":
     case "quit":
       if(!hangmanCache[message.author.id]) {
-        message.channel.send("You do not have an ongoing hangman game!")
+        message.reply("You do not have an ongoing hangman game!")
         break
       }
-      message.channel.send(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
+      message.reply(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
       clearUserHangman(message.author)
       break
     case "sets":
-      message.channel.send(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nUse \`${config.main.prefix}hangman\` to see how to choose a set.\nIf you don't specify, a random word will be chosen from the sets \`${settings.defaultSets.join(", ")}\`.`)
+      message.reply(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nUse \`${config.main.prefix}hangman\` to see how to choose a set.\nIf you don't specify, a random word will be chosen from the sets \`${settings.defaultSets.join(", ")}\`.`)
       break
     case "guess":
       const playerData = hangmanCache[message.author.id]
-      if(!hangmanCache[message.author.id]) return message.channel.send("You are not currently playing hangman.")
-      if(hangmanCache[message.author.id].message.channel.id != message.channel.id) return message.channel.send("You are already playing in another channel. Please use `hangman quit` first.")
-      if(!args[1]) return message.channel.send("Please specify a letter, you idiot.")
+      if(!hangmanCache[message.author.id]) return message.reply("You are not currently playing hangman.")
+      if(hangmanCache[message.author.id].message.channel.id != message.channel.id) return message.reply("You are already playing in another channel. Please use `hangman quit` first.")
+      if(!args[1]) return message.reply("Please specify a letter, you idiot.")
       
       const guessChar = args[1].charAt(0).toLowerCase()
       if(!guessChar.match(/[a-z]/gi)) {
         message.delete()
-        message.channel.send("You have to guess a letter in the English Alphabet, idiot.").then(msg => setTimeout(() => {
+        message.reply("You have to guess a letter in the English Alphabet, idiot.").then(msg => setTimeout(() => {
           msg.delete()
         }, settings.errMsgDelTimeout))
         return
       }
       if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) {
         message.delete()
-        message.channel.send("You've already guessed this letter, idiot.").then(msg => setTimeout(() => {
+        message.reply("You've already guessed this letter, idiot.").then(msg => setTimeout(() => {
           msg.delete()
         }, settings.errMsgDelTimeout))
         return
