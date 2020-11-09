@@ -129,8 +129,8 @@ exports.run = async (client, message, args) => {
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setTitle(`**__${config.main.botNames.lowerCamelCase} Hangman__**`)
         .setDescription("The player has requested a new game panel.")
-      oldMsg.edit(oldMsgEmbed)
       hangmanEmbed(message.channel, true)
+      oldMsg.edit(oldMsgEmbed)
       break
     case "forfeit":
     case "quit":
