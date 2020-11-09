@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
   message.channel.send("1")
   
   const guild = message.guild
-  const allMembers = await guild.members.fetch()
+  const allMembers = guild.members.fetch()
   const authorGuildMember = allMembers.find(gm => gm.id === message.author.id)
 
   message.channel.send("2")
