@@ -103,11 +103,7 @@ exports.run = async (client, message, args) => {
         word: chosenWord,
         set: setName,
         maxIncorrectGuesses: Math.min(
-          Math.abs(parseInt(args[2])) ||
-          Math.max(
-            setMaxIncorrectGuesses - Math.floor(uniqueCharCount(chosenWord) / 2),
-            1
-          ),
+          Math.abs(parseInt(args[2])) || Math.max(setMaxIncorrectGuesses - Math.floor(uniqueCharCount(chosenWord) / 2), 1),
           settings.maxAllowedGuesses
         ),
         guesses: 0,
@@ -146,23 +142,28 @@ exports.run = async (client, message, args) => {
       break
     case "guess":
       const playerData = hangmanCache[message.author.id]
-      if(!hangmanCache[message.author.id]) return message.reply("You are not currently playing hangman.")
-      if(hangmanCache[message.author.id].message.channel.id != message.channel.id) return message.reply("You are already playing in another channel. Please use `hangman quit` first.")
-      if(!args[1]) return message.reply("Please specify a letter, you idiot.")
+      if(!hangmanCache[message.author.id])
+        return message.reply("You are not currently playing hangman.")
+      if(hangmanCache[message.author.id].message.channel.id != message.channel.id)
+        return message.reply("You are already playing in another channel. Please use `hangman quit` first.")
+      if(!args[1])
+        return message.reply("Please specify a letter, you idiot.")
       
       const guessChar = args[1].charAt(0).toLowerCase()
       if(!guessChar.match(/[a-z]/gi)) {
         message.delete()
-        message.reply("You have to guess a letter in the English Alphabet, idiot.").then(msg => setTimeout(() => {
-          msg.delete()
-        }, settings.errMsgDelTimeout))
+        message.reply("You have to guess a letter in the English Alphabet, idiot.")
+          .then(msg => setTimeout(() => {
+            msg.delete()
+          }, settings.errMsgDelTimeout))
         return
       }
       if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) {
         message.delete()
-        message.reply("You've already guessed this letter, idiot.").then(msg => setTimeout(() => {
-          msg.delete()
-        }, settings.errMsgDelTimeout))
+        message.reply("You've already guessed this letter, idiot.")
+          .then(msg => setTimeout(() => {
+            msg.delete()
+          }, settings.errMsgDelTimeout))
         return
       }
 
@@ -202,7 +203,7 @@ exports.help = async (client, message, args) => {
       "",
       `**Get New Game Panel**`,
       ` ${config.main.prefix}hangman panel`,
-      " *For when someone decides to start playing hangman or using Dank Memer in the same channel as your hangman game. This command will give you a new game panel*",
+      " *For when someone decides to start playing hangman or using Dank Memer in the same channel as your hangman game. This command will give you a new game panel so you don't have to scroll up.*",
       "",
       `**Forfeit Game**`,
       ` ${config.main.prefix}hangman quit`,
