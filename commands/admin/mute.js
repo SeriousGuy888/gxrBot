@@ -13,7 +13,16 @@ exports.run = async (client, message, args) => {
   message.channel.send("1")
   
   const guild = message.guild
-  const allMembers = await guild.members.fetch()
+  // const allMembers = await guild.members.fetch()
+
+  guild.members.fetch()
+    .then(allMembers => {
+      message.channel.send("a")
+    })
+    .catch(err => {
+      message.channel.send(err)
+    })
+
   const authorGuildMember = allMembers.find(gm => gm.id === message.author.id)
 
   message.channel.send("2")
