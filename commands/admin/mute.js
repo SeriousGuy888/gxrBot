@@ -3,13 +3,20 @@ exports.run = async (client, message, args) => {
   const config = index.config
   const Discord = index.Discord
 
+  if(config.admins.superadmin.id !== message.author.id)
+    return message.channel.send("this thing is ducking broken")
+
   if(!message.guild || !args[0]) return this.help(client, message, args)
 
   const outputEmbed = new Discord.MessageEmbed()
+
+  message.channel.send("1")
   
   const guild = message.guild
   const allMembers = await guild.members.fetch()
   const authorGuildMember = allMembers.find(gm => gm.id === message.author.id)
+
+  message.channel.send("2")
 
   if(!authorGuildMember.hasPermission(Discord.Permissions.FLAGS.MUTE_MEMBERS)) {
     outputEmbed
@@ -19,6 +26,8 @@ exports.run = async (client, message, args) => {
       .setFooter("Is this a mistake? Contact server admins.")
   }
   else {
+    message.channel.send("3")
+
     let queryId = args[0]
     if(args[0] === ".") {
       if(!authorGuildMember.voice.channelID)
@@ -38,6 +47,8 @@ exports.run = async (client, message, args) => {
         .setDescription(`The VC ${vc} is currently empty.`)
     }
     else {
+      message.channel.send("2")
+
       const isUnmuting = args[1] && args[1].toLowerCase().startsWith("u")
       const startTime = new Date()
 
