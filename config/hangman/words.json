@@ -71,7 +71,6 @@
     "words": [
       "atheism",
       "avenue",
-      "affix",
       "axiom",
       "aquamarine",
       "bagpipes",
@@ -108,6 +107,8 @@
       "haiku",
       "hyphen",
       "injury",
+      "internationalisation",
+      "internationalization",
       "ivory",
       "jackpot",
       "jawbreaker",
@@ -153,6 +154,7 @@
       "squawk",
       "stronghold",
       "subway",
+      "supercalifragilisticexpialidocious",
       "syndrome",
       "transcript",
       "transplant",
@@ -184,6 +186,7 @@
   "impossible": {
     "maxGuesses": 18,
     "words": [
+      "affix",
       "buzzwords",
       "croquet",
       "dwarves",
