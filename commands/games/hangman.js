@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
 
     let embed = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
-      .setAuthor(message.author.tag, message.author.avatarURL)
+      .setAuthor(message.author.tag, message.author.avatarURL())
       .setTitle("**__g9lBot Hangman__**")
       .setDescription([
         `**WORD SETS:** ${playerData.set}`,
