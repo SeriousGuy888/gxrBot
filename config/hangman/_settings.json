@@ -1,7 +1,7 @@
 {
   "maxAllowedGuesses": 25,
   "errMsgDelTimeout": 3000,
-  "hiddenLetterPlaceholder": "•",
+  "hiddenLetterPlaceholder": "⬜",
   "winReaction": "🎉",
   "failureReaction": "❌",
   "defaultSets": [
