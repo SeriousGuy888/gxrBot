@@ -195,6 +195,7 @@ exports.help = async (client, message, args) => {
       `**Play with Custom Settings**`,
       ` ${config.main.prefix}hangman play hard,impossible ${settings.maxAllowedGuesses}`,
       `**Get New Game Message**`,
+      "",
       ` ${config.main.prefix}hangman msg`,
       " *For when someone decides to start playing hangman or using Dank Memer in the same channel as your hangman game. This command will give you a new game panel*",
       "",
