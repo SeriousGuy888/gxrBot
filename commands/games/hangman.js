@@ -96,7 +96,7 @@ exports.run = async (client, message, args) => {
         setName = `[${allowedSets.join(", ")}]`
         chosenSet = words[allowedSets[Math.floor(Math.random() * allowedSets.length)]]
       }
-      let setMaxIncorrectGuesses = chosenSet.maxGuesses
+      let setMaxIncorrectGuesses = chosenSet.maxGuesses || 12
       let wordSet = chosenSet.words
       let chosenWord = wordSet[Math.floor(Math.random() * wordSet.length)]
 
