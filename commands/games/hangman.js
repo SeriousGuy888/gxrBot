@@ -120,9 +120,11 @@ exports.run = async (client, message, args) => {
       hangmanEmbed(message.channel, true)
       break
     case "msg":
+    case "message":
       if(!hangmanCache[message.author.id])
         return message.reply(`You are not currently playing Hangman!`)
 
+      hangmanCache[message.author.id].message.edit(`${message.author.tag} has requested a new game panel.`)
       hangmanEmbed(message.channel, true)
       break
     case "forfeit":
@@ -192,6 +194,9 @@ exports.help = async (client, message, args) => {
       "",
       `**Play with Custom Settings**`,
       ` ${config.main.prefix}hangman play hard,impossible ${settings.maxAllowedGuesses}`,
+      `**Get New Game Message**`,
+      ` ${config.main.prefix}hangman msg`,
+      " *For when someone decides to start playing hangman in the same channel as you. Get a panel for your hangman game.*",
       "",
       `**Forfeit Game**`,
       ` ${config.main.prefix}hangman quit`,
