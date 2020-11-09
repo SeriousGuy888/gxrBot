@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
   const hangmanCache = index.gameCache.hangman
 
   if(message.author.id !== config.admins.superadmin.id)
-    return
+    return message.channel.send("You may not use this dev command!")
   
-  message.channel.send("```\n" + JSON.stringify(hangmanCache) + "\n```")
+  message.channel.send("```json\n" + JSON.stringify(hangmanCache, null, 4) + "\n```")
 }
