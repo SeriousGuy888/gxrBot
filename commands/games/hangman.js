@@ -41,14 +41,14 @@ exports.run = async (client, message, args) => {
         `**MAX INCORRECT GUESSES:** ${playerData.maxIncorrectGuesses}`,
         "",
         `ℹ️ Why can't I see the execution? [Hover](https://www.youre-not-supposed-to-click-this-idot.com "Because there isnt a good way to display a hanging with variable guess counts.")`,
-        `ℹ️ How the duck do I play this? [Hover](https://www.youre-not-supposed-to-click-this-idot.com "Just reply with the letter you want to guess.")`
+        `ℹ️ How do I guess a letter? [Hover](https://www.youre-not-supposed-to-click-this-idot.com "Send a message with the letter you want to guess.")`
       ].join("\n"))
       .addField("\u200b", "\u200b")
       .addField(`Word (Length ${word.length})`, `\`${blanks}\``, false)
       .addField("\u200b", "\u200b")
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
-      .setFooter(`Please guess a letter. (Give up? ${config.main.prefix}hangman quit)`)
+      .setFooter(`ID: ${message.author.id}   |   (Give up? ${config.main.prefix}hangman quit)`)
     
     let msg
     if(init)
@@ -75,7 +75,8 @@ exports.run = async (client, message, args) => {
 
   switch(args[0]) {
     case "play":
-      if(hangmanCache[message.author.id]) return message.reply(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.main.prefix}hangman quit\`.`)
+      if(hangmanCache[message.author.id])
+        return message.reply(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.main.prefix}hangman quit\`. If you want to continue the game, you can use \`${config.main.prefix}hangman panel\` to get a new game panel.`)
       
       let setName, chosenSet
       
