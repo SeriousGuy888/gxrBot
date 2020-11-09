@@ -168,10 +168,12 @@ exports.run = async (client, message, args) => {
       }
 
       hangmanCache[message.author.id].guesses++
-      if(!hangmanCache[message.author.id].word.includes(guessChar)) playerData.incorrectGuesses++
-      hangmanCache[message.author.id].attempedLetters.push(guessChar)
+      if(!hangmanCache[message.author.id].word.includes(guessChar))
+        playerData.incorrectGuesses++
 
-      if(playerData.incorrectGuesses >= playerData.maxIncorrectGuesses) playerData.failure = true
+      hangmanCache[message.author.id].attempedLetters.push(guessChar)
+      if(playerData.incorrectGuesses >= playerData.maxIncorrectGuesses)
+        playerData.failure = true
 
       tickHangman(message.channel)
       break
