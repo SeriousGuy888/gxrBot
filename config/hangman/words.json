@@ -1,6 +1,6 @@
 {
   "easy": {
-    "maxGuesses": 6,
+    "maxGuesses": 8,
     "words": [
       "bat",
       "cat",
