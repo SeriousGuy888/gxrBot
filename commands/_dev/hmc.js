@@ -10,6 +10,8 @@ exports.run = async (client, message, args) => {
   
   message.channel.send("```json\n" + JSON.stringify(hangmanCache, (key, value) => {
     if(key == "message")
-      return undefined
+      return value.id
+    else
+      return value
   }, 4) + "\n```")
 }
