@@ -171,6 +171,7 @@ exports.help = async (client, message, args) => {
   const Discord = index.Discord
 
   const embed = new Discord.MessageEmbed()
+    .setAuthor(message.author.tag, message.author.avatarURL())
     .setTitle("**Hangman**")
     .setColor(config.main.colours.help)
     .setDescription("Play a game of hangman!")
