@@ -125,6 +125,7 @@ exports.run = async (client, message, args) => {
 
       let oldMsg = hangmanCache[message.author.id].message
       let oldMsgEmbed = new Discord.MessageEmbed()
+        .setColor(config.main.colours.error)
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setTitle(`**__${config.main.botNames.lowerCamelCase} Hangman__**`)
         .setDescription("The player has requested a new game panel.")
