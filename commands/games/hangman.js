@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
     delete hangmanCache[user.id]
   }
 
-  const hangmanEmbed = async (channel, init) => {
+  const tickHangman = async (channel, init) => {
     const hidden = settings.hiddenLetterPlaceholder
 
     const playerData = hangmanCache[message.author.id]
@@ -113,7 +113,7 @@ exports.run = async (client, message, args) => {
         message: null
       }
 
-      hangmanEmbed(message.channel, true)
+      tickHangman(message.channel, true)
       break
     case "panel":
       if(!hangmanCache[message.author.id])
@@ -125,7 +125,7 @@ exports.run = async (client, message, args) => {
         .setAuthor(message.author.tag, message.author.avatarURL())
         .setTitle(`**__${config.main.botNames.lowerCamelCase} Hangman__**`)
         .setDescription("The player has requested a new game panel.")
-      hangmanEmbed(message.channel, true)
+      tickHangman(message.channel, true)
       oldMsg.edit(oldMsgEmbed)
       break
     case "forfeit":
@@ -173,7 +173,7 @@ exports.run = async (client, message, args) => {
 
       if(playerData.incorrectGuesses >= playerData.maxIncorrectGuesses) playerData.failure = true
 
-      hangmanEmbed(message.channel)
+      tickHangman(message.channel)
       break
     default:
       this.help(client, message, args)
