@@ -26,9 +26,8 @@ exports.run = async (client, message, args) => {
       }
     }
     
-    if(playerData.failure) {
-      blanks = word
-    }
+    // if(playerData.failure)
+    //   blanks = word
 
     if(!init) message.delete()
 
