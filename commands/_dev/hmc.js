@@ -8,5 +8,8 @@ exports.run = async (client, message, args) => {
   if(message.author.id !== config.admins.superadmin.id)
     return message.channel.send("You may not use this dev command!")
   
-  message.channel.send("```json\n" + JSON.stringify(hangmanCache, null, 4) + "\n```")
+  message.channel.send("```json\n" + JSON.stringify(hangmanCache, (key, value) => {
+    if(key == "message")
+      return value.id
+  }, 4) + "\n```")
 }
