@@ -35,7 +35,7 @@ exports.run = async (client, message, args) => {
     let embed = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
       .setAuthor(message.author.tag, message.author.avatarURL())
-      .setTitle("**__g9lBot Hangman__**")
+      .setTitle(`**__${config.main.botNames.lowerCamelCase} Hangman__**`)
       .setDescription([
         `**WORD SETS:** ${playerData.set}`,
         `**MAX INCORRECT GUESSES:** ${playerData.maxIncorrectGuesses}`,
@@ -119,12 +119,16 @@ exports.run = async (client, message, args) => {
 
       hangmanEmbed(message.channel, true)
       break
-    case "msg":
-    case "message":
+    case "panel":
       if(!hangmanCache[message.author.id])
         return message.reply(`You are not currently playing Hangman!`)
 
-      hangmanCache[message.author.id].message.edit(`${message.author.tag} has requested a new game panel.`)
+      let oldMsg = hangmanCache[message.author.id].message
+      let oldMsgEmbed = new Discord.MessageEmbed()
+        .setAuthor(message.author.tag, message.author.avatarURL())
+        .setTitle(`**__${config.main.botNames.lowerCamelCase} Hangman__**`)
+        .setDescription("The player has requested a new game panel.")
+      oldMsg.edit(oldMsgEmbed)
       hangmanEmbed(message.channel, true)
       break
     case "forfeit":
@@ -195,8 +199,8 @@ exports.help = async (client, message, args) => {
       `**Play with Custom Settings**`,
       ` ${config.main.prefix}hangman play hard,impossible ${settings.maxAllowedGuesses}`,
       "",
-      `**Get New Game Message**`,
-      ` ${config.main.prefix}hangman msg`,
+      `**Get New Game Panel**`,
+      ` ${config.main.prefix}hangman panel`,
       " *For when someone decides to start playing hangman or using Dank Memer in the same channel as your hangman game. This command will give you a new game panel*",
       "",
       `**Forfeit Game**`,
