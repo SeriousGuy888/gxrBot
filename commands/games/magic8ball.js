@@ -4,7 +4,7 @@ exports.run = async (client, message, args) => {
   const Discord = index.Discord
 
   if(!args[0])
-    this.help(client, message, args)
+    return this.help(client, message, args)
 
   const embed = new Discord.MessageEmbed()
     .setColor(config.main.colours.success)
