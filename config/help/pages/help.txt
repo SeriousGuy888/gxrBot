@@ -3,7 +3,7 @@ __**WELCOME TO %uppername%**__
 
 :question: **Help**
 - __Prefix:__ `%prefix%` | Begin all commands with the prefix. (e.g: `%prefix%help`)
-- Use `help cmds` to see commands.
+:white_small_square: Use `help cmds` to see commands.
 - Type any of these: %helpflags% after a command and if it supports it, you will be shown a help message for that command.
 
 
