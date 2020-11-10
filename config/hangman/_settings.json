@@ -4,6 +4,11 @@
   "hiddenLetterPlaceholder": "⬜",
   "winReaction": "🎉",
   "failureReaction": "❌",
+  "revealedByDefault": [
+    "-",
+    "_",
+    " "
+  ],
   "defaultSets": [
     "easy",
     "normal",
