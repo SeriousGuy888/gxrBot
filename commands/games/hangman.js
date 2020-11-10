@@ -194,7 +194,7 @@ exports.help = async (client, message, args) => {
     .setTitle("**Hangman**")
     .setColor(config.main.colours.help)
     .setDescription("Play a game of hangman!")
-    .addField("Syntax", `${config.main.prefix}hangman <play | quit | sets> ([word sets] [max incorrect guesses])`)
+    .addField("Syntax", `${config.main.prefix}hangman <play | panel | quit | sets> ([word sets] [max incorrect guesses])`)
     .addField("\u200b", "\u200b")
     .addField("Examples", [
       `**Play with Default Words**`,
