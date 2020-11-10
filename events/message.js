@@ -21,6 +21,11 @@ module.exports = (client, message) => {
 
       cmd = client.commands.get(command) //grab cmds from enmap
 
+      if(config.main.commands.blacklistedChannels) {
+        messenger.dm(client, message.author.id, `You may not use ${config.main.botNames.lowerCamelCase} commands in that channel!`)
+        break commands
+      }
+
       
       if(cmd && cmd.alias) cmd = client.commands.get(cmd.alias)
       if(!cmd) {
@@ -28,7 +33,7 @@ module.exports = (client, message) => {
         break commands
       }
 
-      if(config.main.help.flags.includes(args[0]) && cmd.help) cmd.help(client, message, args)
+      if(config.main.commands.help.flags.includes(args[0]) && cmd.help) cmd.help(client, message, args)
       else {
         if(!cmd.run)
           message.channel.send(`The command you requested or the command it points to does not have a defined \`run\` function.`)

@@ -5,12 +5,19 @@
     "lowerCamelCase": "g9lBot",
     "upperCase": "G9LBOT"
   },
-  "help": {
-    "flags": [
-      "--help",
-      "-h",
-      "-?"
-    ]
+  "commands": {
+    "blacklistedChannels": [
+      "634597235362889728",
+      "727371416449581076",
+      "727368232427585607"
+    ],
+    "help": {
+      "flags": [
+        "--help",
+        "-h",
+        "-?"
+      ]
+    }
   },
   "colours": {
     "help": "#bebe11",
