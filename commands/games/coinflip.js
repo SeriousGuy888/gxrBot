@@ -1,5 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
+  const config = index.config
   const Discord = index.Discord
 
   const rimChance = 100
@@ -12,7 +13,7 @@ exports.run = async (client, message, args) => {
   const emb = new Discord.MessageEmbed()
     .attachFiles(attachment)
     .setImage("attachment://coin.png")
-    .setColor("#a2a212")
+    .setColor(config.main.colours.success)
     .setTitle(rim ? "Rim" : flipResult ? "Heads" : "Tails")
   if(rim) emb.setFooter(`The coin landed on the side. Wow, there's only a 1 in ${rimChance} chance of that :O.`)
 

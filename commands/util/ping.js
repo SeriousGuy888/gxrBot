@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
 
 
   let pingEmb = new Discord.MessageEmbed()
-    .setColor("#3333ee")
+    .setColor(config.main.colours.success)
     .setTitle(cmdName == "pong" ? "Ping!" : "Pong!") // will say ping if the command alias pong was used
     .setDescription([
       `:arrows_clockwise: Latency: \`${Math.round(client.ws.ping)} ms\``,
