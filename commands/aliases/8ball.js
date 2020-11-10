@@ -1,0 +1,1 @@
+exports.alias = "magic8ball"
