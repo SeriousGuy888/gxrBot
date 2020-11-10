@@ -1,5 +1,5 @@
 ## ~~g8cBot~~ g9lBot
-A bot with features exclusive to making the Grade 9 League better.
+A bot with features exclusive to making the g9l better.
 
 *(Newly not grade 8! Can you imagine being a grade 8? I certainly can't)*
 
