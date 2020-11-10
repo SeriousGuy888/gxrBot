@@ -2,19 +2,16 @@
 The prefix is `%prefix%`
 
 __Basic Commands__
-`help` - %lowername% help command
-  (Alias: `h`)
+`help` - (`h`) %lowername% help command
 `ping` - Get bot latency
 
 __Fun Commands__
 `billzo` - Know all the different editions of billzo.
-`google_translate` - Translate a phrase through several languages.
-  (Alias: `gt`)
+`google_translate` - (`gt`) Translate a phrase through several languages.
 
 __Games I Guess__
 `coinflip` - Flip a coin.
-`hangman` - Play hangman with %lowername% because %lowername% is very lonely.
-  (Alias: `hoang`)
+`hangman` - (`hoang`) Play hangman with %lowername% because %lowername% is very lonely.
 
 __Admin Commands__
 `cult` - Set the cult channel.
