@@ -3,6 +3,8 @@ exports.run = async (client, message, args) => {
   const config = index.config
   const Discord = index.Discord
 
+  const settings = config.magic8ball
+
   if(!args[0])
     return this.help(client, message, args)
 
@@ -11,8 +13,8 @@ exports.run = async (client, message, args) => {
     .setAuthor(message.author.tag, message.author.avatarURL())
     .setTitle("**__Magic 8 Sphere__**")
     .addField("Question", args.join(" "))
-    .addField("Answer", "None")
-
+    .addField("Answer", settings.responses[Math.floor(Math.random() * settings.responses.length)])
+    .setFooter("100% Guaranteed Accurate")
   message.channel.send(embed)
 }
 

@@ -7,5 +7,6 @@ module.exports = {
   help:            require("./help/_help.js"),
   main:            require("./_main.json"),
   admins:          require("./admins.json"),
+  magic8ball:      require("./magic8ball.json"),
   mute:            require("./mute.json")
 }
