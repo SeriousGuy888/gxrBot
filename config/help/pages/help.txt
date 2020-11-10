@@ -8,13 +8,12 @@ __**WELCOME TO %uppername%**__
 
 
 :star: **Features**
+- Hangman and a magic 8 ball :D
 - A channel for cult activities (by which I mean repeating a word)
 - A channel for practising teamwork and collaboration by writing an incoherent mess of a story
-- A help command
-- A ping command
+- Help and ping
 - Code stolen from the InsomniCheez codebase
 - Not grade 8 anymore
-- Hangman :D
 - ~~Automatic homework completer~~
 
 
