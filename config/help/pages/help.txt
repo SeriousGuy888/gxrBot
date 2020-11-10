@@ -2,9 +2,9 @@ __**WELCOME TO %uppername%**__
 *This bot is for features that are made specifically for the Grade 9 League.*
 
 :question: **Help**
-- __Prefix:__ `%prefix%` | Begin all commands with the prefix. (e.g: `%prefix%help`)
-:white_small_square: Use `help cmds` to see commands.
-- Type any of these: %helpflags% after a command and if it supports it, you will be shown a help message for that command.
+__Prefix:__ `%prefix%` | Begin all commands with the prefix. (e.g: `%prefix%help`)
+:scroll: Command List - `help cmds`
+Type any of these: %helpflags% after a command and if it supports it, you will be shown a help message for that command.
 
 
 :star: **Features**
