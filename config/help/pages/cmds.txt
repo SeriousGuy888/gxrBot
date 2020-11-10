@@ -12,6 +12,7 @@ __Fun Commands__
 __Games I Guess__
 `coinflip` - Flip a coin.
 `hangman` - (`hoang`) Play hangman with %lowername% because %lowername% is very lonely.
+`magic8ball` - (`8ball`) Very accurate magic 8 ball.
 
 __Admin Commands__
 `cult` - Set the cult channel.
