@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
   else {
     let id = args[0]
     let prop = args[1]
-    let val = args.splice(2)
+    let val = args.splice(2).join(" ")
 
     hangmanCache[id][prop] = val
     message.channel.send("ok")
