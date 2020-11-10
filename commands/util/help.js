@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
       .replace(/%prefix%/gi, config.main.prefix)
       .replace(/%lowername%/gi, config.main.botNames.lowerCamelCase)
       .replace(/%uppername%/gi, config.main.botNames.upperCase)
-      .replace(/%helpflags%/gi, `[${config.main.help.flags.join(", ")}]`)
+      .replace(/%helpflags%/gi, `[${config.main.commands.help.flags.join(", ")}]`)
     
     return fixedContents
   }
