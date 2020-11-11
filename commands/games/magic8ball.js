@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     .setTitle("**__Magic 8 Sphere__**")
     .addField("Question", args.join(" "))
     .addField("Answer", settings.responses[Math.floor(Math.random() * settings.responses.length)])
-    .setFooter("100% Guaranteed to be accurate:tm:")
+    .setFooter("100% Guaranteed to be accurate™")
   message.channel.send(embed)
 }
 
