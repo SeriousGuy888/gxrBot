@@ -18,19 +18,19 @@ exports.run = (client, author, message) => {
     const censorWord = (original, filter, censor) => {
       let replacementResult = original
       let occurences = original.match(filter)
-      for(let i in occurences) {
+      for(let loopOccurence of occurences) {
         let resWithPreservedCase = ""
-        let letterRatio = occurences[i].length / censor.length
-        for(let j = 0; j < censor.length; j++) {
-          let censorChar = censor.charAt(j)
-          let originalChar = occurences[i].charAt(Math.floor(j * letterRatio))
+        let letterRatio = loopOccurence.length / censor.length
+        for(let i = 0; i < censor.length; i++) {
+          let censorChar = censor.charAt(i)
+          let originalChar = loopOccurence.charAt(Math.floor(i * letterRatio))
   
           if(originalChar.match(/[A-Z]/))
             resWithPreservedCase += censorChar.toUpperCase()
           else
             resWithPreservedCase += censorChar.toLowerCase()
         }
-        replacementResult = replacementResult.replace(occurences[i], resWithPreservedCase)
+        replacementResult = replacementResult.replace(loopOccurence, resWithPreservedCase)
       }
       return replacementResult
     }
