@@ -93,8 +93,9 @@ module.exports = (client, message) => {
       index.autoResponses(message)
   }
   
-  pog: {
-    if(message.author.bot) break pog
-    index.pog(message)
+  messageResponder: {
+    if(message.author.bot)
+      break messageResponder
+    index.messageResponder(message)
   }
 }
