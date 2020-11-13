@@ -21,8 +21,8 @@
           "flags": "gi"
         },
         "fail": {
-          "pattern": "",
-          "flags": ""
+          "pattern": "not really",
+          "flags": "gi"
         }
       },
       "response": ":("

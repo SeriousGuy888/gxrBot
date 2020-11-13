@@ -12,18 +12,11 @@ exports.run = (client, message) => {
   let content = message.content
 
   for(let loopCase of settings.cases) {
-    let passCondition, failCondition
-
-    passCondition = new RegExp(loopCase.conditions.pass.pattern, loopCase.conditions.pass.flags)
-    if(loopCase.conditions.fail.pattern)
-      failCondition = new RegExp(loopCase.conditions.fail.pattern, loopCase.conditions.fail.flags)
+    let passCondition = new RegExp(loopCase.conditions.pass.pattern, loopCase.conditions.pass.flags)
+    let failCondition = new RegExp(loopCase.conditions.fail.pattern, loopCase.conditions.fail.flags)
     
-    if(content.match(passCondition))
-      if(failCondition)
-        if(!message.content.match(failCondition))
-          response = loopCase.response
-      else
-        response = loopCase.response
+    if(content.match(passCondition) && !message.content.match(failCondition))
+      response = loopCase.response
   }
 
   if(response)
