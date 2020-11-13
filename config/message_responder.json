@@ -1,3 +1,31 @@
 {
-  
+  "enabled": true,
+  "cases": [
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "pog",
+          "flags": "gi"
+        },
+        "fail": {
+          "pattern": "(un|not )(pog)",
+          "flags": "gi"
+        }
+      },
+      "response": "pog"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "i'?m (lonely|sad)",
+          "flags": "gi"
+        },
+        "fail": {
+          "pattern": "",
+          "flags": ""
+        }
+      },
+      "response": ":("
+    }
+  ]
 }

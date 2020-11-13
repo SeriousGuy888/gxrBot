@@ -1,12 +1,22 @@
-exports.run = (client, message) => { // super secret feature that will get removed as soon as people find out
-  if(message.author.bot) return
+exports.run = (client, message) => {
+  const index = require("../index.js")
+  const config = index.config
+  const settings = config.messageResponder
+
+  if(message.author.bot)
+    return
+  if(!settings.enabled)
+    return
   
   let response = ""
+  let content = message.content
 
-  if(message.content.match(/pog/gi) && !message.content.match(/(un|not )(pog)/gi))
-    response = "pog"
-  if(message.content.match(/i'?m (lonely|sad)/gi))
-    response = "D: don't be"
+  for(let loopCase of settings.cases) {
+    let passCondition = new RegExp(loopCase.conditions.pass.pattern, loopCase.conditions.pass.flags)
+    let failCondition = new RegExp(loopCase.conditions.fail.pattern, loopCase.conditions.fail.flags)
+    if(content.match(passCondition) && !message.content.match(failCondition))
+      response = loopCase.response
+  }
 
   if(response)
     message.channel.send(response)
