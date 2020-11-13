@@ -26,6 +26,19 @@
         }
       },
       "response": ":("
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "\\w+ (died|passed away)",
+          "flags": "gi"
+        },
+        "fail": {
+          "pattern": "asdaaaaaaaafdsfinteresting regex pattern quakc uqakc quakcas",
+          "flags": ""
+        }
+      },
+      "response": ":("
     }
   ]
 }
