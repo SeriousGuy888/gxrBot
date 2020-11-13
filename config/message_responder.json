@@ -17,7 +17,7 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "i'?m (lonely|sad)",
+          "pattern": "((i'?m)|(i )?am) (lonely|sad)",
           "flags": "gi"
         },
         "fail": {
