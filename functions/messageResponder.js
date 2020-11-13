@@ -8,7 +8,6 @@ exports.run = (client, message) => {
   if(!settings.enabled)
     return
   
-  let response = ""
   let content = message.content
 
   for(let loopCase of settings.cases) {
@@ -16,9 +15,6 @@ exports.run = (client, message) => {
     let failCondition = new RegExp(loopCase.conditions.fail.pattern, loopCase.conditions.fail.flags)
     
     if(content.match(passCondition) && !message.content.match(failCondition))
-      response = loopCase.response
+      message.channel.send(loopCase.response)
   }
-
-  if(response)
-    message.channel.send(response)
 }
