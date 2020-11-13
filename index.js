@@ -103,7 +103,7 @@ module.exports = {
   autocarrotWebhook,
   autoResponses,
   coopChannels,
-  pog: messageResponder
+  messageResponder
 }
 
 // exports ↑
