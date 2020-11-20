@@ -7,6 +7,8 @@ exports.run = (client, message) => {
     return
   if(!settings.enabled)
     return
+  if(config.main.commands.blacklistedChannels.includes(message.channel.id))
+    return
   
   let content = message.content
 
