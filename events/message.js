@@ -71,8 +71,9 @@ module.exports = (client, message) => {
       const swearCensors = config.autocarrot.words
 
       let needsCorrecting = false
+      let diacriticsRemoved = message.content.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
       for(let loopSwear in swearCensors) {
-        if(message.content.toLowerCase().match(new RegExp(loopSwear, "gi"))) {
+        if(diacriticsRemoved.toLowerCase().match(new RegExp(loopSwear, "gi"))) {
           needsCorrecting = true
           break
         }
