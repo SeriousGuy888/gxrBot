@@ -17,7 +17,8 @@ exports.run = (client, author, message) => {
     // this function censors the regex filter provided and also keeps casing
     const censorWord = (original, filter, censor) => {
       let replacementResult = original
-      let occurences = original.match(filter)
+      let diacriticsRemoved = original.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      let occurences = diacriticsRemoved.match(filter)
       for(let i in occurences) {
         let resWithPreservedCase = ""
         let letterRatio = occurences[i].length / censor.length
