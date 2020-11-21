@@ -31,7 +31,10 @@ exports.run = (client, author, message) => {
           else
             resWithPreservedCase += censorChar.toLowerCase()
         }
-        replacementResult = replacementResult.replace(occurences[i], resWithPreservedCase)
+        replacementResult = replacementResult
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(occurences[i], resWithPreservedCase)
       }
       return replacementResult
     }
