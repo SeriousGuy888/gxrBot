@@ -298,7 +298,7 @@
           {
             "enabled": true,
             "type": "regex",
-            "expression": "69$",
+            "expression": "69",
             "flags": "gi"
           }
         ]
