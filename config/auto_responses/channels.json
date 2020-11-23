@@ -67,7 +67,7 @@
       "enabled": true,
       "messages": [
         {
-          "content": "@everyone get ghost pinged lol",
+          "content": "@noteveryone get not ghost pinged lol",
           "options": {
             "autoDelete": {
               "enabled": true,
