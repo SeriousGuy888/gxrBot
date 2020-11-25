@@ -4,6 +4,19 @@
     {
       "conditions": {
         "pass": {
+          "pattern": "oof",
+          "flags": "gi"
+        },
+        "fail": {
+          "pattern": "assffgfjhsdfsdfsdfsddddddddddddddddddddddddddddddddddfsddfhbcvbazxcccccczxcz",
+          "flags": "gi"
+        }
+      },
+      "response": "oof"
+    },
+    {
+      "conditions": {
+        "pass": {
           "pattern": "pog",
           "flags": "gi"
         },
