@@ -1,13 +1,24 @@
-exports.run = (client) => {
+exports.run = async (client) => {
   const index = require("../index.js")
+  const fs = index.fs
   const config = index.config
   const settings = config.propaganda
 
-  const channel = client.channels.cache.get(settings.channels[Math.floor(Math.random() * settings.channels.length + 1)])
+  const channel = client.channels.cache.get(settings.channels[Math.floor(Math.random() * settings.channels.length)])
   if(!channel)
     return console.log("The channel does not exist!")
   
-  channel.join()
-    .then(connection => {})
-    .catch(e => console.log(e))
+  const connection = await channel.join()
+
+
+  // const dispatcher = connection.play("../assets/propaganda/beeep.ogg")
+  const dispatcher = connection.play(fs.createReadStream("./assets/propaganda/beeep.ogg"), {
+    type: "ogg/opus",
+  })
+  dispatcher.on("start", () => {
+    console.log("playing!")
+  })
+  dispatcher.on("end", end => {
+    channel.leave()
+  })
 }
