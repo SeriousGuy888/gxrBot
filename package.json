@@ -24,6 +24,7 @@
     "emoji-dictionary": "^1.0.11",
     "emojilib": "^2.4.0",
     "enmap": "^5.2.3",
+    "ffmpeg-static": "^4.2.7",
     "i": "^0.3.6",
     "node-schedule": "^1.3.2",
     "npm": "^6.14.7",
