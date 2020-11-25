@@ -9,5 +9,6 @@ module.exports = {
   admins:             require("./admins.json"),
   magic8ball:         require("./magic8ball.json"),
   messageResponder:   require("./message_responder.json"),
-  mute:               require("./mute.json")
+  mute:               require("./mute.json"),
+  propaganda:         require("./propaganda.json")
 }

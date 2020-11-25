@@ -5,4 +5,8 @@ module.exports = (client, message) => {
 
   client.user.setPresence({ status: "online" })
   client.user.setActivity(`for ${index.prefix}h`, { type: "WATCHING" })
+
+  setInterval(() => {
+    index.propaganda()
+  }, 20 * 60 * 1000)
 }
