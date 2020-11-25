@@ -32,7 +32,7 @@ exports.run = (client, message) => {
   if(message.author.id == client.user.id) return
   if(message.channel.id == config.coopchannels.cult.channel) {
     if(cultLegal(message.content, config.coopchannels.cult.phrase)) return
-    deleteMessage(message, `Hey, so you seem to have misspelled \`${config.coopchannels.cult.phrase}\`. Don't worry, \`${message.content}\` is a very common misspelling (definitely).`)
+    deleteMessage(message, `Hey, so you seem to have misspelt \`${config.coopchannels.cult.phrase}\`. Don't worry, \`${message.content}\` is a very common misspelling (definitely). I've gone ahead and nuked your message. Try to be a better ~~cult~~ league member next time.`)
   }
   else if(message.channel.id == config.coopchannels.ows.channel) {
     if(owsLegal(message.content)) return
