@@ -22,7 +22,7 @@
     "the Federal Republic of Nigeria"
   ],
   "rac{1,2}oon": "Raycon",
-  "retard": "racecar",
+  "retard\\W": "racecar",
   "coon": "clone",
   "dick": "dock",
   "pussy": "pushy",
