@@ -32,10 +32,10 @@ exports.run = (client, message) => {
   if(message.author.id == client.user.id) return
   if(message.channel.id == config.coopchannels.cult.channel) {
     if(cultLegal(message.content, config.coopchannels.cult.phrase)) return
-    deleteMessage(message, `<@${message.author.id}>, you may only say \`${config.coopchannels.cult.phrase}\` and not \`${message.content}\` here.`)
+    deleteMessage(message, `Hey, so you seem to have misspelled \`${config.coopchannels.cult.phrase}\`. Don't worry, \`${message.content}\` is a very common misspelling (definitely).`)
   }
   else if(message.channel.id == config.coopchannels.ows.channel) {
     if(owsLegal(message.content)) return
-    deleteMessage(message, `<@${message.author.id}>, your message in the OWS channel may only **be one word** and you **may not have attachments**.`)
+    deleteMessage(message, `Your contribution to the one word story may only **be one word** and you **may not have attachments**.`)
   }
 }
