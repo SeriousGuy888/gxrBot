@@ -8,3 +8,5 @@ exports.run = async (client, message, args) => {
     eval(args.join(" "))
   }
 }
+
+exports.dev = true

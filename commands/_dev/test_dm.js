@@ -13,3 +13,6 @@ exports.run = async (client, message, args) => {
     
   // messenger.dm(message.author.id, "a")
 }
+
+exports.dev = true
+exports.disabled = true

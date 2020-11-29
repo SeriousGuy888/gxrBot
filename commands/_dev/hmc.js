@@ -25,3 +25,5 @@ exports.run = async (client, message, args) => {
     message.channel.send("ok")
   }
 }
+
+exports.dev = true

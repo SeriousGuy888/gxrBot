@@ -7,3 +7,5 @@ exports.run = async (client, message, args) => {
     client.destroy()
   }
 }
+
+exports.dev = true
