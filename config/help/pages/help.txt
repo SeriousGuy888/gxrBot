@@ -23,4 +23,6 @@ Developed by billzo and also Liam but mostly billzo.
 
 
 
-> %lowername%: Infinitely in beta since December 12th, 2019
+>>> %lowername%: Infinitely in beta
+*GitHub repo created on December 12th, 2019*
+*Bot created on December 18th, 2019*
