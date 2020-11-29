@@ -4,12 +4,10 @@ exports.run = async (client, message, args) => {
   const prefix = index.prefix
   const Discord = index.Discord
 
-  const timeFormatter = index.timeFormatter
-
-  const uptime = timeFormatter.timeConvert({
-    seconds: client.uptime / 1000,
-    format: "letters"
-  })
+  const uptime = await index.timeConvert(client.uptime)
+  let uptimeStr = ""
+  for(let i in uptime)
+    uptimeStr += `${uptime[i]}${i}`
 
   // gets the name of the command used
   const cmdName = message.content.slice(prefix.length).trim().split(/ +/g).shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
@@ -20,7 +18,7 @@ exports.run = async (client, message, args) => {
     .setTitle(cmdName.toLowerCase() == "pong" ? "Ping!" : "Pong!") // will say ping if the command alias pong was used
     .setDescription([
       `:arrows_clockwise: Latency: \`${Math.round(client.ws.ping)} ms\``,
-      `:clock530: Uptime: \`${uptime.slice(2)}\``
+      `:clock530: Uptime: \`${uptimeStr}\``
     ].join("\n"))
     
   message.channel.send(pingEmb)
