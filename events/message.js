@@ -56,7 +56,7 @@ module.exports = (client, message) => {
           issued: new Date()
         }
 
-        message.channel.send(`Okay, I will stop autocarroting you for the next ${config.autocarrot.settings.pause.timespan} seconds.`)
+        message.channel.send(config.autocarrot.settings.pause.response.replace(/%timespan%/gi, config.autocarrot.settings.pause.timespan))
         break autocarrot
       }
 

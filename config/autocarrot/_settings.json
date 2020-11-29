@@ -4,7 +4,8 @@
   "deleteOriginalMessage": true,
   "pause": {
     "message": "stop autocarroting me",
-    "timespan": 180
+    "timespan": 180,
+    "response": "Okay, I will stop autocarroting you for the next %timespan% seconds (or until the next time I restart, whichever one is sooner)."
   },
   "exempt": {
     "comment": "You can choose to exempt bot messages, messages from webhooks, or have a list of exempted user IDs.",
