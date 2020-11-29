@@ -5,19 +5,18 @@ module.exports = (client, message) => {
   console.log("g9lBot Loaded!")
 
   client.user.setPresence({ status: "online" })
-  client.user.setActivity(`waiting...`, { type: "WATCHING" })
+  client.user.setActivity(`waiting for data...`, { type: "WATCHING" })
 
-
-  const timeUntilNewYear = async () => {
+  setInterval(async () => {
     const currentDate = new Date()
     const countdownDate = new Date("January 1 2021 00:00:00 GMT-0500") // new years eastern standard time
     const diffMillis = countdownDate - currentDate
     const res = await index.timeConvert(diffMillis)
-    return res
-  }
 
-  setInterval(() => {
-    timeUntilNewYear().then(res => client.user.setActivity(`${res.d} days remaining...`, { type: "WATCHING" }))
+    let { h, m, s } = res
+    const pad = num => num.toString().padStart(2, "0")
+
+    client.user.setActivity(`${res.d} days ${h}:${pad(m)}:${pad(s)} remaining...`, { type: "WATCHING" })
   }, 10 * 1000)
 
   schedule.scheduleJob("0 0 0 * * *", () => {
