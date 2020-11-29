@@ -115,3 +115,4 @@ module.exports = {
 // exports ↑
 
 client.login(process.env.TOKEN)
+  .catch(err => console.log(err))
