@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
     }
     commandListMessage += `\n• ${loopCommandName}${isAlias ? " → `" + redirCmdName + "`" : ""}`
   }
-  commandListMessage += "\n\n:warning: *This list is automatically compiled. For a list list with detailed info and that is actively maintained, use command `-help cmds`*"
+  commandListMessage += "\n\n:warning: *This list is automatically compiled. For a list with detailed info and that is actively maintained, use command `-help cmds`*"
 
   for(let loopChunk of commandListMessage.match(/.{1,2000}/gs))
     message.channel.send(loopChunk)
