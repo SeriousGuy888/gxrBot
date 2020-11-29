@@ -12,6 +12,7 @@ const emoji = require("emojilib") // for automatic emoji thing for auto reaction
 const emojiDictionary = require("emoji-dictionary") // also emojis
 const translate = require("translate-google") // google translate i think
 const schedule = require("node-schedule") // node scheduler
+const stringSimilarity = require("string-similarity")
 
 let pauseAutocarrotCache = {} // used for storing when people want g9lbot to stop autocarroting them
 let gameCache = { // for storing when people are playing g9lbot's games
@@ -102,6 +103,7 @@ module.exports = {
   emojiDictionary,
   translate,
   schedule,
+  stringSimilarity,
   gameCache,
   pauseAutocarrotCache,
   autocarrotWebhook,
