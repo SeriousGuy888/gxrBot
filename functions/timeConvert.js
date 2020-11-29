@@ -1,5 +1,8 @@
 exports.run = async (client, milliseconds) => {
   let ms = milliseconds
+  
+  let d = Math.floor(ms / 1000 / 60 / 60 / 24)
+  ms -= d * 1000 * 60 * 60 * 24
   let h = Math.floor(ms / 1000 / 60 / 60)
   ms -= h * 1000 * 60 * 60
   let m = Math.floor(ms / 1000 / 60)
@@ -8,6 +11,7 @@ exports.run = async (client, milliseconds) => {
   ms -= s * 1000
 
   return {
+    d,
     h,
     m,
     s,
