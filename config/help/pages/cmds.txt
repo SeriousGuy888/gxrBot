@@ -8,6 +8,7 @@ __Basic Commands__
 __Fun Commands__
 `billzo` - Know all the different editions of billzo.
 `google_translate` - (`gt`) Translate a phrase through several languages.
+`2021` - (`2020`) How many days until new year?
 
 __Games I Guess__
 `coinflip` - Flip a coin.
