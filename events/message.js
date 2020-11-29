@@ -48,6 +48,10 @@ module.exports = (client, message) => {
           badCommand()
           break commands
         }
+        if(cmd.disabled) {
+          message.channel.send(`This command is disabled for the following reason: \`${cmd.disabled}\``)
+          break commands
+        }
         cmd.run(client, message, args)
       }
     }
