@@ -25,9 +25,7 @@ module.exports = (client, message) => {
     if(!newsChannel)
       return console.log("Error - news channel does not exist D:")
     
-    timeUntilNewYear().then(res => {
-      newsChannel.send(`2020 ends in ${res.d} days :D *hoping this line of code actually fires at the correct time*`)
-    })
+    client.commands.get("2021").fireWithoutUser(client, newsChannel)
   })
 
   setInterval(() => {
