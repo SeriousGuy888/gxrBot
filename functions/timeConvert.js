@@ -7,14 +7,18 @@ exports.run = async (client, milliseconds) => {
   }
 
   let ms = milliseconds
+  let d, h, m, s = 0
   
-  let d = Math.floor(ms / unitRatios.d)
+  d = Math.floor(ms / unitRatios.d)
   ms -= d * unitRatios.d
-  let h = Math.floor(ms / unitRatios.h)
+
+  h = Math.floor(ms / unitRatios.h)
   ms -= h * unitRatios.h
-  let m = Math.floor(ms / unitRatios.m)
+
+  m = Math.floor(ms / unitRatios.m)
   ms -= m * unitRatios.m
-  let s = Math.floor(ms / unitRatios.s)
+  
+  s = Math.floor(ms / unitRatios.s)
   ms -= s * unitRatios.s
 
   return {
