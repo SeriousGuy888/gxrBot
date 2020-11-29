@@ -84,6 +84,7 @@ const autoResponses = (message) => client.functions.get("autoResponses").run(cli
 const coopChannels = (message) => client.functions.get("coopChannels").run(client, message)
 const messageResponder = (message) => client.functions.get("messageResponder").run(client, message)
 const propaganda = () => client.functions.get("propaganda").run(client)
+const timeConvert = () => client.functions.get("timeConvert").run(client)
 
 // function imports ↑
 // exports ↓
@@ -105,7 +106,8 @@ module.exports = {
   autoResponses,
   coopChannels,
   messageResponder,
-  propaganda
+  propaganda,
+  timeConvert
 }
 
 // exports ↑
