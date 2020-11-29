@@ -3,9 +3,6 @@ exports.run = async (client, message, args) => {
   const config = index.config
   const Discord = index.Discord
 
-  if(config.admins.superadmin.id !== message.author.id)
-    return message.channel.send("this thing is ducking broken")
-
   if(!message.guild || !args[0]) return this.help(client, message, args)
 
   const outputEmbed = new Discord.MessageEmbed()
@@ -115,3 +112,5 @@ exports.help = async (client, message, args) => {
     .setFooter("This command can only be used in a guild and not a DM.")
   return message.channel.send(emb)
 }
+
+exports.disabled = "the discord api decided that it doesnt want to let me use voice channels anymore so this command doesnt work currently"
