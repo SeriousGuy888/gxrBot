@@ -1,4 +1,8 @@
 exports.run = async (client, message, args) => {
+  this.fireWithoutUser(client, message.channel)
+}
+
+exports.fireWithoutUser = async (client, channel) => {
   const index = require("../../index.js")
   const Discord = index.Discord
   const timeConvert = index.timeConvert
@@ -19,5 +23,5 @@ exports.run = async (client, message, args) => {
     .addField("Seconds", countdown.s, true)
     .addField("Milliseconds", countdown.ms, true)
     .setFooter("Can we get an uncursed year this time?")
-  message.channel.send(emb)
+  channel.send(emb)
 }
