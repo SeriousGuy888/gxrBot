@@ -11,13 +11,17 @@ module.exports = (client, message) => {
     const currentDate = new Date()
     const countdownDate = new Date("January 1 2021 00:00:00 GMT-0500") // new years eastern standard time
     const diffMillis = countdownDate - currentDate
-    const res = await index.timeConvert(diffMillis)
 
-    let { h, m, s } = res
-    const pad = num => num.toString().padStart(2, "0")
-
-    client.user.setActivity(`${res.d} days ${h}:${pad(m)}:${pad(s)} remaining...`, { type: "WATCHING" })
-  }, 10 * 1000)
+    if(diffMillis > 0) {
+      const res = await index.timeConvert(diffMillis)
+      const pad = num => num.toString().padStart(2, "0")
+      let { h, m, s } = res
+      client.user.setActivity(`${res.d} days ${h}:${pad(m)}:${pad(s)} remaining...`, { type: "WATCHING" })
+    }
+    else {
+      client.user.setActivity("🎆 Happy new year!", { type: "WATCHING" })
+    }
+  }, 5 * 1000)
 
   schedule.scheduleJob("0 0 0 * * *", () => {
     const newsChannel = client.channels.cache.get("749428233270853681")
