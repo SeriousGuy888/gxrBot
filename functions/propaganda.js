@@ -1,4 +1,6 @@
 exports.run = async (client) => {
+  return
+
   const index = require("../index.js")
   const fs = index.fs
   const config = index.config
