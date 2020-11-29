@@ -1,3 +1,2 @@
-exports = {
-  dev: true
-}
+exports = {}
+exports.dev = true
