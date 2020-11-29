@@ -15,7 +15,7 @@ exports.fireWithoutUser = async (client, channel) => {
   
   const emb = new Discord.MessageEmbed()
     .setColor("#12d812")
-    .setTitle("Countdown to 2021")
+    .setTitle(":tada: Countdown to 2021")
     .setDescription("00:00:00 EST on Monday, January 1st, 2021")
     .addField("Days", countdown.d, true)
     .addField("Hours", countdown.h, true)
