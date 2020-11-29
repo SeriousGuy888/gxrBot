@@ -3,6 +3,8 @@ module.exports = (client, message) => {
   const config = index.config
   const prefix = index.prefix
   
+  const stringSimilarity = index.stringSimilarity
+
   const messenger = client.util.get("messenger")
 
 
@@ -27,17 +29,29 @@ module.exports = (client, message) => {
       }
 
       
+      const badCommand = () => {
+        let commandList = []
+        for(let loopCommand of client.commands) {
+          commandList.push(loopCommand[0])
+        }
+
+        let similarCommandNames = stringSimilarity.findBestMatch(command, commandList)
+        message.channel.send(`The requested command does not exist or is invalid.\nI have a command registered called \`${similarCommandNames.bestMatch.target}\`. Perhaps you meant to type that?`)
+      }
+
+
       if(cmd && cmd.alias) cmd = client.commands.get(cmd.alias)
       if(!cmd) {
-        message.channel.send(`The command \`${command}\` (or the command it points to) does not exist.`)
+        badCommand()
         break commands
       }
 
       if(config.main.commands.help.flags.includes(args[0]) && cmd.help) cmd.help(client, message, args)
       else {
         if(!cmd.run)
-          message.channel.send(`The command you requested or the command it points to does not have a defined \`run\` function.`)
-        else cmd.run(client, message, args)
+          badCommand()
+        else
+          cmd.run(client, message, args)
       }
     }
     else if(index.gameCache.hangman[message.author.id]) {
