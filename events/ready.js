@@ -21,7 +21,7 @@ module.exports = (client, message) => {
     else {
       client.user.setActivity("🎆 Happy new year!", { type: "WATCHING" })
     }
-  }, 5 * 1000)
+  }, 7000)
 
   schedule.scheduleJob("0 0 0 * * *", () => {
     const newsChannel = client.channels.cache.get("749428233270853681")
