@@ -35,7 +35,8 @@ module.exports = (client, message) => {
       }
 
 
-      if(cmd && cmd.alias) cmd = client.commands.get(cmd.alias)
+      if(cmd && cmd.alias)
+        cmd = client.commands.get(cmd.alias)
       if(!cmd) {
         badCommand()
         break commands
@@ -43,10 +44,11 @@ module.exports = (client, message) => {
 
       if(config.main.commands.help.flags.includes(args[0]) && cmd.help) cmd.help(client, message, args)
       else {
-        if(!cmd.run)
+        if(!cmd.run) {
           badCommand()
-        else
-          cmd.run(client, message, args)
+          break commands
+        }
+        cmd.run(client, message, args)
       }
     }
     else if(index.gameCache.hangman[message.author.id]) {
