@@ -30,12 +30,7 @@ module.exports = (client, message) => {
 
       
       const badCommand = () => {
-        let commandList = []
-        for(let loopCommand of client.commands) {
-          commandList.push(loopCommand[0])
-        }
-
-        let similarCommandNames = stringSimilarity.findBestMatch(command, commandList)
+        let similarCommandNames = stringSimilarity.findBestMatch(command, client.publicCommandList)
         message.channel.send(`The requested command does not exist or is invalid.\nI have a command registered called \`${similarCommandNames.bestMatch.target}\`. Perhaps you meant to type that?`)
       }
 

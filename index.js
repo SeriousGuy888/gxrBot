@@ -55,11 +55,14 @@ loadJsFiles("./events/", (name, event, directory, file) => {
 })
 
 client.commands = new Enmap()
+client.publicCommandList = []
 loadJsFiles("./commands/", (name, command, directory, file) => {
   if(client.commands.get(name))
     return console.log(`[✖] Failed to load command from ${file} - Name Taken`)
   console.log(`[✓] Successfully loaded command ${name.toUpperCase()} from ${file}`) // log on load
   client.commands.set(name, command)
+  if(!command.dev && !command.disabled)
+    client.publicCommandList.push(name)
 })
 
 client.functions = new Enmap()
