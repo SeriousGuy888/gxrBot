@@ -29,7 +29,8 @@ exports.run = async (client, message, args) => {
     // if(playerData.failure)
     //   blanks = word
 
-    if(!init) message.delete()
+    if(!init && message.deletable)
+        message.delete()
 
     let embed = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
@@ -151,18 +152,22 @@ exports.run = async (client, message, args) => {
       
       const guessChar = args[1].charAt(0).toLowerCase()
       if(!guessChar.match(/[a-z]/gi)) {
-        message.delete()
+        if(message.deletable)
+          message.delete()
         message.reply("You have to guess a letter in the English Alphabet, idiot.")
           .then(msg => setTimeout(() => {
-            msg.delete()
+            if(msg.deletable)
+              msg.delete()
           }, settings.errMsgDelTimeout))
         return
       }
       if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) {
-        message.delete()
+        if(message.deletable)
+          message.delete()
         message.reply("You've already guessed this letter, idiot.")
           .then(msg => setTimeout(() => {
-            msg.delete()
+            if(msg.deletable)
+              msg.delete()
           }, settings.errMsgDelTimeout))
         return
       }
