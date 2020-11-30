@@ -5,18 +5,44 @@ exports.run = async (client, message, args) => {
 
   if(!args[0])
     return this.help(client, message, args)
+  
+  let choiceArg = args[0].toLowerCase()
+  let choice
+  if(choiceArg.startsWith("r"))
+    choice = "rock"
+  if(choiceArg.startsWith("p"))
+    choice = "paper"
+  if(choiceArg.startsWith("s"))
+    choice = "scissors"
+  
+  if(!choice)
+    return message.channel.send("Please choose rock, paper, or scissors.")
 
-  const randomNumber = Math.floor(Math.random() * rimChance) + 1
-  const rim = randomNumber === 1
-  const flipResult = !!Math.round(Math.random())
 
-  // const attachment = new Discord.MessageAttachment(`./assets/coinflip/${rim ? "rim" : flipResult ? "heads" : "tails"}.png`, "coin.png")
+  const rng = Math.floor(Math.random() * 3)
+  let result
+  switch(rng) {
+    case 0:
+      result = "rock"
+      break
+    case 1:
+      result = "paper"
+      break
+    case 2:
+      result = "scissors"
+      break
+  }
+
+  const playerGuess = new Discord.MessageAttachment(`./assets/rock_paper_scissors/${choice}.png`, "player.png")
+  const botGuess = new Discord.MessageAttachment(`./assets/rock_paper_scissors/${result}.png`, "bot.png")
   const emb = new Discord.MessageEmbed()
-    // .attachFiles(attachment)
-    // .setImage("attachment://coin.png")
+    .attachFiles([ botGuess, playerGuess ])
+    .setTitle(`My Choice ${result}`)
+    .setThumbnail("attachment://bot.png")
+    .setDescription(`Your Choice ${choice}`)
+    .setImage("attachment://player.png")
+    .setAuthor(message.author.tag + " vs " + config.main.botNames.lowerCamelCase, message.author.avatarURL())
     .setColor(config.main.colours.success)
-    .setTitle(rim ? "Rim" : flipResult ? "Heads" : "Tails")
-  if(rim) emb.setFooter(`The coin landed on the side. Wow, there's only a 1 in ${rimChance} chance of that :O.`)
 
   message.channel.send(emb)
 }
@@ -41,4 +67,4 @@ exports.help = async (client, message, args) => {
   message.channel.send(embed)
 }
 
-exports.disabled = "currently work in progress"
+// exports.disabled = "currently work in progress"
