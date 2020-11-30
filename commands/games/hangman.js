@@ -194,12 +194,11 @@ exports.help = async (client, message, args) => {
   const config = index.config
   const { settings } = config.hangman
 
-  const embed = commandHelpEmbed(message)
-    .setTitle("**Hangman**")
-    .setDescription("Play a game of hangman!")
-    .addField("Syntax", `${config.main.prefix}hangman <play | panel | quit | sets> ([word sets] [max incorrect guesses])`)
-    .addField("\u200b", "\u200b")
-    .addField("Examples", [
+  const embed = commandHelpEmbed(message, {
+    title: "**Hangman**",
+    description: "Play a game of hangman!",
+    syntax: `${config.main.prefix}hangman <play | panel | quit | sets> ([word sets] [max incorrect guesses])`,
+    example: [
       `**Play with Default Words**`,
       ` ${config.main.prefix}hangman play`,
       "",
@@ -215,7 +214,8 @@ exports.help = async (client, message, args) => {
       "",
       `**See Available Word Sets**`,
       ` ${config.main.prefix}hangman sets`,
-    ].join("\n"))
+    ].join("\n"),
+  })
   
   message.channel.send(embed)
 }

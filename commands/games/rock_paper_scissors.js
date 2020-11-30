@@ -101,15 +101,13 @@ exports.help = async (client, message, args) => {
   const config = index.config
   const { commandHelpEmbed } = index
 
-  const embed = commandHelpEmbed(message)
-    .setTitle("**Rock Paper Scissors**")
-    .setDescription("Play a game of rock paper scissors!")
-    .addField("Syntax", `${config.main.prefix}rock_paper_scissors <r[ock] | p[aper] | s[cissors]>`)
-    .addField("\u200b", "\u200b")
-    .addField("Examples", [
-      `**Play**`,
-      ` ${config.main.prefix}rock_paper_scissors paper`,
-    ].join("\n"))
+  const embed = commandHelpEmbed(message, {
+    title: "**Rock Paper Scissors**",
+    description: "Play a game of rock paper scissors!",
+    syntax: `${config.main.prefix}rock_paper_scissors <r[ock] | p[aper] | s[cissors]>`,
+    example: `${config.main.prefix}rock_paper_scissors paper`,
+  })
+  
   message.channel.send(embed)
 }
 
