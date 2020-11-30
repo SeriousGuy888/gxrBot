@@ -1,6 +1,4 @@
 exports.run = async (client, message, args) => {
-  const index = require("../../index.js")
-  
   let commandListMessage = [
     "**Public Command List**",
     "`This list does not include disabled commands or dev commands or their aliases.`",
