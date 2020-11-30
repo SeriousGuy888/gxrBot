@@ -190,14 +190,12 @@ exports.run = async (client, message, args) => {
 
 exports.help = async (client, message, args) => {
   const index = require("../../index.js")
+  const { commandHelpEmbed } = index
   const config = index.config
   const { settings } = config.hangman
-  const Discord = index.Discord
 
-  const embed = new Discord.MessageEmbed()
-    .setAuthor(message.author.tag, message.author.avatarURL())
+  const embed = commandHelpEmbed(message)
     .setTitle("**Hangman**")
-    .setColor(config.main.colours.help)
     .setDescription("Play a game of hangman!")
     .addField("Syntax", `${config.main.prefix}hangman <play | panel | quit | sets> ([word sets] [max incorrect guesses])`)
     .addField("\u200b", "\u200b")
@@ -218,5 +216,6 @@ exports.help = async (client, message, args) => {
       `**See Available Word Sets**`,
       ` ${config.main.prefix}hangman sets`,
     ].join("\n"))
+  
   message.channel.send(embed)
 }
