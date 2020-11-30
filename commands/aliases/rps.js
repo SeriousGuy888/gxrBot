@@ -1,0 +1,1 @@
+exports.alias = "rock_paper_scissors"
