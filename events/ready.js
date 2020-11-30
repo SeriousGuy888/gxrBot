@@ -23,12 +23,19 @@ module.exports = (client, message) => {
     }
   }, 7000)
 
-  schedule.scheduleJob("0 0 0 * * *", () => {
+  let scheduleRule = new schedule.RecurrenceRule()
+
+  scheduleRule.tz = "America/Toronto"
+  scheduleRule.second = 0
+  scheduleRule.minute = 0
+  scheduleRule.hour = 0
+  
+  schedule.scheduleJob(scheduleRule, () => {
     const newsChannel = client.channels.cache.get("749428233270853681")
     if(!newsChannel)
       return console.log("Error - news channel does not exist D:")
     
-    client.commands.get("2021").fireWithoutUser(client, newsChannel)
+    client.commands.get("new_year_countdown").fireWithoutUser(client, newsChannel)
   })
 
   setInterval(() => {
