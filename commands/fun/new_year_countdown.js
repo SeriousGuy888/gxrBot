@@ -34,5 +34,5 @@ exports.fireWithoutUser = async (client, channel) => {
       .setFooter("Could this year be uncursed please?")
   }
 
-  channel.send(emb)
+  channel.send(emb).then(msg => msg.react("🎉"))
 }
