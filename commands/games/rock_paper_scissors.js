@@ -99,13 +99,10 @@ exports.run = async (client, message, args) => {
 exports.help = async (client, message, args) => {
   const index = require("../../index.js")
   const config = index.config
-  // const { settings } = config.hangman
-  const Discord = index.Discord
+  const { commandHelpEmbed } = index
 
-  const embed = new Discord.MessageEmbed()
-    .setAuthor(message.author.tag, message.author.avatarURL())
+  const embed = commandHelpEmbed(message)
     .setTitle("**Rock Paper Scissors**")
-    .setColor(config.main.colours.help)
     .setDescription("Play a game of rock paper scissors!")
     .addField("Syntax", `${config.main.prefix}rock_paper_scissors <r[ock] | p[aper] | s[cissors]>`)
     .addField("\u200b", "\u200b")
