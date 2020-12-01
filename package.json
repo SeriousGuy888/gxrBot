@@ -2,6 +2,9 @@
   "name": "g8c-bot",
   "version": "1.0.0",
   "description": "Bot made for the G8C with features specific to it.",
+  "engines": {
+    "node": "12.x"
+  },
   "main": "index.js",
   "scripts": {
     "test": "nodemon ."
