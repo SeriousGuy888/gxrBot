@@ -20,11 +20,12 @@ exports.run = async (client, message, args) => {
   let pingEmb = new Discord.MessageEmbed()
     .setColor(config.main.colours.success)
     .setTitle(cmdName.toLowerCase() == "pong" ? "Ping!" : "Pong!") // will say ping if the command alias pong was used
-    .setDescription([
-      `:arrows_clockwise: Latency: \`${Math.round(client.ws.ping)} ms\``,
-      `:clock530: Uptime: \`${uptimeStr}\``
-    ].join("\n"))
-    .addField(":cake: Age", `I'm ${ageYears} ${ageYears == 1 ? "year" : "years"} old!\n(I began my existence on ${client.user.createdAt.toUTCString()})`)
+    .addField(":clock530: Uptime", `\`${uptimeStr}\``)
+    .addField(":arrows_clockwise: Latency", `\`${Math.round(client.ws.ping)} ms\``)
+    .addField(":cake: Age", `I'm \`${ageYears}\` ${ageYears == 1 ? "year" : "years"} old!\n(${client.user.createdAt.toUTCString()})`)
+
+  if(process.env.DEV_MODE)
+    pingEmb.addField(":keyboard: Dev Mode", `\`${process.env.DEV_MODE}\``)
     
   message.channel.send(pingEmb)
 }
