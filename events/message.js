@@ -70,8 +70,9 @@ module.exports = (client, message) => {
         pauseAutocarrotCache[message.author.id] = {
           issued: new Date()
         }
-
         message.channel.send(config.autocarrot.settings.pause.response.replace(/%timespan%/gi, config.autocarrot.settings.pause.timespan))
+        console.log(`${message.author.tag} (ID: ${message.author.id}) has paused autocarrot for ${config.autocarrot.settings.pause.timespan} seconds.`)
+
         break autocarrot
       }
 
