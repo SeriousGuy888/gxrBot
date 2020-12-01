@@ -6,6 +6,7 @@ A bot with features exclusive to making the g9l better.
 
 **Features**
 
+ - [x] Autocarrot
  - [x] A channel for cult activities (by which I mean repeating a word)
  - [x] A channel for practising teamwork and collaboration by writing an incoherent mess of a story
  - [x] A ~~non-functional~~ non-existent economy system!
