@@ -20,8 +20,8 @@ exports.run = async (client, message, args) => {
   let pingEmb = new Discord.MessageEmbed()
     .setColor(config.main.colours.success)
     .setTitle(cmdName.toLowerCase() == "pong" ? "Ping!" : "Pong!") // will say ping if the command alias pong was used
-    .addField(":clock530: Uptime", `\`${uptimeStr}\``)
-    .addField(":arrows_clockwise: Latency", `\`${Math.round(client.ws.ping)} ms\``)
+    .addField(":clock530: Uptime", `\`${uptimeStr}\``, true)
+    .addField(":arrows_clockwise: Latency", `\`${Math.round(client.ws.ping)} ms\``, true)
     .addField(":cake: Age", `I'm \`${ageYears}\` ${ageYears == 1 ? "year" : "years"} old!\n(${client.user.createdAt.toUTCString()})`)
 
   if(process.env.DEV_MODE)
