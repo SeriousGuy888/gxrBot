@@ -151,5 +151,10 @@ module.exports = {
 
 // exports ↑
 
+process.on("exit", () => {
+  updateKarma()
+  console.log("Exiting...")
+})
+
 client.login(process.env.TOKEN)
   .catch(err => console.log(err))
