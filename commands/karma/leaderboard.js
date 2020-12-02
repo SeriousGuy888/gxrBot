@@ -35,6 +35,9 @@ exports.run = async (client, message, args) => {
           user = `ID: ${doc.id}` // display as id otherwise
       else
         user = user.tag // if the user is cached and their tag is found
+      
+      if(user === null)
+        user = `ID: ${doc.id}`
   
       let karma = data.karma
   
