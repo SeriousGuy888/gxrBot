@@ -13,7 +13,7 @@ exports.run = async (client, reaction, user, removed) => {
 
 
   if(reaction.emoji instanceof Discord.GuildEmoji) {
-    for(i in settings.emojis) {
+    for(let i in settings.emojis) {
       if(settings.emojis[i].id === reaction.emoji.id)
         if(settings.emojis[i].karma)
           addKarma(message.author.id, removed ? -settings.emojis[i].karma : settings.emojis[i].karma)
