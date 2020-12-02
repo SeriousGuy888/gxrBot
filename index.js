@@ -6,6 +6,11 @@ const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"]
 const config = require("./config/_config.js") // config file
 const prefix = config.main.prefix // bot prefix
 
+const firebaseAdmin = require("firebase-admin")
+const firebaseServiceAccountKey = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)
+firebaseAdmin.initializeApp({ credential: firebaseAdmin.credential.cert(firebaseServiceAccountKey) })
+const db = firebaseAdmin.firestore()
+
 const Enmap = require("enmap") // used for loading in the commands and functions and stuff
 const timeFormatter = require("seconds-time-formatter") // my own npm package that is very badly written 
 const emoji = require("emojilib") // for automatic emoji thing for auto reactions
@@ -101,6 +106,8 @@ module.exports = {
   config,
   fs,
   prefix,
+  firebaseAdmin,
+  db,
   Enmap,
   timeFormatter,
   emoji,
