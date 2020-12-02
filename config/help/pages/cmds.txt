@@ -17,6 +17,10 @@ __Games I Guess__
 `magic8ball` - (`8ball`) Very accurate magic 8 ball.
 `rock_paper_scissors` - (`rps`) Play rock paper scissors against %lowername%.
 
+__Karma Thing__
+`leaderboard` - (`lb`) See the karma leaderboard.
+`karma` - See someone's or your own karma score.
+
 __Admin Commands__
 `cult` - Set the cult channel.
 `mute` - Force mute and unmute everyone in a specified VC.
