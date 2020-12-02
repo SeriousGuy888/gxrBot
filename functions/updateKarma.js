@@ -11,12 +11,14 @@ exports.run = async (client) => {
   for(let i in karmaQueue) {
     if(!karmaQueue[i])
       continue // don't bother database if net change is zero
+
+    const increment = firebaseAdmin.firestore.FieldValue.increment(karmaQueue[i]) // increment by net change
     const docRef = db.collection("users").doc(i)
 
     let payload = {
       karma: increment
     }
-    const user = client.users.cache.find(u => u.id === i)
+    const user = client.users.cache.find(u => u.id === i) // caches the user's tag for leaderboard or somehting
     if(user)
       payload.tag = user.tag
 
