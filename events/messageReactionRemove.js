@@ -16,9 +16,9 @@ module.exports = async (client, reaction, user) => {
   if(reaction.emoji instanceof Discord.GuildEmoji) {
     if(Object.values(settings.emojis).includes(reaction.emoji.id)) {
       if(settings.emojis.upvote === reaction.emoji.id)
-        addKarma(message.author.id, 1)
-      if(settings.emojis.downvote === reaction.emoji.id)
         addKarma(message.author.id, -1)
+      if(settings.emojis.downvote === reaction.emoji.id)
+        addKarma(message.author.id, 1)
     }
   }
 }
