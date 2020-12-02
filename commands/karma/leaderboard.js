@@ -69,9 +69,10 @@ exports.run = async (client, message, args) => {
 
   karmaCache
     .forEach(field => {
+      let content = field.content
       if(karmaQueue[field.userId])
-        field.content += ` and ${karmaQueue[field.userId]} pending`
-      leaderboardEmbed.addField(`${getRankingStr(karmaCache.indexOf(field) + 1, field.userId === message.author.id)} | \`${field.title}\``, field.content)
+        content += ` and ${karmaQueue[field.userId]} pending`
+      leaderboardEmbed.addField(`${getRankingStr(karmaCache.indexOf(field) + 1, field.userId === message.author.id)} | \`${field.title}\``, content)
     })
   
   message.channel.send(leaderboardEmbed)
