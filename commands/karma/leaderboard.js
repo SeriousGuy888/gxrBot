@@ -2,17 +2,17 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, db, timeConvert, karmaQueue, karmaCache, commandCooldowns } = index
 
-  let cooldown = 15 * 1000 // ms
-  if(commandCooldowns.leaderboard[message.author.id]) {
-    let cooldownRemaining = new Date() - commandCooldowns.leaderboard[message.author.id]
-    if(cooldownRemaining < cooldown) {
-      let cooldownRemainingHuman = await timeConvert(cooldownRemaining)
-      message.channel.send(`Please stop killing my database.\nYou need to wait another \`${cooldown / 1000 - cooldownRemainingHuman.s} seconds\` before sending another query.`)
-      return
-    }
-  }
+  // let cooldown = 15 * 1000 // ms
+  // if(commandCooldowns.leaderboard[message.author.id]) {
+  //   let cooldownRemaining = new Date() - commandCooldowns.leaderboard[message.author.id]
+  //   if(cooldownRemaining < cooldown) {
+  //     let cooldownRemainingHuman = await timeConvert(cooldownRemaining)
+  //     message.channel.send(`Please stop killing my database.\nYou need to wait another \`${cooldown / 1000 - cooldownRemainingHuman.s} seconds\` before sending another query.`)
+  //     return
+  //   }
+  // }
 
-  commandCooldowns.leaderboard[message.author.id] = new Date()
+  // commandCooldowns.leaderboard[message.author.id] = new Date()
 
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor("#d223d2")
