@@ -26,15 +26,17 @@ exports.run = async (client, message, args) => {
 
   snapshot.forEach(async doc => {
     let user = client.users.cache.find(u => u.id === doc.id)
+    const data = doc.data()
+
     if(!user)
-      if(doc.data().tag)
-        user = `${doc.data().tag} [Cached]`
+      if(data.tag)
+        user = `${data.tag} [Cached]`
       else
         user = `ID: ${doc.id}`
     else
       user = user.tag
 
-    let karma = doc.data().karma
+    let karma = data.karma
     if(karmaQueue[doc.id])
       karma = `${karma} plus ${karmaQueue[doc.id]} pending`
 
