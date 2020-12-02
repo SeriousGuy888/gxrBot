@@ -35,7 +35,7 @@ exports.run = async (client, message, args) => {
   else {
     let karma = doc.data().karma
     if(karmaQueue[doc.id])
-      karma = `${karma} plus ${karmaQueue[doc.id]} pending`
+      karma = `${karma} and ${karmaQueue[doc.id]} pending`
     
     responseEmbed.setDescription(`:sparkles: ${karma}`)
   }
