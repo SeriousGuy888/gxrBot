@@ -44,6 +44,8 @@ exports.run = async (client, message, args) => {
         userId: doc.id,
       })
     })
+
+    karmaCache.reverse()
   }
 
   const getRankingStr = (rank, isAuthor) => {
@@ -66,7 +68,6 @@ exports.run = async (client, message, args) => {
   }
 
   karmaCache
-    .reverse()
     .forEach(field => {
       if(karmaQueue[field.userId])
         field.content += ` and ${karmaQueue[field.userId]} pending`
