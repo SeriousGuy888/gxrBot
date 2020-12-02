@@ -112,6 +112,7 @@ const messageResponder = (message) => client.functions.get("messageResponder").r
 const propaganda = () => client.functions.get("propaganda").run(client)
 const timeConvert = (milliseconds) => client.functions.get("timeConvert").run(client, milliseconds)
 const updateKarma = () => client.functions.get("updateKarma").run(client)
+const voteReactions = (reaction, user, removed) => client.functions.get("voteReactions").run(client, reaction, user, removed)
 
 // function imports ↑
 // exports ↓
@@ -145,6 +146,7 @@ module.exports = {
   propaganda,
   timeConvert,
   updateKarma,
+  voteReactions,
 }
 
 // exports ↑
