@@ -16,7 +16,11 @@ exports.run = async (client, reaction, user, removed) => {
     for(let i in settings.emojis) {
       if(settings.emojis[i].id === reaction.emoji.id)
         if(settings.emojis[i].karma)
-          addKarma(message.author.id, removed ? -settings.emojis[i].karma : settings.emojis[i].karma)
+          addKarma(message.author.id, removed ? -settings.emojis[i].karma : settings.emojis[i].karma, {
+            reason: i,
+            voterId: user.id,
+            messageId: message.id
+          })
         else
           console.log(`Karma vote reactions error: emoji ${i} does not have karma value!`)
     }
