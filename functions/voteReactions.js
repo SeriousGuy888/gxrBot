@@ -3,6 +3,8 @@ exports.run = async (client, reaction, user, removed) => {
   const { Discord, config, addKarma } = index
   const settings = config.karma
 
+  let message = reaction.message
+  
   // reactions of bots and reactions of the message author do not count
   if(user.bot || user.id === message.author.id)
     return
