@@ -12,6 +12,8 @@ module.exports = async (client, reaction, user) => {
   // reactions of bots and reactions of the message author do not count
   if(user.bot || user.id === message.author.id)
     return
+  if(message.webhookID || message.author.system) // webhook and system message authors cannot be added
+    return
 
 
   if(reaction.emoji instanceof Discord.GuildEmoji) {
