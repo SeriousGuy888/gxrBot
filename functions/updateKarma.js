@@ -9,8 +9,10 @@ exports.run = async (client) => {
   console.log(`Updating karma...\n${JSON.stringify(karmaQueue)}`)
 
   for(let i in karmaQueue) {
-    if(!karmaQueue[i])
+    if(!karmaQueue[i]) {
+      delete karmaQueue[i]
       continue // don't bother database if net change is zero
+    }
 
     const increment = firebaseAdmin.firestore.FieldValue.increment(karmaQueue[i]) // increment by net change
     const docRef = db.collection("users").doc(i)
