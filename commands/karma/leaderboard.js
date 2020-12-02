@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
   const usersColl = db.collection("users")
   const snapshot = await usersColl.orderBy("karma").limit(25).get()
 
-  if(!karmaCache) {
+  if(karmaCache.length === 0) {
     snapshot.forEach(async doc => {
       let user = client.users.cache.find(u => u.id === doc.id)
       const data = doc.data()
