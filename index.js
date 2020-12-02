@@ -151,7 +151,7 @@ module.exports = {
 
 // exports ↑
 
-process.on("exit", () => {
+process.on("SIGTERM", () => {
   updateKarma()
   console.log("Exiting...")
 })
