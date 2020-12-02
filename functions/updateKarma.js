@@ -1,7 +1,7 @@
 exports.run = async (client) => {
   const index = require("../index.js")
   const { firebaseAdmin, db } = index
-  let { karmaQueue } = index
+  let { karmaQueue, karmaCache } = index
 
   if(Object.keys(karmaQueue).length === 0)
     return
@@ -29,4 +29,6 @@ exports.run = async (client) => {
 
     delete karmaQueue[i]
   }
+
+  karmaCache = {}
 }

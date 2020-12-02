@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, db, timeConvert, karmaQueue, commandCooldowns } = index
+  const { Discord, db, timeConvert, karmaQueue, karmaCache, commandCooldowns } = index
 
   let cooldown = 15 * 1000 // ms
   if(commandCooldowns.leaderboard[message.author.id]) {
@@ -22,30 +22,29 @@ exports.run = async (client, message, args) => {
 
   const usersColl = db.collection("users")
   const snapshot = await usersColl.orderBy("karma").limit(25).get()
-  let lbEntries = []
 
-  snapshot.forEach(async doc => {
-    let user = client.users.cache.find(u => u.id === doc.id)
-    const data = doc.data()
-
-    if(!user)
-      if(data.tag)
-        user = `${data.tag} [Cached]` // if user's tag is stored
+  if(!karmaCache) {
+    snapshot.forEach(async doc => {
+      let user = client.users.cache.find(u => u.id === doc.id)
+      const data = doc.data()
+  
+      if(!user)
+        if(data.tag)
+          user = `${data.tag} [Cached]` // if user's tag is stored
+        else
+          user = `ID: ${doc.id}` // display as id otherwise
       else
-        user = `ID: ${doc.id}` // display as id otherwise
-    else
-      user = user.tag // if the user is cached and their tag is found
-
-    let karma = data.karma
-    if(karmaQueue[doc.id])
-      karma = `${karma} plus ${karmaQueue[doc.id]} pending`
-
-    lbEntries.push({
-      title: user,
-      content: `**Karma:** ${karma}`,
-      userId: doc.id,
+        user = user.tag // if the user is cached and their tag is found
+  
+      let karma = data.karma
+  
+      karmaCache.push({
+        title: user,
+        content: karma,
+        userId: doc.id,
+      })
     })
-  })
+  }
 
   const getRankingStr = (rank, isAuthor) => {
     // this function will give medal emojis for the first 3
@@ -66,10 +65,12 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  lbEntries
+  karmaCache
     .reverse()
     .forEach(field => {
-      leaderboardEmbed.addField(`${getRankingStr(lbEntries.indexOf(field) + 1, field.userId === message.author.id)} | \`${field.title}\``, field.content)
+      if(karmaQueue[field.userId])
+        field.content += ` and ${karmaQueue[field.userId]} pending`
+      leaderboardEmbed.addField(`${getRankingStr(karmaCache.indexOf(field) + 1, field.userId === message.author.id)} | \`${field.title}\``, field.content)
     })
   
   message.channel.send(leaderboardEmbed)
