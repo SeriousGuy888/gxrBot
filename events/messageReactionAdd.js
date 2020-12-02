@@ -9,6 +9,7 @@ module.exports = async (client, reaction, user) => {
     message = await reaction.message.fetch()
 
 
+  // reactions of bots and reactions of the message author do not count
   if(user.bot || user.id === message.author.id)
     return
 
