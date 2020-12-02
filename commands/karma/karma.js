@@ -16,7 +16,9 @@ exports.run = async (client, message, args) => {
 
 
   
-  let member = message.mentions.members.first().user// || message.guild.members.cache.get(args[0]).user
+  let member
+  if(message.mentions.members.first())
+    member = message.mentions.members.first().user// || message.guild.members.cache.get(args[0]).user
   if(!member)
     member = message.author
 
