@@ -17,8 +17,8 @@ exports.run = async (client, message, args) => {
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor("#d223d2")
     .setTitle("Discord Karma Leaderboard")
-    .setDescription(`"I just decided that we really needed this." -Billzo`)
-    .setFooter("Pending karma is sent to database every few minutes.")
+    .setDescription(`Because *everyone* loves having their popularity quantified with a single number! :D`)
+    .setFooter("Pending karma is karma that is temporarily being stored by the bot until it can be sent to the database.")
 
   const usersColl = db.collection("users")
   const snapshot = await usersColl.orderBy("karma").limit(25).get()
