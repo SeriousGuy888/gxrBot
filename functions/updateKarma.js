@@ -30,5 +30,5 @@ exports.run = async (client) => {
     delete karmaQueue[i]
   }
 
-  karmaCache = []
+  karmaCache.splice(0, karmaCache.length)
 }
