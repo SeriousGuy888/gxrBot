@@ -105,6 +105,7 @@ const coopChannels = (message) => client.functions.get("coopChannels").run(clien
 const messageResponder = (message) => client.functions.get("messageResponder").run(client, message)
 const propaganda = () => client.functions.get("propaganda").run(client)
 const timeConvert = (milliseconds) => client.functions.get("timeConvert").run(client, milliseconds)
+const updateKarma = () => client.functions.get("updateKarma").run(client)
 
 // function imports ↑
 // exports ↓
@@ -133,7 +134,8 @@ module.exports = {
   coopChannels,
   messageResponder,
   propaganda,
-  timeConvert
+  timeConvert,
+  updateKarma,
 }
 
 // exports ↑
