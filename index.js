@@ -152,7 +152,10 @@ module.exports = {
 
 // exports ↑
 
-process.on("SIGTERM", () => {
+// * when a sigterm signal is received,
+// * write pending karma to database before
+// * shutting down
+process.once("SIGTERM", () => {
   updateKarma()
   console.log("Exiting...")
   exit()
