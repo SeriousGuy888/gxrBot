@@ -28,6 +28,10 @@ const schedule = require("node-schedule") // node scheduler
 const stringSimilarity = require("string-similarity")
 
 let pauseAutocarrotCache = {} // used for storing when people want g9lbot to stop autocarroting them
+let commandCooldowns = {
+  karma: {},
+  leaderboard: {}
+}
 let gameCache = { // for storing when people are playing g9lbot's games
   hangman: {}
 }
@@ -125,8 +129,9 @@ module.exports = {
   translate,
   schedule,
   stringSimilarity,
-  gameCache,
   pauseAutocarrotCache,
+  commandCooldowns,
+  gameCache,
   addKarma,
   autocarrotWebhook,
   autoResponses,
