@@ -1,6 +1,6 @@
 module.exports = (client, message) => {
   const index = require("../index.js")
-  const schedule = index.schedule
+  const { schedule, updateKarma } = index
 
   console.log("g9lBot Loaded!")
 
@@ -38,7 +38,13 @@ module.exports = (client, message) => {
     client.commands.get("new_year_countdown").fireWithoutUser(client, newsChannel)
   })
 
+
   setInterval(() => {
-    index.propaganda()
+    updateKarma()
+  }, 3 * 60 * 1000)
+
+
+  setInterval(() => {
+    // index.propaganda()
   }, 5 * 60 * 1000)
 }
