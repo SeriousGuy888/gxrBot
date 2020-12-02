@@ -28,7 +28,7 @@ const schedule = require("node-schedule") // node scheduler
 const stringSimilarity = require("string-similarity")
 
 let karmaQueue = {}
-let karmaCache = {}
+let karmaCache = []
 let pauseAutocarrotCache = {} // used for storing when people want g9lbot to stop autocarroting them
 let commandCooldowns = {
   karma: {},
