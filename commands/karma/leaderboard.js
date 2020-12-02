@@ -30,11 +30,11 @@ exports.run = async (client, message, args) => {
 
     if(!user)
       if(data.tag)
-        user = `${data.tag} [Cached]`
+        user = `${data.tag} [Cached]` // if user's tag is stored
       else
-        user = `ID: ${doc.id}`
+        user = `ID: ${doc.id}` // display as id otherwise
     else
-      user = user.tag
+      user = user.tag // if the user is cached and their tag is found
 
     let karma = data.karma
     if(karmaQueue[doc.id])
@@ -48,6 +48,9 @@ exports.run = async (client, message, args) => {
   })
 
   const getRankingStr = (rank, isAuthor) => {
+    // this function will give medal emojis for the first 3
+    // it will return a star if the user is not in the top 3 for the user's entry
+    // otherwise, it will just return #rank
     switch(rank) {
       case 1:
         return ":first_place:"
