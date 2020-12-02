@@ -23,7 +23,7 @@ exports.run = async (client, reaction, user, removed) => {
     if(settings.emojis[i].id === emoji)
       if(settings.emojis[i].karma) {
         addKarma(message.author.id, removed ? -settings.emojis[i].karma : settings.emojis[i].karma, {
-          reason: i,
+          reason: `${removed ? "remove" : "add"} ${i}`,
           voterId: user.id,
           messageId: message.id
         })
