@@ -60,7 +60,7 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
     const filePath = `./temp/${fileName}`
 
     let caption = ""
-    if(i === 0)
+    if(i == 0)
       caption = "-----\n**Log Uploads**"
   
     // console.log("p5")
