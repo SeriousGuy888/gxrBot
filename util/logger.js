@@ -68,5 +68,5 @@ exports.uploadLogs = (dontPrintTimestamps) => {
     })
   }
 
-  logs = [] // clear any pending logs
+  logs.splice(0, karmaCache.length) // clear any pending logs
 }
