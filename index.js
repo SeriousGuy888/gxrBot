@@ -156,20 +156,17 @@ module.exports = {
 
 // exports ↑
 
-// * when a shutdown signal is received,
-// * write pending karma to database and
-// * upload logs
-const gracefulShutdown = async () => {
+// * when a sigterm signal is received,
+// * write pending karma to database before
+// * shutting down
+process.once("SIGTERM", async () => {
   await updateKarma()
   client.util.get("logger").uploadLogs()
     .then(() => {
       console.log("Exiting...")
       process.exit()
     })
-}
-
-process.once("SIGTERM", gracefulShutdown())
-process.once("SIGINT", gracefulShutdown())
+})
 
 client.login(process.env.TOKEN)
   .catch(err => console.log(err))
