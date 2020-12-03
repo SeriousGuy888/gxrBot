@@ -118,8 +118,6 @@ const timeConvert = (milliseconds) => client.functions.get("timeConvert").run(cl
 const updateKarma = () => client.functions.get("updateKarma").run(client)
 const voteReactions = (reaction, user, removed) => client.functions.get("voteReactions").run(client, reaction, user, removed)
 
-const uploadLogs = () => client.util.get("logger").uploadLogs()
-
 // function imports ↑
 // exports ↓
 
@@ -163,9 +161,11 @@ module.exports = {
 // * shutting down
 process.once("SIGTERM", async () => {
   await updateKarma()
-  uploadLogs()
-  console.log("Exiting...")
-  process.exit()
+  client.util.get("logger").uploadLogs()
+    .then(() => {
+      console.log("Exiting...")
+      process.exit()
+    })
 })
 
 client.login(process.env.TOKEN)
