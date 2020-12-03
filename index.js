@@ -160,12 +160,12 @@ module.exports = {
 // * write pending karma to database before
 // * shutting down
 process.once("SIGTERM", async () => {
-  await updateKarma()
-  client.util.get("logger").uploadLogs()
-    .then(() => {
-      console.log("Exiting...")
-      process.exit()
-    })
+  updateKarma()
+  // client.util.get("logger").uploadLogs()
+  //   .then(() => {
+  //     console.log("Exiting...")
+  //     process.exit()
+  //   })
 })
 
 client.login(process.env.TOKEN)
