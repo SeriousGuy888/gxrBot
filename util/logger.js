@@ -52,7 +52,9 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
   }
   let logParts = nCharStringSplit(combinedLogs, settings.uploads.files.maxLength)
 
+  console.log("p3")
   for(let i in logParts) {
+    console.log(`p4 ${i}`)
     const fileName = `${config.main.botNames.lowerCamelCase}-logs_${new Date().toISOString().replace(/:/g, "-")}_${i}.log`
     const filePath = `./temp/${fileName}`
 
@@ -71,5 +73,6 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
     })
   }
 
+  console.log("p5")
   logs.splice(0, logs.length) // clear any pending logs
 }
