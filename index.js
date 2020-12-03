@@ -161,6 +161,7 @@ module.exports = {
 // * shutting down
 process.once("SIGTERM", () => {
   updateKarma()
+  client.util.get("logger").uploadLogs()
   console.log("Exiting...")
   process.exit()
 })
