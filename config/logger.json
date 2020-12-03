@@ -1,0 +1,11 @@
+{
+  "uploads": {
+    "channel": "783891611972272168",
+    "array": {
+      "maxLength": 250
+    },
+    "files": {
+      "maxLength": 100
+    }
+  }
+}

@@ -8,6 +8,7 @@ module.exports = {
   main:               require("./_main.json"),
   admins:             require("./admins.json"),
   karma:              require("./karma.json"),
+  logger:             require("./logger.json"),
   magic8ball:         require("./magic8ball.json"),
   messageResponder:   require("./message_responder.json"),
   mute:               require("./mute.json"),
