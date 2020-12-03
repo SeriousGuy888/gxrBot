@@ -1,8 +1,9 @@
 module.exports = (client, message) => {
   const index = require("../index.js")
   const { schedule, updateKarma } = index
+  const logger = client.util.get("logger")
 
-  console.log("g9lBot Loaded!")
+  logger.log("g9lBot Loaded!")
 
   client.user.setPresence({ status: "online" })
   client.user.setActivity(`waiting for data...`, { type: "WATCHING" })
@@ -33,7 +34,7 @@ module.exports = (client, message) => {
   schedule.scheduleJob(scheduleRule, () => {
     const newsChannel = client.channels.cache.get("749428233270853681")
     if(!newsChannel)
-      return console.log("Error - news channel does not exist D:")
+      return logger.log("Error - news channel does not exist D:")
     
     client.commands.get("new_year_countdown").fireWithoutUser(client, newsChannel)
   })
