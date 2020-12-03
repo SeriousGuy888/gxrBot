@@ -50,7 +50,7 @@ exports.uploadLogs = (printTimestamps) => {
   let logParts = nCharStringSplit(combinedLogs, settings.uploads.files.maxLength)
 
   for(let i in logParts) {
-    const fileName = `${new Date().toISOString().replace(/:/g, "-")}_${i}.log`
+    const fileName = `${config.main.botNames.lowerCamelCase}-logs_${new Date().toISOString().replace(/:/g, "-")}_${i}.log`
     const filePath = `./temp/${fileName}`
   
     fs.writeFile(filePath, logParts[i], err => {
