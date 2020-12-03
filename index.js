@@ -161,7 +161,8 @@ module.exports = {
 // * shutting down
 process.once("SIGTERM", async () => {
   await updateKarma()
-  await client.util.get("logger").uploadLogs()
+  const uploadLogs = () => client.util.get("logger").uploadLogs()
+  uploadLogs()
   console.log("Exiting...")
   process.exit()
 })
