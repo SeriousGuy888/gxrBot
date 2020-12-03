@@ -6,6 +6,7 @@ module.exports = (client, message) => {
   const stringSimilarity = index.stringSimilarity
 
   const messenger = client.util.get("messenger")
+  const logger = client.util.get("logger")
 
 
   commands: {
@@ -71,7 +72,7 @@ module.exports = (client, message) => {
           issued: new Date()
         }
         message.channel.send(config.autocarrot.settings.pause.response.replace(/%timespan%/gi, config.autocarrot.settings.pause.timespan))
-        console.log(`${message.author.tag} (ID: ${message.author.id}) has paused autocarrot for ${config.autocarrot.settings.pause.timespan} seconds.`)
+        logger.log(`${message.author.tag} (ID: ${message.author.id}) has paused autocarrot for ${config.autocarrot.settings.pause.timespan} seconds.`)
 
         break autocarrot
       }
