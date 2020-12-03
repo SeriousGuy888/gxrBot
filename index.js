@@ -79,7 +79,8 @@ const loadJsFiles = async (directory, callback) => {
     let name = loopFile.split("/").pop().split(".")[0]
     callback(name, props, directory, loopFile)
   }
-  console.log("============")
+  if(logger)
+    logger.log("============")
 }
 
 console.log("============")
