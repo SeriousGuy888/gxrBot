@@ -15,7 +15,7 @@ exports.log = (logLine, noConsoleLog, options) => {
 }
 
 exports.uploadLogs = async (dontPrintTimestamps) => {
-  console.timeLog("logger.uploadLogs() called")
+  console.log("logger.uploadLogs() called")
 
   const index = require("../index.js")
   const { client, config, fs } = index
