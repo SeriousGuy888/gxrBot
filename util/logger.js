@@ -42,6 +42,7 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
   }
 
   
+  console.log("p2")
   let combinedLogs = ""
   for(let loopLog of logs) {
     if(!dontPrintTimestamps)
