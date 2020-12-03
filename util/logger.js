@@ -12,6 +12,9 @@ exports.log = (logLine, noConsoleLog, options) => {
 
   if(!noConsoleLog)
     console.log(logLine)
+  
+  if(logs.length >= settings.uploads.array.maxLength)
+    this.uploadLogs()
 }
 
 exports.uploadLogs = async (dontPrintTimestamps) => {
