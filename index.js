@@ -38,6 +38,10 @@ let gameCache = { // for storing when people are playing g9lbot's games
   hangman: {}
 }
 
+
+let logs = []
+
+
 // setup ↓
 
 const loadJsFiles = async (directory, callback) => {
@@ -137,6 +141,7 @@ module.exports = {
   pauseAutocarrotCache,
   commandCooldowns,
   gameCache,
+  logs,
   addKarma,
   autocarrotWebhook,
   autoResponses,
