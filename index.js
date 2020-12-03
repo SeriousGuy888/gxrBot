@@ -142,7 +142,6 @@ module.exports = {
   pauseAutocarrotCache,
   commandCooldowns,
   gameCache,
-  logs,
   addKarma,
   autocarrotWebhook,
   autoResponses,
