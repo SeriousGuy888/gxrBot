@@ -43,7 +43,7 @@ exports.uploadLogs = (printTimestamps) => {
   let combinedLogs = ""
   for(let loopLog of logs) {
     if(printTimestamps)
-      combinedLogs += `${loopLog.timestamp.toISOString()}: `
+      combinedLogs += `[${loopLog.timestamp.toISOString()}]: `
     combinedLogs += `${loopLog.text}`
     combinedLogs += "\n"
   }
