@@ -26,7 +26,6 @@ const emojiDictionary = require("emoji-dictionary") // also emojis
 const translate = require("translate-google") // google translate i think
 const schedule = require("node-schedule") // node scheduler
 const stringSimilarity = require("string-similarity")
-const { exit } = require("process")
 
 let karmaQueue = {}
 let karmaCache = []
@@ -158,7 +157,7 @@ module.exports = {
 process.once("SIGTERM", () => {
   updateKarma()
   console.log("Exiting...")
-  exit()
+  process.exit()
 })
 
 client.login(process.env.TOKEN)
