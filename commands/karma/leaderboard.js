@@ -57,25 +57,30 @@ exports.run = async (client, message, args) => {
     // otherwise, it will just return #rank
     switch(rank) {
       case 1:
-        return ":first_place:"
+        return ":first_place: First Place"
       case 2:
-        return ":second_place:"
+        return ":second_place: Second Place"
       case 3:
-        return ":third_place:"
+        return ":third_place: Third Place"
       default:
         if(isAuthor)
-          return ":star:"
+          return `:star: #${rank.toString().padStart(2, "0")}`
         else
-          return `#${rank}`
+          return `#${rank.toString().padStart(2, "0")}`
     }
   }
 
   karmaCache
     .forEach(field => {
-      let content = `:sparkles: ${field.content}`
+      let rank = karmaCache.indexOf(field) + 1
+      let rankingStr = getRankingStr(rank, field.userId === message.author.id)
+      let content = `:sparkles: ${field.content.toLocaleString()}`
+
       if(karmaQueue[field.userId])
         content += ` and ${karmaQueue[field.userId]} pending`
-      leaderboardEmbed.addField(`${getRankingStr(karmaCache.indexOf(field) + 1, field.userId === message.author.id)} | \`${field.title}\``, content)
+      leaderboardEmbed.addField(`${rankingStr}\n\`${field.title}\``, content + "\n\u200b", rank > 3)
+      if(rank === 3)
+        leaderboardEmbed.addField("\u200b", "\u200b")
     })
   
   message.channel.send(leaderboardEmbed)
