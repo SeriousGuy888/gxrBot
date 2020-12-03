@@ -167,8 +167,8 @@ process.once("SIGTERM", async () => {
   // client.util.get("logger").uploadLogs()
   //   .then(() => {
   //     console.log("Exiting...")
-  //     process.exit()
   //   })
+  process.exit()
 })
 
 client.login(process.env.TOKEN)
