@@ -1,6 +1,8 @@
 exports.run = async (client, userId, amount, options) => {
   const index = require("../index.js")
   const { karmaQueue } = index
+  
+  const logger = client.util.get("logger")
 
   if(!karmaQueue[userId])
     karmaQueue[userId] = amount
@@ -18,5 +20,5 @@ exports.run = async (client, userId, amount, options) => {
       logMessage += ` on M ${options.messageId}`
   }
   
-  console.log(logMessage)
+  logger.log(logMessage)
 }
