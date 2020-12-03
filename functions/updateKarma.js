@@ -8,7 +8,8 @@ exports.run = async (client) => {
   if(Object.keys(karmaQueue).length === 0)
     return
   
-  logger.log(`Updating karma...\n${JSON.stringify(karmaQueue)}`)
+  logger.log(`Updating karma...`)
+  logger.log(JSON.stringify(karmaQueue, null, 4))
 
   for(let i in karmaQueue) {
     if(!karmaQueue[i]) {
