@@ -17,7 +17,7 @@ exports.log = (logLine, noConsoleLog, options) => {
   //   this.uploadLogs()
 }
 
-exports.uploadLogs = async (dontPrintTimestamps) => {
+exports.uploadLogs = async (dontPrintTimestamps, dontClearLogs) => {
   const index = require("../index.js")
   const { client, config, fs } = index
   let { logs } = client
@@ -61,7 +61,12 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
 
     let caption = ""
     if(i == 0)
-      caption = "-----\n**Log Uploads**"
+      caption = [
+        "-----\n**Log Uploads**",
+        "",
+        dontPrintTimestamps ? "No Timestamps" : "With Timestamps",
+        dontClearLogs ? "No Logs Cleared" : "Logs Cleared",
+      ].join("\n")
   
     // console.log("p5")
     fs.writeFile(filePath, logParts[i], err => {
@@ -77,5 +82,6 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
   }
 
   // console.log("p7")
-  logs.splice(0, logs.length) // clear any pending logs
+  if(!dontClearLogs)
+    logs.splice(0, logs.length) // clear any pending logs
 }
