@@ -169,8 +169,8 @@ const gracefulShutdown = async () => {
 }
 
 process
-  .once("SIGTERM", gracefulShutdown())
-  .once("SIGINT", gracefulShutdown())
+  .on("SIGTERM", gracefulShutdown())
+  .on("SIGINT", gracefulShutdown())
 
 client.login(process.env.TOKEN)
   .catch(err => console.log(err))
