@@ -3,10 +3,12 @@ exports.run = async (client) => {
   const { firebaseAdmin, db } = index
   let { karmaQueue, karmaCache } = index
 
+  const logger = client.util.get("logger")
+
   if(Object.keys(karmaQueue).length === 0)
     return
   
-  console.log(`Updating karma...\n${JSON.stringify(karmaQueue)}`)
+  logger.log(`Updating karma...\n${JSON.stringify(karmaQueue)}`)
 
   for(let i in karmaQueue) {
     if(!karmaQueue[i]) {
