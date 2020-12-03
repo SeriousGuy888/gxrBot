@@ -1,4 +1,4 @@
 title g9lbot
 :a
-nodemon .
+node .
 goto a
