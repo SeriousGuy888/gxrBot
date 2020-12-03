@@ -159,7 +159,7 @@ module.exports = {
 // * when a sigterm signal is received,
 // * write pending karma to database before
 // * shutting down
-process.once("SIGTERM", async () => {
+process.once("beforeExit", async () => {
   await updateKarma()
   client.util.get("logger").uploadLogs()
     .then(() => {
