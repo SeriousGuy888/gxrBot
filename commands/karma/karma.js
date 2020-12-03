@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
     if(karmaQueue[doc.id])
       karma = `${karma} and ${karmaQueue[doc.id]} pending`
     
-    responseEmbed.setDescription(`:sparkles: ${karma}`)
+    responseEmbed.setDescription(`:sparkles: ${karma.toLocaleString()}`)
   }
 
   message.channel.send(responseEmbed)
