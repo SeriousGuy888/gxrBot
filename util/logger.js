@@ -14,7 +14,7 @@ exports.log = (logLine, noConsoleLog, options) => {
     console.log(logLine)
 }
 
-exports.uploadLogs = (timestamps) => {
+exports.uploadLogs = (printTimestamps) => {
   const index = require("../index.js")
   const { client, config, fs } = index
   let { logs } = index
@@ -42,7 +42,10 @@ exports.uploadLogs = (timestamps) => {
   
   let combinedLogs = ""
   for(let loopLog of logs) {
-    combinedLogs += `${timestamps ? loopLog.timestamp + " " : ""}${loopLog.text}\n`
+    if(printTimestamps)
+      combinedLogs += `${loopLog.timestamp.toISOString()}: `
+    combinedLogs += `${loopLog.text}`
+    combinedLogs += "\n"
   }
   let logParts = nCharStringSplit(combinedLogs, settings.uploads.files.maxLength)
 
