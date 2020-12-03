@@ -30,7 +30,7 @@ exports.uploadLogs = (timestamps) => {
   for(let loopLog of logs) {
     combinedLogs += `${timestamps ? loopLog.timestamp + " " : ""}${loopLog.text}`
   }
-  let logParts = combinedLogs.match(new RegExp(`.{1,${settings.uploads.files.maxLength}}`, "gs"))
+  let logParts = combinedLogs.match(new RegExp(`[\\s\\S]{${settings.uploads.files.maxLength}}`, "gs"))
 
   for(let i in logParts) {
     const fileName = `${new Date().toISOString().replace(/:/g, "-")}_${i}.log`
