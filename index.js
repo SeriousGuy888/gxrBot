@@ -39,11 +39,23 @@ let gameCache = { // for storing when people are playing g9lbot's games
 }
 
 
+let essentialExports = exports = {
+  Discord,
+  client,
+  config,
+  fs,
+  prefix,
+}
+
+module.exports = essentialExports
+
+
 // stores logs that can be uploaded to a discord channel
 client.logs = []
 
 
 // setup ↓
+
 
 const loadJsFiles = async (directory, callback) => {
   // * crawls through all subdirectories and returns an array of files
@@ -72,8 +84,17 @@ const loadJsFiles = async (directory, callback) => {
 
 console.log("============")
 
+client.util = new Enmap()
+loadJsFiles("./util/", (name, tool, directory, file) => {
+  if(client.util.get(name))
+    return console.log(`[✖] Failed to load utility from ${file} - Name Taken`)
+  console.log(`[✓] Successfully loaded utility ${name.toUpperCase()} from ${file}`)
+  client.util.set(name, tool)
+})
+const logger = client.util.get("logger")
+
 loadJsFiles("./events/", (name, event, directory, file) => {
-  console.log(`[✓] Successfully loaded event ${name.toUpperCase()} from ${file}`) // log on load
+  logger.log(`[✓] Successfully loaded event ${name.toUpperCase()} from ${file}`) // log on load
   client.on(name, (message, newMessage) => event(client, message, newMessage)) // declare event listener
   delete require.cache[require.resolve(file)] // deleting a cache or something?
 })
@@ -82,8 +103,8 @@ client.commands = new Enmap()
 client.publicCommandList = []
 loadJsFiles("./commands/", (name, command, directory, file) => {
   if(client.commands.get(name))
-    return console.log(`[✖] Failed to load command from ${file} - Name Taken`)
-  console.log(`[✓] Successfully loaded command ${name.toUpperCase()} from ${file}`) // log on load
+    return logger.log(`[✖] Failed to load command from ${file} - Name Taken`)
+  logger.log(`[✓] Successfully loaded command ${name.toUpperCase()} from ${file}`) // log on load
   client.commands.set(name, command)
   if(!command.dev && !command.disabled)
     client.publicCommandList.push(name)
@@ -92,17 +113,9 @@ loadJsFiles("./commands/", (name, command, directory, file) => {
 client.functions = new Enmap()
 loadJsFiles("./functions/", (name, func, directory, file) => {
   if(client.functions.get(name))
-    return console.log(`[✖] Failed to load function from ${file} - Name Taken`)
-  console.log(`[✓] Successfully loaded function ${name.toUpperCase()} from ${file}`)
+    return logger.log(`[✖] Failed to load function from ${file} - Name Taken`)
+  logger.log(`[✓] Successfully loaded function ${name.toUpperCase()} from ${file}`)
   client.functions.set(name, func)
-})
-
-client.util = new Enmap()
-loadJsFiles("./util/", (name, tool, directory, file) => {
-  if(client.util.get(name))
-    return console.log(`[✖] Failed to load utility from ${file} - Name Taken`)
-  console.log(`[✓] Successfully loaded utility ${name.toUpperCase()} from ${file}`)
-  client.util.set(name, tool)
 })
 
 // setup ↑
@@ -123,11 +136,7 @@ const voteReactions = (reaction, user, removed) => client.functions.get("voteRea
 // exports ↓
 
 module.exports = {
-  Discord,
-  client,
-  config,
-  fs,
-  prefix,
+  ...essentialExports,
   firebaseAdmin,
   db,
   Enmap,
