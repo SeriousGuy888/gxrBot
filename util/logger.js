@@ -65,7 +65,7 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
     console.log("p5")
     fs.writeFile(filePath, logParts[i], err => {
       if(err)
-        return console.log(err)
+        console.log(err)
       
       console.log("p6")
       channel.send(caption, { files: [filePath] }) // upload log file
