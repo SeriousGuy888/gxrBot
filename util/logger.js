@@ -62,10 +62,12 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
     if(i === 0)
       caption = "-----\n**Log Uploads**"
   
+    console.log("p5")
     fs.writeFile(filePath, logParts[i], err => {
       if(err)
         return console.log(err)
       
+      console.log("p6")
       channel.send(caption, { files: [filePath] }) // upload log file
         .then(msg => { // then
           fs.unlink(filePath, () => {}) // delete file
@@ -73,6 +75,6 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
     })
   }
 
-  console.log("p5")
+  console.log("p7")
   logs.splice(0, logs.length) // clear any pending logs
 }
