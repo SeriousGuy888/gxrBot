@@ -52,12 +52,16 @@ exports.uploadLogs = (printTimestamps) => {
   for(let i in logParts) {
     const fileName = `${config.main.botNames.lowerCamelCase}-logs_${new Date().toISOString().replace(/:/g, "-")}_${i + 1}.log`
     const filePath = `./temp/${fileName}`
+
+    let caption = ""
+    if(i === 0)
+      caption = "-----\n**Log Uploads**"
   
     fs.writeFile(filePath, logParts[i], err => {
       if(err)
         return console.log(err)
       
-      channel.send("", { files: [filePath] }) // upload log file
+      channel.send(caption, { files: [filePath] }) // upload log file
         .then(msg => { // then
           fs.unlink(filePath, () => {}) // delete file
         })
