@@ -1,7 +1,7 @@
 exports.log = (logLine, noConsoleLog, options) => {
   const index = require("../index.js")
-  const { config } = index
-  let { logs } = index
+  const { client, config } = index
+  let { logs } = client
 
   // const settings = config.logger
 
@@ -20,7 +20,7 @@ exports.log = (logLine, noConsoleLog, options) => {
 exports.uploadLogs = async (dontPrintTimestamps) => {
   const index = require("../index.js")
   const { client, config, fs } = index
-  let { logs } = index
+  let { logs } = client
 
   const settings = config.logger
 

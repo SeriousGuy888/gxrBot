@@ -39,7 +39,8 @@ let gameCache = { // for storing when people are playing g9lbot's games
 }
 
 
-let logs = []
+// stores logs that can be uploaded to a discord channel
+client.logs = []
 
 
 // setup ↓
