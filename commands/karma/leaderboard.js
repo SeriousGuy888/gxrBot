@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
   
       if(!user)
         if(data.tag)
-          user = `${data.tag} Cᴀᴄʜᴇᴅ` // if user's tag is stored
+          user = `${data.tag}.` // if user's tag is stored
         else
           user = `ID: ${doc.id}` // display as id otherwise
       else
