@@ -42,7 +42,7 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
   }
 
   
-  console.log("p2")
+  // console.log("p2")
   let combinedLogs = ""
   for(let loopLog of logs) {
     if(!dontPrintTimestamps)
@@ -52,9 +52,9 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
   }
   let logParts = nCharStringSplit(combinedLogs, settings.uploads.files.maxLength)
 
-  console.log("p3")
+  // console.log("p3")
   for(let i in logParts) {
-    console.log(`p4 ${i}`)
+    // console.log(`p4 ${i}`)
     const fileName = `${config.main.botNames.lowerCamelCase}-logs_${new Date().toISOString().replace(/:/g, "-")}_${i}.log`
     const filePath = `./temp/${fileName}`
 
@@ -62,12 +62,12 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
     if(i === 0)
       caption = "-----\n**Log Uploads**"
   
-    console.log("p5")
+    // console.log("p5")
     fs.writeFile(filePath, logParts[i], err => {
       if(err)
         console.log(err)
       
-      console.log("p6")
+      // console.log("p6")
       channel.send(caption, { files: [filePath] }) // upload log file
         .then(msg => { // then
           fs.unlink(filePath, () => {}) // delete file
@@ -75,6 +75,6 @@ exports.uploadLogs = async (dontPrintTimestamps) => {
     })
   }
 
-  console.log("p7")
+  // console.log("p7")
   logs.splice(0, logs.length) // clear any pending logs
 }
