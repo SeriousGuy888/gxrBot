@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
     .setFooter("Pending karma is karma that is temporarily being stored by the bot until it can be sent to the database.")
 
   const usersColl = db.collection("users")
-  const snapshot = await usersColl.orderBy("karma").limit(25).get()
+  const snapshot = await usersColl.orderBy("karma").limit(24).get()
 
   if(karmaCache.length === 0) {
     snapshot.forEach(async doc => {
