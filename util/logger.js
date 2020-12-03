@@ -3,7 +3,7 @@ exports.log = (logLine, noConsoleLog, options) => {
   const { config } = index
   let { logs } = index
 
-  const settings = config.logger
+  // const settings = config.logger
 
   logs.push({
     text: logLine,
@@ -13,8 +13,8 @@ exports.log = (logLine, noConsoleLog, options) => {
   if(!noConsoleLog)
     console.log(logLine)
   
-  if(logs.length >= settings.uploads.array.maxLength)
-    this.uploadLogs()
+  // if(logs.length >= settings.uploads.array.maxLength)
+  //   this.uploadLogs()
 }
 
 exports.uploadLogs = async (dontPrintTimestamps) => {
