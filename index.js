@@ -40,6 +40,7 @@ let gameCache = { // for storing when people are playing g9lbot's games
 
 
 let logs = []
+module.exports.logs = logs
 
 
 // setup ↓
@@ -144,7 +145,7 @@ module.exports = {
   pauseAutocarrotCache,
   commandCooldowns,
   gameCache,
-  logs,
+  // logs,
   addKarma,
   autocarrotWebhook,
   autoResponses,
