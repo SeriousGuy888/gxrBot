@@ -5,7 +5,7 @@
       "maxLength": 250
     },
     "files": {
-      "maxLength": 100
+      "maxLength": 4000000
     }
   }
 }
