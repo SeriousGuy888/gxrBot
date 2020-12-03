@@ -185,6 +185,9 @@ process.once("SIGTERM", async () => {
   //   })
   process.exit()
 })
+process.once("SIGINT", async () => {
+  updateKarma()
+})
 
 client.login(process.env.TOKEN)
   .catch(err => console.log(err))
