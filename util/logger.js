@@ -25,12 +25,26 @@ exports.uploadLogs = (timestamps) => {
   if(!channel)
     return console.log("Error - Log file upload channel does not exist.")
   
+
+
+  const nCharStringSplit = (source, segmentLength) => {
+    if (!segmentLength || segmentLength < 1)
+      throw Error("Invalid segment length")
+    const target = []
+    for(
+      const array = Array.from(source);
+      array.length;
+      target.push(array.splice(0, segmentLength).join(""))
+    );
+    return target
+  }
+
   
   let combinedLogs = ""
   for(let loopLog of logs) {
     combinedLogs += `${timestamps ? loopLog.timestamp + " " : ""}${loopLog.text}`
   }
-  let logParts = combinedLogs.match(new RegExp(`[\\s\\S]{${settings.uploads.files.maxLength}}`, "gs"))
+  let logParts = nCharStringSplit(combinedLogs, settings.uploads.files.maxLength)
 
   for(let i in logParts) {
     const fileName = `${new Date().toISOString().replace(/:/g, "-")}_${i}.log`
