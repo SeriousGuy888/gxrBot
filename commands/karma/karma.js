@@ -5,17 +5,17 @@ exports.run = async (client, message, args) => {
 
   const settings = config.karma
 
-  // let cooldown = 15 * 1000 // ms
-  // if(commandCooldowns.karma[message.author.id]) {
-  //   let cooldownRemaining = new Date() - commandCooldowns.karma[message.author.id]
-  //   if(cooldownRemaining < cooldown) {
-  //     let cooldownRemainingHuman = await timeConvert(cooldownRemaining)
-  //     message.channel.send(`Please stop killing my database.\nYou need to wait another \`${cooldown / 1000 - cooldownRemainingHuman.s} seconds\` before sending another query.`)
-  //     return
-  //   }
-  // }
+  let cooldown = 10 * 1000 // ms
+  if(commandCooldowns.karma[message.author.id]) {
+    let cooldownRemaining = new Date() - commandCooldowns.karma[message.author.id]
+    if(cooldownRemaining < cooldown) {
+      let cooldownRemainingHuman = await timeConvert(cooldownRemaining)
+      message.channel.send(`Please stop killing my database.\nYou need to wait another \`${cooldown / 1000 - cooldownRemainingHuman.s} seconds\` before sending another query.`)
+      return
+    }
+  }
 
-  // commandCooldowns.karma[message.author.id] = new Date()
+  commandCooldowns.karma[message.author.id] = new Date()
 
 
   
