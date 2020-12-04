@@ -1,6 +1,8 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, db, karmaQueue, karmaCache } = index
+  const { Discord, config, db, karmaQueue } = index
+  let { karmaCache } = index
+
   const settings = config.karma
 
   // let cooldown = 15 * 1000 // ms
