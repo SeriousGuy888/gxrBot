@@ -1,19 +1,21 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, config, db, timeConvert, karmaQueue, commandCooldowns } = index
+  let { karmaCache } = index
+
   const settings = config.karma
 
-  let cooldown = 15 * 1000 // ms
-  if(commandCooldowns.karma[message.author.id]) {
-    let cooldownRemaining = new Date() - commandCooldowns.karma[message.author.id]
-    if(cooldownRemaining < cooldown) {
-      let cooldownRemainingHuman = await timeConvert(cooldownRemaining)
-      message.channel.send(`Please stop killing my database.\nYou need to wait another \`${cooldown / 1000 - cooldownRemainingHuman.s} seconds\` before sending another query.`)
-      return
-    }
-  }
+  // let cooldown = 15 * 1000 // ms
+  // if(commandCooldowns.karma[message.author.id]) {
+  //   let cooldownRemaining = new Date() - commandCooldowns.karma[message.author.id]
+  //   if(cooldownRemaining < cooldown) {
+  //     let cooldownRemainingHuman = await timeConvert(cooldownRemaining)
+  //     message.channel.send(`Please stop killing my database.\nYou need to wait another \`${cooldown / 1000 - cooldownRemainingHuman.s} seconds\` before sending another query.`)
+  //     return
+  //   }
+  // }
 
-  commandCooldowns.karma[message.author.id] = new Date()
+  // commandCooldowns.karma[message.author.id] = new Date()
 
 
   
@@ -28,18 +30,42 @@ exports.run = async (client, message, args) => {
     .setTitle(`Karma of ${member.tag}`)
     .setFooter("Pending karma is sent to database every few minutes.")
 
-  const userRef = db.collection("users").doc(member.id)
-  const doc = await userRef.get()
-
-  if(!doc.exists)
-    responseEmbed.setDescription("No Database Entry")
-  else {
-    let karma = doc.data().karma
-    if(karmaQueue[doc.id])
-      karma = `${karma} and ${karmaQueue[doc.id]} pending`
-    
-    responseEmbed.setDescription(`:sparkles: ${karma.toLocaleString()}`)
+  let memberCacheIndex
+  for(let i in karmaCache) {
+    if(karmaCache[i].id === member.id) {
+      memberCacheIndex = i
+      break
+    }
   }
+
+  let karma
+  let notFound
+
+  if(memberCacheIndex)
+    karma = karmaCache[i].karma
+  else {
+    const userRef = db.collection("users").doc(member.id)
+    const doc = await userRef.get()
+  
+    if(!doc.exists)
+      notFound = true
+    else {
+      let data = doc.data()
+
+      karma = data.karma
+
+      karmaCache.push({
+        user: member.tag,
+        id: doc.id,
+        karma: karma,
+      })
+    }
+  }
+
+  if(karmaQueue[doc.id])
+    karma = `${karma} and ${karmaQueue[doc.id]} pending`
+  
+  responseEmbed.setDescription(notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}`)
 
   message.channel.send(responseEmbed)
 }
