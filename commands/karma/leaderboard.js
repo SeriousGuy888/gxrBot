@@ -45,9 +45,9 @@ exports.run = async (client, message, args) => {
       let karma = data.karma
   
       karmaCache.push({
-        title: user,
-        content: karma,
-        userId: doc.id,
+        user: user,
+        id: doc.id,
+        karma: karma,
       })
     })
 
@@ -76,17 +76,17 @@ exports.run = async (client, message, args) => {
   karmaCache
     .forEach(field => {
       let rank = karmaCache.indexOf(field) + 1
-      let rankingStr = getRankingStr(rank, field.userId === message.author.id)
+      let rankingStr = getRankingStr(rank, field.id === message.author.id)
 
       const { positive, negative } = settings.leaderboard.emojis
 
-      let karma = field.content
+      let karma = field.karma
       let emoji = karma > 0 ? positive : negative
       let content = `${emoji} ${karma.toLocaleString()}`
 
-      if(karmaQueue[field.userId])
-        content += ` and ${karmaQueue[field.userId]} pending`
-      leaderboardEmbed.addField(`${rankingStr}\n\`${field.title}\``, content + "\n\u200b", rank > settings.leaderboard.top.podium)
+      if(karmaQueue[field.id])
+        content += ` and ${karmaQueue[field.id]} pending`
+      leaderboardEmbed.addField(`${rankingStr}\n\`${field.user}\``, content + "\n\u200b", rank > settings.leaderboard.top.podium)
       if(rank === settings.leaderboard.top.podium)
         leaderboardEmbed.addField("\u200b", "\u200b")
     })
