@@ -62,8 +62,8 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  if(karmaQueue[doc.id])
-    karma = `${karma} and ${karmaQueue[doc.id]} pending`
+  if(karmaQueue[member.id])
+    karma = `${karma} and ${karmaQueue[member.id]} pending`
   
   responseEmbed.setDescription(notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}`)
 
