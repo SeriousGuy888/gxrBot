@@ -8,8 +8,9 @@ exports.run = (client, author, message) => {
   const hookAvatar = client.user.avatarURL()
 
   const swearCensors = config.autocarrot.words
-
   const randomElem = arr => arr[Math.floor(Math.random() * arr.length)]
+  
+  const logger = client.util.get("logger")
 
   const correctMsg = (webhook, str) => {
     if(!str.trim()) return // if the message is empty
@@ -59,6 +60,7 @@ exports.run = (client, author, message) => {
     for(let loopChunk of correctedMessageChunks) {
       sendMsg(webhook, loopChunk)
     }
+    logger.log(`Corrected M ${message.id} of U ${author.id} from \`${message.content}\` to \`${correctedMessage}\`.`)
   }
 
   const sendMsg = (webhook, str) => {
@@ -82,6 +84,7 @@ exports.run = (client, author, message) => {
           avatar: hookAvatar,
           reason: "AutoCarrot"
         }).then(createdWebhook => {
+          logger.log(`Created autocarrot webhook W ${createdWebhook.id} in C ${message.channel.id}.`)
           correctMsg(createdWebhook, message.content)
         })
       }
