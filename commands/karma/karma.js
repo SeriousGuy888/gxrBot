@@ -54,11 +54,11 @@ exports.run = async (client, message, args) => {
 
       karma = data.karma
 
-      karmaCache.push({
-        user: member.tag,
-        id: doc.id,
-        karma: karma,
-      })
+      // karmaCache.push({
+      //   user: member.tag,
+      //   id: doc.id,
+      //   karma: karma,
+      // })
     }
   }
 
