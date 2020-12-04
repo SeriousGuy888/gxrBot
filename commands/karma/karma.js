@@ -1,6 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, db, timeConvert, karmaQueue, commandCooldowns } = index
+  const { Discord, config, db, timeConvert, karmaQueue, commandCooldowns } = index
+  const settings = config.karma
 
   let cooldown = 15 * 1000 // ms
   if(commandCooldowns.karma[message.author.id]) {
