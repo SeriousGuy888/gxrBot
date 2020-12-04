@@ -17,7 +17,7 @@ exports.log = (logLine, noConsoleLog, options) => {
     this.uploadLogs()
 }
 
-exports.uploadLogs = async (reason, dontPrintTimestamps, dontClearLogs) => {
+exports.uploadLogs = async (reason, dontClearLogs) => {
   const index = require("../index.js")
   const { client, config, fs } = index
   let { logs } = client
@@ -46,8 +46,7 @@ exports.uploadLogs = async (reason, dontPrintTimestamps, dontClearLogs) => {
   // console.log("p2")
   let combinedLogs = ""
   for(let loopLog of logs) {
-    if(!dontPrintTimestamps)
-      combinedLogs += `[${loopLog.timestamp.toISOString()}]: `
+    combinedLogs += `[${loopLog.timestamp.toISOString()}]: `
     combinedLogs += `${loopLog.text}`
     combinedLogs += "\n"
   }
@@ -65,7 +64,6 @@ exports.uploadLogs = async (reason, dontPrintTimestamps, dontClearLogs) => {
         "-----\n**Log Upload**",
         `Reason: ${reason ? reason : "N/A"}`,
         "",
-        dontPrintTimestamps ? "No Timestamps" : "With Timestamps",
         dontClearLogs ? "No Logs Cleared" : "Logs Cleared",
       ].join("\n")
   
