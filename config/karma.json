@@ -8,5 +8,15 @@
       "id": "713824298275569734",
       "karma": -1
     }
+  },
+  "leaderboard": {
+    "emojis": {
+      "positive": "<:upvote:713823817004220416>",
+      "negative": "<:downvote:713824298275569734>"
+    },
+    "top": {
+      "podium": 3,
+      "total": 24
+    }
   }
 }

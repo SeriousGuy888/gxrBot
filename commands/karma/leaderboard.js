@@ -1,6 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, db, timeConvert, karmaQueue, karmaCache, commandCooldowns } = index
+  const { Discord, config, db, karmaQueue, karmaCache } = index
+  const settings = config.karma
 
   // let cooldown = 15 * 1000 // ms
   // if(commandCooldowns.leaderboard[message.author.id]) {
@@ -21,7 +22,7 @@ exports.run = async (client, message, args) => {
     .setFooter("Pending karma is karma that is temporarily being stored by the bot until it can be sent to the database.")
 
   const usersColl = db.collection("users")
-  const snapshot = await usersColl.orderBy("karma").limit(24).get()
+  const snapshot = await usersColl.orderBy("karma").limit(settings.leaderboard.top.total).get()
 
   if(karmaCache.length === 0) {
     snapshot.forEach(async doc => {
@@ -75,14 +76,16 @@ exports.run = async (client, message, args) => {
       let rank = karmaCache.indexOf(field) + 1
       let rankingStr = getRankingStr(rank, field.userId === message.author.id)
 
+      const { positive, negative } = settings.leaderboard.emojis
+
       let karma = field.content
-      let emoji = karma > 0 ? "<:upvote:713823817004220416>" : "<:downvote:713824298275569734>"
+      let emoji = karma > 0 ? positive : negative
       let content = `${emoji} ${karma.toLocaleString()}`
 
       if(karmaQueue[field.userId])
         content += ` and ${karmaQueue[field.userId]} pending`
-      leaderboardEmbed.addField(`${rankingStr}\n\`${field.title}\``, content + "\n\u200b", rank > 3)
-      if(rank === 3)
+      leaderboardEmbed.addField(`${rankingStr}\n\`${field.title}\``, content + "\n\u200b", rank > settings.leaderboard.top.podium)
+      if(rank === settings.leaderboard.top.podium)
         leaderboardEmbed.addField("\u200b", "\u200b")
     })
   
