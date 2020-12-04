@@ -74,20 +74,21 @@ exports.run = (client, author, message) => {
       message.delete()
   }
 
-  message.channel.fetchWebhooks().then(webhooks => {
-    let foundHook = webhooks.find(w => w.name.includes(searchHookName) && w.owner.id === client.user.id)
-    if(!foundHook) {
-      message.channel.createWebhook(hookName, {
-        avatar: hookAvatar,
-        reason: "AutoCarrot"
-      }).then(createdWebhook => {
-        correctMsg(createdWebhook, message.content)
-      })
-    }
-    else {
-      if(foundHook.name !== hookName || foundHook.avatarURL() !== hookAvatar)
-        foundHook.edit({ name: hookName, avatar: hookAvatar, reason: "Updated legacy autocarrot webhook" })
-      correctMsg(foundHook, message.content)
-    }
-  })
+  message.channel.fetchWebhooks()
+    .then(webhooks => {
+      let foundHook = webhooks.find(w => w.name.includes(searchHookName) && w.owner.id === client.user.id)
+      if(!foundHook) {
+        message.channel.createWebhook(hookName, {
+          avatar: hookAvatar,
+          reason: "AutoCarrot"
+        }).then(createdWebhook => {
+          correctMsg(createdWebhook, message.content)
+        })
+      }
+      else {
+        if(foundHook.name !== hookName || foundHook.avatarURL() !== hookAvatar)
+          foundHook.edit({ name: hookName, avatar: hookAvatar, reason: "Updated legacy autocarrot webhook" })
+        correctMsg(foundHook, message.content)
+      }
+    })
 }
