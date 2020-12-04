@@ -60,7 +60,11 @@ exports.run = (client, author, message) => {
     for(let loopChunk of correctedMessageChunks) {
       sendMsg(webhook, loopChunk)
     }
-    logger.log(`Corrected M ${message.id} of U ${author.id} from \`${message.content}\` to \`${correctedMessage}\`.`)
+
+    const logSantization = s => s.replace(/\n/g, " || ")
+    const logOriginalContent = logSantization(message.content)
+    const logCorrectedContent = logSantization(correctedMessage)
+    logger.log(`Corrected M ${message.id} of U ${author.id} from \`${logOriginalContent}\` to \`${logCorrectedContent}\`.`)
   }
 
   const sendMsg = (webhook, str) => {
