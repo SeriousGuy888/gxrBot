@@ -55,7 +55,7 @@ exports.run = (client, author, message) => {
     }
 
 
-    let correctedMessageChunks = correctedMessage.match(/.{1,2000}/g)
+    let correctedMessageChunks = correctedMessage.match(/(.|\n){1,2000}/g)
     for(let loopChunk of correctedMessageChunks) {
       sendMsg(webhook, loopChunk)
     }
