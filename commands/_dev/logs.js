@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     return message.channel.send("You may not use this dev command!")
   
   logger.log(`${message.author.id} requested log upload`)
-  logger.uploadLogs(args[0] === "true", args[1] === true)
+  logger.uploadLogs(`Log upload request from ${message.author.tag}`, args[0] === "true", args[1] === true)
     .then(() => {
       message.channel.send("Logs have been uploaded to <#783891611972272168>.")
     })

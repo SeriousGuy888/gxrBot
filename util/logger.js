@@ -17,7 +17,7 @@ exports.log = (logLine, noConsoleLog, options) => {
     this.uploadLogs()
 }
 
-exports.uploadLogs = async (dontPrintTimestamps, dontClearLogs) => {
+exports.uploadLogs = async (reason, dontPrintTimestamps, dontClearLogs) => {
   const index = require("../index.js")
   const { client, config, fs } = index
   let { logs } = client
@@ -62,7 +62,8 @@ exports.uploadLogs = async (dontPrintTimestamps, dontClearLogs) => {
     let caption = ""
     if(i == 0)
       caption = [
-        "-----\n**Log Uploads**",
+        "-----\n**Log Upload**",
+        `Reason: ${reason ? reason : "N/A"}`,
         "",
         dontPrintTimestamps ? "No Timestamps" : "With Timestamps",
         dontClearLogs ? "No Logs Cleared" : "Logs Cleared",
