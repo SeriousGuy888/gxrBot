@@ -74,7 +74,10 @@ exports.run = async (client, message, args) => {
     .forEach(field => {
       let rank = karmaCache.indexOf(field) + 1
       let rankingStr = getRankingStr(rank, field.userId === message.author.id)
-      let content = `:sparkles: ${field.content.toLocaleString()}`
+
+      let karma = field.content
+      let emoji = karma > 0 ? "<:upvote:713823817004220416>" : "<:downvote:713824298275569734>"
+      let content = `${emoji} ${karma.toLocaleString()}`
 
       if(karmaQueue[field.userId])
         content += ` and ${karmaQueue[field.userId]} pending`
