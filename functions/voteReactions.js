@@ -4,6 +4,8 @@ exports.run = async (client, reaction, user, removed) => {
   const settings = config.karma
 
   let message = reaction.message
+  
+  const logger = client.util.get("logger")
 
   // reactions of bots and reactions of the message author do not count
   if(user.bot || user.id === message.author.id)
@@ -29,6 +31,6 @@ exports.run = async (client, reaction, user, removed) => {
         })
       }
       else
-        console.log(`Karma vote reactions error: emoji ${i} does not have karma value!`)
+        logger.log(`Karma vote reactions error: emoji ${i} does not have karma value!`)
   }
 }
