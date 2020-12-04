@@ -1,5 +1,7 @@
 exports.run = async (client, message) => {
   const { config, emoji, emojiDictionary } = require("../index.js")
+
+  const logger = client.util.get("logger")
   
   const literalIdPrefix = config.autoResponses.settings.literalIdPrefix
   const emojiKey = config.autoResponses.settings.emojiKey
@@ -21,7 +23,7 @@ exports.run = async (client, message) => {
 
         const conditionList = conditional.conditions
         if(!conditionList) {
-          console.log(`Missing autoresponse condition list for channel ${message.channel.id}!`)
+          logger.log(`Missing autoresponse condition list for channel ${message.channel.id}!`)
           break
         }
         for(let loopCondition of conditionList) {
@@ -34,7 +36,7 @@ exports.run = async (client, message) => {
             testResults.push(loopCondition.negate ? !passed : passed)
           }
           else {
-            console.log(`Unknown autoresponse condition type ${loopCondition.type} in autoresponse for channel ${message.channel.id}; skipping.`)
+            logger.log(`Unknown autoresponse condition type ${loopCondition.type} in autoresponse for channel ${message.channel.id}; skipping.`)
             continue
           }
         }
@@ -67,18 +69,25 @@ exports.run = async (client, message) => {
         for(let loopReaction of reactionList) {
           if(loopReaction.startsWith(literalIdPrefix)) {
             let emojiStr = loopReaction.slice(literalIdPrefix.length)
-            if(!emojiStr) return console.log(`Emoji \`${loopReaction}\` invalid; skipping...`)
+            if(!emojiStr)
+              return logger.log(`Emoji \`${loopReaction}\` invalid; skipping...`)
             reactionEmojis.push(emojiStr)
           }
           else {
-            if(!emojiKey[loopReaction]) console.log(`Autoreaction emoji key ${loopReaction} not found. Skipping emoji...`)
-            else reactionEmojis.push(emojiKey[loopReaction])
+            if(!emojiKey[loopReaction])
+              logger.log(`Autoreaction emoji key ${loopReaction} not found. Skipping emoji...`)
+            else
+              reactionEmojis.push(emojiKey[loopReaction])
           }
         }
       
         for(let loopEmoji of reactionEmojis) {
-          try { await message.react(loopEmoji) }
-          catch(error) { console.error(`Failed to add reaction ${loopEmoji} to message ${message.id} due to error \`${error}\``) }
+          try {
+            await message.react(loopEmoji)
+          }
+          catch(error) {
+            console.error(`Failed to add reaction ${loopEmoji} to message ${message.id} due to error \`${error}\``)
+          }
         }
       }
       if(autoEmoji) {
@@ -90,7 +99,8 @@ exports.run = async (client, message) => {
 
           let successfulReactions = 0
           for(let loopWord of messageWords) {
-            if(successfulReactions >= autoEmoji.maxEmojiCount) break
+            if(successfulReactions >= autoEmoji.maxEmojiCount)
+              break
             let loopWordEmoji = emojiDictionary.getUnicode(loopWord)
             if(loopWordEmoji) {
               // do not react with national flag emojis if configured as such
