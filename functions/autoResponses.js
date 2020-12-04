@@ -7,11 +7,14 @@ exports.run = async (client, message) => {
   const emojiKey = config.autoResponses.settings.emojiKey
   const channelData = config.autoResponses.channels
 
-  if(message.author.id === client.user.id) return
-  if(!channelData[message.channel.id]) return
+  if(message.author.id === client.user.id)
+    return
+  if(!channelData[message.channel.id])
+    return
 
   for(let loopResponse of channelData[message.channel.id]) {
-    if(!loopResponse.enabled) continue
+    if(!loopResponse.enabled)
+      continue
 
     const conditional = loopResponse.conditional
     let satisfiesConditions = false
@@ -41,8 +44,10 @@ exports.run = async (client, message) => {
           }
         }
 
-        if(conditional.allRequired) satisfiesConditions = testResults.every(e => e) // test if all the conditions passed
-        else satisfiesConditions = testResults.some(e => e) // test if at least one condition passed
+        if(conditional.allRequired)
+          satisfiesConditions = testResults.every(e => e) // test if all the conditions passed
+        else
+          satisfiesConditions = testResults.some(e => e) // test if at least one condition passed
       }
       else satisfiesConditions = true
     }
@@ -85,8 +90,8 @@ exports.run = async (client, message) => {
           try {
             await message.react(loopEmoji)
           }
-          catch(error) {
-            console.error(`Failed to add reaction ${loopEmoji} to message ${message.id} due to error \`${error}\``)
+          catch(err) {
+            logger.log(`Failed to add reaction ${loopEmoji} to message ${message.id} due to error \`${err}\``)
           }
         }
       }
@@ -104,8 +109,11 @@ exports.run = async (client, message) => {
             let loopWordEmoji = emojiDictionary.getUnicode(loopWord)
             if(loopWordEmoji) {
               // do not react with national flag emojis if configured as such
-              if(autoEmoji.blacklistNationalFlags && emoji.lib[loopWord].keywords.includes("nation")) continue
-              await message.react(loopWordEmoji).then(() => successfulReactions++).catch(console.error)
+              if(autoEmoji.blacklistNationalFlags && emoji.lib[loopWord].keywords.includes("nation"))
+                continue
+              await message.react(loopWordEmoji)
+                .then(() => successfulReactions++)
+                .catch(err => logger.log(err))
             }
           }
         }
