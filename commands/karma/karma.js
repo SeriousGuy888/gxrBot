@@ -42,7 +42,7 @@ exports.run = async (client, message, args) => {
   let notFound
 
   if(memberCacheIndex)
-    karma = karmaCache[i].karma
+    karma = karmaCache[memberCacheIndex].karma
   else {
     const userRef = db.collection("users").doc(member.id)
     const doc = await userRef.get()
