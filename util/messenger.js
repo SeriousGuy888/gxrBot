@@ -7,7 +7,7 @@ const index = require("../index.js")
 const { client } = index
 
 exports.validate = async content => {
-  let sanitizedContent = content.slice(0, 2000)
+  let sanitizedContent = content.match(/(.|\n){1,2000}/g)[0]
   if(sanitizedContent.length === 0)
     sanitizedContent = "**Error:** Message Empty"
   
@@ -23,7 +23,7 @@ exports.send = async (channel, content, callback) => {
 exports.dm = async (userId, content, callback) => {
   client.users.fetch(userId)
     .then(user => {
-      user.send(content)
+      user.send(this.validate(content))
         .then(message => {
           if(callback)
             callback(message)
