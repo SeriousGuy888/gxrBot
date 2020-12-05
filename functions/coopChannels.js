@@ -51,7 +51,7 @@ exports.punish = (message, mode, placeholders) => {
   if(!message || !mode)
     throw Error("Specify message and mode to penalize.")
   
-  let scoldingMessage
+  let scoldingMessage = "co-op error0"
   switch(mode) {
     case "cult":
       if(!placeholders) {
@@ -68,5 +68,5 @@ exports.punish = (message, mode, placeholders) => {
       break
   }
   
-  this.deleteMessage(message, scoldingMessage ? scoldingMessage : undefined)
+  this.deleteMessage(message, scoldingMessage)
 }
