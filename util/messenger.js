@@ -23,7 +23,7 @@ exports.send = async (channel, content, callback) => {
 exports.dm = async (userId, content, callback) => {
   client.users.fetch(userId)
     .then(user => {
-      user.send(this.validate(content))
+      user.send(content)
         .then(message => {
           if(callback)
             callback(message)
