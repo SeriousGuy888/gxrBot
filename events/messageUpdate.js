@@ -1,6 +1,7 @@
 module.exports = (client, oldMessage, newMessage) => {
   const index = require("../index.js")
-  const { config, coopChannels } = index
+  const { config } = index
+  const coopChannels = client.functions.get("coopChannels")
 
   if(config.coopchannels.cult.channel == oldMessage.channel.id) {
     if(newMessage.content.toLowerCase() == config.coopchannels.cult.phrase || oldMessage.author.id == client.user.id)
