@@ -23,10 +23,13 @@ exports.send = async (channel, content, callback) => {
 exports.dm = async (userId, content, callback) => {
   client.users.fetch(userId)
     .then(user => {
-      user.send(await this.validate(content))
-        .then(message => {
-          if(callback)
-            callback(message)
+      this.validate(content)
+        .then(sanitized => {
+          user.send(sanitized)
+            .then(message => {
+              if(callback)
+                callback(message)
+            })
         })
     })
     .catch(err => {
