@@ -1,7 +1,6 @@
 exports.run = (client, message) => {
   const index = require("../index.js")
   const config = index.config
-  const messenger = client.util.get("messenger")
 
   const notRepeat = channel => {
     channel.messages.fetch({ limit: 2 }).then(res => {
@@ -39,6 +38,10 @@ exports.run = (client, message) => {
 }
 
 exports.deleteMessage = (message, errorMessage) => {
+  const index = require("../index.js")
+  const { client } = index
+  const messenger = client.util.get("messenger")
+
   if(!message.author.bot)
     messenger.dm(client, message.author.id, errorMessage)
   message.delete({ timeout: 500 })
