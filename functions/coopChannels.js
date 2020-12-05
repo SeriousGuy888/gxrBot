@@ -23,19 +23,47 @@ exports.run = (client, message) => {
     if(content.split(" ").length != 1) return false
     return legal() && true
   }
-  const deleteMessage = (msg, errorMessage) => {
-    if(!msg.author.bot)
-      messenger.dm(client, msg.author.id, errorMessage)
-    msg.delete({ timeout: 500 })
-  }
 
   if(message.author.id == client.user.id) return
   if(message.channel.id == config.coopchannels.cult.channel) {
     if(cultLegal(message.content, config.coopchannels.cult.phrase)) return
-    deleteMessage(message, `Hey, so you seem to have misspelt \`${config.coopchannels.cult.phrase}\`. Don't worry, \`${message.content}\` is a very common misspelling (definitely). I've gone ahead and nuked your message. Try to be a better ~~cult~~ league member next time.`)
+    this.punish(message, "cult", [
+      config.coopchannels.cult.phrase,
+      message.content
+    ])
   }
   else if(message.channel.id == config.coopchannels.ows.channel) {
     if(owsLegal(message.content)) return
-    deleteMessage(message, `Your contribution to the one word story may only **be one word** and you **may not have attachments**.`)
+    this.punish(message, "ows")
   }
+}
+
+exports.deleteMessage = (message, errorMessage) => {
+  if(!message.author.bot)
+    messenger.dm(client, message.author.id, errorMessage)
+  message.delete({ timeout: 500 })
+}
+
+exports.punish = (message, mode, placeholders) => {
+  if(!message || !mode)
+    throw Error("Specify message and mode to penalize.")
+  
+  let scoldingMessage
+  switch(mode) {
+    case "cult":
+      if(!placeholders) {
+        scoldingMessage = "co-op error1"
+        break
+      }
+      scoldingMessage = `Hey, so you seem to have misspelt \`${placeholders[0]}\`. Don't worry, \`${placeholders[1]}\` is a very common misspelling (definitely). I've gone ahead and nuked your message. Try to be a better ~~cult~~ league member next time.`
+      break
+    case "ows":
+      scoldingMessage = `Your contribution to the one word story may only **be one word** and you **may not have attachments**.`
+      break
+    default:
+      scoldingMessage = "co-op error2"
+      break
+  }
+  
+  this.deleteMessage(message, scoldingMessage ? scoldingMessage : undefined)
 }
