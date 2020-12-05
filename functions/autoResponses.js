@@ -1,5 +1,5 @@
-exports.run = async (client, message) => {
-  const { config, emoji, emojiDictionary } = require("../index.js")
+exports.run = async (message) => {
+  const { client, config, emoji, emojiDictionary } = require("../index.js")
 
   const logger = client.util.get("logger")
   

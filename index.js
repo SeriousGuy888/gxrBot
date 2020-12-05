@@ -132,7 +132,7 @@ for(let loopLog of logQueue)
 
 const addKarma = client.functions.get("addKarma").run
 const autocarrotWebhook = client.functions.get("autocarrotWebhook").run
-const autoResponses = (message) => client.functions.get("autoResponses").run(client, message)
+const autoResponses = client.functions.get("autoResponses").run
 const commandHelpEmbed = (message, options) => client.functions.get("commandHelpEmbed").run(client, message, options)
 const coopChannels = (message) => client.functions.get("coopChannels").run(client, message)
 const messageResponder = (message) => client.functions.get("messageResponder").run(client, message)
