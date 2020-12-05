@@ -1,6 +1,6 @@
-exports.run = (client, message) => {
+exports.run = (message) => {
   const index = require("../index.js")
-  const config = index.config
+  const { client, config } = index
 
   const notRepeat = channel => {
     channel.messages.fetch({ limit: 2 }).then(res => {

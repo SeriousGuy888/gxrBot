@@ -2,8 +2,7 @@ exports.run = async (client) => {
   return
 
   const index = require("../index.js")
-  const fs = index.fs
-  const config = index.config
+  const { client, config, fs } = index
   const settings = config.propaganda
 
   const channel = client.channels.cache.get(settings.channels[Math.floor(Math.random() * settings.channels.length)])

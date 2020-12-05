@@ -1,4 +1,4 @@
-exports.run = async (client, milliseconds) => {
+exports.run = async (milliseconds) => {
   const unitRatios = {
     d: 1000 * 60 * 60 * 24,
     h: 1000 * 60 * 60,

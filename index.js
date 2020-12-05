@@ -133,13 +133,13 @@ for(let loopLog of logQueue)
 const addKarma = client.functions.get("addKarma").run
 const autocarrotWebhook = client.functions.get("autocarrotWebhook").run
 const autoResponses = client.functions.get("autoResponses").run
-const commandHelpEmbed = (message, options) => client.functions.get("commandHelpEmbed").run(client, message, options)
-const coopChannels = (message) => client.functions.get("coopChannels").run(client, message)
-const messageResponder = (message) => client.functions.get("messageResponder").run(client, message)
-const propaganda = () => client.functions.get("propaganda").run(client)
-const timeConvert = (milliseconds) => client.functions.get("timeConvert").run(client, milliseconds)
-const updateKarma = () => client.functions.get("updateKarma").run(client)
-const voteReactions = (reaction, user, removed) => client.functions.get("voteReactions").run(client, reaction, user, removed)
+const commandHelpEmbed = client.functions.get("commandHelpEmbed").run
+const coopChannels = client.functions.get("coopChannels").run
+const messageResponder = client.functions.get("messageResponder").run
+const propaganda = client.functions.get("propaganda").run
+const timeConvert = client.functions.get("timeConvert").run
+const updateKarma = client.functions.get("updateKarma").run
+const voteReactions = client.functions.get("voteReactions").run
 
 // function imports ↑
 // exports ↓

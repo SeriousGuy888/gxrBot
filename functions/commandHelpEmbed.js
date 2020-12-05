@@ -1,7 +1,6 @@
-exports.run = (client, message, options) => {
+exports.run = (message, options) => {
   const index = require("../index.js")
-  const config = index.config
-  const Discord = index.Discord
+  const { config, Discord } = index
 
   const embed = new Discord.MessageEmbed()
     .setAuthor(message.author.tag, message.author.avatarURL())

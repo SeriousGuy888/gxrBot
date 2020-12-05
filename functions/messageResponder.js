@@ -1,6 +1,6 @@
-exports.run = (client, message) => {
+exports.run = (message) => {
   const index = require("../index.js")
-  const config = index.config
+  const { config } = index
   const settings = config.messageResponder
 
   if(message.author.bot)
