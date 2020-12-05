@@ -1,6 +1,6 @@
-exports.run = async (client, userId, amount, options) => {
+exports.run = async (userId, amount, options) => {
   const index = require("../index.js")
-  const { karmaQueue } = index
+  const { client, karmaQueue } = index
   
   const logger = client.util.get("logger")
 
