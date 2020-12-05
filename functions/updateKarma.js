@@ -11,6 +11,7 @@ exports.run = async () => {
   logger.log(`Updating karma...`)
   logger.log(JSON.stringify(karmaQueue, null, 4))
 
+  let dbChanges = false
   for(let i in karmaQueue) {
     if(!karmaQueue[i]) {
       delete karmaQueue[i]
@@ -31,7 +32,9 @@ exports.run = async () => {
     await docRef.set(payload, { merge: true })
 
     delete karmaQueue[i]
+    dbChanges = true
   }
 
-  karmaCache.splice(0, karmaCache.length)
+  if(dbChanges)
+    karmaCache.splice(0, karmaCache.length)
 }
