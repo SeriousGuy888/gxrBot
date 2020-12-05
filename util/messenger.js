@@ -4,20 +4,29 @@
 */
 
 exports.validate = async content => {
-  return content.slice(0, 2000)
+  let sanitizedContent = content.slice(0, 2000)
+  if(sanitizedContent.length === 0)
+    sanitizedContent = "**Error:** Message Empty"
+  
+  return sanitizedContent
 }
 
 exports.send = async (client, channel, content, callback) => {
   let message = await channel.send(typeof content === "string" ? this.validate(content) : content)
-  if(callback) callback(message)
+  if(callback)
+    callback(message)
 }
 
 exports.dm = async (client, userId, content, callback) => {
-  client.users.fetch(userId).then(user => {
-    user.send(content).then(message => {
-      if(callback) callback(message)
+  client.users.fetch(userId)
+    .then(user => {
+      user.send(this.validate(content))
+        .then(message => {
+          if(callback)
+            callback(message)
+        })
     })
-  }).catch(err => {
-    throw new Error(err)
-  })
+    .catch(err => {
+      throw new Error(err)
+    })
 }
