@@ -20,10 +20,9 @@ exports.run = async (client, message, args) => {
 
   
   let member
-  if(message.mentions.members.first())
-    member = message.mentions.members.first().user// || message.guild.members.cache.get(args[0]).user
-  if(!member)
-    member = message.author
+  member = message.guild.members.cache.get(args[0]) || message.mentions.members.first() || message.author
+  if(member.user)
+    member = member.user
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor("#d223d2")
