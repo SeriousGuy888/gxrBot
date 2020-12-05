@@ -131,7 +131,7 @@ for(let loopLog of logQueue)
 // function imports ↓
 
 const addKarma = client.functions.get("addKarma").run
-const autocarrotWebhook = (human, message) => client.functions.get("autocarrotWebhook").run(client, human, message)
+const autocarrotWebhook = client.functions.get("autocarrotWebhook").run
 const autoResponses = (message) => client.functions.get("autoResponses").run(client, message)
 const commandHelpEmbed = (message, options) => client.functions.get("commandHelpEmbed").run(client, message, options)
 const coopChannels = (message) => client.functions.get("coopChannels").run(client, message)
@@ -160,7 +160,7 @@ module.exports = {
   pauseAutocarrotCache,
   commandCooldowns,
   gameCache,
-  
+
   addKarma,
   autocarrotWebhook,
   autoResponses,

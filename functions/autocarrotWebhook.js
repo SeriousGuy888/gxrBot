@@ -1,6 +1,6 @@
-exports.run = (client, author, message) => {
+exports.run = (author, message) => {
   const index = require("../index.js")
-  const config = index.config
+  const { client, config } = index
 
   const searchHookName = `${config.main.botNames.lowerCamelCase} AutoCarrot`
   const hookName = `${config.main.botNames.lowerCamelCase} AutoCarrot #${message.channel.id}`
