@@ -3,6 +3,9 @@
   * Also made for sending messages with user content in them.
 */
 
+const index = require("../index.js")
+const { client } = index
+
 exports.validate = async content => {
   let sanitizedContent = content.slice(0, 2000)
   if(sanitizedContent.length === 0)
@@ -11,13 +14,13 @@ exports.validate = async content => {
   return sanitizedContent
 }
 
-exports.send = async (client, channel, content, callback) => {
+exports.send = async (channel, content, callback) => {
   let message = await channel.send(typeof content === "string" ? this.validate(content) : content)
   if(callback)
     callback(message)
 }
 
-exports.dm = async (client, userId, content, callback) => {
+exports.dm = async (userId, content, callback) => {
   client.users.fetch(userId)
     .then(user => {
       user.send(this.validate(content))
