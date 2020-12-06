@@ -30,23 +30,28 @@ module.exports = (client, message) => {
       }
 
       
-      const badCommand = () => {
-        let similarCommandNames = stringSimilarity.findBestMatch(command, client.publicCommandList)
-        message.channel.send(`The requested command does not exist or is invalid.\nI have a command registered called \`${similarCommandNames.bestMatch.target}\`. Perhaps you meant to type that?`)
+      const badCommand = invalid => {
+        if(invalid)
+          message.channel.send("The requested command failed to run as it is not coded properly.") 
+        else {
+          let similarCommandNames = stringSimilarity.findBestMatch(command, client.publicCommandList)
+          message.channel.send(`The requested command does not exist or is invalid.\nI have a command registered called \`${similarCommandNames.bestMatch.target}\`. Perhaps you meant to type that?`)
+        }
       }
 
 
       if(cmd && cmd.alias)
         cmd = client.commands.get(cmd.alias)
       if(!cmd) {
-        badCommand()
+        badCommand(false)
         break commands
       }
 
-      if(config.main.commands.help.flags.includes(args[0]) && cmd.help) cmd.help(client, message, args)
+      if(config.main.commands.help.flags.includes(args[0]) && cmd.help)
+        cmd.help(client, message, args)
       else {
         if(!cmd.run) {
-          badCommand()
+          badCommand(true)
           break commands
         }
         if(cmd.disabled) {
