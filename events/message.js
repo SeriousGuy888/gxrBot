@@ -14,15 +14,15 @@ module.exports = (client, message) => {
       break commands
 
     let args
+    let commandName
     let command
-    let cmd
 
     if(message.content.toLowerCase().indexOf(prefix) === 0) {
       args = message.content.slice(prefix.length).trim().split(/ +/g)
-      command = args.shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
-      if(command.length === 0) break commands
+      commandName = args.shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
+      if(commandName.length === 0) break commands
 
-      cmd = client.commands.get(command) //grab cmds from enmap
+      command = client.commands.get(commandName) //grab cmds from enmap
 
       if(config.main.commands.blacklistedChannels.includes(message.channel.id)) {
         messenger.dm(client, message.author.id, `You may not use ${config.main.botNames.lowerCamelCase} commands in that channel!`)
@@ -34,37 +34,37 @@ module.exports = (client, message) => {
         if(invalid)
           message.channel.send("The requested command failed to run as it is not coded properly.") 
         else {
-          let similarCommandNames = stringSimilarity.findBestMatch(command, client.publicCommandList)
+          let similarCommandNames = stringSimilarity.findBestMatch(commandName, client.publicCommandList)
           message.channel.send(`The requested command does not exist or is invalid.\nI have a command registered called \`${similarCommandNames.bestMatch.target}\`. Perhaps you meant to type that?`)
         }
       }
 
 
-      if(cmd && cmd.alias)
-        cmd = client.commands.get(cmd.alias)
-      if(!cmd) {
+      if(command && command.alias)
+        command = client.commands.get(command.alias)
+      if(!command) {
         badCommand(false)
         break commands
       }
 
-      if(config.main.commands.help.flags.includes(args[0]) && cmd.help)
-        cmd.help(client, message, args)
+      if(config.main.commands.help.flags.includes(args[0]) && command.help)
+        command.help(client, message, args)
       else {
-        if(!cmd.run) {
+        if(!command.run) {
           badCommand(true)
           break commands
         }
-        if(cmd.disabled) {
-          message.channel.send(`This command is disabled for the following reason: \`${cmd.disabled}\``)
+        if(command.disabled) {
+          message.channel.send(`This command is disabled for the following reason: \`${command.disabled}\``)
           break commands
         }
-        cmd.run(client, message, args)
+        command.run(client, message, args)
       }
     }
     else if(index.gameCache.hangman[message.author.id]) {
-      cmd = client.commands.get("hangman")
+      command = client.commands.get("hangman")
       args = ["guess"].concat(message.content.split(" "))
-      cmd.run(client, message, args)
+      command.run(client, message, args)
     }
   }
 
