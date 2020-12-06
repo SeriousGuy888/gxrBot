@@ -39,7 +39,7 @@ let gameCache = { // for storing when people are playing g9lbot's games
 }
 
 
-let essentialExports = exports = {
+let priorityExports = {
   Discord,
   client,
   config,
@@ -47,7 +47,7 @@ let essentialExports = exports = {
   prefix,
 }
 
-module.exports = essentialExports
+module.exports = priorityExports
 
 
 // stores logs that can be uploaded to a discord channel
@@ -144,7 +144,7 @@ const voteReactions = client.functions.get("voteReactions").run
 // exports ↓
 
 module.exports = {
-  ...essentialExports,
+  ...priorityExports,
   firebaseAdmin,
   db,
   Enmap,
