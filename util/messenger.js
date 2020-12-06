@@ -15,9 +15,17 @@ exports.sanitize = async content => {
 }
 
 exports.send = async (channel, content, callback) => {
-  let message = await channel.send(typeof content === "string" ? this.sanitize(content) : content)
+  let sanitizedContent
+
+  if(typeof content === "string")
+    this.sanitize(content).then(c => sanitizedContent = c)
+  else
+    sanitizedContent = content
+
+  const msg = await channel.send(sanitizedContent)
+
   if(callback)
-    callback(message)
+    callback(msg)
 }
 
 exports.dm = async (userId, content, callback) => {
