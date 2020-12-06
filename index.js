@@ -20,7 +20,6 @@ firebaseAdmin.initializeApp({ credential: firebaseAdmin.credential.cert(firebase
 const db = firebaseAdmin.firestore()
 
 const Enmap = require("enmap") // used for loading in the commands and functions and stuff
-const timeFormatter = require("seconds-time-formatter") // my own npm package that is very badly written 
 const emoji = require("emojilib") // for automatic emoji thing for auto reactions
 const emojiDictionary = require("emoji-dictionary") // also emojis
 const translate = require("translate-google") // google translate i think
@@ -148,7 +147,6 @@ module.exports = {
   firebaseAdmin,
   db,
   Enmap,
-  timeFormatter,
   emoji,
   emojiDictionary,
   translate,
