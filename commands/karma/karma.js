@@ -18,9 +18,12 @@ exports.run = async (client, message, args) => {
   commandCooldowns.karma[message.author.id] = new Date()
 
 
+  if(!args[0])
+    return message.channel.send("Specify a mention or a user id.")
   
-  let member
-  member = message.guild.members.cache.get(args[0]) || message.mentions.members.first() || message.author
+  let member = message.mentions.members.first() || await message.guild.members.fetch(args[0]).catch(() => {})
+  if(!member)
+    return message.channel.send("Invalid user specified.")
   if(member.user)
     member = member.user
 
