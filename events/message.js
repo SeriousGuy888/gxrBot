@@ -25,7 +25,7 @@ module.exports = (client, message) => {
       command = client.commands.get(commandName) //grab cmds from enmap
 
       if(config.main.commands.blacklistedChannels.includes(message.channel.id)) {
-        messenger.dm(client, message.author.id, `You may not use ${config.main.botNames.lowerCamelCase} commands in that channel!`)
+        messenger.dm(message.author.id, `You may not use ${config.main.botNames.lowerCamelCase} commands in that channel!`)
         break commands
       }
 
