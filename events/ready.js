@@ -1,9 +1,9 @@
 module.exports = (client, message) => {
   const index = require("../index.js")
-  const { schedule, updateKarma } = index
+  const { config, schedule, updateKarma } = index
   const logger = client.util.get("logger")
 
-  logger.log("g9lBot Loaded!")
+  logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
 
   client.user.setPresence({ status: "online" })
   client.user.setActivity(`waiting for data...`, { type: "WATCHING" })
