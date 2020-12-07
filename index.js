@@ -123,7 +123,7 @@ loadJsFiles("./util/", (name, tool, directory, file) => {
 
 const logger = client.util.get("logger")
 for(let loopLog of logQueue)
-  logger.log(loopLog)
+  logger.log(loopLog, "startup loading")
 
 
 // setup ↑
