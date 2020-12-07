@@ -116,7 +116,7 @@ client.util = new Enmap()
 loadJsFiles("./util/", (name, tool, directory, file) => {
   if(client.util.get(name))
     return queueLog(`[✖] Failed to load UTIL from \`${file}\``)
-  queueLog(`[✓] Loaded UTIL ${name.toUpperCase()} from \`${file}\``)
+  queueLog(`[✓] Loaded UTIL \`${file}\``)
   client.util.set(name, tool)
 })
 
