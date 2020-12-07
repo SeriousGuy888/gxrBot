@@ -5,6 +5,7 @@ exports.run = async (client, message, args) => {
   if(message.author.id === config.admins.superadmin.id && args[0] === "zmxncbv") {
     message.reply("ok")
     client.destroy()
+    process.exit()
   }
 }
 
