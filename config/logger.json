@@ -2,7 +2,7 @@
   "uploads": {
     "channel": "783891611972272168",
     "files": {
-      "maxLength": 4000000
+      "maxSize": 4194304
     }
   }
 }
