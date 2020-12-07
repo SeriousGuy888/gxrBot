@@ -88,7 +88,7 @@ queueLog("============")
 
 
 loadJsFiles("./events/", (name, event, directory, file) => {
-  queueLog(`[✓] Successfully loaded event ${name.toUpperCase()} from ${file}`) // log on load
+  queueLog(`[✓] Loaded EVENT \`${file}\``) // log on load
   client.on(name, (message, newMessage) => event(client, message, newMessage)) // declare event listener
   delete require.cache[require.resolve(file)] // deleting a cache or something?
 })
@@ -97,8 +97,8 @@ client.commands = new Enmap()
 client.publicCommandList = []
 loadJsFiles("./commands/", (name, command, directory, file) => {
   if(client.commands.get(name))
-    return queueLog(`[✖] Failed to load command from ${file} - Name Taken`)
-  queueLog(`[✓] Successfully loaded command ${name.toUpperCase()} from ${file}`) // log on load
+    return queueLog(`[✖] Failed to load COMMAND from \`${file}\``)
+  queueLog(`[✓] Loaded COMMAND \`${file}\``) // log on load
   client.commands.set(name, command)
   if(!command.dev && !command.disabled)
     client.publicCommandList.push(name)
@@ -107,16 +107,16 @@ loadJsFiles("./commands/", (name, command, directory, file) => {
 client.functions = new Enmap()
 loadJsFiles("./functions/", (name, func, directory, file) => {
   if(client.functions.get(name))
-    return queueLog(`[✖] Failed to load function from ${file} - Name Taken`)
-  queueLog(`[✓] Successfully loaded function ${name.toUpperCase()} from ${file}`)
+    return queueLog(`[✖] Failed to load FUNCTION from \`${file}\``)
+  queueLog(`[✓] Loaded FUNCTION from \`${file}\``)
   client.functions.set(name, func)
 })
 
 client.util = new Enmap()
 loadJsFiles("./util/", (name, tool, directory, file) => {
   if(client.util.get(name))
-    return queueLog(`[✖] Failed to load utility from ${file} - Name Taken`)
-  queueLog(`[✓] Successfully loaded utility ${name.toUpperCase()} from ${file}`)
+    return queueLog(`[✖] Failed to load UTIL from \`${file}\``)
+  queueLog(`[✓] Loaded UTIL ${name.toUpperCase()} from \`${file}\``)
   client.util.set(name, tool)
 })
 
