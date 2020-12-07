@@ -61,17 +61,15 @@ exports.uploadLogs = async (reason, createNewFile) => {
     if(err) { // if file does not exist
       console.log("Logger util failed to find file as it does not exist.")
       this.setup()
-      return
     }
-    else { // if file exists
-      channel.send(`---\n\n**Log Upload**\nReason: ${reason}`, { files: [logs.file.path] }) // upload log file
-        .then(() => {
-          fs.unlink(logs.file.path, () => { // delete file
-            if(createNewFile)
-              this.setup()
-          })
+    
+    channel.send(`---\n\n**Log Upload**\nReason: ${reason}`, { files: [logs.file.path] }) // upload log file
+      .then(() => {
+        fs.unlink(logs.file.path, () => { // delete file
+          if(createNewFile)
+            this.setup()
         })
-        .catch(e => channel.send(`Error uploading logs: ${e}`))
-    }
+      })
+      .catch(e => channel.send(`Error uploading logs: ${e}`))
   })
 }
