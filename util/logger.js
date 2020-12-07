@@ -4,15 +4,22 @@ let { logs } = client
 
 const settings = config.logger
 
-exports.log = (line, noConsoleLog, options) => {
-  if(!noConsoleLog)
-    console.log(line)
+exports.log = (line, source) => {
+  console.log(line)
 
   if(!logs.ready)
     this.setup()
 
 
-  const totalLine = `${new Date().toISOString()}: ${line}`
+  const { sourceLength } = settings.lines
+  let sourceStr
+  if(!source)
+    source = "not specified"
+  sourceStr = source
+    .replace(/ /g, "_")
+    .slice(0, sourceLength)
+    .padStart(sourceLength, " ")
+  const totalLine = `[${new Date().toISOString()} | ${sourceStr}]: ${line}`
 
   
   fs.access(logs.file.path, err => {

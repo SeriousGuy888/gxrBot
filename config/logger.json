@@ -4,5 +4,8 @@
     "files": {
       "maxSize": 4194304
     }
+  },
+  "lines": {
+    "sourceLength": 16
   }
 }
