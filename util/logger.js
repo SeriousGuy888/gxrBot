@@ -1,86 +1,65 @@
-exports.log = (logLine, noConsoleLog, options) => {
-  const index = require("../index.js")
-  const { client, config } = index
-  let { logs } = client
+const index = require("../index.js")
+const { client, config, fs } = index
+let { logs } = client
 
-  const settings = config.logger
+const settings = config.logger
 
-  logs.push({
-    text: logLine,
-    timestamp: new Date()
-  })
-
+exports.log = (line, noConsoleLog, options) => {
   if(!noConsoleLog)
-    console.log(logLine)
+    console.log(line)
+
+  if(!logs.ready)
+    this.setup()
+
+
+  const totalLine = `${new Date().toISOString()}: ${line}`
+
   
-  if(logs.length >= settings.uploads.array.maxLength)
-    this.uploadLogs()
+  fs.access(logs.file.path, err => {
+    if(!err) { // if file exists
+      const fileInfo = fs.statSync(logs.file.path)
+      if(fileInfo.size + totalLine.length >= settings.uploads.files.maxSize)
+        this.uploadLogs("Automatic upload to stay under file size limit.", true)
+    }
+  })
+  
+  logs.stream.write(totalLine + "\n")
 }
 
-exports.uploadLogs = async (reason, dontClearLogs) => {
-  const index = require("../index.js")
-  const { client, config, fs } = index
-  let { logs } = client
+exports.setup = () => {
+  logs.file = {}
+  logs.file.name = `${config.main.botNames.lowerCamelCase}-logs-v3_${new Date().toISOString().replace(/:/g, "-")}.log`
+  logs.file.path = `./temp/${logs.file.name}`
 
-  const settings = config.logger
+  logs.stream = fs.createWriteStream(logs.file.path, { flags: "a" })
+  
+  logs.ready = true
+}
 
+exports.uploadLogs = async (reason, createNewFile) => {
   const channel = client.channels.cache.get(settings.uploads.channel)
   if(!channel)
-    return console.log("Error - Log file upload channel does not exist.")
+    return console.log("Log file upload channel does not exist.")
   
-
-
-  const nCharStringSplit = (source, segmentLength) => {
-    if (!segmentLength || segmentLength < 1)
-      throw Error("Invalid segment length")
-    const target = []
-    for(
-      const array = Array.from(source);
-      array.length;
-      target.push(array.splice(0, segmentLength).join(""))
-    );
-    return target
-  }
-
+  if(!logs.ready)
+    this.setup()
   
-  // console.log("p2")
-  let combinedLogs = ""
-  for(let loopLog of logs) {
-    combinedLogs += `[${loopLog.timestamp.toISOString()}]: `
-    combinedLogs += `${loopLog.text}`
-    combinedLogs += "\n"
-  }
-  let logParts = nCharStringSplit(combinedLogs, settings.uploads.files.maxLength)
-
-  // console.log("p3")
-  for(let i in logParts) {
-    // console.log(`p4 ${i}`)
-    const fileName = `${config.main.botNames.lowerCamelCase}-logs_${new Date().toISOString().replace(/:/g, "-")}_${i}.log`
-    const filePath = `./temp/${fileName}`
-
-    let caption = ""
-    if(i == 0)
-      caption = [
-        "-----\n**Log Upload**",
-        `Reason: ${reason ? reason : "N/A"}`,
-        "",
-        dontClearLogs ? "No Logs Cleared" : "Logs Cleared",
-      ].join("\n")
+  if(!logs.file.name || !logs.file.path)
+    return console.log("Logger util log file was not specified.")
   
-    // console.log("p5")
-    fs.writeFile(filePath, logParts[i], err => {
-      if(err)
-        console.log(err)
-      
-      // console.log("p6")
-      channel.send(caption, { files: [filePath] }) // upload log file
-        .then(msg => { // then
-          fs.unlink(filePath, () => {}) // delete file
+  
+  fs.access(logs.file.path, err => {
+    if(err) // if file does not exist
+      return console.log("Logger util failed to find file as it does not exist.")
+    else { // if file exists
+      channel.send(`---\n\n**Log Upload**\nReason: ${reason}`, { files: [logs.file.path] }) // upload log file
+        .then(() => {
+          fs.unlink(logs.file.path, () => { // delete file
+            if(createNewFile)
+              this.setup()
+          })
         })
-    })
-  }
-
-  // console.log("p7")
-  if(!dontClearLogs)
-    logs.splice(0, logs.length) // clear any pending logs
+        .catch(e => channel.send(`Error uploading logs: ${e}`))
+    }
+  })
 }

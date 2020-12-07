@@ -50,7 +50,7 @@ module.exports = priorityExports
 
 
 // stores logs that can be uploaded to a discord channel
-client.logs = []
+client.logs = {}
 
 
 // setup ↓
@@ -171,20 +171,18 @@ module.exports = {
 
 // exports ↑
 
-// * when a sigterm signal is received,
-// * write pending karma to database before
-// * shutting down
+
 process.once("SIGTERM", async () => {
   updateKarma()
-  // client.util.get("logger").uploadLogs()
-  //   .then(() => {
-  //     console.log("Exiting...")
-  //   })
+  client.util.get("logger").uploadLogs("Automatic log upload due to SIGTERM signal.")
   process.exit()
 })
+
 process.once("SIGINT", async () => {
+  client.util.get("logger").uploadLogs("Automatic log upload due to SIGINT signal.")
   updateKarma()
 })
+
 
 client.login(process.env.TOKEN)
   .catch(err => console.log(err))
