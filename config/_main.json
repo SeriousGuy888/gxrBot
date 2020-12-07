@@ -23,5 +23,9 @@
     "help": "#bebe11",
     "error": "#bf2222",
     "success": "#21b821"
+  },
+  "timezone": {
+    "name": "America/Toronto",
+    "offset": -5
   }
 }

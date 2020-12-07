@@ -26,7 +26,7 @@ module.exports = (client, message) => {
 
   let scheduleRule = new schedule.RecurrenceRule()
 
-  scheduleRule.tz = "America/Toronto"
+  scheduleRule.tz = config.main.timezone.name
   scheduleRule.second = 0
   scheduleRule.minute = 0
   scheduleRule.hour = 0
