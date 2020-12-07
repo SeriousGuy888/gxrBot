@@ -33,7 +33,7 @@ exports.log = (line, source) => {
   logs.stream.write(totalLine + "\n")
 }
 
-exports.setup = () => {
+exports.setup = async () => {
   logs.file = {}
   logs.file.name = `${config.main.botNames.lowerCamelCase}-logs-v3_${new Date().toISOString().replace(/:/g, "-")}.log`
   logs.file.path = `./temp/${logs.file.name}`
@@ -42,7 +42,8 @@ exports.setup = () => {
   
   logs.ready = true
 
-  logs.stream.write("logs")
+  this.log(`Created log file \`${logs.file.path}\``, "logger setup")
+  return logs.ready
 }
 
 exports.uploadLogs = async (reason, createNewFile) => {
@@ -60,9 +61,9 @@ exports.uploadLogs = async (reason, createNewFile) => {
   fs.access(logs.file.path, err => {
     if(err) { // if file does not exist
       console.log("Logger util failed to find file as it does not exist.")
-      this.setup()
+      await this.setup()
     }
-    
+
     channel.send(`---\n\n**Log Upload**\nReason: ${reason}`, { files: [logs.file.path] }) // upload log file
       .then(() => {
         fs.unlink(logs.file.path, () => { // delete file
