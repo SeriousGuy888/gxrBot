@@ -7,10 +7,9 @@ exports.run = async (client, message, args) => {
     return message.channel.send("You may not use this dev command!")
   
   logger.log(`${message.author.id} requested log upload`)
-  logger.uploadLogs(`Log upload request from ${message.author.tag}`, args[0] === "true")
-    .then(() => {
-      message.channel.send("Logs have been uploaded to <#783891611972272168>.")
-    })
+
+  logger.uploadLogs(`Log upload request from ${message.author.tag}`)
+    .then(() => message.channel.send(`Logs have been uploaded to <#${config.logger.uploads.channel}>.`))
 }
 
 exports.dev = true
