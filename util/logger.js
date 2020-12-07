@@ -43,7 +43,7 @@ exports.setup = async () => {
   logs.ready = true
 
   this.log(`Created log file \`${logs.file.path}\``, "logger setup")
-  return logs.ready
+  // return logs.ready
 }
 
 exports.uploadLogs = async (reason, createNewFile) => {
@@ -61,7 +61,7 @@ exports.uploadLogs = async (reason, createNewFile) => {
   fs.access(logs.file.path, err => {
     if(err) { // if file does not exist
       console.log("Logger util failed to find file as it does not exist.")
-      await this.setup()
+      this.setup()
     }
 
     channel.send(`---\n\n**Log Upload**\nReason: ${reason}`, { files: [logs.file.path] }) // upload log file
