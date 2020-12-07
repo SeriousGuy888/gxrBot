@@ -24,13 +24,6 @@ module.exports = (client, message) => {
     }
   }, 7000)
 
-
-  schedule.scheduleJob("0 * * * *", () => {
-    client.util.get("logger").uploadLogs("Hourly automatic log upload")
-  })
-
-
-
   let scheduleRule = new schedule.RecurrenceRule()
 
   scheduleRule.tz = "America/Toronto"
