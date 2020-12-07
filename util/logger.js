@@ -41,6 +41,8 @@ exports.setup = () => {
   logs.stream = fs.createWriteStream(logs.file.path, { flags: "a" })
   
   logs.ready = true
+
+  logs.stream.write("logs")
 }
 
 exports.uploadLogs = async (reason, createNewFile) => {
@@ -56,8 +58,11 @@ exports.uploadLogs = async (reason, createNewFile) => {
   
   
   fs.access(logs.file.path, err => {
-    if(err) // if file does not exist
-      return console.log("Logger util failed to find file as it does not exist.")
+    if(err) { // if file does not exist
+      console.log("Logger util failed to find file as it does not exist.")
+      this.setup()
+      return
+    }
     else { // if file exists
       channel.send(`---\n\n**Log Upload**\nReason: ${reason}`, { files: [logs.file.path] }) // upload log file
         .then(() => {
