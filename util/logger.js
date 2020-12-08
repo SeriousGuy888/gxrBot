@@ -35,7 +35,7 @@ exports.log = (line, source) => {
 
 exports.setup = async () => {
   logs.file = {}
-  logs.file.name = `${config.main.botNames.lowerCamelCase}-logs-v3_${new Date().toISOString().replace(/:/g, "-")}.log`
+  logs.file.name = `${config.main.botNames.lowerCamelCase}-logs-v4_${new Date().toISOString().replace(/:/g, "-")}.log`
   logs.file.path = `./temp/${logs.file.name}`
 
   logs.stream = fs.createWriteStream(logs.file.path, { flags: "a" })
@@ -46,7 +46,7 @@ exports.setup = async () => {
   // return logs.ready
 }
 
-exports.uploadLogs = async (reason, createNewFile) => {
+exports.uploadLogs = async (reason, dontCreateNewFile) => {
   const channel = client.channels.cache.get(settings.uploads.channel)
   if(!channel)
     return console.log("Log file upload channel does not exist.")
@@ -67,7 +67,7 @@ exports.uploadLogs = async (reason, createNewFile) => {
     channel.send(`---\n\n**Log Upload**\nReason: ${reason}`, { files: [logs.file.path] }) // upload log file
       .then(() => {
         fs.unlink(logs.file.path, () => { // delete file
-          if(createNewFile)
+          if(!dontCreateNewFile)
             this.setup()
         })
       })
