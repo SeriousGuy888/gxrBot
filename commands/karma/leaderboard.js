@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
     .setColor("#d223d2")
     .setTitle("Discord Karma Leaderboard")
     .setDescription(`Because *everyone* loves having their popularity quantified with a single number! :D`)
-    .setFooter("Pending karma is karma that is temporarily being stored by the bot until it can be sent to the database.")
+    .setFooter(settings.lang.footer)
 
   const usersColl = db.collection("users")
   const snapshot = await usersColl.orderBy("karma").limit(settings.leaderboard.top.total).get()

@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
   const responseEmbed = new Discord.MessageEmbed()
     .setColor("#d223d2")
     .setTitle(`Karma of ${member.tag}`)
-    .setFooter("Pending karma is sent to database every few minutes.")
+    .setFooter(settings.lang.footer)
 
   let memberCacheIndex
   for(let i in karmaCache) {

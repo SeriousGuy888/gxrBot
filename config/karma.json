@@ -18,5 +18,8 @@
       "podium": 3,
       "total": 24
     }
+  },
+  "lang": {
+    "footer": "Pending karma is karma that is temporarily being stored by the bot until it can be sent to the database. Your upvotes on your own messages and bot votes do not count towards karma."
   }
 }
