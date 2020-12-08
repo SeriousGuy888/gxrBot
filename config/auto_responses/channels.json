@@ -14,56 +14,24 @@
       "comment": "g9l discord announcements channel",
       "enabled": true,
       "reactions": [
-        "upvote"
-      ]
-    },
-    {
-      "enabled": true,
-      "conditional": {
-        "enabled": true,
-        "conditions": [
-          {
-            "enabled": true,
-            "type": "regex",
-            "expression": "game night",
-            "flags": "gi"
-          }
-        ]
-      },
-      "reactions": [
-        "gamenight"
+        "upvote",
+        "downvote"
       ]
     }
   ],
   "620116327872462888": [
     {
-      "comment": "g9l hoang's latest news channel",
+      "comment": "g9l kali wisdom broadcast channel",
       "enabled": true,
       "reactions": [
-        "upvote"
-      ]
-    },
-    {
-      "enabled": true,
-      "conditional": {
-        "enabled": true,
-        "conditions": [
-          {
-            "enabled": true,
-            "type": "regex",
-            "expression": "passed away|died|is no longer with us",
-            "flags": "gi"
-          }
-        ]
-      },
-      "reactions": [
-        "#🇫"
+        "upvote",
+        "downvote"
       ]
     }
   ],
   "735708848333258822": [
     {
-      "comment": "g9l daily hoang fact channel",
+      "comment": "g9l daiia fact channel",
       "enabled": true,
       "messages": [
         {
@@ -77,7 +45,8 @@
         }
       ],
       "reactions": [
-        "upvote"
+        "upvote",
+        "downvote"
       ]
     },
     {
@@ -94,7 +63,8 @@
       "comment": "g9l billzo's news",
       "enabled": true,
       "reactions": [
-        "upvote"
+        "upvote",
+        "downvote"
       ]
     }
   ],
