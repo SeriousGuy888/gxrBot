@@ -20,5 +20,5 @@ exports.run = async (userId, amount, options) => {
       logMessage += ` on M ${options.messageId}`
   }
   
-  logger.log(logMessage)
+  logger.log(logMessage, "addKarma")
 }

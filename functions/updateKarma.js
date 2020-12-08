@@ -8,7 +8,7 @@ exports.run = async () => {
   if(Object.keys(karmaQueue).length === 0)
     return
   
-  logger.log(`Updating karma...`)
+  logger.log(`Updating karma...`, "updateKarma")
   logger.log(JSON.stringify(karmaQueue, null, 4))
 
   let dbChanges = false
