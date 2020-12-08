@@ -25,8 +25,10 @@ exports.run = async () => {
       karma: increment
     }
     const user = client.users.cache.find(u => u.id === i) // caches the user's tag for leaderboard or somehting
-    if(user)
+    if(user) {
       payload.tag = user.tag
+      payload.avatar = user.avatarURL()
+    }
 
   
     await docRef.set(payload, { merge: true })
