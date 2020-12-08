@@ -4,7 +4,7 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "(^|\\s)o+f",
+          "pattern": "(^|\\s)o{2,}f",
           "flags": "gim"
         },
         "fail": {
