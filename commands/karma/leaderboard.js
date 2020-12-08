@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
     .setFooter(settings.lang.footer)
 
   const usersColl = db.collection("users")
-  const snapshot = await usersColl.orderBy("karma").limit(settings.leaderboard.top.total).get()
+  const snapshot = await usersColl.orderBy("karma", "desc").limit(settings.leaderboard.top.total).get()
 
   if(karmaCache.length === 0) {
     snapshot.forEach(async doc => {
@@ -50,8 +50,6 @@ exports.run = async (client, message, args) => {
         karma: karma,
       })
     })
-
-    karmaCache.reverse()
   }
 
   const getRankingStr = (rank, isAuthor) => {
