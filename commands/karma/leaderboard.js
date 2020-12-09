@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor("#d223d2")
     .setTitle("Discord Karma Leaderboard")
-    .setDescription(`Because *everyone* loves having their popularity quantified with a single number! :D`)
+    .setDescription("*Leaderboard spots are limited by DiscordAPI.*\nFull leaderboard: [Leaderboard Web Panel](g8c-bot.web.app)")
     .setFooter(settings.lang.footer)
 
   const usersColl = db.collection("users")
