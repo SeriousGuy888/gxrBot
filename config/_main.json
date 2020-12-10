@@ -19,6 +19,10 @@
       ]
     }
   },
+  "links": {
+    "web_panel": "https://bit.ly/g9lbot",
+    "github_pages": "https://seriousguy888.github.io/G9L-Bot"
+  },
   "colours": {
     "help": "#bebe11",
     "error": "#bf2222",

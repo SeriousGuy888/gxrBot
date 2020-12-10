@@ -17,6 +17,7 @@ exports.run = async (client, message, args) => {
       .replace(/%lowername%/gi, config.main.botNames.lowerCamelCase)
       .replace(/%uppername%/gi, config.main.botNames.upperCase)
       .replace(/%helpflags%/gi, `[${config.main.commands.help.flags.join(", ")}]`)
+      .replace(/%webpanel%/gi, config.main.links.web_panel)
     
     return fixedContents
   }
