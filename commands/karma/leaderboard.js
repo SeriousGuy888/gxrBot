@@ -20,13 +20,17 @@ exports.run = async (client, message, args) => {
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor("#d223d2")
     .setTitle("Discord Karma Leaderboard")
-    .setDescription(`*Leaderboard spots are limited by DiscordAPI.*\n*Full leaderboard: [Leaderboard Web Panel](${config.main.links.web_panel})*`)
+    .setDescription(`*Leaderboard spots are limited by DiscordAPI.*\n*Full leaderboard: [Leaderboard Web Panel](${config.main.links.web_panel})*\n\u200b`)
     .setFooter(settings.lang.footer)
 
   const usersColl = db.collection("users")
-  const snapshot = await usersColl.orderBy("karma", "desc").limit(settings.leaderboard.top.total).get()
 
   if(karmaCache.length === 0) {
+    const snapshot = await usersColl
+      .orderBy("karma", "desc")
+      .limit(settings.leaderboard.top.total + 1)
+      .get()
+
     snapshot.forEach(async doc => {
       let user = client.users.cache.find(u => u.id === doc.id)
       const data = doc.data()
@@ -71,23 +75,29 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  karmaCache
-    .forEach(field => {
-      let rank = karmaCache.indexOf(field) + 1
-      let rankingStr = getRankingStr(rank, field.id === message.author.id)
+  for(let i in karmaCache) {
+    let field = karmaCache[i]
 
-      const { positive, negative } = settings.leaderboard.emojis
+    if(i == settings.leaderboard.top.total) {
+      leaderboardEmbed.addField("*More Leaderboard Entries...*", `The DiscordAPI limits the amount of fields I can display in this embed.\nOnly the top ${settings.leaderboard.top.total} users are displayed here.\n\nIf you wish to see more users, you can visit the [web panel](${config.main.links.web_panel}) for more entries past the top ${settings.leaderboard.top.total}.\n\u200b\n\u200b`)
+      continue
+    }
 
-      let karma = field.karma
-      let emoji = karma > 0 ? positive : negative
-      let content = `${emoji} ${karma.toLocaleString()}`
+    let rank = parseInt(i) + 1
+    let rankingStr = getRankingStr(rank, field.id === message.author.id)
 
-      if(karmaQueue[field.id])
-        content += ` and ${karmaQueue[field.id]} pending`
-      leaderboardEmbed.addField(`${rankingStr}\n\`${field.user}\``, content + "\n\u200b", rank > settings.leaderboard.top.podium)
-      if(rank === settings.leaderboard.top.podium)
-        leaderboardEmbed.addField("\u200b", "\u200b")
-    })
+    const { positive, negative } = settings.leaderboard.emojis
+
+    let karma = field.karma
+    let emoji = karma > 0 ? positive : negative
+    let content = `${emoji} ${karma.toLocaleString()}`
+
+    if(karmaQueue[field.id])
+      content += ` and ${karmaQueue[field.id]} pending`
+    leaderboardEmbed.addField(`${rankingStr}\n\`${field.user}\``, content + "\n\u200b", rank > settings.leaderboard.top.podium)
+    if(rank === settings.leaderboard.top.podium)
+      leaderboardEmbed.addField("\u200b", "\u200b")
+  }
   
   message.channel.send(leaderboardEmbed)
 }
