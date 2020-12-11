@@ -1,6 +1,6 @@
 {
   "comment": "Options for g9lBot's AutoCarrot",
-  "enabled": true,
+  "enabled": false,
   "deleteOriginalMessage": true,
   "pause": {
     "message": "stop autocarroting me",
