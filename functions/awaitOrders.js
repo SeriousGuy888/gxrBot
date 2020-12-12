@@ -65,7 +65,7 @@ exports.run = () => {
         return
     }
 
-    logOrder(type, content, permanent, effect, success)
+    logOrder(type, content, !!permanent, effect, success)
   }
 
 
