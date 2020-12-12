@@ -67,7 +67,7 @@ exports.run = async (client, message, args) => {
   if(karmaQueue[member.id])
     karma = `${karma} and ${karmaQueue[member.id]} pending`
   
-  responseEmbed.setDescription(notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}\n[See this user on the web panel](${settings.lang.web_panel_lookup_link}?ids=${member.id} "See this user on the web panel.")`)
+  responseEmbed.setDescription(notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}\n[See this user on the web panel](${settings.lang.web_panel.user_lookup}?ids=${member.id} "See this user on the web panel.")`)
 
   message.channel.send(responseEmbed)
 }

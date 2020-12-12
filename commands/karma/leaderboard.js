@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor("#d223d2")
     .setTitle("Discord Karma Leaderboard")
-    .setDescription(`[Leaderboard on Web Panel](${config.main.links.web_panel})\nYou can click people's karma score to see and easily compare their score with other people's score on the web panel.\n\u200b`)
+    .setDescription(`[Leaderboard on Web Panel](${settings.lang.web_panel.leaderboard})\nYou can click people's karma score to see and easily compare their score with other people's score on the web panel.\n\u200b`)
     .setFooter(settings.lang.footer)
 
   const usersColl = db.collection("users")
@@ -79,7 +79,7 @@ exports.run = async (client, message, args) => {
     let field = karmaCache[i]
 
     if(i == settings.leaderboard.top.total) {
-      leaderboardEmbed.addField("*More Leaderboard Entries...*", `The DiscordAPI limits the amount of fields I can display in this embed.\nOnly the top ${settings.leaderboard.top.total} users are displayed here.\n\nIf you wish to see more users, you can visit the [web panel](${config.main.links.web_panel}) for more entries past the top ${settings.leaderboard.top.total}.\n\u200b\n\u200b`)
+      leaderboardEmbed.addField("*More Leaderboard Entries...*", `The DiscordAPI limits the amount of fields I can display in this embed.\nOnly the top ${settings.leaderboard.top.total} users are displayed here.\n\nIf you wish to see more users, you can visit the [web panel](${settings.lang.web_panel.leaderboard}) for more entries past the top ${settings.leaderboard.top.total}.\n\u200b\n\u200b`)
       continue
     }
 
@@ -90,7 +90,7 @@ exports.run = async (client, message, args) => {
 
     let karma = field.karma
     let emoji = karma > 0 ? positive : negative
-    let content = `${emoji} [${karma.toLocaleString()}](${settings.lang.web_panel_lookup_link}?ids=${field.id} "See this user on the web panel.")`
+    let content = `${emoji} [${karma.toLocaleString()}](${settings.lang.web_panel.user_lookup}?ids=${field.id} "See this user on the web panel.")`
 
     if(karmaQueue[field.id])
       content += ` and ${karmaQueue[field.id]} pending`
