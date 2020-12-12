@@ -27,7 +27,7 @@ exports.run = async () => {
     const user = client.users.cache.find(u => u.id === i) // caches the user's tag for leaderboard or somehting
     if(user) {
       payload.tag = user.tag
-      payload.avatar = user.avatarURL()
+      payload.avatar = user.avatarURL({ dynamic: true })
     }
 
   
