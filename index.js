@@ -44,6 +44,7 @@ let priorityExports = {
   config,
   fs,
   prefix,
+  db
 }
 
 module.exports = priorityExports
