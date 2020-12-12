@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor("#d223d2")
     .setTitle("Discord Karma Leaderboard")
-    .setDescription(`*Leaderboard spots are limited by DiscordAPI.*\n*Full leaderboard: [Leaderboard Web Panel](${config.main.links.web_panel})*\n\u200b`)
+    .setDescription(`[Leaderboard on Web Panel](${config.main.links.web_panel})\nYou can click people's karma score to see and easily compare their score with other people's score on the web panel.\n\u200b`)
     .setFooter(settings.lang.footer)
 
   const usersColl = db.collection("users")
