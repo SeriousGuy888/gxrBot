@@ -18,6 +18,7 @@ const firebaseAdmin = require("firebase-admin")
 const firebaseServiceAccountKey = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)
 firebaseAdmin.initializeApp({ credential: firebaseAdmin.credential.cert(firebaseServiceAccountKey) })
 const db = firebaseAdmin.firestore()
+const auth = firebaseAdmin.auth()
 
 const Enmap = require("enmap") // used for loading in the commands and functions and stuff
 const emoji = require("emojilib") // for automatic emoji thing for auto reactions
@@ -44,7 +45,8 @@ let priorityExports = {
   config,
   fs,
   prefix,
-  db
+  db,
+  auth
 }
 
 module.exports = priorityExports
