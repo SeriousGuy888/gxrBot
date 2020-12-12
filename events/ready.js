@@ -50,9 +50,4 @@ module.exports = (client, message) => {
   setInterval(() => {
     updateKarma()
   }, 5 * 60 * 1000)
-
-
-  setInterval(() => {
-    // index.propaganda()
-  }, 5 * 60 * 1000)
 }
