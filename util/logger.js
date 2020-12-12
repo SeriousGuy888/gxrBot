@@ -4,7 +4,7 @@ let { logs } = client
 
 const settings = config.logger
 
-exports.log = (line, source) => {
+exports.log = async (line, source) => {
   console.log(line)
 
   if(!logs.ready)
@@ -31,6 +31,7 @@ exports.log = (line, source) => {
   })
   
   logs.stream.write(totalLine + "\n")
+  return { line, source }
 }
 
 exports.setup = async () => {

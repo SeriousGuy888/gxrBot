@@ -1,8 +1,11 @@
 module.exports = (client, message) => {
   const index = require("../index.js")
   const { config, schedule, updateKarma } = index
+
+  const awaitOrders = client.functions.get("awaitOrders").run
   const logger = client.util.get("logger")
 
+  awaitOrders()
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
 
   client.user.setPresence({ status: "online" })
