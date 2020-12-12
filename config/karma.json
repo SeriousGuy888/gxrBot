@@ -20,6 +20,7 @@
     }
   },
   "lang": {
-    "footer": "Pending karma is karma that is temporarily being stored by the bot until it can be sent to the database. Your upvotes on your own messages and bot votes do not count towards karma."
+    "footer": "Pending karma is karma that is temporarily being stored by the bot until it can be sent to the database. Your upvotes on your own messages and bot votes do not count towards karma.",
+    "web_panel_lookup_link": "https://g8c-bot.web.app/karma/user"
   }
 }
