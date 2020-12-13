@@ -5,7 +5,7 @@ exports.run = () => {
 
 
 
-  const logOrder = async (type, content, permanent, effect, success) => {
+  const logOrder = async (type, content, issuer, permanent, effect, success) => {
     const channel = client.channels.cache.get("787414640018849853")
     if(!channel)
       return logger.log("Order logs channel does not exist.")
@@ -15,8 +15,9 @@ exports.run = () => {
     const emb = new Discord.MessageEmbed()
       .setTitle(`Executed order of type \`${type}\``)
       .setDescription(content.slice(0, 1024))
-      .addField("Effect", effect)
-      .addField("Permanent Startup Order", permanent)
+      .addField("Effect", effect, true)
+      .addField("Issued by", `<@${issuer}>`, true)
+      .addField("Permanent Startup Order", permanent,)
       .addField("Success", success, true)
 
     switch(success) {
@@ -40,6 +41,8 @@ exports.run = () => {
       return
     if(!order.content)
       return
+    // if(!order.user)
+    //   return
     
 
     const { type, content } = order
@@ -65,7 +68,7 @@ exports.run = () => {
         return
     }
 
-    logOrder(type, content, !!permanent, effect, success)
+    logOrder(type, content, order.user, !!permanent, effect, success)
   }
 
 
@@ -80,15 +83,18 @@ exports.run = () => {
   })
 
   
-  const instantOrdersDoc = db.collection("orders").doc("instant")
-  instantOrdersDoc.update({ orders: [] })
-    .then(logger.log("Successfully cleared instant orders.", "await orders"))
+  const instantOrdersColl = db
+    .collection("orders")
+    .doc("instant")
+    .collection("orders")
+    .where("timestamp", ">", new Date(Date.now() - 5000))
 
-  instantOrdersDoc.onSnapshot(docSnapshot => {
-    const data = docSnapshot.data()
-    const orders = data.orders
-
-    for(const order of orders)
-      processOrder(order)
+  instantOrdersColl.onSnapshot(querySnapshot => {
+    querySnapshot.docChanges().forEach(change => {
+      const doc = change.doc
+      const data = doc.data()
+  
+      processOrder(data)
+    })
   })
 }
