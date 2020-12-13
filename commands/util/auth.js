@@ -8,7 +8,10 @@ exports.run = async (client, message, args) => {
       const emb = new Discord.MessageEmbed()
         .setColor("#efef23")
         .setTitle(`:key: Web Panel Token for User ${message.author.id}`)
-        .setDescription(`Your token is \`\`\`${customToken}\`\`\`\nPaste into the web panel to authenticate with your Discord ID.`)
+        .setDescription([
+          `Your token is \`\`\`${customToken}\`\`\``,
+          `Paste into the [web panel admin login](${config.main.links.web_panel_admin}) to authenticate with your Discord ID.`
+        ].join("\n"))
         .setFooter("Do not share this with anyone.")
 
       messenger.dm(message.author.id, emb, () => message.channel.send("Check your DMs!"))
