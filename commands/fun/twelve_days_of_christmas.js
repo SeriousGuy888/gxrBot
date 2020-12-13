@@ -25,13 +25,13 @@ exports.fireWithoutUser = async (client, channel) => {
           "🇫🇷🐔 3 French Hens",
           "📢🐦 4 Calling Birds",
           "🟡⭕ 5 Golden Rings",
-          "🦆 6 Geese-a-Laying",
+          "🦆🥚 6 Geese-a-Laying",
           "🦢🌊 7 Swans-a-Swimming",
-          "🐄 8 wait um maybe dont slavery",
-          "💃 9 seriously dont do slavery",
-          "🎩 10 why are we suddenly purchasing humans",
-          "🥧 11 pipers doing whatever pipers do i guess",
-          "🥁 12 drummers drumming or something"
+          "🐄🐄 8 wait um maybe dont slavery",
+          "💃💃 9 seriously dont do slavery",
+          "🎩🎩 10 why are we suddenly purchasing humans",
+          "🥧🥧 11 pipers doing whatever pipers do i guess",
+          "🥁🥁 12 drummers doing whatever drummers do"
         ]
         .splice(0, 12 - countdown.d)
         .join(",\n") +
