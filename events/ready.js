@@ -49,10 +49,10 @@ module.exports = (client, message) => {
   })
 
   let twelveChristmasScheduleRule = new schedule.RecurrenceRule()
-  newYearCountdownScheduleRule.tz = config.main.timezone.name
-  newYearCountdownScheduleRule.second = 0
-  newYearCountdownScheduleRule.minute = 0
-  newYearCountdownScheduleRule.hour = 12
+  twelveChristmasScheduleRule.tz = config.main.timezone.name
+  twelveChristmasScheduleRule.second = 0
+  twelveChristmasScheduleRule.minute = 0
+  twelveChristmasScheduleRule.hour = 12
   schedule.scheduleJob(twelveChristmasScheduleRule, () => {
     const newsChannel = client.channels.cache.get("749428233270853681")
     if(!newsChannel)
