@@ -18,20 +18,26 @@ exports.fireWithoutUser = async (client, channel) => {
     emb
       .setColor("#629812")
       .setTitle(":christmas_tree: 12 Days of Christmas")
-      .setDescription("Please remember to purchase\n\n" + [
-        "🍐🍐 1 Partridge in a Pear Tree",
-        "🐢🕊 2 Turtle Doves",
-        "🇫🇷🐔 3 French Hens",
-        "📢🐦 4 Calling Birds",
-        "🟡⭕ 5 Golden Rings",
-        "🦆 6 Geese-a-Laying",
-        "🦢🌊 7 Swans-a-Swimming",
-        "🐄 8 wait um maybe dont slavery",
-        "💃 9 seriously dont do slavery",
-        "🎩 10 why are we suddenly purchasing humans",
-        "🥧 11 pipers doing whatever pipers do i guess",
-        "🥁 12 drummers drumming or something"
-      ].splice(0, 12 - countdown.d).join(",\n") + "\n\nfor your true love.")
+      .setDescription(
+        "Please remember to purchase\n\n" + [
+          "🍐🍐 1 Partridge in a Pear Tree",
+          "🐢🕊 2 Turtle Doves",
+          "🇫🇷🐔 3 French Hens",
+          "📢🐦 4 Calling Birds",
+          "🟡⭕ 5 Golden Rings",
+          "🦆 6 Geese-a-Laying",
+          "🦢🌊 7 Swans-a-Swimming",
+          "🐄 8 wait um maybe dont slavery",
+          "💃 9 seriously dont do slavery",
+          "🎩 10 why are we suddenly purchasing humans",
+          "🥧 11 pipers doing whatever pipers do i guess",
+          "🥁 12 drummers drumming or something"
+        ]
+        .splice(0, 12 - countdown.d)
+        .join(",\n") +
+        "\n\nfor your true love today." +
+        12 - countdown.d === 0 ? "You can finally stop tomorrow." : "You will need to purchase all of these plus more tomorrow."
+      )
   }
   else {
     emb
