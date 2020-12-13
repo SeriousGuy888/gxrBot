@@ -20,7 +20,7 @@ exports.fireWithoutUser = async (client, channel) => {
       .setTitle(":christmas_tree: 12 Days of Christmas")
       .setDescription(
         "Please remember to purchase\n\n" + [
-          "🍐🍐 1 Partridge in a Pear Tree",
+          "🍐🌳 1 Partridge in a Pear Tree",
           "🐢🕊 2 Turtle Doves",
           "🇫🇷🐔 3 French Hens",
           "📢🐦 4 Calling Birds",
