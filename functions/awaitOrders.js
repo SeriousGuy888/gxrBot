@@ -90,7 +90,7 @@ exports.run = () => {
         return
     }
 
-    logOrder(type, content, order.user, !!permanent, effect, success)
+    logOrder(type, content instanceof Object ? JSON.stringify(content) : content, order.user, !!permanent, effect, success)
   }
 
 
