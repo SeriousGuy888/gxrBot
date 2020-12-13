@@ -34,19 +34,31 @@ module.exports = (client, message) => {
 
 
 
-  let scheduleRule = new schedule.RecurrenceRule()
+  let newYearCountdownScheduleRule = new schedule.RecurrenceRule()
 
-  scheduleRule.tz = config.main.timezone.name
-  scheduleRule.second = 0
-  scheduleRule.minute = 0
-  scheduleRule.hour = 0
-  
-  schedule.scheduleJob(scheduleRule, () => {
+  newYearCountdownScheduleRule.tz = config.main.timezone.name
+  newYearCountdownScheduleRule.second = 0
+  newYearCountdownScheduleRule.minute = 0
+  newYearCountdownScheduleRule.hour = 0
+  schedule.scheduleJob(newYearCountdownScheduleRule, () => {
     const newsChannel = client.channels.cache.get("749428233270853681")
     if(!newsChannel)
       return logger.log("Error - news channel does not exist D:")
     
     client.commands.get("new_year_countdown").fireWithoutUser(client, newsChannel)
+  })
+
+  let twelveChristmasScheduleRule = new schedule.RecurrenceRule()
+  newYearCountdownScheduleRule.tz = config.main.timezone.name
+  newYearCountdownScheduleRule.second = 0
+  newYearCountdownScheduleRule.minute = 0
+  newYearCountdownScheduleRule.hour = 12
+  schedule.scheduleJob(twelveChristmasScheduleRule, () => {
+    const newsChannel = client.channels.cache.get("749428233270853681")
+    if(!newsChannel)
+      return logger.log("Error - news channel does not exist D:")
+    
+    client.commands.get("twelve_days_of_christmas").fireWithoutUser(client, newsChannel)
   })
 
 
