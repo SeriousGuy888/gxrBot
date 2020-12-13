@@ -61,7 +61,29 @@ exports.run = () => {
           .catch(err => success = false)
         effect = "Logged message"
         break
-      case "3":
+      case "message":
+        effect = "Send message to specified channel"
+
+        let details
+        try {
+          if(content instanceof Object)
+            details = content
+          else
+            details = JSON.parse(content)
+        }
+        catch {
+          success = false
+          break
+        }
+
+        const channel = client.channels.cache.get(details.channel)
+        if(!channel) {
+          success = false
+          break
+        }
+        
+        const msg = await channel.send(details.message)
+        success = !!msg
         break
       default:
         logger.log(`Unknown order type \`${type}\`.`, "await orders")
