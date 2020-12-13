@@ -35,8 +35,8 @@ exports.fireWithoutUser = async (client, channel) => {
         ]
         .splice(0, 12 - countdown.d)
         .join(",\n") +
-        "\n\nfor your true love today." +
-        12 - countdown.d === 0 ? "You can finally stop tomorrow." : "You will need to purchase all of these plus more tomorrow."
+        `\n\nfor your true love today.\n\
+        ${12 - countdown.d === 0 ? "You can finally stop tomorrow." : "You will need to purchase all of these plus more tomorrow."}`
       )
   }
   else {
