@@ -23,13 +23,13 @@ exports.fireWithoutUser = async (client, channel) => {
           "🍐🌳 1 Partridge in a Pear Tree",
           "🐢🕊 2 Turtle Doves",
           "🇫🇷🐔 3 French Hens",
-          "📢🐦 4 Calling Birds",
+          "☎🐦 4 Calling Birds",
           "🟡⭕ 5 Golden Rings",
           "🦆🥚 6 Geese-a-Laying",
           "🦢🌊 7 Swans-a-Swimming",
           "🐄🐄 8 wait um maybe dont slavery",
           "💃💃 9 seriously dont do slavery",
-          "🎩🎩 10 why are we suddenly purchasing humans",
+          "🎩🦘 10 why are we suddenly purchasing humans",
           "🥧🥧 11 pipers doing whatever pipers do i guess",
           "🥁🥁 12 drummers doing whatever drummers do"
         ]
