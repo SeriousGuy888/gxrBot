@@ -61,9 +61,26 @@ exports.run = async (client, message, args) => {
         datasets: [
           {
             label: "Daily Net Karma Score of All Users",
-            data: netVotesValue.reverse()
+            data: netVotesValue.reverse(),
+            fill: false,
+            borderColor: "#a323e3",
           }
         ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: ""
+        },
+        plugins: {
+          legend: false,
+          datalabels: {
+            display: true,
+            align: "right",
+            backgroundColor: "#cdcdcd",
+            borderRadius: 3
+          }
+        }
       }
     })
     .setWidth(640)
