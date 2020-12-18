@@ -63,7 +63,7 @@ module.exports = async (client, message) => {
             client.commandCooldowns[commandName] = {}
           
           if(client.commandCooldowns[commandName][message.author.id]) {
-            const cooldownRemaining = new Date() - client.commandCooldowns[commandName][message.author.id]
+            const cooldownRemaining = cooldown - (new Date() - client.commandCooldowns[commandName][message.author.id])
             if(cooldownRemaining < cooldown) {
               const cooldownRemainingHuman = await timeConvert(cooldownRemaining)
               const { d, h, m, s } = cooldownRemainingHuman
