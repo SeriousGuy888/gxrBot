@@ -22,6 +22,7 @@ __Karma Thing__
 `karma` - See someone's or your own karma score.
 
 __Admin Commands__
+`auth` - For signing in to the admin web panel.
 `cult` - Set the cult channel.
 `mute` - Force mute and unmute everyone in a specified VC.
 `ows` - Set up the one word story channel.
