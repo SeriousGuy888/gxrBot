@@ -12,6 +12,8 @@ exports.run = async () => {
   logger.log(JSON.stringify(karmaQueue, null, 4))
 
   let dbChanges = false
+  let totalKarmaChanges = Object.values(karmaQueue).reduce((acc, curr) => acc + curr)
+
   for(let i in karmaQueue) {
     if(!karmaQueue[i]) {
       delete karmaQueue[i]
@@ -37,6 +39,22 @@ exports.run = async () => {
     dbChanges = true
   }
 
-  if(dbChanges)
+  if(dbChanges) {
     karmaCache.splice(0, karmaCache.length)
+    if(totalKarmaChanges) {
+      const dateStr = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+      const increment = firebaseAdmin.firestore.FieldValue.increment(totalKarmaChanges)
+
+      const docRef = db
+        .collection("stats")
+        .doc("karma_votes")
+        .collection("dates")
+        .doc(dateStr)
+      const payload = {
+        total: increment
+      }
+
+      await docRef.set(payload, { merge: true })
+    }
+  }
 }
