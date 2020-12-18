@@ -79,5 +79,3 @@ exports.run = async (client, message, args) => {
 
   message.channel.send(emb)
 }
-
-exports.dev = true
