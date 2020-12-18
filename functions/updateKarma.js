@@ -51,7 +51,8 @@ exports.run = async () => {
         .collection("dates")
         .doc(dateStr)
       const payload = {
-        total: increment
+        total: increment,
+        timestamp: firebaseAdmin.firestore.FieldValue.serverTimestamp()
       }
 
       await docRef.set(payload, { merge: true })

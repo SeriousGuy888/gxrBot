@@ -21,6 +21,7 @@ const db = firebaseAdmin.firestore()
 const auth = firebaseAdmin.auth()
 
 const Enmap = require("enmap") // used for loading in the commands and functions and stuff
+const QuickChart = require("quickchart-js")
 const emoji = require("emojilib") // for automatic emoji thing for auto reactions
 const emojiDictionary = require("emoji-dictionary") // also emojis
 const translate = require("translate-google") // google translate i think
@@ -32,7 +33,7 @@ let karmaCache = []
 let pauseAutocarrotCache = {} // used for storing when people want g9lbot to stop autocarroting them
 let commandCooldowns = {
   karma: {},
-  // leaderboard: {},
+  karma_graph: {},
 }
 let gameCache = { // for storing when people are playing g9lbot's games
   hangman: {}
@@ -150,6 +151,7 @@ module.exports = {
   firebaseAdmin,
   db,
   Enmap,
+  QuickChart,
   emoji,
   emojiDictionary,
   translate,
