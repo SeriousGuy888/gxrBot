@@ -1,42 +1,56 @@
-const { Discord } = require("../../index.js")
-
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, db, timeConvert, commandCooldowns, QuickChart } = index
+  const { config, db, Discord, QuickChart, graphCache } = index
   const settings = config.karma
+  
+
+  let dayCount = Math.abs(parseInt(args[0]))
+  if(!dayCount || dayCount > settings.graphs.limits.days)
+    dayCount = settings.graphs.limits.days
 
 
-  let cooldown = 30 * 1000 // ms
-  if(commandCooldowns.karma_graph[message.author.id]) {
-    let cooldownRemaining = new Date() - commandCooldowns.karma_graph[message.author.id]
-    if(cooldownRemaining < cooldown) {
-      let cooldownRemainingHuman = await timeConvert(cooldownRemaining)
-      message.channel.send(`Please stop killing my database.\nYou need to wait another \`${cooldown / 1000 - cooldownRemainingHuman.s} seconds\` before sending another query.`)
-      return
-    }
-  }
 
-  commandCooldowns.karma_graph[message.author.id] = new Date()
-
-  
-  const dataColl = db
-    .collection("stats")
-    .doc("karma_votes")
-    .collection("dates")
-  
-  const snapshot = await dataColl
-    .orderBy("timestamp", "desc")
-    .limit(settings.graphs.limits.days)
-    .get()
-  
-  
+  let { karmaChange } = graphCache
+  let { cache } = karmaChange
   let xAxisLabels = []
   let netVotesValue = []
+  let readFromDatabase = false
 
-  snapshot.forEach(doc => {
-    xAxisLabels.push(doc.id)
-    netVotesValue.push(doc.data().total)
-  })
+  if(!karmaChange.complete && Object.keys(cache).length < dayCount) {
+    karmaChange.complete = false
+    for(let i in cache)
+      delete cache[i]
+
+    readFromDatabase = true
+
+
+
+    const dataColl = db
+      .collection("stats")
+      .doc("karma_votes")
+      .collection("dates")
+    
+    const snapshot = await dataColl
+      .orderBy("timestamp", "desc")
+      .limit(dayCount)
+      .get()
+  
+    if(snapshot.size < dayCount)    // if there are not enough database entries to fill requested day count
+      karmaChange.complete = true   // instruct that the database not be queried again
+    snapshot.forEach(doc => {
+      cache.push({
+        date: doc.id,
+        data: doc.data()
+      })
+    })
+  }
+
+  for(const entry of cache) {
+    if(!entry)
+      continue
+    xAxisLabels.push(entry.date)
+    netVotesValue.push(entry.data.total)
+  }
 
 
   const chart = new QuickChart()
@@ -59,8 +73,9 @@ exports.run = async (client, message, args) => {
 
   const emb = new Discord.MessageEmbed()
     .setColor("#b3ac23")
-    .setTitle(`Net Karma Score Change of All Users in the Last \`${settings.graphs.limits.days}\` Days`)
+    .setTitle(`Net Karma Score Change of All Users in the Last \`${dayCount}\` Days`)
     .setImage(chart.getUrl())
+    .setFooter(readFromDatabase ? "✅ All data is up to date." : "⚠ Data read from cache; recent data may be outdated.")
 
   message.channel.send(emb)
 }
