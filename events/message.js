@@ -1,7 +1,6 @@
-module.exports = (client, message) => {
+module.exports = async (client, message) => {
   const index = require("../index.js")
-  const config = index.config
-  const prefix = index.prefix
+  const { config, Discord, prefix, timeConvert } = index
   
   const stringSimilarity = index.stringSimilarity
 
@@ -57,6 +56,28 @@ module.exports = (client, message) => {
         if(command.disabled) {
           message.channel.send(`This command is disabled for the following reason: \`${command.disabled}\``)
           break commands
+        }
+        if(command.cooldown) {
+          const cooldown = command.cooldown * 1000 // convert cooldown from seconds to milliseconds
+          if(!client.commandCooldowns[commandName])
+            client.commandCooldowns[commandName] = {}
+          
+          if(client.commandCooldowns[commandName][message.author.id]) {
+            const cooldownRemaining = new Date() - client.commandCooldowns[commandName][message.author.id]
+            if(cooldownRemaining < cooldown) {
+              const cooldownRemainingHuman = await timeConvert(cooldownRemaining)
+              const { d, h, m, s } = cooldownRemainingHuman
+              const emb = new Discord.MessageEmbed()
+                .setColor(config.main.colours.error)
+                .setTitle(`Command \`${commandName}\` is on cooldown.`)
+                .setDescription(`You must wait \`${d} days ${h}h${m}m${s}s\` before using this command again.`)
+                .setFooter("Please stop bullying my database.")
+              message.channel.send(emb)
+              break commands
+            }
+          }
+
+          client.commandCooldowns[commandName][message.author.id] = new Date()
         }
         command.run(client, message, args)
       }

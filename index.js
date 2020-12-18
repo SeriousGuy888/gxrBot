@@ -37,9 +37,6 @@ let graphCache = {
   }
 }
 let pauseAutocarrotCache = {} // used for storing when people want g9lbot to stop autocarroting them
-let commandCooldowns = {
-  karma: {},
-}
 let gameCache = { // for storing when people are playing g9lbot's games
   hangman: {}
 }
@@ -61,6 +58,8 @@ module.exports = priorityExports
 // stores logs that can be uploaded to a discord channel
 client.logs = {}
 
+// command cooldowns
+client.commandCooldowns = {}
 
 // setup ↓
 
@@ -166,7 +165,6 @@ module.exports = {
   karmaCache,
   graphCache,
   pauseAutocarrotCache,
-  commandCooldowns,
   gameCache,
 
   addKarma,
