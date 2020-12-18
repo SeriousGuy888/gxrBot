@@ -82,12 +82,15 @@ module.exports = (client, message) => {
         break autocarrot
       }
 
-      if(message.author.id == client.user.id) break autocarrot
-      if(config.autocarrot.settings.exempt.bots && message.author.bot) break autocarrot
-      if(config.autocarrot.settings.exempt.webhooks && message.webhookID) break autocarrot
-      if(config.autocarrot.settings.exempt.userList.includes(message.author.id)) break autocarrot
-      if(config.autocarrot.settings.exempt.channels.includes(message.channel.id)) break autocarrot
-      if(pauseAutocarrotCache[message.author.id] && config.autocarrot.settings.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000) break autocarrot
+      if(
+        message.author.id == client.user.id ||
+        config.autocarrot.settings.exempt.bots && message.author.bot ||
+        config.autocarrot.settings.exempt.webhooks && message.webhookID ||
+        config.autocarrot.settings.exempt.userList.includes(message.author.id) ||
+        config.autocarrot.settings.exempt.channels.includes(message.channel.id) ||
+        pauseAutocarrotCache[message.author.id] && config.autocarrot.settings.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000
+      )
+        break autocarrot
 
       const autocarrotWebhook = index.autocarrotWebhook
       const swearCensors = config.autocarrot.words
