@@ -1,6 +1,7 @@
 require("dotenv").config() // .env
 
 const fs = require("fs")
+
 const Discord = require("discord.js")
 const client = new Discord.Client({
   partials: [ // discord client with partials
@@ -11,6 +12,7 @@ const client = new Discord.Client({
     "REACTION"
   ]
 })
+
 const config = require("./config/_config.js") // config file
 const prefix = config.main.prefix // bot prefix
 
@@ -194,4 +196,67 @@ process.once("SIGINT", async () => {
 
 
 client.login(process.env.TOKEN)
+  .then(() => {
+    // temporary slash commands until discord.js supports them ↓
+    // https://discord.com/developers/docs/interactions/slash-commands
+
+    client.api
+      .applications(client.user.id)
+      // .guilds("430565803293933578")
+      .commands
+      .get()
+      .then(console.log)
+
+    client.api
+      .applications(client.user.id)
+      // .guilds("430565803293933578")
+      .commands
+      .post({
+        data: {
+          name: "test",
+          description: "idk",
+          options: [
+            {
+              name: "text",
+              description: "something that gets sent back to you i think",
+              type: 3,
+              // choices: [
+              //   {
+              //     name: "quakc",
+              //     value: "duck"
+              //   }
+              // ]
+            }
+          ]
+        }
+      })
+
+    client.ws.on("INTERACTION_CREATE", async interaction => {
+      client.api
+        .interactions(interaction.id, interaction.token)
+        .callback
+        .post({
+          data: { type: 5 } // ack with source
+        })
+
+      const channel = await client.channels.fetch(interaction.channel_id)
+      const data = interaction.data
+      const { name, id, options } = data
+      
+      if(name === "test") {
+        let text
+        for(const loopOption of options) {
+          if(loopOption.name === "text") {
+            text = loopOption.value
+          }
+        }
+
+        const emb = new Discord.MessageEmbed()
+          .setTitle(text ? text : "None Found")
+        channel.send(emb)
+      }
+    })
+
+    // slash commands ↑
+  })
   .catch(err => console.log(err))
