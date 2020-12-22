@@ -85,7 +85,7 @@ exports.run = async (client, message, args) => {
     })
     .setWidth(640)
     .setHeight(370)
-    .setFormat("svg")
+    .setFormat("webp")
     .setBackgroundColor("#ffffff")
 
   const emb = new Discord.MessageEmbed()
