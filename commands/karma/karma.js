@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
   if(!args[0])
     return message.channel.send("Specify a mention or a user id.")
   
-  let member = message.mentions.members.first() || await message.guild.members.fetch(args[0]).catch(() => {})
+  let member = message.mentions.members.first() || await message.guild.members.fetch(args[0])
   if(!member)
     return message.channel.send("Invalid user specified.")
   if(member.user)
