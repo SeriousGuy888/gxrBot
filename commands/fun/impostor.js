@@ -49,5 +49,3 @@ exports.help = async (client, message, args) => {
     .setFooter("(100% Accurate)")
   return message.channel.send(emb)
 }
-
-exports.disabled = "the discord api decided that it doesnt want to let me use voice channels anymore so this command doesnt work currently"
