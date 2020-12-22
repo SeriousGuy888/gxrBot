@@ -200,36 +200,35 @@ client.login(process.env.TOKEN)
     // temporary slash commands until discord.js supports them ↓
     // https://discord.com/developers/docs/interactions/slash-commands
 
-    client.api
-      .applications(client.user.id)
-      // .guilds("430565803293933578")
-      .commands
-      .get()
-      .then(console.log)
+    // client.api
+    //   .applications(client.user.id)
+    //   .guilds("430565803293933578")
+    //   .commands
+    //   .get()
+    //   .then(console.log)
 
-    client.api
-      .applications(client.user.id)
-      // .guilds("430565803293933578")
-      .commands
-      .post({
-        data: {
-          name: "test",
-          description: "idk",
-          options: [
-            {
-              name: "text",
-              description: "something that gets sent back to you i think",
-              type: 3,
-              // choices: [
-              //   {
-              //     name: "quakc",
-              //     value: "duck"
-              //   }
-              // ]
-            }
-          ]
-        }
-      })
+    // client.api
+    //   .applications(client.user.id)
+    //   .guilds("430565803293933578")
+    //   .commands
+    //   .post({
+    //     data: {
+    //       name: "karma",
+    //       description: "karma commands",
+    //       options: [
+    //         {
+    //           name: "leaderboard",
+    //           description: "leaderboard",
+    //           type: 1,
+    //         },
+    //         {
+    //           name: "user",
+    //           description: "user",
+    //           type: 3,
+    //         }
+    //       ]
+    //     }
+    //   })
 
     client.ws.on("INTERACTION_CREATE", async interaction => {
       client.api
