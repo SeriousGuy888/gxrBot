@@ -31,7 +31,8 @@ exports.run = async (client, message, args) => {
         .setTitle("The Impostor is...")
         .setDescription(`${impostor.toString().split(",")[1]}`)
         .setFooter("Reasoning: N/A")
-      if(!impostor) message.channel.send("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+      if(!impostor)
+        message.channel.send("aaaaaaaaaaa no impostor found dukc this")
     }
 
   return message.channel.send(outputEmbed)
