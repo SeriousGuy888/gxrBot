@@ -1,9 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const config = index.config
-  const prefix = index.prefix
-  const Discord = index.Discord
-  const timeConvert = index.timeConvert
+  const { config, prefix, Discord, timeConvert } = index
 
   const uptime = await timeConvert(client.uptime)
   let uptimeStr = ""
