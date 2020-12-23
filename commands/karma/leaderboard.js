@@ -4,18 +4,12 @@ exports.run = async (client, message, args) => {
   let { karmaCache } = index
 
   const settings = config.karma
-
-  // let cooldown = 15 * 1000 // ms
-  // if(commandCooldowns.leaderboard[message.author.id]) {
-  //   let cooldownRemaining = new Date() - commandCooldowns.leaderboard[message.author.id]
-  //   if(cooldownRemaining < cooldown) {
-  //     let cooldownRemainingHuman = await timeConvert(cooldownRemaining)
-  //     message.channel.send(`Please stop killing my database.\nYou need to wait another \`${cooldown / 1000 - cooldownRemainingHuman.s} seconds\` before sending another query.`)
-  //     return
-  //   }
-  // }
-
-  // commandCooldowns.leaderboard[message.author.id] = new Date()
+  
+  const waitingEmb = new Discord.MessageEmbed()
+    .setColor("#d223d2")
+    .setTitle("Querying database")
+    .setDescription("Please wait...")
+  const msg = await message.channel.send(waitingEmb)
 
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor("#d223d2")
@@ -99,5 +93,5 @@ exports.run = async (client, message, args) => {
       leaderboardEmbed.addField("\u200b", "\u200b")
   }
   
-  message.channel.send(leaderboardEmbed)
+  msg.edit(leaderboardEmbed)
 }
