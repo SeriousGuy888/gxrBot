@@ -65,7 +65,7 @@ exports.run = async (client, message, args) => {
   
   responseEmbed.setDescription(notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}\n[See this user on the web panel](${settings.lang.web_panel.user_lookup}?ids=${member.id} "See this user on the web panel.")`)
 
-  message.channel.send(responseEmbed)
+  msg.edit(responseEmbed)
 }
 
 exports.cooldown = 10
