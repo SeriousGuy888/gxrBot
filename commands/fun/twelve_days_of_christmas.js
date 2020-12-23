@@ -31,12 +31,12 @@ exports.fireWithoutUser = async (client, channel) => {
           "💃💃 9 seriously dont do slavery",
           "🎩🦘 10 why are we suddenly purchasing humans",
           "🥧🥧 11 pipers doing whatever pipers do i guess",
-          "🥁🥁 12 drummers doing whatever drummers do"
+          "🥁🥁 12 Drummers, who are still humans, drumming"
         ]
         .splice(0, 12 - countdown.d)
         .join(",\n") +
         `\n\nfor your true love today.\n\
-        ${12 - countdown.d === 0 ? "You can finally stop tomorrow." : "You will need to purchase all of these plus more tomorrow."}`
+        ${12 - countdown.d === 0 ? "You can finally stop tomorrow.\n*Except I think this is off by one day, or maybe thirteen days depending on who you ask.*" : "You will need to purchase all of these plus more tomorrow."}`
       )
   }
   else {
