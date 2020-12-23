@@ -1,9 +1,7 @@
 module.exports = (client, message) => {
   const index = require("../index.js")
-  const { config, schedule, updateKarma } = index
-
+  const { config, schedule, updateKarma, logger, timer } = index
   const awaitOrders = client.functions.get("awaitOrders").run
-  const logger = client.util.get("logger")
 
   awaitOrders()
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
@@ -17,7 +15,7 @@ module.exports = (client, message) => {
     const diffMillis = countdownDate - currentDate
 
     if(diffMillis > 0) {
-      const res = await index.timeConvert(diffMillis)
+      const res = await timer.convert(diffMillis)
       const pad = num => num.toString().padStart(2, "0")
       let { h, m, s } = res
       client.user.setActivity(`${res.d} days ${h}:${pad(m)}:${pad(s)} remaining...`, { type: "WATCHING" })
