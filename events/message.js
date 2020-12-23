@@ -1,6 +1,6 @@
 module.exports = async (client, message) => {
   const index = require("../index.js")
-  const { config, Discord, prefix, timeConvert } = index
+  const { config, Discord, prefix, timer } = index
   
   const stringSimilarity = index.stringSimilarity
 
@@ -65,12 +65,11 @@ module.exports = async (client, message) => {
           if(client.commandCooldowns[commandName][message.author.id]) {
             const cooldownRemaining = cooldown - (new Date() - client.commandCooldowns[commandName][message.author.id])
             if(cooldownRemaining < cooldown) {
-              const cooldownRemainingHuman = await timeConvert(cooldownRemaining)
-              const { d, h, m, s } = cooldownRemainingHuman
+              const timeString = await timer.stringify(cooldownRemaining, { truncZero: true, dropMs: true })
               const emb = new Discord.MessageEmbed()
                 .setColor(config.main.colours.error)
                 .setTitle(`Command \`${commandName}\` is on cooldown.`)
-                .setDescription(`You must wait \`${d} days ${h}h${m}m${s}s\` before using this command again.`)
+                .setDescription(`You must wait \`${timeString}\` before using this command again.`)
                 .setFooter("Please stop bullying my database.")
               message.channel.send(emb)
               break commands
