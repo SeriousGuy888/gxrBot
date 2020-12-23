@@ -29,6 +29,9 @@
     "error": "#bf2222",
     "success": "#21b821"
   },
+  "emojis": {
+    "loading": "<:loading:791174362060554291>"
+  },
   "timezone": {
     "name": "America/Toronto",
     "offset": -5

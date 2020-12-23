@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
   
   const waitingEmb = new Discord.MessageEmbed()
     .setColor(settings.colours.karma)
-    .setTitle("Querying database")
+    .setTitle(`${config.main.emojis.loading} Getting Karma Data`)
     .setDescription("Please wait...")
   const msg = await message.channel.send(waitingEmb)
 

@@ -14,6 +14,14 @@ exports.run = async (client, message, args) => {
     return message.channel.send("Invalid user specified.")
   if(member.user)
     member = member.user
+  
+
+  const waitingEmb = new Discord.MessageEmbed()
+    .setColor(settings.colours.karma)
+    .setTitle(`${config.main.emojis.loading} Querying Karma of ${member.tag}`)
+    .setDescription("Please wait...")
+  const msg = await message.channel.send(waitingEmb)
+
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.karma)
