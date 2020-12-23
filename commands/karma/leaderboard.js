@@ -6,13 +6,13 @@ exports.run = async (client, message, args) => {
   const settings = config.karma
   
   const waitingEmb = new Discord.MessageEmbed()
-    .setColor("#d223d2")
+    .setColor(settings.colours.karma)
     .setTitle("Querying database")
     .setDescription("Please wait...")
   const msg = await message.channel.send(waitingEmb)
 
   const leaderboardEmbed = new Discord.MessageEmbed()
-    .setColor("#d223d2")
+    .setColor(settings.colours.karma)
     .setTitle("Discord Karma Leaderboard")
     .setDescription(`[Leaderboard on Web Panel](${settings.lang.web_panel.leaderboard})\nYou can click people's karma score to see and easily compare their score with other people's score on the web panel.\n\u200b`)
     .setFooter(settings.lang.footer)

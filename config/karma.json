@@ -30,5 +30,8 @@
       "leaderboard": "https://g8c-bot.web.app/karma/leaderboard",
       "user_lookup": "https://g8c-bot.web.app/karma/user"
     }
+  },
+  "colours": {
+    "karma": "#d223d2"
   }
 }

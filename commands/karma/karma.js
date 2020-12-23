@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
     member = member.user
 
   const responseEmbed = new Discord.MessageEmbed()
-    .setColor("#d223d2")
+    .setColor(settings.colours.karma)
     .setTitle(`Karma of ${member.tag}`)
     .setFooter(settings.lang.footer)
 
