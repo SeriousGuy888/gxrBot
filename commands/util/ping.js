@@ -1,19 +1,15 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, prefix, Discord, timeConvert } = index
-
-  const uptime = await timeConvert(client.uptime)
-  let uptimeStr = ""
-  for(let i in uptime)
-    uptimeStr += `${uptime[i]}${i}`
+  const { config, prefix, Discord, timer } = index
   
-  const age = await timeConvert(new Date() - client.user.createdAt)
+  const age = await timer.convert(new Date() - client.user.createdAt)
   let ageYears = (age.d / 365).toFixed(2)
 
   // gets the name of the command used
   const cmdName = message.content.slice(prefix.length).trim().split(/ +/g).shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
 
 
+  const uptimeStr = await timer.stringify(client.uptime, { truncZero: true })
   let pingEmb = new Discord.MessageEmbed()
     .setColor(config.main.colours.success)
     .setTitle(cmdName.toLowerCase() == "pong" ? "Ping!" : "Pong!") // will say ping if the command alias pong was used
