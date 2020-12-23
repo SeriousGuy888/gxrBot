@@ -43,6 +43,7 @@ let gameCache = { // for storing when people are playing g9lbot's games
   hangman: {}
 }
 
+const logger = client.util.get("logger")
 
 let priorityExports = {
   Discord,
@@ -51,7 +52,8 @@ let priorityExports = {
   fs,
   prefix,
   db,
-  auth
+  auth,
+  logger
 }
 
 module.exports = priorityExports
@@ -150,7 +152,6 @@ const updateKarma = client.functions.get("updateKarma").run
 const voteReactions = client.functions.get("voteReactions").run
 
 const embedder = client.util.get("embedder")
-const logger = client.util.get("logger")
 const messenger = client.util.get("messenger")
 
 // function and util imports ↑
@@ -184,7 +185,6 @@ module.exports = {
   voteReactions,
 
   embedder,
-  logger,
   messenger,
 }
 
