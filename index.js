@@ -193,12 +193,12 @@ module.exports = {
 
 process.once("SIGTERM", async () => {
   updateKarma()
-  client.util.get("logger").uploadLogs("Automatic log upload due to SIGTERM signal.", true)
+  logger.uploadLogs("Automatic log upload due to SIGTERM signal.", true)
   process.exit()
 })
 
 process.once("SIGINT", async () => {
-  client.util.get("logger").uploadLogs("Automatic log upload due to SIGINT signal.", true)
+  logger.uploadLogs("Automatic log upload due to SIGINT signal.", true)
   updateKarma()
 })
 
