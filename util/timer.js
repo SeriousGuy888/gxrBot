@@ -31,3 +31,19 @@ exports.convert = async milliseconds => {
     ms
   }
 }
+
+exports.stringify = async (milliseconds, options) => {
+  const time = await this.convert(milliseconds)
+  
+  let timeStr = ""
+  for(const unit in time) {
+    if(options && options.truncZero) { // if option to truncate zeroes 
+      if(!timeStr && !time[unit]) { // time string is empty and current time unit is 0
+        continue // skip this time unit
+      }
+    }
+    timeStr += `${time[unit]}${unit}`
+  }
+
+  return timeStr
+}
