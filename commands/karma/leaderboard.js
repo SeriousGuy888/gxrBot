@@ -88,7 +88,7 @@ exports.run = async (client, message, args) => {
 
     if(karmaQueue[field.id])
       content += ` and ${karmaQueue[field.id]} pending`
-    leaderboardEmbed.addField(`${rankingStr}\n\`${field.user}\``, content + "\n\u200b", rank > settings.leaderboard.top.podium)
+    leaderboardEmbed.addField(`${rankingStr}\n\`${field.user}\``, content + "\n\u200b", true)
     if(rank === settings.leaderboard.top.podium)
       leaderboardEmbed.addField("\u200b", "\u200b")
   }
