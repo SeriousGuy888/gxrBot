@@ -137,7 +137,7 @@ for(let loopLog of logQueue)
 
 
 // setup ↑
-// function imports ↓
+// function and util imports ↓
 
 const addKarma = client.functions.get("addKarma").run
 const autocarrotWebhook = client.functions.get("autocarrotWebhook").run
@@ -149,7 +149,11 @@ const timeConvert = client.functions.get("timeConvert").run
 const updateKarma = client.functions.get("updateKarma").run
 const voteReactions = client.functions.get("voteReactions").run
 
-// function imports ↑
+const embedder = client.util.get("embedder")
+const logger = client.util.get("logger")
+const messenger = client.util.get("messenger")
+
+// function and util imports ↑
 // exports ↓
 
 module.exports = {
@@ -178,6 +182,10 @@ module.exports = {
   timeConvert,
   updateKarma,
   voteReactions,
+
+  embedder,
+  logger,
+  messenger,
 }
 
 // exports ↑
