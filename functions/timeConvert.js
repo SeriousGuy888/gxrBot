@@ -1,31 +1,7 @@
 exports.run = async (milliseconds) => {
-  const unitRatios = {
-    d: 1000 * 60 * 60 * 24,
-    h: 1000 * 60 * 60,
-    m: 1000 * 60,
-    s: 1000
-  }
+  const index = require("../index.js")
+  const { timer } = index
 
-  let ms = milliseconds
-  let d, h, m, s = 0
-  
-  d = Math.floor(ms / unitRatios.d)
-  ms -= d * unitRatios.d
-
-  h = Math.floor(ms / unitRatios.h)
-  ms -= h * unitRatios.h
-
-  m = Math.floor(ms / unitRatios.m)
-  ms -= m * unitRatios.m
-  
-  s = Math.floor(ms / unitRatios.s)
-  ms -= s * unitRatios.s
-
-  return {
-    d,
-    h,
-    m,
-    s,
-    ms
-  }
+  console.trace(`Use of legacy timeConvert function. Should be converted to timer util.`)
+  return timer.convert(milliseconds)
 }
