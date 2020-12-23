@@ -4,7 +4,7 @@
 */
 
 const index = require("../index.js")
-const { client } = index
+const { client, config, Discord } = index
 
 exports.sanitize = async content => {
   if(typeof content !== "string")
@@ -17,7 +17,7 @@ exports.sanitize = async content => {
   return sanitizedContent
 }
 
-exports.send = async (channel, content, callback) => {
+exports.send = async (channel, content) => {
   let sanitizedContent
 
   if(typeof content === "string")
@@ -25,10 +25,7 @@ exports.send = async (channel, content, callback) => {
   else
     sanitizedContent = content
 
-  const msg = await channel.send(sanitizedContent)
-
-  if(callback)
-    callback(msg)
+  return await channel.send(sanitizedContent)
 }
 
 exports.dm = async (userId, content, callback) => {
@@ -46,4 +43,19 @@ exports.dm = async (userId, content, callback) => {
     .catch(err => {
       throw new Error(err)
     })
+}
+
+exports.loadingMessage = async (channel, options) => {
+  if(!options)
+    throw new Error("No options specified.")
+  
+  const emb = new Discord.MessageEmbed()
+    .setColor(options.colour || config.main.colours.help)
+    .setTitle(`${config.main.emojis.loading} ${options.title || "Loading"}`)
+    .setDescription(options.description || "Please wait...")
+  
+  if(options.footer)
+    emb.setFooter(options.footer)
+  
+  return await this.send(channel, emb)
 }

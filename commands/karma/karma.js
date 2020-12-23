@@ -2,6 +2,7 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, config, db, karmaQueue } = index
   let { karmaCache } = index
+  const messenger = client.util.get("messenger")
 
   const settings = config.karma
 
@@ -15,12 +16,11 @@ exports.run = async (client, message, args) => {
   if(member.user)
     member = member.user
   
-
-  const waitingEmb = new Discord.MessageEmbed()
-    .setColor(settings.colours.karma)
-    .setTitle(`${config.main.emojis.loading} Querying Karma of ${member.tag}`)
-    .setDescription("Please wait...")
-  const msg = await message.channel.send(waitingEmb)
+  
+  const msg = await messenger.loadingMessage(message.channel, {
+    colour: settings.colours.karma,
+    title: `Querying Karma of ${member.tag}`
+  })
 
 
   const responseEmbed = new Discord.MessageEmbed()

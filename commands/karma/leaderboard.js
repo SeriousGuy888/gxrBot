@@ -2,14 +2,14 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, config, db, karmaQueue } = index
   let { karmaCache } = index
+  const messenger = client.util.get("messenger")
 
   const settings = config.karma
   
-  const waitingEmb = new Discord.MessageEmbed()
-    .setColor(settings.colours.karma)
-    .setTitle(`${config.main.emojis.loading} Getting Karma Data`)
-    .setDescription("Please wait...")
-  const msg = await message.channel.send(waitingEmb)
+  const msg = await messenger.loadingMessage(message.channel, {
+    colour: settings.colours.karma,
+    title: "Getting Leaderboard Data..."
+  })
 
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.karma)
