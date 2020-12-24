@@ -143,6 +143,7 @@ const autocarrotWebhook = client.functions.get("autocarrotWebhook").run
 const autoResponses = client.functions.get("autoResponses").run
 const commandHelpEmbed = client.functions.get("commandHelpEmbed").run
 const coopChannels = client.functions.get("coopChannels").run
+const extractArgs = client.functions.get("extractArgs").run
 const messageResponder = client.functions.get("messageResponder").run
 const timeConvert = client.functions.get("timeConvert").run
 const updateKarma = client.functions.get("updateKarma").run
@@ -177,6 +178,7 @@ module.exports = {
   autoResponses,
   commandHelpEmbed,
   coopChannels,
+  extractArgs,
   messageResponder,
   timeConvert,
   updateKarma,

@@ -5,6 +5,7 @@ module.exports = async (client, message) => {
     Discord,
     prefix,
     stringSimilarity,
+    extractArgs,
     logger,
     messenger,
     timer,
@@ -15,14 +16,12 @@ module.exports = async (client, message) => {
     if(message.author.bot)
       break commands
 
-    let args
-    let commandName
-    let command
-
     if(message.content.toLowerCase().indexOf(prefix) === 0) {
-      args = message.content.slice(prefix.length).trim().split(/ +/g)
-      commandName = args.shift().toLowerCase().trim().slice(0, config.main.maxCommandNameLength)
-      if(commandName.length === 0) break commands
+      const { args, commandName } = extractArgs(message)
+      let command
+
+      if(commandName.length === 0)
+        break commands
 
       command = client.commands.get(commandName) //grab cmds from enmap
 
@@ -86,8 +85,8 @@ module.exports = async (client, message) => {
       }
     }
     else if(index.gameCache.hangman[message.author.id]) {
-      command = client.commands.get("hangman")
-      args = ["guess"].concat(message.content.split(" "))
+      const command = client.commands.get("hangman")
+      const args = ["guess"].concat(message.content.split(" "))
       command.run(client, message, args)
     }
   }
