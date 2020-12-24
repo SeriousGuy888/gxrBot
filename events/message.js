@@ -1,11 +1,14 @@
 module.exports = async (client, message) => {
   const index = require("../index.js")
-  const { config, Discord, prefix, timer } = index
-  
-  const stringSimilarity = index.stringSimilarity
-
-  const messenger = client.util.get("messenger")
-  const logger = client.util.get("logger")
+  const {
+    config,
+    Discord,
+    prefix,
+    stringSimilarity,
+    logger,
+    messenger,
+    timer,
+  } = index
 
 
   commands: {
