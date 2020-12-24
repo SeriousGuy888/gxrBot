@@ -42,9 +42,10 @@ exports.stringify = async (milliseconds, options) => {
         if(!timeStr && !time[unit]) // time string is empty and current time unit is 0
           continue // skip this time unit
       
-      if(options.dropMs)
-        if(unit === "ms")
-          continue
+      if(options.dropMs) // option to drop milliseconds
+        if(unit === "ms") // current unit is milliseconds
+          if(timeStr) // current string is not empty
+            continue // skip
     }
     timeStr += `${time[unit]}${unit}`
   }
