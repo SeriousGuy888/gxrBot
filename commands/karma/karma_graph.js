@@ -1,8 +1,14 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, db, Discord, QuickChart, graphCache } = index
+  const { config, db, Discord, QuickChart, graphCache, messenger } = index
   const settings = config.karma
   
+  
+  
+  const msg = await messenger.loadingMessage(message.channel, {
+    colour: settings.colours.karma,
+    title: "Getting Karma Graph..."
+  })
 
   let dayCount = Math.abs(parseInt(args[0]))
   if(!dayCount || dayCount > settings.graphs.limits.days)
@@ -94,5 +100,5 @@ exports.run = async (client, message, args) => {
     .setImage(chart.getUrl())
     .setFooter(readFromDatabase ? "✅ All data is up to date." : "⚠ Data read from cache; recent data may be outdated.")
 
-  message.channel.send(emb)
+  msg.edit(emb)
 }
