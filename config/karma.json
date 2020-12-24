@@ -22,6 +22,9 @@
   "graphs": {
     "limits": {
       "days": 14
+    },
+    "defaults": {
+      "days": 7
     }
   },
   "lang": {

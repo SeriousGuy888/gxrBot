@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
 
   let dayCount = Math.abs(parseInt(args[0]))
   if(!dayCount || dayCount > settings.graphs.limits.days)
-    dayCount = settings.graphs.limits.days
+    dayCount = settings.graphs.defaults.days
 
 
 
