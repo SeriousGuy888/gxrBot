@@ -50,7 +50,7 @@ exports.loadingMessage = async (channel, options) => {
     throw new Error("No options specified.")
   
   const emb = new Discord.MessageEmbed()
-    .setColor(options.colour || config.main.colours.help)
+    .setColor(options.colour ?? config.main.colours.help)
     .setTitle(`${config.main.emojis.loading} ${options.title || "Loading"}`)
     .setDescription(options.description || "Please wait...")
   
