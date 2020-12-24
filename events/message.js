@@ -59,23 +59,24 @@ module.exports = async (client, message) => {
         }
         if(command.cooldown) {
           const cooldown = command.cooldown * 1000 // convert cooldown from seconds to milliseconds
-          if(!client.commandCooldowns[commandName])
-            client.commandCooldowns[commandName] = {}
+          if(!client.commandCooldowns[commandName]) // if this command does not have a cooldown object
+            client.commandCooldowns[commandName] = {} // create one
           
-          if(client.commandCooldowns[commandName][message.author.id]) {
-            const timeSinceLastUse = (Date.now() - client.commandCooldowns[commandName][message.author.id])
-            if(timeSinceLastUse < cooldown) {
-              const timeString = await timer.stringify(cooldown - timeSinceLastUse, { truncZero: true, dropMs: true })
+          if(client.commandCooldowns[commandName][message.author.id]) { // if user has a last used timestamp for this command
+            const timeSinceLastUse = Date.now() - client.commandCooldowns[commandName][message.author.id] // calculate time since last use
+            if(timeSinceLastUse < cooldown) { // cooldown has not been completed
+              const timeString = await timer.stringify(cooldown - timeSinceLastUse, { truncZero: true, dropMs: true }) // get str for time left in cooldown
               const emb = new Discord.MessageEmbed()
                 .setColor(config.main.colours.error)
                 .setTitle(`Command \`${commandName}\` is on cooldown.`)
                 .setDescription(`You must wait \`${timeString}\` before using this command again.`)
                 .setFooter("Please stop bullying my database.")
-              message.channel.send(emb)
-              break commands
+              message.channel.send(emb) // send error message
+              break commands // stop
             }
           }
 
+          // sets last used timestamp for the command so command cooldown can be applied again
           client.commandCooldowns[commandName][message.author.id] = new Date()
         }
         command.run(client, message, args)
