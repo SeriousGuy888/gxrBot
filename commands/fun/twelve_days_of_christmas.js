@@ -4,8 +4,7 @@ exports.run = async (client, message, args) => {
 
 exports.fireWithoutUser = async (client, channel) => {
   const index = require("../../index.js")
-  const Discord = index.Discord
-  const timeConvert = index.timeConvert
+  const { Discord, timer } = index
 
   const currentDate = new Date()
   const countdownDate = new Date("December 25 2020 00:00:00 GMT-0500") // christmas eastern standard time
@@ -14,7 +13,7 @@ exports.fireWithoutUser = async (client, channel) => {
   let emb = new Discord.MessageEmbed()
 
   if(diffMillis > 0) {
-    const countdown = await timeConvert(diffMillis)
+    const countdown = await timer.convert(diffMillis)
     emb
       .setColor("#629812")
       .setTitle(":christmas_tree: 12 Days of Christmas")
