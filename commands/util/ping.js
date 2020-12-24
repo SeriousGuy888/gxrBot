@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
   const uptimeStr = await timer.stringify(client.uptime, { truncZero: true })
   let pingEmb = new Discord.MessageEmbed()
     .setColor(config.main.colours.success)
-    .setTitle(cmdName.toLowerCase() == "pong" ? "Ping!" : "Pong!") // will say ping if the command alias pong was used
+    .setTitle(":ping_pong: " + (cmdName.toLowerCase() == "pong" ? "Ping!" : "Pong!")) // will say ping if the command alias pong was used
     .setDescription(loadingEmoji)
     .addField(":clock530: Uptime", `\`${uptimeStr}\``, true)
     .addField(":cake: Age", `I'm \`${ageYears}\` ${ageYears == 1 ? "year" : "years"} old!\n(Dec 18, 2019)`, true)
