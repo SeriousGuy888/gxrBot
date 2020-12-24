@@ -1,9 +1,6 @@
 exports.run = (message) => {
   const index = require("../index.js")
-  const {
-    config,
-    prefix,
-  } = index
+  const { config, prefix } = index
 
   const args = message
     .content // message content
