@@ -4,8 +4,7 @@ exports.run = async (client, message, args) => {
 
 exports.fireWithoutUser = async (client, channel) => {
   const index = require("../../index.js")
-  const Discord = index.Discord
-  const timeConvert = index.timeConvert
+  const { Discord, timer } = index
 
   const currentDate = new Date()
   const countdownDate = new Date("January 1 2021 00:00:00 GMT-0500") // new years eastern standard time
@@ -14,7 +13,7 @@ exports.fireWithoutUser = async (client, channel) => {
   let emb = new Discord.MessageEmbed()
 
   if(diffMillis > 0) {
-    const countdown = await timeConvert(diffMillis)
+    const countdown = await timer.convert(diffMillis)
     emb
       .setColor("#12d812")
       .setTitle(":hourglass: Countdown to 2021")
