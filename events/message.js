@@ -63,9 +63,9 @@ module.exports = async (client, message) => {
             client.commandCooldowns[commandName] = {}
           
           if(client.commandCooldowns[commandName][message.author.id]) {
-            const cooldownRemaining = cooldown - (new Date() - client.commandCooldowns[commandName][message.author.id])
-            if(cooldownRemaining < cooldown) {
-              const timeString = await timer.stringify(cooldownRemaining, { truncZero: true, dropMs: true })
+            const timeSinceLastUse = (Date.now() - client.commandCooldowns[commandName][message.author.id])
+            if(timeSinceLastUse < cooldown) {
+              const timeString = await timer.stringify(cooldown - timeSinceLastUse, { truncZero: true, dropMs: true })
               const emb = new Discord.MessageEmbed()
                 .setColor(config.main.colours.error)
                 .setTitle(`Command \`${commandName}\` is on cooldown.`)
