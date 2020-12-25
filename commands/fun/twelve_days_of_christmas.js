@@ -47,3 +47,5 @@ exports.fireWithoutUser = async (client, channel) => {
 
   channel.send(emb).then(msg => msg.react("🍐"))
 }
+
+exports.disabled = "its not christmas anymore"

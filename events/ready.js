@@ -46,20 +46,6 @@ module.exports = (client, message) => {
     client.commands.get("new_year_countdown").fireWithoutUser(client, newsChannel)
   })
 
-  let twelveChristmasScheduleRule = new schedule.RecurrenceRule()
-  twelveChristmasScheduleRule.tz = config.main.timezone.name
-  twelveChristmasScheduleRule.second = 0
-  twelveChristmasScheduleRule.minute = 0
-  twelveChristmasScheduleRule.hour = 12
-  schedule.scheduleJob(twelveChristmasScheduleRule, () => {
-    const newsChannel = client.channels.cache.get("749428233270853681")
-    if(!newsChannel)
-      return logger.log("Error - news channel does not exist D:")
-    
-    client.commands.get("twelve_days_of_christmas").fireWithoutUser(client, newsChannel)
-  })
-
-
   setInterval(() => {
     updateKarma()
   }, 5 * 60 * 1000)
