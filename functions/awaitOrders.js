@@ -16,7 +16,7 @@ exports.run = () => {
       .setTitle(`Executed order of type \`${type}\``)
       .setDescription(content.slice(0, 1024))
       .addField("Effect", effect, true)
-      .addField("Issued by", `<@${issuer}>`, true)
+      .addField("Issued by", issuer ? `<@${issuer}>` : "N/A", true)
       .addField("Permanent Startup Order", permanent,)
       .addField("Success", success, true)
 
