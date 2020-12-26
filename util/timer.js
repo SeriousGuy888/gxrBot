@@ -38,14 +38,18 @@ exports.stringify = async (milliseconds, options) => {
   let timeStr = ""
   for(const unit in time) {
     if(options) {
-      if(options.truncZero) // if option to truncate zeroes 
-        if(!timeStr && !time[unit]) // time string is empty and current time unit is 0
-          continue // skip this time unit
+      if(
+        options.truncZero && // if option to truncate zeroes 
+        !timeStr && !time[unit] // time string is empty and current time unit is 0
+      )
+        continue // skip this time unit
       
-      if(options.dropMs) // option to drop milliseconds
-        if(unit === "ms") // current unit is milliseconds
-          if(timeStr) // current string is not empty
-            continue // skip
+      if(
+        options.dropMs && // option to drop milliseconds
+        unit === "ms" && // current unit is milliseconds
+        timeStr // current string is not empty
+      )
+        continue // skip
     }
     timeStr += `${time[unit]}${unit}`
   }
