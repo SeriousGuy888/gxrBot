@@ -28,21 +28,10 @@ exports.run = async (client, message, args) => {
       let user = client.users.cache.find(u => u.id === doc.id)
       const data = doc.data()
   
-      if(!user)
-        if(data.tag)
-          user = `${data.tag}.` // if user's tag is stored
-        else
-          user = `ID: ${doc.id}` // display as id otherwise
-      else
-        user = user.tag // if the user is cached and their tag is found
-      
-      if(user === null)
-        user = `ID: ${doc.id}`
-  
       let karma = data.karma
   
       karmaCache.push({
-        user: user,
+        user: `<@${doc.id}>`,
         id: doc.id,
         karma: karma,
       })
@@ -87,7 +76,7 @@ exports.run = async (client, message, args) => {
 
     if(karmaQueue[field.id])
       content += ` and ${karmaQueue[field.id]} pending`
-    leaderboardEmbed.addField(`${rankingStr}\n\`${field.user}\``, content + "\n\u200b", true)
+    leaderboardEmbed.addField(`${rankingStr}`, `${field.user}\n${content}` + "\n\u200b", true)
     if(rank === settings.leaderboard.top.podium)
       leaderboardEmbed.addField("\u200b", "\u200b")
   }
