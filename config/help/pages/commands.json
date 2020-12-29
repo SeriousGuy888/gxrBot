@@ -18,7 +18,8 @@
   },
   "karma": {
     "leaderboard": "(`lb`) See the karma leaderboard.",
-    "karma": "See someone's or your own karma score."
+    "karma": "See someone's or your own karma score.",
+    "karma_graph": "A graph of net karma change each day."
   },
   "admin": {
     "auth": "For signing in to the admin web panel.",
