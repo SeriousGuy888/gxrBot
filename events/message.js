@@ -36,7 +36,7 @@ module.exports = async (client, message) => {
           message.channel.send("The requested command failed to run as it is not coded properly.") 
         else {
           let similarCommandNames = stringSimilarity.findBestMatch(commandName, client.publicCommandList)
-          message.channel.send(`The requested command does not exist or is invalid.\nI have a command registered called \`${similarCommandNames.bestMatch.target}\`. Perhaps you meant to type that?`)
+          message.channel.send(`The requested command does not exist or is invalid.\nI have a command registered called \`${similarCommandNames.bestMatch.target}\`. Perhaps you meant to type that?\n\nIf not, try using the command \`${prefix}help\`.`)
         }
       }
 
