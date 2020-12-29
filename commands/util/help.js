@@ -2,18 +2,21 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, fs, Discord, prefix} = index
   
-  const readFile = name => {
-    const { path } = config.help
-    if(!fs.existsSync(`${path}${name}.txt`)) return `Error: File \`${name}\` does not exist.`
-    const fileContents = fs.readFileSync(`${path}${name}.txt`, "utf8")
-    const fixedContents = fileContents
+  const replaceVars = str => {
+    return str
       .replace(/%prefix%/gi, config.main.prefix)
       .replace(/%lowername%/gi, config.main.botNames.lowerCamelCase)
       .replace(/%uppername%/gi, config.main.botNames.upperCase)
       .replace(/%helpflags%/gi, `[${config.main.commands.help.flags.join(", ")}]`)
       .replace(/%webpanel%/gi, config.main.links.web_panel)
+  }
+
+  const readFile = name => {
+    const { path } = config.help
+    if(!fs.existsSync(`${path}${name}.txt`)) return `Error: File \`${name}\` does not exist.`
+    const fileContents = fs.readFileSync(`${path}${name}.txt`, "utf8")
     
-    return fixedContents
+    return replaceVars(fileContents)
   }
 
   const noArgs = () => {
@@ -49,11 +52,12 @@ exports.run = async (client, message, args) => {
 
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.help)
+      .setDescription(`The prefix is ${prefix}.\nUse the prefix before a command name to use that command.`)
       .setTitle("Command List")
       .setFooter(`Use ${prefix}help info for info or somehting`)
-    for(let i in fields) {
-      const content = fields[i].join("\n")
-      emb.addField(i, content)
+    for(let fieldTitle in fields) {
+      const content = replaceVars(fields[fieldTitle].join("\n"))
+      emb.addField(fieldTitle.toUpperCase(), content)
     }
 
     message.channel.send(emb)
