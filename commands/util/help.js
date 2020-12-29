@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
     for(const fieldTitle in fields) {
       const commandList = []
       for(const commandName in fields[fieldTitle]) {
-        content.push({
+        commandList.push({
           title: "`" + commandName + "`",
           content: replaceVars(fields[fieldTitle][commandName])
         })
