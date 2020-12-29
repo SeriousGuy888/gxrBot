@@ -25,9 +25,7 @@ exports.run = async (client, message, args) => {
       .get()
 
     snapshot.forEach(async doc => {
-      let user = client.users.cache.find(u => u.id === doc.id)
       const data = doc.data()
-  
       let karma = data.karma
   
       karmaCache.push({
