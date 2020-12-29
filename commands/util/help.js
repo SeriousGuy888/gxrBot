@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
 
       let content = ""
       for(let loopCommand of commandList) {
-        content += `\`${loopCommand.title}\` - ${loopCommand.content}`
+        content += `\n\`${loopCommand.title}\` - ${loopCommand.content}`
       }
       
       emb.addField(fieldTitle.toUpperCase(), content)
