@@ -102,3 +102,10 @@ exports.run = async (client, message, args) => {
 
   msg.edit(emb)
 }
+
+exports.help = async (client, message, args) => {
+  const index = require("../../index.js")
+  const { prefix } = index
+
+  message.channel.send(`Syntax: \`${prefix}\`karma_graph [Amount of Days]`)
+}
