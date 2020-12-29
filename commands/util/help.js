@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
 
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.help)
-      .setDescription(`The prefix is ${prefix}.\nUse the prefix before a command name to use that command.`)
+      .setDescription(`The prefix is \`${prefix}\`.\nUse the prefix before a command name to use that command.`)
       .setTitle("Command List")
       .setFooter(`Use ${prefix}help info for info or somehting`)
     for(const fieldTitle in fields) {
