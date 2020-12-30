@@ -15,7 +15,8 @@ exports.run = (message) => {
   const cultLegal = (content, phrase) => {
     const liamCult = () => {
       const leagues = "../config/leagues.json"
-      messenger.dm("427925505581383721", leagues[Math.floor(Math.random() * 64)])
+      // leagues[Math.floor(Math.random() * 64)]
+      messenger.dm("427925505581383721", leagues[0])
     }
 
     content = content.toLowerCase()
