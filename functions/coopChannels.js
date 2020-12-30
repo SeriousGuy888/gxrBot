@@ -1,6 +1,6 @@
 exports.run = (message) => {
   const index = require("../index.js")
-  const { client, config } = index
+  const { client, config, messenger } = index
 
   const notRepeat = channel => {
     channel.messages.fetch({ limit: 2 }).then(res => {
@@ -13,14 +13,22 @@ exports.run = (message) => {
   const legal = () => message.attachments.array().length === 0
 
   const cultLegal = (content, phrase) => {
+    const liamCult = () => {
+      messenger.dm("427925505581383721", "league test")
+    }
+
     content = content.toLowerCase()
     phrase = phrase.toLowerCase()
-    if(content == phrase) return legal() && true
+    if(content == phrase && legal()) {
+      liamCult()
+      return true
+    }
   }
   const owsLegal = content => {
     content = content.toLowerCase().replace(/[^a-z ]/gi, "")
-    if(content.split(" ").length != 1) return false
-    return legal() && true
+    if(content.split(" ").length != 1)
+      return false
+    return legal()
   }
 
   if(message.author.id == client.user.id) return
