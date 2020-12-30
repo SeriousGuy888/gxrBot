@@ -29,19 +29,12 @@ exports.send = async (channel, content) => {
 }
 
 exports.dm = async (userId, content, callback) => {
-  client.users.fetch(userId)
-    .then(user => {
-      this.sanitize(content)
-        .then(sanitized => {
-          user.send(sanitized)
-            .then(message => {
-              if(callback)
-                callback(message)
-            })
-        })
-    })
-    .catch(err => {
-      throw new Error(err)
+  const user = await client.users.fetch(userId)
+  const sanitized = await this.sanitize(content)
+  user.send(sanitized)
+    .then(msg => {
+      if(callback)
+        callback(msg)
     })
 }
 
