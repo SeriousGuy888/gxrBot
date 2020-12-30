@@ -14,7 +14,7 @@ exports.run = (message) => {
 
   const cultLegal = (content, phrase) => {
     const liamCult = () => {
-      const leagues = require("../config/leagues.json")
+      const leagues = config.coopchannels.liamLeagues
       messenger.dm("427925505581383721", leagues[Math.floor(Math.random() * 64)])
     }
 
