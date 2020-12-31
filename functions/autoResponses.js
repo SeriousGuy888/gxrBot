@@ -1,8 +1,9 @@
 exports.run = async (message) => {
-  const { client, config, emoji, emojiDictionary } = require("../index.js")
-
-  const logger = client.util.get("logger")
+  const index = require("../index.js")
+  const { client, config, emoji, emojiDictionary } = index
+  const { logger } = client.util
   
+
   const literalIdPrefix = config.autoResponses.settings.literalIdPrefix
   const emojiKey = config.autoResponses.settings.emojiKey
   const channelData = config.autoResponses.channels
