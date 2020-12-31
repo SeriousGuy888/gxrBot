@@ -37,7 +37,7 @@ module.exports = (client, message) => {
   newYearCountdownScheduleRule.tz = config.main.timezone.name
   newYearCountdownScheduleRule.second = 0
   newYearCountdownScheduleRule.minute = 0
-  newYearCountdownScheduleRule.hour = 0
+  // newYearCountdownScheduleRule.hour = 0
   schedule.scheduleJob(newYearCountdownScheduleRule, () => {
     const newsChannel = client.channels.cache.get("749428233270853681")
     if(!newsChannel)
