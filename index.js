@@ -130,7 +130,7 @@ loadJsFiles("./util/", (name, tool, directory, file) => {
 })
 
 
-const logger = client.util.get("logger")
+const logger = client.util.logger
 for(let loopLog of logQueue)
   logger.log(loopLog, "startup loading")
 
