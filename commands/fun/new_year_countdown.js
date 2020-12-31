@@ -40,7 +40,7 @@ exports.fireWithoutUser = async (client, channel) => {
           unit = "Milliseconds"
           break
       }
-      if((!unitsUsed) && countdown[i]) {
+      if((unitsUsed.length) || countdown[i]) {
         unitsUsed.push(unit)
         emb.addField(unit, countdown[i], true)
       }
