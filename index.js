@@ -113,7 +113,6 @@ loadJsFiles("./commands/", (name, command, directory, file) => {
     client.publicCommandList.push(name)
 })
 
-client.functions = new Enmap()
 loadJsFiles("./functions/", (name, func, directory, file) => {
   if(client.functions[name])
     return queueLog(`[✖] Failed to load FUNCTION from \`${file}\``)
@@ -121,7 +120,6 @@ loadJsFiles("./functions/", (name, func, directory, file) => {
   client.functions[name] = func
 })
 
-client.util = new Enmap()
 loadJsFiles("./util/", (name, tool, directory, file) => {
   if(client.util[name])
     return queueLog(`[✖] Failed to load UTIL from \`${file}\``)
