@@ -141,6 +141,7 @@ for(let loopLog of logQueue)
 const addKarma = client.functions.addKarma.run
 const autocarrotWebhook = client.functions.autocarrotWebhook.run
 const autoResponses = client.functions.autoResponses.run
+const awaitOrders = client.functions.awaitOrders.run
 const commandHelpEmbed = client.functions.commandHelpEmbed.run
 const coopChannels = client.functions.coopChannels.run
 const extractArgs = client.functions.extractArgs.run
@@ -176,6 +177,7 @@ module.exports = {
   addKarma,
   autocarrotWebhook,
   autoResponses,
+  awaitOrders,
   commandHelpEmbed,
   coopChannels,
   extractArgs,
