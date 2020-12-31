@@ -1,7 +1,9 @@
 exports.run = (author, message) => {
   const index = require("../index.js")
   const { client, config } = index
+  const { logger } = client.util
 
+  
   const searchHookName = `${config.main.botNames.lowerCamelCase} AutoCarrot`
   const hookName = `${config.main.botNames.lowerCamelCase} AutoCarrot #${message.channel.id}`
   const avatarURL = author.avatarURL()
@@ -10,8 +12,6 @@ exports.run = (author, message) => {
   const swearCensors = config.autocarrot.words
   const randomElem = arr => arr[Math.floor(Math.random() * arr.length)]
   
-  const logger = client.util.get("logger")
-
   const correctMsg = (webhook, str) => {
     if(!str.trim()) return // if the message is empty
 

@@ -1,7 +1,7 @@
 exports.run = () => {
   const index = require("../index.js")
   const { client, config, db, Discord } = index
-  const logger = client.util.logger
+  const { logger } = client.util
 
 
 

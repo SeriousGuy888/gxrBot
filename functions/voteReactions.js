@@ -5,7 +5,7 @@ exports.run = async (reaction, user, removed) => {
 
   let message = reaction.message
   
-  const logger = client.util.get("logger")
+  const { logger } = client.util
 
   // reactions of bots and reactions of the message author do not count
   if(user.bot || user.id === message.author.id)
