@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord, auth } = index
-  const messenger = client.util.get("messenger")
+  const { messenger } = client.util
 
   auth.createCustomToken(message.author.id)
     .then(customToken => {
