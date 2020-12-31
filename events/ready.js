@@ -43,7 +43,7 @@ module.exports = async (client, message) => {
   
 
   schedule.scheduleJob("0 * * * *", () => {
-    client.util.get("logger").uploadLogs("Hourly automatic log upload")
+    client.util.logger.uploadLogs("Hourly automatic log upload")
   })
 
   setInterval(() => {
