@@ -20,6 +20,7 @@ exports.fireWithoutUser = async (client, channel) => {
       .setDescription("00:00:00 EST on Monday, January 1st, 2021")
       .setFooter("Can we get an uncursed year this time?")
     
+    let unitsUsed = []
     for(const i in countdown) {
       let unit
       switch(i) {
@@ -39,8 +40,10 @@ exports.fireWithoutUser = async (client, channel) => {
           unit = "Milliseconds"
           break
       }
-      if(countdown[i])
+      if((!unitsUsed) && countdown[i]) {
+        unitsUsed.push(unit)
         emb.addField(unit, countdown[i], true)
+      }
     }
   }
   else {
