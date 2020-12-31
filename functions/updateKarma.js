@@ -1,9 +1,8 @@
 exports.run = async () => {
   const index = require("../index.js")
-  const { client, firebaseAdmin, db } = index
-  let { karmaQueue, karmaCache } = index
+  const { client, firebaseAdmin, db, karmaQueue, karmaCache } = index
+  const { logger } = client.util
 
-  const logger = client.util.get("logger")
 
   if(Object.keys(karmaQueue).length === 0)
     return
