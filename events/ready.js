@@ -1,7 +1,6 @@
 module.exports = (client, message) => {
   const index = require("../index.js")
-  const { config, schedule, updateKarma, logger, timer } = index
-  const awaitOrders = client.functions.get("awaitOrders").run
+  const { awaitOrders, config, schedule, updateKarma, logger, timer } = index
 
   awaitOrders()
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
