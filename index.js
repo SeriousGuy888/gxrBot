@@ -115,10 +115,10 @@ loadJsFiles("./commands/", (name, command, directory, file) => {
 
 client.functions = new Enmap()
 loadJsFiles("./functions/", (name, func, directory, file) => {
-  if(client.functions.get(name))
+  if(client.functions[name])
     return queueLog(`[✖] Failed to load FUNCTION from \`${file}\``)
   queueLog(`[✓] Loaded FUNCTION from \`${file}\``)
-  client.functions.set(name, func)
+  client.functions[name] = func
 })
 
 client.util = new Enmap()
@@ -138,16 +138,16 @@ for(let loopLog of logQueue)
 // setup ↑
 // function and util imports ↓
 
-const addKarma = client.functions.get("addKarma").run
-const autocarrotWebhook = client.functions.get("autocarrotWebhook").run
-const autoResponses = client.functions.get("autoResponses").run
-const commandHelpEmbed = client.functions.get("commandHelpEmbed").run
-const coopChannels = client.functions.get("coopChannels").run
-const extractArgs = client.functions.get("extractArgs").run
-const messageResponder = client.functions.get("messageResponder").run
-const timeConvert = client.functions.get("timeConvert").run
-const updateKarma = client.functions.get("updateKarma").run
-const voteReactions = client.functions.get("voteReactions").run
+const addKarma = client.functions.addKarma.run
+const autocarrotWebhook = client.functions.autocarrotWebhook.run
+const autoResponses = client.functions.autoResponses.run
+const commandHelpEmbed = client.functions.commandHelpEmbed.run
+const coopChannels = client.functions.coopChannels.run
+const extractArgs = client.functions.extractArgs.run
+const messageResponder = client.functions.messageResponder.run
+const timeConvert = client.functions.timeConvert.run
+const updateKarma = client.functions.updateKarma.run
+const voteReactions = client.functions.voteReactions.run
 
 const embedder = client.util.get("embedder")
 const messenger = client.util.get("messenger")
