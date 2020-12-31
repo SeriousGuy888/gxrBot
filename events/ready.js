@@ -8,17 +8,16 @@ module.exports = async (client, message) => {
   client.user.setPresence({ status: "online" })
   client.user.setActivity(`waiting for data...`, { type: "WATCHING" })
 
-
-  const currentDate = new Date()
-  const countdownDate = new Date("January 1 2021 00:00:00 GMT-0500") // new years eastern standard time
-  const diffMillis = countdownDate - currentDate
-  const timeRemaining = await timer.convert(diffMillis)
-
   setInterval(async () => {
+    const currentDate = new Date()
+    const countdownDate = new Date("January 1 2021 00:00:00 GMT-0500") // new years eastern standard time
+    const diffMillis = countdownDate - currentDate
+    const timeRemaining = await timer.convert(diffMillis)
+
     if(diffMillis > 0) {
       const pad = num => num.toString().padStart(2, "0")
       let { h, m, s } = timeRemaining
-      client.user.setActivity(`${timeRemaining.d} days ${h}:${pad(m)}:${pad(s)} remaining...`, { type: "WATCHING" })
+      client.user.setActivity(`${h}:${pad(m)}:${pad(s)} remaining...`, { type: "WATCHING" })
     }
     else {
       client.user.setActivity("🎆 Happy new year!", { type: "WATCHING" })
