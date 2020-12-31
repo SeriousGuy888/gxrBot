@@ -1,4 +1,4 @@
-module.exports = (client, message) => {
+module.exports = async (client, message) => {
   const index = require("../index.js")
   const { awaitOrders, config, schedule, updateKarma, logger, timer } = index
 
@@ -8,16 +8,17 @@ module.exports = (client, message) => {
   client.user.setPresence({ status: "online" })
   client.user.setActivity(`waiting for data...`, { type: "WATCHING" })
 
-  setInterval(async () => {
-    const currentDate = new Date()
-    const countdownDate = new Date("January 1 2021 00:00:00 GMT-0500") // new years eastern standard time
-    const diffMillis = countdownDate - currentDate
 
+  const currentDate = new Date()
+  const countdownDate = new Date("January 1 2021 00:00:00 GMT-0500") // new years eastern standard time
+  const diffMillis = countdownDate - currentDate
+  const timeRemaining = await timer.convert(diffMillis)
+
+  setInterval(async () => {
     if(diffMillis > 0) {
-      const res = await timer.convert(diffMillis)
       const pad = num => num.toString().padStart(2, "0")
-      let { h, m, s } = res
-      client.user.setActivity(`${res.d} days ${h}:${pad(m)}:${pad(s)} remaining...`, { type: "WATCHING" })
+      let { h, m, s } = timeRemaining
+      client.user.setActivity(`${timeRemaining.d} days ${h}:${pad(m)}:${pad(s)} remaining...`, { type: "WATCHING" })
     }
     else {
       client.user.setActivity("🎆 Happy new year!", { type: "WATCHING" })
@@ -25,24 +26,25 @@ module.exports = (client, message) => {
   }, 7000)
 
 
-  schedule.scheduleJob("0 * * * *", () => {
-    client.util.get("logger").uploadLogs("Hourly automatic log upload")
-  })
-
-
-
   let newYearCountdownScheduleRule = new schedule.RecurrenceRule()
-
   newYearCountdownScheduleRule.tz = config.main.timezone.name
-  newYearCountdownScheduleRule.second = 0
-  newYearCountdownScheduleRule.minute = 0
+  
   // newYearCountdownScheduleRule.hour = 0
+  newYearCountdownScheduleRule.minute = 0
+  newYearCountdownScheduleRule.second = 0
+
   schedule.scheduleJob(newYearCountdownScheduleRule, () => {
     const newsChannel = client.channels.cache.get("749428233270853681")
     if(!newsChannel)
       return logger.log("Error - news channel does not exist D:")
     
     client.commands.get("new_year_countdown").fireWithoutUser(client, newsChannel)
+  })
+
+  
+
+  schedule.scheduleJob("0 * * * *", () => {
+    client.util.get("logger").uploadLogs("Hourly automatic log upload")
   })
 
   setInterval(() => {

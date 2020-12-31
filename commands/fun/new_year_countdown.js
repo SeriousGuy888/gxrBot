@@ -18,12 +18,30 @@ exports.fireWithoutUser = async (client, channel) => {
       .setColor("#12d812")
       .setTitle(":hourglass: Hourly Countdown to 2021")
       .setDescription("00:00:00 EST on Monday, January 1st, 2021")
-      .addField("Days", countdown.d, true)
-      .addField("Hours", countdown.h, true)
-      .addField("Minutes", countdown.m, true)
-      .addField("Seconds", countdown.s, true)
-      .addField("Milliseconds", countdown.ms, true)
       .setFooter("Can we get an uncursed year this time?")
+    
+    for(const i in countdown) {
+      let unit
+      switch(i) {
+        case "d":
+          unit = "Days"
+          break
+        case "h":
+          unit = "Hours"
+          break
+        case "m":
+          unit = "Minutes"
+          break
+        case "s":
+          unit = "Seconds"
+          break
+        case "ms":
+          unit = "Milliseconds"
+          break
+      }
+      if(countdown[i])
+        emb.addField(unit, countdown[i], true)
+    }
   }
   else {
     emb
