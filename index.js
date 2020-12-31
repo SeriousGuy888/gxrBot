@@ -123,10 +123,10 @@ loadJsFiles("./functions/", (name, func, directory, file) => {
 
 client.util = new Enmap()
 loadJsFiles("./util/", (name, tool, directory, file) => {
-  if(client.util.get(name))
+  if(client.util[name])
     return queueLog(`[✖] Failed to load UTIL from \`${file}\``)
   queueLog(`[✓] Loaded UTIL \`${file}\``)
-  client.util.set(name, tool)
+  client.util[name] = tool
 })
 
 
@@ -150,9 +150,7 @@ const timeConvert = client.functions.timeConvert.run
 const updateKarma = client.functions.updateKarma.run
 const voteReactions = client.functions.voteReactions.run
 
-const embedder = client.util.get("embedder")
-const messenger = client.util.get("messenger")
-const timer = client.util.get("timer")
+const { embedder, messenger, timer } = client.util
 
 // function and util imports ↑
 // exports ↓
