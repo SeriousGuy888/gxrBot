@@ -25,6 +25,7 @@
     "auth": "For signing in to the admin web panel.",
     "cult": "Set the cult channel.",
     "mute": "Force mute and unmute everyone in a specified VC.",
-    "ows": "Set up the one word story channel."
+    "ows": "Set up the one word story channel.",
+    "say": "Make %lowername% say something."
   }
 }
