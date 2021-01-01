@@ -16,12 +16,15 @@ exports.fireWithoutUser = async (client, channel) => {
     const countdown = await timer.convert(diffMillis)
     emb
       .setColor("#12d812")
-      .setTitle(":hourglass: Hourly Countdown to 2021")
+      .setTitle(":hourglass: Countdown to 2021")
       .setDescription("00:00:00 EST on Monday, January 1st, 2021")
       .setFooter("Can we get an uncursed year this time?")
     
     let unitsUsed = []
     for(const i in countdown) {
+      if(i === "ms")
+        continue
+
       let unit
       switch(i) {
         case "d":
@@ -35,9 +38,6 @@ exports.fireWithoutUser = async (client, channel) => {
           break
         case "s":
           unit = "Seconds"
-          break
-        case "ms":
-          unit = "Milliseconds"
           break
       }
       if((unitsUsed.length) || countdown[i]) {

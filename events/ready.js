@@ -23,25 +23,7 @@ module.exports = async (client, message) => {
       client.user.setActivity("🎆 Happy new year!", { type: "WATCHING" })
     }
   }, 7000)
-
-
-  let newYearCountdownScheduleRule = new schedule.RecurrenceRule()
-  newYearCountdownScheduleRule.tz = config.main.timezone.name
   
-  // newYearCountdownScheduleRule.hour = 0
-  newYearCountdownScheduleRule.minute = 0
-  newYearCountdownScheduleRule.second = 0
-
-  schedule.scheduleJob(newYearCountdownScheduleRule, () => {
-    const newsChannel = client.channels.cache.get("749428233270853681")
-    if(!newsChannel)
-      return logger.log("Error - news channel does not exist D:")
-    
-    client.commands.get("new_year_countdown").fireWithoutUser(client, newsChannel)
-  })
-
-  
-
   schedule.scheduleJob("0 * * * *", () => {
     client.util.logger.uploadLogs("Hourly automatic log upload")
   })
