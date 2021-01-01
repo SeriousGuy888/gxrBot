@@ -49,7 +49,7 @@ exports.run = (message) => {
 exports.deleteMessage = (message, errorMessage) => {
   const index = require("../index.js")
   const { client } = index
-  const messenger = client.util.get("messenger")
+  const messenger = client.util.messenger
 
   if(!message.author.bot)
     messenger.dm(message.author.id, errorMessage)
