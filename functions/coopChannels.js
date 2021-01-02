@@ -20,8 +20,8 @@ exports.run = (message) => {
 
     content = content.toLowerCase()
     phrase = phrase.toLowerCase()
-    if(content == phrase && legal() && message.author.id !== "427925505581383721") {
-      liamCult()
+    if(content == phrase && legal()) {
+      if(message.author.id !== "427925505581383721") liamCult()
       return true
     }
   }
