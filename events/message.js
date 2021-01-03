@@ -17,7 +17,7 @@ module.exports = async (client, message) => {
       break commands
 
     if(message.content.toLowerCase().indexOf(prefix) === 0) {
-      const { args, commandName } = extractArgs(message)
+      let { args, commandName } = extractArgs(message)
       let command
 
       if(commandName.length === 0)
@@ -41,8 +41,10 @@ module.exports = async (client, message) => {
       }
 
 
-      if(command && command.alias)
-        command = client.commands.get(command.alias)
+      if(command && command.alias) {
+        commandName = command.alias
+        command = client.commands.get(commandName)
+      }
       if(!command) {
         badCommand(false)
         break commands
