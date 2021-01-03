@@ -1,7 +1,9 @@
 {
   "lang": {
     "emojis": {
-      "confirm": "✅"
+      "confirm": "✅",
+      "coin": ":coin:"
     }
-  }
+  },
+  "colour": "#dfcd00"
 }

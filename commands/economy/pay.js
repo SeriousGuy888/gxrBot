@@ -31,19 +31,21 @@ exports.run = async (client, message, args) => {
 
   let balance = await banker.getBalance(message.author.id)
   if(balance < amount) {
-    message.channel.send(`you only have :coin:${balance}`)
+    message.channel.send(`you only have ${settings.lang.emojis.coin}${balance}`)
     return
   }
 
 
   
   const msg = await messenger.loadingMessage(message.channel, {
-    title: `Paying ${member.tag} :coin:${amount}`
+    colour: settings.colour,
+    title: `Paying ${member.tag} ${settings.lang.emojis.coin}${amount}`
   })
 
   const waitingEmbed = new Discord.MessageEmbed()
-    .setTitle("Confirm ro mse thing")
-    .setDescription("sdjfsndlkfmglfgkhsdoifgsldkfjsdlfk")
+    .setColor(settings.colour)
+    .setTitle("Confirm Transaction")
+    .setDescription(`${message.author} pays ${member} ${settings.lang.emojis.coin}${amount}\nReact with ${settings.lang.emojis.confirm} to confirm.`)
   await msg.edit(waitingEmbed)
   msg.react(settings.lang.emojis.confirm)
   const filter = (reaction, reactor) => (reaction.emoji.name === settings.lang.emojis.confirm) && (reactor.id === message.author.id)
@@ -55,8 +57,9 @@ exports.run = async (client, message, args) => {
         banker.addToBalance(message.author.id, -amount)
       
         const responseEmbed = new Discord.MessageEmbed()
+          .setColor(settings.colour)
           .setTitle(`:white_check_mark: Payment Successful`)
-          .setDescription(`Paid :coin:${amount} to ${member.tag}.`)
+          .setDescription(`Paid ${settings.lang.emojis.coin}${amount} to ${member}.`)
       
         msg.edit(responseEmbed)
       }

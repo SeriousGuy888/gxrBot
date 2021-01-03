@@ -1,6 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, banker, messenger } = index
+  const { Discord, config, banker, messenger } = index
+  const settings = config.economy
   
   let member
   if(!args[0])
@@ -12,6 +13,7 @@ exports.run = async (client, message, args) => {
   
   
   const msg = await messenger.loadingMessage(message.channel, {
+    colour: settings.colour,
     title: `Querying Balance of ${member.tag}`
   })
 
@@ -20,7 +22,7 @@ exports.run = async (client, message, args) => {
     .setTitle(`Balance of ${member.tag}`)
 
   const balance = await banker.getBalance(member.id)
-  responseEmbed.setDescription(`:coin: ${balance.toLocaleString()}`)
+  responseEmbed.setDescription(`${settings.lang.emojis.coin}${balance.toLocaleString()}`)
 
   msg.edit(responseEmbed)
 }
