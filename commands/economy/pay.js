@@ -52,8 +52,8 @@ exports.run = async (client, message, args) => {
       
         const responseEmbed = new Discord.MessageEmbed()
           .setColor(settings.colours.generic)
-          .setTitle(`:white_check_mark: Payment Successful`)
-          .setDescription(`Paid ${settings.lang.emojis.coin}${amount} to ${member}.`)
+          .setTitle(`${config.main.emojis.check} Transaction Complete`)
+          .setDescription(`${message.author} has paid ${member} ${settings.lang.emojis.coin}${amount}.`)
       
         msg.edit(responseEmbed)
       }

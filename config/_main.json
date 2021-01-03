@@ -30,7 +30,8 @@
     "success": "#21b821"
   },
   "emojis": {
-    "loading": "<a:loading:791174362060554291>"
+    "loading": "<a:loading:791174362060554291>",
+    "check": "<a:check:795354630585712681>"
   },
   "timezone": {
     "name": "America/Toronto",
