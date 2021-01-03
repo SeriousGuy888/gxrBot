@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, banker, messenger } = index
+  const { Discord, config, getUserArg, banker, messenger } = index
   const settings = config.economy
   
 
@@ -11,26 +11,17 @@ exports.run = async (client, message, args) => {
     page = parseInt(args[0])
 
 
-  let member 
-  if(!args[0])
-    member = message.author
-  else
-    member = message.mentions.members.first() || await message.guild.members.fetch(args[0]).catch(() => {})
-  
-  if(!member)
-    member = message.author
-  if(member.user)
-    member = member.user
+  let user = await getUserArg(message)
   
   
   
   const msg = await messenger.loadingMessage(message.channel, {
     colour: settings.colours.generic,
-    title: `Querying Inventory of ${member.tag}`
+    title: `Querying Inventory of ${user.tag}`
   })
 
 
-  const inventory = await banker.getInventory(member.id)
+  const inventory = await banker.getInventory(user.id)
   const inventoryKeys = Object.keys(inventory).sort()
   const sortedInventory = {}
 
@@ -45,7 +36,7 @@ exports.run = async (client, message, args) => {
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.generic)
-    .setTitle(`Inventory of ${member.tag}`)
+    .setTitle(`Inventory of ${user.tag}`)
     .setFooter(`Page ${page} of ${pageCount}`)
   
 
