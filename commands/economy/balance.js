@@ -19,6 +19,7 @@ exports.run = async (client, message, args) => {
 
 
   const responseEmbed = new Discord.MessageEmbed()
+    .setColor(settings.colours.generic)
     .setTitle(`Balance of ${member.tag}`)
 
   const balance = await banker.getBalance(member.id)
