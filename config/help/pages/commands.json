@@ -16,6 +16,10 @@
     "magic8ball": "(`8ball`) Very accurate magic 8 ball.",
     "rock_paper_scissors": "(`rps`) Play rock paper scissors against %lowername%."
   },
+  "economy": {
+    "balance": "(`bal`) See your balance or somebody else's.",
+    "pay": "Pay someone some moolah."
+  },
   "karma": {
     "leaderboard": "(`lb`) See the karma leaderboard.",
     "karma": "See someone's or your own karma score.",
