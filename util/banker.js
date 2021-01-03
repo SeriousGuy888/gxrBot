@@ -82,3 +82,37 @@ exports.getInventory = async userId => {
 
   return inventory
 }
+
+exports.updateInventories = async () => {
+  const { logger } = client.util
+
+  if(Object.keys(inventoryQueue).length === 0)
+    return
+  
+  logger.log(`Updating user inventories...`)
+  logger.log(JSON.stringify(inventoryQueue, null, 4))
+
+  for(let user in inventoryQueue) {
+    if(!Object.keys(inventoryQueue[user]).length) {
+      delete inventoryQueue[user]
+      continue
+    }
+
+    let payload = {
+      inventory: {}
+    }
+
+    for(let item in inventoryQueue[user]) {
+      if(!inventoryQueue[user][item]) // net change is zero
+        continue // skip
+
+      const increment = firebaseAdmin.firestore.FieldValue.increment(inventoryQueue[user][item])
+      payload.inventory[item] = increment
+    }
+
+    const docRef = db.collection("users").doc(user)
+    await docRef.set(payload, { merge: true })
+
+    delete inventoryQueue[user]
+  }
+}
