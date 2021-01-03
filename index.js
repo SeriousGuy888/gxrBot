@@ -30,6 +30,7 @@ const translate = require("translate-google") // google translate i think
 const schedule = require("node-schedule") // node scheduler
 const stringSimilarity = require("string-similarity")
 
+let balanceQueue = {}
 let karmaQueue = {}
 let karmaCache = []
 let graphCache = {
@@ -49,8 +50,11 @@ let priorityExports = {
   config,
   fs,
   prefix,
+  firebaseAdmin,
   db,
   auth,
+
+  balanceQueue,
 }
 
 module.exports = priorityExports
@@ -150,14 +154,13 @@ const timeConvert = client.functions.timeConvert.run
 const updateKarma = client.functions.updateKarma.run
 const voteReactions = client.functions.voteReactions.run
 
-const { embedder, messenger, timer } = client.util
+const { banker, embedder, messenger, timer } = client.util
 
 // function and util imports ↑
 // exports ↓
 
 module.exports = {
   ...priorityExports,
-  firebaseAdmin,
   db,
   Enmap,
   QuickChart,
@@ -184,6 +187,7 @@ module.exports = {
   updateKarma,
   voteReactions,
 
+  banker,
   embedder,
   logger,
   messenger,
