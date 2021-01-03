@@ -50,15 +50,20 @@ exports.run = async (client, message, args) => {
   
 
   if(inventoryKeys.length) {
-    for(const item in sortedInventory) {
-      itemsLooped++
-      if(itemsLooped < itemNumber + 1)
-        continue
-      if(itemsAdded >= itemsPerPage)
-        break
-      responseEmbed.addField(item, sortedInventory[item])
-      itemNumber++
-      itemsAdded++
+    if(page > pageCount) {
+      responseEmbed.setDescription("This page of this user's inventory is empty.")
+    }
+    else {
+      for(const item in sortedInventory) {
+        itemsLooped++
+        if(itemsLooped < itemNumber + 1)
+          continue
+        if(itemsAdded >= itemsPerPage)
+          break
+        responseEmbed.addField(item, sortedInventory[item])
+        itemNumber++
+        itemsAdded++
+      }
     }
   }
   else {
