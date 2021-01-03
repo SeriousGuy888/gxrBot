@@ -7,6 +7,7 @@ module.exports = {
   help:               require("./help/_help.js"),
   main:               require("./_main.json"),
   admins:             require("./admins.json"),
+  economy:             require("./economy.json"),
   karma:              require("./karma.json"),
   logger:             require("./logger.json"),
   magic8ball:         require("./magic8ball.json"),

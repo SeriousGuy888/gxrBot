@@ -1,6 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, banker, messenger } = index
+  const { Discord, config, banker, messenger } = index
+  const settings = config.economy
   
   if(!args[0]) {
     this.help(client, message, args)
@@ -40,15 +41,32 @@ exports.run = async (client, message, args) => {
     title: `Paying ${member.tag} :coin:${amount}`
   })
 
-
-  banker.addToBalance(member.id, amount)
-  banker.addToBalance(message.author.id, -amount)
-
-  const responseEmbed = new Discord.MessageEmbed()
-    .setTitle(`:white_check_mark: Payment Successful`)
-    .setDescription(`Paid :coin:${amount} to ${member.tag}.`)
-
-  msg.edit(responseEmbed)
+  const waitingEmbed = new Discord.MessageEmbed()
+    .setTitle("Confirm ro mse thing")
+    .setDescription("sdjfsndlkfmglfgkhsdoifgsldkfjsdlfk")
+  await msg.edit(waitingEmbed)
+  msg.react(settings.lang.emojis.confirm)
+  const filter = (reaction, reactor) => (reaction.emoji.name === settings.lang.emojis.confirm) && (reactor.id === message.author.id)
+  msg.awaitReactions(filter, { max: 1, time: 15000 })
+    .then(collected => {
+      const reaction = collected.first()
+      if(reaction.emoji.name === settings.lang.emojis.confirm) {
+        banker.addToBalance(member.id, amount)
+        banker.addToBalance(message.author.id, -amount)
+      
+        const responseEmbed = new Discord.MessageEmbed()
+          .setTitle(`:white_check_mark: Payment Successful`)
+          .setDescription(`Paid :coin:${amount} to ${member.tag}.`)
+      
+        msg.edit(responseEmbed)
+      }
+      else {
+        message.channel.send("everything is broken duckduck dukcdu uckd")
+      }
+    })
+    .catch(collected => {
+      msg.edit("payment aborted because no confirmation was received. how rude")
+    })
 }
 
 exports.help = async (client, message, args) => {
