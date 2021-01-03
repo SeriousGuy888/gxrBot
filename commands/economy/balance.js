@@ -1,28 +1,21 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, banker, messenger } = index
+  const { Discord, config, getUserArg, banker, messenger } = index
   const settings = config.economy
   
-  let member
-  if(!args[0])
-    member = message.author
-  else
-    member = message.mentions.members.first() || await message.guild.members.fetch(args[0])
-  if(member.user)
-    member = member.user
-  
+  let user = await getUserArg(message)
   
   const msg = await messenger.loadingMessage(message.channel, {
     colour: settings.colours.generic,
-    title: `Querying Balance of ${member.tag}`
+    title: `Querying Balance of ${user.tag}`
   })
 
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.generic)
-    .setTitle(`Balance of ${member.tag}`)
+    .setTitle(`Balance of ${user.tag}`)
 
-  const balance = await banker.getBalance(member.id)
+  const balance = await banker.getBalance(user.id)
   responseEmbed.setDescription(`${settings.lang.emojis.coin}${balance.toLocaleString()}`)
 
   msg.edit(responseEmbed)
