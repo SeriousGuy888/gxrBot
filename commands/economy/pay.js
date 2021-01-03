@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, banker, messenger } = index
+  const { Discord, config, getUserArg, banker, messenger } = index
   const settings = config.economy
   
   if(!args[0]) {
@@ -8,9 +8,7 @@ exports.run = async (client, message, args) => {
     return
   }
 
-  let member = message.mentions.members.first() || await message.guild.members.fetch(args[0].replace(/[^0-9]/gi, "")).catch(() => {})
-  if(!member)
-    member = message.author
+  let member = await getUserArg(message)
   
   const msg = await messenger.loadingMessage(message.channel, {
     colour: settings.colours.generic,
@@ -19,10 +17,6 @@ exports.run = async (client, message, args) => {
 
   if(member.id === message.author.id)
     return msg.edit("specify a valid user you dukcing racecar")
-
-
-  if(member.user)
-    member = member.user
 
 
   let amount = parseFloat(parseFloat(args[1]).toFixed(2)) // parse amount as float with 2 decimal points of accuracy
