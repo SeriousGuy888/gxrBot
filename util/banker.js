@@ -1,6 +1,6 @@
 const index = require("../index.js")
 const { client, firebaseAdmin, db } = index
-let { balanceQueue } = index
+let { balanceQueue, inventoryQueue } = index
 
 exports.getBalance = async userId => {
   const userRef = db.collection("users").doc(userId)
@@ -55,4 +55,30 @@ exports.updateBalances = async () => {
 
     delete balanceQueue[i]
   }
+}
+
+
+
+exports.getInventory = async userId => {
+  const userRef = db.collection("users").doc(userId)
+  const doc = await userRef.get()
+
+  let inventory = {}
+
+  if(doc.exists) {
+    let data = doc.data()
+
+    if(data.inventory) // if database record for user's inventory exists
+      inventory = data.inventory // read record and use as inventory
+  }
+    
+  for(const item in inventory) {
+    if(inventoryQueue[userId] && inventoryQueue[userId][item]) {
+      if(!inventory[item])
+        inventory[item] = {}
+      inventory[item] += inventoryQueue[userId][item]
+    }
+  }
+
+  return inventory
 }
