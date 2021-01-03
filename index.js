@@ -31,6 +31,7 @@ const schedule = require("node-schedule") // node scheduler
 const stringSimilarity = require("string-similarity")
 
 let balanceQueue = {}
+let inventoryQueue = {}
 let karmaQueue = {}
 let karmaCache = []
 let graphCache = {
@@ -54,6 +55,7 @@ let priorityExports = {
   db,
   auth,
 
+  inventoryQueue,
   balanceQueue,
 }
 
