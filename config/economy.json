@@ -5,5 +5,8 @@
       "coin": ":coin:"
     }
   },
-  "colour": "#dfcd00"
+  "colours": {
+    "generic": "#dfcd00",
+    "failure": "#df0000"
+  }
 }

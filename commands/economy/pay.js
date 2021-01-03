@@ -19,31 +19,25 @@ exports.run = async (client, message, args) => {
   
 
   let amount = parseFloat(parseFloat(args[1]).toFixed(2)) // parse amount as float with 2 decimal points of accuracy
-  if(!amount) {
-    message.channel.send("number please you dukcing stupid")
-    return
-  }
+  if(!amount)
+    return message.channel.send("at least `0.01` you dukcing dukc")
 
-  if(amount <= 0) {
-    message.channel.send("you cant just pay people negative or zero amounts you dukcing dukc")
-    return
-  }
+  if(amount <= 0)
+    return message.channel.send("you cant just pay people negative amounts you dukcing dukc")
 
   let balance = await banker.getBalance(message.author.id)
-  if(balance < amount) {
-    message.channel.send(`you only have ${settings.lang.emojis.coin}${balance}`)
-    return
-  }
+  if(balance < amount)
+    return message.channel.send(`you only have ${settings.lang.emojis.coin}${balance}`)
 
 
   
   const msg = await messenger.loadingMessage(message.channel, {
-    colour: settings.colour,
+    colour: settings.colours.generic,
     title: `Paying ${member.tag} ${settings.lang.emojis.coin}${amount}`
   })
 
   const waitingEmbed = new Discord.MessageEmbed()
-    .setColor(settings.colour)
+    .setColor(settings.colours.generic)
     .setTitle("Confirm Transaction")
     .setDescription(`${message.author} pays ${member} ${settings.lang.emojis.coin}${amount}\nReact with ${settings.lang.emojis.confirm} to confirm.`)
   await msg.edit(waitingEmbed)
@@ -57,7 +51,7 @@ exports.run = async (client, message, args) => {
         banker.addToBalance(message.author.id, -amount)
       
         const responseEmbed = new Discord.MessageEmbed()
-          .setColor(settings.colour)
+          .setColor(settings.colours.generic)
           .setTitle(`:white_check_mark: Payment Successful`)
           .setDescription(`Paid ${settings.lang.emojis.coin}${amount} to ${member}.`)
       
@@ -68,7 +62,10 @@ exports.run = async (client, message, args) => {
       }
     })
     .catch(collected => {
-      msg.edit("payment aborted because no confirmation was received. how rude")
+      waitingEmbed.setColor(settings.colours.failure)
+      msg.edit("Transaction was aborted because no confirmation was received. How rude.", {
+        embed: waitingEmbed
+      })
     })
 }
 

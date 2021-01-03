@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
   
   
   const msg = await messenger.loadingMessage(message.channel, {
-    colour: settings.colour,
+    colour: settings.colours.generic,
     title: `Querying Balance of ${member.tag}`
   })
 
