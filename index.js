@@ -151,6 +151,7 @@ const awaitOrders = client.functions.awaitOrders.run
 const commandHelpEmbed = client.functions.commandHelpEmbed.run
 const coopChannels = client.functions.coopChannels.run
 const extractArgs = client.functions.extractArgs.run
+const getUserArg = client.functions.getUserArg.run
 const messageResponder = client.functions.messageResponder.run
 const updateKarma = client.functions.updateKarma.run
 const voteReactions = client.functions.voteReactions.run
@@ -183,6 +184,7 @@ module.exports = {
   commandHelpEmbed,
   coopChannels,
   extractArgs,
+  getUserArg,
   messageResponder,
   updateKarma,
   voteReactions,
