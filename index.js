@@ -152,7 +152,6 @@ const commandHelpEmbed = client.functions.commandHelpEmbed.run
 const coopChannels = client.functions.coopChannels.run
 const extractArgs = client.functions.extractArgs.run
 const messageResponder = client.functions.messageResponder.run
-const timeConvert = client.functions.timeConvert.run
 const updateKarma = client.functions.updateKarma.run
 const voteReactions = client.functions.voteReactions.run
 
@@ -185,7 +184,6 @@ module.exports = {
   coopChannels,
   extractArgs,
   messageResponder,
-  timeConvert,
   updateKarma,
   voteReactions,
 
