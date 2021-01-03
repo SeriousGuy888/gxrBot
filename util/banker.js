@@ -75,9 +75,12 @@ exports.getInventory = async userId => {
   for(const item in inventory) {
     if(inventoryQueue[userId] && inventoryQueue[userId][item]) {
       if(!inventory[item])
-        inventory[item] = {}
+        inventory[item] = 0
       inventory[item] += inventoryQueue[userId][item]
     }
+
+    if(!inventory[item]) // zero item amount
+      delete inventory[item] // pretend the item doesnt exist
   }
 
   return inventory
