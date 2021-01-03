@@ -22,7 +22,9 @@ exports.run = async (client, message, args) => {
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.karma)
-    .setTitle(`Karma of ${member.tag}`)
+    .setThumbnail(member.avatarURL({ dynamic: true }))
+    .setTitle(`${member.tag}'s Karma`)
+    .setURL(`${settings.lang.web_panel.user_lookup}?ids=${member.id}`)
     .setFooter(settings.lang.footer)
 
   let memberCacheIndex
@@ -60,7 +62,7 @@ exports.run = async (client, message, args) => {
   if(karmaQueue[member.id])
     karma = `${karma} and ${karmaQueue[member.id]} pending`
   
-  responseEmbed.setDescription(notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}\n[See this user on the web panel](${settings.lang.web_panel.user_lookup}?ids=${member.id} "See this user on the web panel.")`)
+  responseEmbed.setDescription(notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}`)
 
   msg.edit(responseEmbed)
 }
