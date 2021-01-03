@@ -8,33 +8,34 @@ exports.run = async (client, message, args) => {
     return
   }
 
-  let member = message.mentions.members.first() || await message.guild.members.fetch(args[0])
-  if(member.user)
-    member = member.user
-
-  if(member.id === message.author.id) {
-    message.channel.send("you cant pay yourself dumbadd")
-    return
-  }
-  
-
-  let amount = parseFloat(parseFloat(args[1]).toFixed(2)) // parse amount as float with 2 decimal points of accuracy
-  if(!amount)
-    return message.channel.send("at least `0.01` you dukcing dukc")
-
-  if(amount <= 0)
-    return message.channel.send("you cant just pay people negative amounts you dukcing dukc")
-
-  let balance = await banker.getBalance(message.author.id)
-  if(balance < amount)
-    return message.channel.send(`you only have ${settings.lang.emojis.coin}${balance}`)
-
-
+  let member = message.mentions.members.first() || await message.guild.members.fetch(args[0].replace(/[^0-9]/gi, "")).catch(() => {})
+  if(!member)
+    member = message.author
   
   const msg = await messenger.loadingMessage(message.channel, {
     colour: settings.colours.generic,
-    title: `Paying ${member.tag} ${settings.lang.emojis.coin}${amount}`
+    title: `Beginning Transaction...`
   })
+
+  if(member.id === message.author.id)
+    return msg.edit("specify a valid user you dukcing racecar")
+
+
+  if(member.user)
+    member = member.user
+
+
+  let amount = parseFloat(parseFloat(args[1]).toFixed(2)) // parse amount as float with 2 decimal points of accuracy
+  if(!amount)
+    return msg.edit("at least `0.01` you dukcing dukc")
+
+  if(amount <= 0)
+    return msg.edit("you cant just pay people negative amounts you dukcing dukc")
+
+  let balance = await banker.getBalance(message.author.id)
+  if(balance < amount)
+    return msg.edit(`you only have ${settings.lang.emojis.coin}${balance.toFixed(2)}`)
+  
 
   const confirmEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.generic)
