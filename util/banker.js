@@ -19,6 +19,16 @@ exports.getBalance = async userId => {
   return balance
 }
 
+exports.addToBalance = async (userId, amount) => {
+  const { logger } = client.util
+
+  if(!balanceQueue[userId])
+    balanceQueue[userId] = 0
+  balanceQueue[userId] += amount
+
+  logger.log(`Added ${amount} to balance of user ${userId}.`)
+}
+
 exports.updateBalances = async () => {
   const { logger } = client.util
 
