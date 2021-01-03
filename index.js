@@ -199,6 +199,7 @@ module.exports = {
 
 process.once("SIGTERM", async () => {
   updateKarma()
+  banker.updateBalances()
   logger.uploadLogs("Automatic log upload due to SIGTERM signal.", true)
   process.exit()
 })
@@ -206,6 +207,7 @@ process.once("SIGTERM", async () => {
 process.once("SIGINT", async () => {
   logger.uploadLogs("Automatic log upload due to SIGINT signal.", true)
   updateKarma()
+  banker.updateBalances()
 })
 
 
