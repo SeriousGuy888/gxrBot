@@ -36,11 +36,11 @@ exports.run = async (client, message, args) => {
     title: `Paying ${member.tag} ${settings.lang.emojis.coin}${amount}`
   })
 
-  const waitingEmbed = new Discord.MessageEmbed()
+  const confirmEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.generic)
     .setTitle("Confirm Transaction")
     .setDescription(`${message.author} pays ${member} ${settings.lang.emojis.coin}${amount}\nReact with ${settings.lang.emojis.confirm} to confirm.`)
-  await msg.edit(waitingEmbed)
+  await msg.edit(confirmEmbed)
   msg.react(settings.lang.emojis.confirm)
   const filter = (reaction, reactor) => (reaction.emoji.name === settings.lang.emojis.confirm) && (reactor.id === message.author.id)
   msg.awaitReactions(filter, { max: 1, time: 15000 })
@@ -62,9 +62,9 @@ exports.run = async (client, message, args) => {
       }
     })
     .catch(collected => {
-      waitingEmbed.setColor(settings.colours.failure)
+      confirmEmbed.setColor(settings.colours.failure)
       msg.edit("Transaction was aborted because no confirmation was received. How rude.", {
-        embed: waitingEmbed
+        embed: confirmEmbed
       })
     })
 }
