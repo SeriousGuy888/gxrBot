@@ -8,14 +8,14 @@ exports.run = async (client, message, args) => {
     return
   }
 
-  let member = await getUserArg(message)
+  let user = await getUserArg(message)
   
   const msg = await messenger.loadingMessage(message.channel, {
     colour: settings.colours.generic,
     title: `Beginning Transaction...`
   })
 
-  if(member.id === message.author.id)
+  if(user.id === message.author.id)
     return msg.edit("specify a valid user you dukcing racecar")
 
 
@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
   const confirmEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.generic)
     .setTitle("Confirm Transaction")
-    .setDescription(`${message.author} pays ${member} ${settings.lang.emojis.coin}${amount}\nReact with ${settings.lang.emojis.confirm} to confirm.`)
+    .setDescription(`${message.author} pays ${user} ${settings.lang.emojis.coin}${amount}\nReact with ${settings.lang.emojis.confirm} to confirm.`)
   await msg.edit(confirmEmbed)
   msg.react(settings.lang.emojis.confirm)
   const filter = (reaction, reactor) => (reaction.emoji.name === settings.lang.emojis.confirm) && (reactor.id === message.author.id)
@@ -42,13 +42,13 @@ exports.run = async (client, message, args) => {
     .then(collected => {
       const reaction = collected.first()
       if(reaction.emoji.name === settings.lang.emojis.confirm) {
-        banker.addToBalance(member.id, amount)
+        banker.addToBalance(user.id, amount)
         banker.addToBalance(message.author.id, -amount)
       
         const responseEmbed = new Discord.MessageEmbed()
           .setColor(settings.colours.generic)
           .setTitle(`${config.main.emojis.check} Transaction Complete`)
-          .setDescription(`${message.author} has paid ${member} ${settings.lang.emojis.coin}${amount}.`)
+          .setDescription(`${message.author} has paid ${user} ${settings.lang.emojis.coin}${amount}.`)
       
         msg.edit(responseEmbed)
       }
