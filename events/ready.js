@@ -1,6 +1,6 @@
 module.exports = async (client, message) => {
   const index = require("../index.js")
-  const { awaitOrders, config, schedule, updateKarma, logger, timer } = index
+  const { awaitOrders, config, schedule, updateKarma, banker, logger, timer } = index
 
   awaitOrders()
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
@@ -30,5 +30,6 @@ module.exports = async (client, message) => {
 
   setInterval(() => {
     updateKarma()
+    banker.updateBalances()
   }, 5 * 60 * 1000)
 }
