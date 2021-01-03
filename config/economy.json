@@ -8,5 +8,8 @@
   "colours": {
     "generic": "#dfcd00",
     "failure": "#df0000"
+  },
+  "inventory": {
+    "itemsPerPage": 9
   }
 }

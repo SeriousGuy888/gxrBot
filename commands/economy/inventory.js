@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
   const inventoryKeys = Object.keys(inventory).sort()
   const sortedInventory = {}
 
-  const itemsPerPage = 5
+  const itemsPerPage = settings.inventory.itemsPerPage
   const pageCount = Math.ceil(inventoryKeys.length / itemsPerPage)
   let itemsLooped = 0
   let itemNumber = itemsPerPage * (page - 1)
@@ -60,7 +60,7 @@ exports.run = async (client, message, args) => {
           continue
         if(itemsAdded >= itemsPerPage)
           break
-        responseEmbed.addField(item, sortedInventory[item])
+        responseEmbed.addField(item, sortedInventory[item], true)
         itemNumber++
         itemsAdded++
       }
