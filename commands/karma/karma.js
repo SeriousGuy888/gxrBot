@@ -1,35 +1,29 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, db, karmaQueue, karmaCache, messenger } = index
+  const { Discord, config, db, getUserArg, karmaQueue, karmaCache, messenger } = index
 
   const settings = config.karma
 
 
-  let member
-  if(!args[0])
-    member = message.author
-  else
-    member = message.mentions.members.first() || await message.guild.members.fetch(args[0])
-  if(member.user)
-    member = member.user
+  let user = await getUserArg(message)
   
   
   const msg = await messenger.loadingMessage(message.channel, {
     colour: settings.colours.karma,
-    title: `Querying Karma of ${member.tag}`
+    title: `Querying Karma of ${user.tag}`
   })
 
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.karma)
-    .setThumbnail(member.avatarURL({ dynamic: true }))
-    .setTitle(`${member.tag}'s Karma`)
-    .setURL(`${settings.lang.web_panel.user_lookup}?ids=${member.id}`)
+    .setThumbnail(user.avatarURL({ dynamic: true }))
+    .setTitle(`${user.tag}'s Karma`)
+    .setURL(`${settings.lang.web_panel.user_lookup}?ids=${user.id}`)
     .setFooter(settings.lang.footer)
 
   let memberCacheIndex
   for(let i in karmaCache) {
-    if(karmaCache[i].id === member.id) {
+    if(karmaCache[i].id === user.id) {
       memberCacheIndex = i
       break
     }
@@ -41,7 +35,7 @@ exports.run = async (client, message, args) => {
   if(memberCacheIndex)
     karma = karmaCache[memberCacheIndex].karma
   else {
-    const userRef = db.collection("users").doc(member.id)
+    const userRef = db.collection("users").doc(user.id)
     const doc = await userRef.get()
   
     if(!doc.exists)
@@ -59,8 +53,8 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  if(karmaQueue[member.id])
-    karma = `${karma} and ${karmaQueue[member.id]} pending`
+  if(karmaQueue[user.id])
+    karma = `${karma} and ${karmaQueue[user.id]} pending`
   
   responseEmbed.setDescription(notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}`)
 
