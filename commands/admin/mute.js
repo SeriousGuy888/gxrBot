@@ -1,7 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const config = index.config
-  const Discord = index.Discord
+  const { config, Discord, embedder } = index
 
   if(!message.guild || !args[0]) return this.help(client, message, args)
 
@@ -10,24 +9,15 @@ exports.run = async (client, message, args) => {
   const guild = message.guild
   const allMembers = await guild.members.fetch()
 
-  // guild.members.fetch()
-  //   .then(allMembers => {
-  //     message.channel.send("a")
-  //   })
-  //   .catch(err => {
-  //     message.channel.send(err)
-  //   })
-
-  // return
 
   const authorGuildMember = allMembers.find(gm => gm.id === message.author.id)
-
   if(!authorGuildMember.hasPermission(Discord.Permissions.FLAGS.MUTE_MEMBERS)) {
     outputEmbed
       .setColor(config.main.colours.error)
       .setTitle("Insufficient Permissions")
       .setDescription("You may not use this command as you do not have the permission `MUTE_MEMBERS`.")
       .setFooter("Is this a mistake? Contact server admins.")
+    embedder.addAuthor(outputEmbed, message.author)
   }
   else {
     let queryId = args[0]
@@ -47,6 +37,7 @@ exports.run = async (client, message, args) => {
         .setColor(config.main.colours.error)
         .setTitle("Specified Voice Channel Empty")
         .setDescription(`The VC ${vc} is currently empty.`)
+      embedder.addAuthor(outputEmbed, message.author)
     }
     else {
       const isUnmuting = args[1] && args[1].toLowerCase().startsWith("u")
@@ -76,6 +67,7 @@ exports.run = async (client, message, args) => {
         .addField(`Members ${completedAction}`, membersMutedCount, true)
         .addField(`Time Taken`, `${timeDiff} ms`, true)
         .setFooter("Warning: Command is often rate limited. Not much I can do about it. -billzo")
+      embedder.addAuthor(outputEmbed, message.author)
     }
   }
 
