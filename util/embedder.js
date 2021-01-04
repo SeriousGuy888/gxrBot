@@ -5,7 +5,7 @@ exports.newEmbed = () => new Discord.MessageEmbed()
 exports.addBlankField = (embed, inline) => embed.addField("\u200b", "\u200b", !!inline)
 exports.addAuthor = (embed, user, authorText) => {
   return embed.setAuthor(
-    authorText.replace(/%tag%/gi, user.tag) ?? user.tag,
+    (authorText ?? user.tag).replace(/%tag%/gi, user.tag),
     user.avatarURL({ dynamic: true })
   )
 }
