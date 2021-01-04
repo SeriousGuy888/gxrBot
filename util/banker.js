@@ -126,8 +126,10 @@ exports.updateInventories = async () => {
       payload.inventory[item] = increment(inventoryQueue[user][item])
     }
 
-    const docRef = db.collection("users").doc(user)
-    await docRef.set(payload, { merge: true })
+    if(Object.keys(payload.inventory).length) { // inventory changes queued
+      const docRef = db.collection("users").doc(user)
+      await docRef.set(payload, { merge: true })
+    }
 
     delete inventoryQueue[user]
   }
