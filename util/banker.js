@@ -1,5 +1,6 @@
 const index = require("../index.js")
 const { client, firebaseAdmin, db } = index
+const { increment } = firebaseAdmin.firestore.FieldValue
 let { balanceQueue, inventoryQueue } = index
 
 exports.getBalance = async userId => {
@@ -44,11 +45,10 @@ exports.updateBalances = async () => {
       continue // don't bother database if net change is zero
     }
 
-    const increment = firebaseAdmin.firestore.FieldValue.increment(balanceQueue[i]) // increment by net change
     const docRef = db.collection("users").doc(i)
 
     let payload = {
-      balance: increment
+      balance: increment(balanceQueue[i])
     }
     await docRef.set(payload, { merge: true })
 
@@ -91,9 +91,9 @@ exports.addToInventory = async (userId, item, amount) => {
 
   if(!inventoryQueue[userId])
     inventoryQueue[userId] = {}
-  if(!balanceQueue[userId][item])
-    balanceQueue[userId][item] = 0
-  balanceQueue[userId][item] += amount
+  if(!inventoryQueue[userId][item])
+    inventoryQueue[userId][item] = 0
+  inventoryQueue[userId][item] += amount
 
   logger.log(`Added ${amount} of ${item} to inventory of user ${userId}.`)
 }
@@ -122,8 +122,7 @@ exports.updateInventories = async () => {
       if(!inventoryQueue[user][item]) // net change is zero
         continue // skip
 
-      const increment = firebaseAdmin.firestore.FieldValue.increment(inventoryQueue[user][item])
-      payload.inventory[item] = increment
+      payload.inventory[item] = increment(inventoryQueue[user][item])
     }
 
     const docRef = db.collection("users").doc(user)
