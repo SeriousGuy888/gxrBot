@@ -15,20 +15,27 @@ exports.run = async (client, message, args) => {
     title: `Beginning Transaction...`
   })
 
-  if(user.id === message.author.id)
-    return msg.edit("specify a valid user you dukcing racecar")
+  const updateWithError = errorMessage => {
+    const emb = msg.embeds[0]
+      .setAuthor(message.author.tag, message.author.avatarURL({ dynamic: true }))
+      .setColor(config.main.colours.error)
+      .setTitle("Transaction Failed")
+      .setDescription(errorMessage)
+    
+    msg.edit(emb)
+  }
 
+
+  if(user.id === message.author.id)
+    return updateWithError("Specify a valid user who is not yourself.")
 
   let amount = parseFloat(parseFloat(args[1]).toFixed(2)) // parse amount as float with 2 decimal points of accuracy
-  if(!amount)
-    return msg.edit("at least `0.01` you dukcing dukc")
-
-  if(amount <= 0)
-    return msg.edit("you cant just pay people negative amounts you dukcing dukc")
-
   let balance = await banker.getBalance(message.author.id)
+
+  if(!amount || amount <= 0)
+    return updateWithError(`The payment must be at least ${settings.lang.emojis.coin}0.01 you dukcing dukc.`)
   if(balance < amount)
-    return msg.edit(`you only have ${settings.lang.emojis.coin}${balance.toFixed(2)}`)
+    return updateWithError(`You only have ${settings.lang.emojis.coin}${balance.toFixed(2)}.`)
   
 
   const confirmEmbed = new Discord.MessageEmbed()
