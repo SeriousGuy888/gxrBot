@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, config, getUserArg, banker, embedder, messenger } = index
-  const settings = config.economy
+  const settings = config.economy.settings
   
   let user = await getUserArg(message)
   
