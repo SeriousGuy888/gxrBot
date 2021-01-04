@@ -43,6 +43,8 @@ exports.run = async (client, message, args) => {
     .setColor(settings.colours.generic)
     .setTitle("Confirm Transaction")
     .setDescription(`${message.author} pays ${user} ${settings.lang.emojis.coin}${amount}\nReact with ${settings.lang.emojis.confirm} to confirm.`)
+  embedder.addAuthor(confirmEmbed, message.author)
+  
   await msg.edit(confirmEmbed)
   msg.react(settings.lang.emojis.confirm)
   const filter = (reaction, reactor) => (reaction.emoji.name === settings.lang.emojis.confirm) && (reactor.id === message.author.id)
@@ -57,6 +59,7 @@ exports.run = async (client, message, args) => {
           .setColor(settings.colours.generic)
           .setTitle(`${config.main.emojis.check} Transaction Complete`)
           .setDescription(`${message.author} has paid ${user} ${settings.lang.emojis.coin}${amount}.`)
+        embedder.addAuthor(responseEmbed, message.author)
       
         msg.edit(responseEmbed)
       }
