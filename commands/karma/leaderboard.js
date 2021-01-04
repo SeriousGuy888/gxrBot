@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, db, karmaQueue } = index
+  const { Discord, config, db, embedder, karmaQueue } = index
   let { karmaCache, messenger } = index
 
   const settings = config.karma
@@ -15,6 +15,7 @@ exports.run = async (client, message, args) => {
     .setTitle("Discord Karma Leaderboard")
     .setDescription(`[Leaderboard on Web Panel](${settings.lang.web_panel.leaderboard})\nYou can click people's karma score to see and easily compare their score with other people's score on the web panel.\n\u200b`)
     .setFooter(settings.lang.footer)
+  embedder.addAuthor(leaderboardEmbed, message.author)
 
   const usersColl = db.collection("users")
 
