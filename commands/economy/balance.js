@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, getUserArg, banker, messenger } = index
+  const { Discord, config, getUserArg, banker, embedder, messenger } = index
   const settings = config.economy
   
   let user = await getUserArg(message)
@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.generic)
-    .setTitle(`Balance of ${user.tag}`)
+  embedder.addAuthor(responseEmbed, user, "%tag%'s Balance")
 
   const balance = await banker.getBalance(user.id)
   responseEmbed.setDescription(`${settings.lang.emojis.coin}${balance.toLocaleString()}`)
