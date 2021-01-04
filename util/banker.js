@@ -86,6 +86,19 @@ exports.getInventory = async userId => {
   return inventory
 }
 
+exports.addToInventory = async (userId, item, amount) => {
+  const { logger } = client.util
+
+  if(!inventoryQueue[userId])
+    inventoryQueue[userId] = {}
+  if(!balanceQueue[userId][item])
+    balanceQueue[userId][item] = 0
+  balanceQueue[userId][item] += amount
+
+  logger.log(`Added ${amount} of ${item} to inventory of user ${userId}.`)
+}
+
+
 exports.updateInventories = async () => {
   const { logger } = client.util
 
