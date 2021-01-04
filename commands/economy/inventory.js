@@ -2,6 +2,7 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, config, getUserArg, banker, messenger } = index
   const settings = config.economy.settings
+  const itemConfig = config.economy.items
   
 
   let page = 1
@@ -45,13 +46,18 @@ exports.run = async (client, message, args) => {
       responseEmbed.setDescription("This page of this user's inventory is empty.")
     }
     else {
+      const getItemInfo = itemName => itemConfig[itemName] ?? null
+      const getItemDescription = itemName => getItemInfo(itemName) ? getItemInfo(itemName).description : "Unknown Item"
+      const getItemEmoji = itemName => getItemInfo(itemName) ? getItemInfo(itemName).emoji + " " : ""
+
       for(const item in sortedInventory) {
         itemsLooped++
         if(itemsLooped < itemNumber + 1)
           continue
         if(itemsAdded >= itemsPerPage)
           break
-        responseEmbed.addField(`\`${sortedInventory[item]}\` ${item}`, "description", true)
+
+        responseEmbed.addField(`${getItemEmoji(item)}${item} \`(${sortedInventory[item]})\``, getItemDescription(item), true)
         itemNumber++
         itemsAdded++
       }
