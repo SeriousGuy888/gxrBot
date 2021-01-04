@@ -1,8 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const Discord = index.Discord
   const hangmanCache = index.gameCache.hangman
-  const config = index.config
+  const { config, Discord, embedder } = index
   const { settings, words } = config.hangman
 
   const uniqueCharCount = word => word.split("").filter((x, i, a) => a.indexOf(x) === i).length
@@ -34,7 +33,6 @@ exports.run = async (client, message, args) => {
 
     let embed = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
-      .setAuthor(message.author.tag, message.author.avatarURL())
       .setTitle(`**__${config.main.botNames.lowerCamelCase} Hangman__**`)
       .setDescription([
         `**WORD SETS:** ${playerData.set}`,
@@ -49,6 +47,8 @@ exports.run = async (client, message, args) => {
       .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
       .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
       .setFooter(`ID: ${message.author.id}   |   (Give up? ${config.main.prefix}hangman quit)`)
+    embedder.addAuthor(embed, message.author)
+
     
     let msg
     if(init)

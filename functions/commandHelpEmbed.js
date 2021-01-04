@@ -1,10 +1,11 @@
 exports.run = (message, options) => {
   const index = require("../index.js")
-  const { config, Discord } = index
+  const { config, Discord, embedder } = index
 
   const embed = new Discord.MessageEmbed()
-    .setAuthor(message.author.tag, message.author.avatarURL())
     .setColor(config.main.colours.help)
+  embedder.addAuthor(embed, message.author)
+
   
   if(options) {
     if(options.title)
