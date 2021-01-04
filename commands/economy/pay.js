@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, getUserArg, banker, messenger } = index
+  const { Discord, config, getUserArg, banker, embedder, messenger } = index
   const settings = config.economy
   
   if(!args[0]) {
@@ -17,11 +17,12 @@ exports.run = async (client, message, args) => {
 
   const updateWithError = errorMessage => {
     const emb = msg.embeds[0]
-      .setAuthor(message.author.tag, message.author.avatarURL({ dynamic: true }))
       .setColor(config.main.colours.error)
       .setTitle("Transaction Failed")
       .setDescription(errorMessage)
     
+    embedder.addAuthor(emb, message.author)
+
     msg.edit(emb)
   }
 
