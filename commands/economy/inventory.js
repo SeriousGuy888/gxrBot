@@ -51,7 +51,7 @@ exports.run = async (client, message, args) => {
           continue
         if(itemsAdded >= itemsPerPage)
           break
-        responseEmbed.addField(item, sortedInventory[item], true)
+        responseEmbed.addField(`\`${sortedInventory[item]}\` ${item}`, "description", true)
         itemNumber++
         itemsAdded++
       }
