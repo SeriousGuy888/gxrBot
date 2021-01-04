@@ -16,7 +16,7 @@ exports.getBalance = async userId => {
     balance += balanceQueue[userId] ?? 0 // add on any pending changes to the balance
   }
 
-  return balance
+  return balance.toFixed(2)
 }
 
 exports.addToBalance = async (userId, amount) => {

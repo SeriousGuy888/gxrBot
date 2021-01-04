@@ -35,7 +35,7 @@ exports.run = async (client, message, args) => {
   if(!amount || amount <= 0)
     return updateWithError(`The payment must be at least ${settings.lang.emojis.coin}0.01 you dukcing dukc.`)
   if(balance < amount)
-    return updateWithError(`You only have ${settings.lang.emojis.coin}${balance.toFixed(2)}.`)
+    return updateWithError(`You only have ${settings.lang.emojis.coin}${balance}.`)
   
 
   const confirmEmbed = new Discord.MessageEmbed()
