@@ -84,15 +84,13 @@ exports.run = async (client, message, args) => {
 
 exports.help = async (client, message, args) => {
   const index = require("../../index.js")
-  const config = index.config
-  const Discord = index.Discord
+  const { config, commandHelpEmbed } = index
 
-  const emb = new Discord.MessageEmbed()
-    .setColor(config.main.colours.help)
-    .setTitle("Mute Help")
-    .setDescription("Mutes or unmutes all users in a specified VC.")
-    .addField("Syntax", `${config.main.prefix}mute <ID | .> [u]`)
-    .addField("Examples", [
+  const emb = commandHelpEmbed(message, {
+    title: "Mute",
+    description: "Mutes or unmutes all users in a specified VC.",
+    syntax: `${config.main.prefix}mute <ID | .> [u]`,
+    example: [
       "**__By Channel ID__**",
       `**Mute:** ${config.main.prefix}mute 430565803293933582`,
       `**Unmute:** ${config.main.prefix}mute 430565803293933582 u`,
@@ -100,7 +98,9 @@ exports.help = async (client, message, args) => {
       "**__The VC you are in__**",
       `**Mute:** ${config.main.prefix}mute .`,
       `**Unmute:** ${config.main.prefix}mute . u`
-    ].join("\n"))
+    ].join("\n")
+  })
     .setFooter("This command can only be used in a guild and not a DM.")
+
   return message.channel.send(emb)
 }
