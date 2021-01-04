@@ -156,7 +156,7 @@ const messageResponder = client.functions.messageResponder.run
 const updateKarma = client.functions.updateKarma.run
 const voteReactions = client.functions.voteReactions.run
 
-const { banker, embedder, messenger, timer } = client.util
+const { banker, embedder, messenger, permisser, timer } = client.util
 
 // function and util imports ↑
 // exports ↓
@@ -193,6 +193,7 @@ module.exports = {
   embedder,
   logger,
   messenger,
+  permisser,
   timer,
 }
 

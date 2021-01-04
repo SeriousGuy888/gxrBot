@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, Discord, embedder } = index
+  const { config, Discord, embedder, permisser } = index
 
   if(!message.guild || !args[0]) return this.help(client, message, args)
 
@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
 
 
   const authorGuildMember = allMembers.find(gm => gm.id === message.author.id)
-  if(!authorGuildMember.hasPermission(Discord.Permissions.FLAGS.MUTE_MEMBERS)) {
+  if(!permisser.hasPermission(authorGuildMember, "MUTE_MEMBERS")) {
     outputEmbed
       .setColor(config.main.colours.error)
       .setTitle("Insufficient Permissions")
