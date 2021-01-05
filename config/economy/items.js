@@ -2,6 +2,7 @@ module.exports = {
   test: {
     emoji: ":duck:",
     description: "A developer item.",
+    givable: true,
     use: async userId => {
       const index = require("../../index.js")
       const { banker } = index
