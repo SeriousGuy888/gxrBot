@@ -18,7 +18,10 @@
   },
   "economy": {
     "balance": "(`bal`) See your balance or somebody else's.",
-    "pay": "Pay someone some moolah."
+    "give": "Give someone some of your inventory items.",
+    "inventory": "See your inventory or someone else's.",
+    "pay": "Pay someone some moolah.",
+    "use": "Use an inventory item."
   },
   "karma": {
     "leaderboard": "(`lb`) See the karma leaderboard.",
