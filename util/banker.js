@@ -89,6 +89,8 @@ exports.getInventory = async userId => {
 
 exports.addToInventory = async (userId, item, amount) => {
   const { logger } = client.util
+  if(!amount)
+    amount = 1
 
   if(!inventoryQueue[userId])
     inventoryQueue[userId] = {}
