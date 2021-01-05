@@ -11,5 +11,9 @@ module.exports = {
 
       return "Item consumed. Did nothing."
     }
+  },
+  kindergarten_diploma: {
+    emoji: ":scroll:",
+    description: "Awarded for very cool achievements in the counting channel.\n`This item was not handed out before 2021-01-05.`"
   }
 }
