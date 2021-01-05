@@ -46,10 +46,6 @@ exports.run = async (client, message, args) => {
       responseEmbed.setDescription("This page of this user's inventory is empty.")
     }
     else {
-      const getItemInfo = itemName => itemConfig[itemName] ?? null
-      const getItemDescription = itemName => getItemInfo(itemName) ? getItemInfo(itemName).description : "Unknown Item"
-      const getItemEmoji = itemName => getItemInfo(itemName) ? getItemInfo(itemName).emoji + " " : ""
-
       for(const item in sortedInventory) {
         itemsLooped++
         if(itemsLooped < itemNumber + 1)
@@ -57,7 +53,17 @@ exports.run = async (client, message, args) => {
         if(itemsAdded >= itemsPerPage)
           break
 
-        responseEmbed.addField(`${getItemEmoji(item)}${item} \`(${sortedInventory[item]})\``, getItemDescription(item), true)
+        const itemInfo = itemConfig[item]
+        if(itemInfo) {
+          responseEmbed.addField(
+            `${itemInfo.emoji + " " ?? ""}${itemInfo.name ?? item} \`(${sortedInventory[item]})\``,
+            (itemInfo.name ? `ID: \`${item}\`\n\n` : "") + (itemInfo.description ?? "No description provided."),
+            true
+          )
+        }
+        else {
+          responseEmbed.addField(`${item} \`(${sortedInventory[item]})\``, "Unknown Item", true)
+        }
         itemNumber++
         itemsAdded++
       }
