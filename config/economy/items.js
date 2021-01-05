@@ -6,10 +6,9 @@ module.exports = {
       const index = require("../../index.js")
       const { banker } = index
 
-      banker.addToBalance(userId, 50)
       banker.addToInventory(userId, "test", -1)
 
-      return "Added 50 to your balance."
+      return "Item consumed. Did nothing."
     }
   }
 }
