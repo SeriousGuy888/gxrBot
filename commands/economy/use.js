@@ -16,11 +16,11 @@ exports.run = async (client, message, args) => {
 
   const inventory = await banker.getInventory(message.author.id)
   if(!inventory[item])
-    return msg.edit("you do not have this item")
+    return msg.edit("you do not have this item", { embed: null })
   if(!itemConfig[item])
-    return msg.edit("unknown item specified")
+    return msg.edit("unknown item specified", { embed: null })
   if(!itemConfig[item].use)
-    return msg.edit("item cannot be used")
+    return msg.edit("item cannot be used", { embed: null })
     
   const res = await itemConfig[item].use(message.author.id)
   const emb = embedder.newEmbed()
