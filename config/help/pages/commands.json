@@ -19,7 +19,7 @@
   "economy": {
     "balance": "(`bal`) See your balance or somebody else's.",
     "give": "Give someone some of your inventory items.",
-    "inventory": "See your inventory or someone else's.",
+    "inventory": "(`inv`) See your inventory or someone else's.",
     "pay": "Pay someone some moolah.",
     "use": "Use an inventory item."
   },
