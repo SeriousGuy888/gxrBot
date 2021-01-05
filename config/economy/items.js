@@ -1,6 +1,7 @@
 module.exports = {
   test: {
     emoji: ":duck:",
+    name: "Test Item",
     description: "A developer item.",
     givable: true,
     use: async userId => {
@@ -14,6 +15,7 @@ module.exports = {
   },
   kindergarten_diploma: {
     emoji: ":scroll:",
+    name: "Kindergarten Diploma",
     description: "Awarded for very cool achievements in the counting channel.\n`This item is currently not obtainable.`"
   }
 }
