@@ -13,6 +13,7 @@ exports.run = async (client, message, args) => {
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.generic)
+    .setFooter("You can earn moolah by participating in the one word story.")
   embedder.addAuthor(responseEmbed, user, "%tag%'s Balance")
 
   const balance = await banker.getBalance(user.id)
