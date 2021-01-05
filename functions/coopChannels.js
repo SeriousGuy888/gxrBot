@@ -38,7 +38,7 @@ exports.run = (message) => {
   else if(message.channel.id === config.coopchannels.ows.channel) {
     if(owsLegal(message.content)) {
       // random amount of money between 0 and 0.1
-      banker.addToBalance(message.author.id, (Math.random() * 0.1).toFixed(2))
+      banker.addToBalance(message.author.id, parseFloat((Math.random() * 0.1).toFixed(2)))
       return
     }
     this.punish(message, "ows")
