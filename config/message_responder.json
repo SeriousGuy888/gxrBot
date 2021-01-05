@@ -52,6 +52,32 @@
         }
       },
       "response": "f"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "owo",
+          "flags": "gi"
+        },
+        "fail": {
+          "pattern": "asdaaaaaaaafdsfinteresting regex pattern quakc uqakc quakcas",
+          "flags": ""
+        }
+      },
+      "response": "owo"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "uwu",
+          "flags": "gi"
+        },
+        "fail": {
+          "pattern": "asdaaaaaaaafdsfinteresting regex pattern quakc uqakc quakcas",
+          "flags": ""
+        }
+      },
+      "response": "uwu"
     }
   ]
 }
