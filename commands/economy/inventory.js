@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, getUserArg, banker, messenger } = index
+  const { Discord, config, getUserArg, banker, embedder, messenger } = index
   const settings = config.economy.settings
   const itemConfig = config.economy.items
   
@@ -37,8 +37,8 @@ exports.run = async (client, message, args) => {
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.generic)
-    .setTitle(`Inventory of ${user.tag}`)
     .setFooter(`Page ${page} of ${pageCount}`)
+  embedder.addAuthor(responseEmbed, user, "%tag%'s Inventory")
   
 
   if(inventoryKeys.length) {
