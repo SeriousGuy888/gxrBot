@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, banker, embedder, messenger } = index
+  const { config, embedder } = index
   const settings = config.economy.settings
   const itemConfig = config.economy.items
   
