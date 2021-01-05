@@ -27,21 +27,34 @@ exports.run = (message) => {
   if(message.author.id === client.user.id)
     return
 
-  if(message.channel.id === config.coopchannels.cult.channel) {
-    if(cultLegal(message.content, config.coopchannels.cult.phrase))
-      return
-    this.punish(message, "cult", [
-      config.coopchannels.cult.phrase,
-      message.content
-    ])
-  }
-  else if(message.channel.id === config.coopchannels.ows.channel) {
-    if(owsLegal(message.content)) {
-      // random amount of money between 0 and 0.1
-      banker.addToBalance(message.author.id, parseFloat((Math.random() * 0.1).toFixed(2)))
-      return
-    }
-    this.punish(message, "ows")
+  switch(message.channel.id) {
+    case config.coopchannels.cult.channel:
+      if(cultLegal(message.content, config.coopchannels.cult.phrase))
+        return
+      this.punish(message, "cult", [
+        config.coopchannels.cult.phrase,
+        message.content
+      ])
+      break
+    case config.coopchannels.ows.channel:
+      if(owsLegal(message.content)) {
+        // random amount of money between 0 and 0.1
+        banker.addToBalance(message.author.id, parseFloat((Math.random() * 0.1).toFixed(2)))
+        return
+      }
+      this.punish(message, "ows")
+      break
+    // case config.coopchannels.counting.channel:
+    //   console.log("aaaaaadsfaa")
+    //   setTimeout(async () => {
+    //     const msg = await message.fetch(true)
+    //     if(!msg)
+    //       return
+        
+    //     console.log("aaaa")
+    //     messenger.dm(message.author, "test")
+    //   }, 2000)
+    //   break
   }
 }
 
