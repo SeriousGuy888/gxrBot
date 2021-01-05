@@ -1,6 +1,6 @@
 exports.run = (message) => {
   const index = require("../index.js")
-  const { client, config, messenger } = index
+  const { client, config, banker, messenger } = index
 
   const legal = () => message.attachments.array().length === 0
 
@@ -36,8 +36,11 @@ exports.run = (message) => {
     ])
   }
   else if(message.channel.id === config.coopchannels.ows.channel) {
-    if(owsLegal(message.content))
+    if(owsLegal(message.content)) {
+      // random amount of money between 0 and 0.1
+      banker.addToBalance(message.author.id, (Math.random() * 0.1).toFixed(2))
       return
+    }
     this.punish(message, "ows")
   }
 }
