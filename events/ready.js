@@ -6,7 +6,7 @@ module.exports = async (client, message) => {
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
 
   client.user.setPresence({ status: "online" })
-  client.user.setActivity(`Added ${prefix}bal command!`, { type: "WATCHING" })
+  client.user.setActivity(`Added ${config.main.prefix}bal command!`, { type: "WATCHING" })
   
   
   schedule.scheduleJob("0 * * * *", () => {
