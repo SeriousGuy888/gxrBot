@@ -2,14 +2,6 @@ exports.run = (message) => {
   const index = require("../index.js")
   const { client, config, messenger } = index
 
-  const notRepeat = channel => {
-    channel.messages.fetch({ limit: 2 }).then(res => {
-      const fetchedMessages = res.array()
-      console.log(fetchedMessages[0].author.id != fetchedMessages[1].author.id)
-      return fetchedMessages[0].author.id != fetchedMessages[1].author.id
-    })
-  }
-
   const legal = () => message.attachments.array().length === 0
 
   const cultLegal = (content, phrase) => {
@@ -32,16 +24,20 @@ exports.run = (message) => {
     return legal()
   }
 
-  if(message.author.id == client.user.id) return
-  if(message.channel.id == config.coopchannels.cult.channel) {
-    if(cultLegal(message.content, config.coopchannels.cult.phrase)) return
+  if(message.author.id === client.user.id)
+    return
+
+  if(message.channel.id === config.coopchannels.cult.channel) {
+    if(cultLegal(message.content, config.coopchannels.cult.phrase))
+      return
     this.punish(message, "cult", [
       config.coopchannels.cult.phrase,
       message.content
     ])
   }
-  else if(message.channel.id == config.coopchannels.ows.channel) {
-    if(owsLegal(message.content)) return
+  else if(message.channel.id === config.coopchannels.ows.channel) {
+    if(owsLegal(message.content))
+      return
     this.punish(message, "ows")
   }
 }
