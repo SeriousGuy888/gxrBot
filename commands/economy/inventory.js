@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, getUserArg, banker, embedder, messenger } = index
+  const { Discord, config, inventoryQueue, getUserArg, banker, embedder, messenger } = index
   const settings = config.economy.settings
   const itemConfig = config.economy.items
   
@@ -23,17 +23,24 @@ exports.run = async (client, message, args) => {
 
 
   const inventory = await banker.getInventory(user.id)
+
+  for(const i in inventoryQueue[message.author.id]) {
+    if(!inventory[i])
+      inventory[i] = 0
+    inventory[i] += inventoryQueue[message.author.id][i]
+  }
+
   const inventoryKeys = Object.keys(inventory).sort()
   const sortedInventory = {}
+
+  for(const loopKey of inventoryKeys)
+    sortedInventory[loopKey] = inventory[loopKey]
 
   const itemsPerPage = settings.inventory.itemsPerPage
   const pageCount = Math.ceil(inventoryKeys.length / itemsPerPage)
   let itemsLooped = 0
   let itemNumber = itemsPerPage * (page - 1)
   let itemsAdded = 0
-
-  for(const loopKey of inventoryKeys)
-    sortedInventory[loopKey] = inventory[loopKey]
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.generic)
