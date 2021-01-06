@@ -5,10 +5,8 @@ exports.run = async (client, message, args) => {
   const itemConfig = config.economy.items
   
 
-  if(!args[0]) {
-    message.channel.send("specify an item id")
-    return
-  }
+  if(!args[0])
+    return messenger.errorMessage(msg, { description: "Please specify an item ID." })
   const item = args[0].toLowerCase()
   
   const msg = await messenger.loadingMessage(message.channel, { colour: settings.colours.generic })
