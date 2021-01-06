@@ -22,9 +22,12 @@ exports.run = async (client, message, args) => {
     emb.setDescription("This item is unknown.")
   }
   else {
+    const { coin } = settings.lang.emojis
     emb
       .addField("Item Name", `${itemInfo.emoji + " " ?? ""}${itemInfo.name ?? item}`)
       .addField("Description", itemInfo.description)
+      .addField("Buy Price", itemInfo.value.buy ? `${coin}${itemInfo.value.buy.toLocaleString()}` : "Cannot be purchased.", true)
+      .addField("Sell Price", itemInfo.value.sell ? `${coin}${itemInfo.value.sell.toLocaleString()}` : "Cannot be sold.", true)
       .addField("Other", [
         itemInfo.use ? "Can be used" : "Cannot be used",
         itemInfo.givable ? "Can be given to another user" : "Cannot be given to another user"
