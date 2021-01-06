@@ -48,16 +48,13 @@ exports.run = async (client, message, args) => {
 
 exports.help = async (client, message, args) => {
   const index = require("../../index.js")
-  const config = index.config
-  const Discord = index.Discord
-
-  const embed = new Discord.MessageEmbed()
-    .setTitle("**Google Translatifier Help**")
-    .setColor("#bebe11")
-    .setDescription("Passes a phrase through Google translate several times.\nCustom languages can be ISO codes (e.g. `en`) or names (e.g. `english`).")
-    .addField("Syntax", `${config.main.prefix}google_translate [(-l|--languages) (lang1,[lang2,[...]])] <Phrase>`)
-    .addField("\u200b", "\u200b")
-    .addField("Examples", [
+  const { config, commandHelpEmbed } = index
+    
+  const embed = commandHelpEmbed(message, {
+    title: "**Google Translate Command**",
+    description: "Passes a phrase through Google translate several times.\nCustom languages can be ISO codes (e.g. `en`) or names (e.g. `english`).",
+    syntax: `${config.main.prefix}google_translate [(-l|--languages) (lang1,[lang2,[...]])] <Phrase>`,
+    example: [
       `**Use default languages:**`,
       ` ${config.main.prefix}google_translate Ducks are generally not considered amphibians as they do not have six legs.`,
       "",
@@ -66,6 +63,8 @@ exports.help = async (client, message, args) => {
       "",
       `**Custom languages (Names):**`,
       ` ${config.main.prefix}google_translate --languages dutch,german,english Ducks are generally not considered amphibians as they do not have six legs.`,
-    ].join("\n"))
+    ].join("\n"),
+  })
+
   message.channel.send(embed)
 }
