@@ -25,20 +25,21 @@ exports.run = async (client, message, args) => {
   const item = args[1].toLowerCase()
   const amount = parseInt(args[2]) || 1
   
-  let users = []
   if(user === "guild") {
-    users = (await message.guild.members.fetch()).map(u => u)
-  }
-  else
-    users.push(user)
+    const users = (await message.guild.members.fetch()).map(u => u)
 
-  for(const loopUser of users) {
-    if(loopUser.bot)
-      continue
-    banker.addToInventory(loopUser.id, item, amount)
-  }
+    for(const loopUser of users) {
+      if(loopUser.bot || loopUser.user.bot)
+        continue
+      banker.addToInventory(loopUser.id, item, amount)
+    }
 
-  message.channel.send(`ok gave ${amount} of ${item} to ${users.length} users`)
+    message.channel.send(`ok gave ${amount} of ${item} to ${users.length} users`)
+  }
+  else {
+    banker.addToInventory(user.id, item, amount)
+    message.channel.send(`ok gave ${amount} of ${item} to ${user}`)
+  }
 }
 
 exports.cooldown = 3
