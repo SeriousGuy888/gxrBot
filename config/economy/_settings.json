@@ -13,6 +13,7 @@
     "itemsPerPage": 9
   },
   "shop": {
-    "itemsPerPage": 9
+    "itemsPerPage": 9,
+    "expireTimeout": 20000
   }
 }

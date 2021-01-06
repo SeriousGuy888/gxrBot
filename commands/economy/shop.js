@@ -12,8 +12,10 @@ exports.run = async (client, message, args) => {
 
   let page = Math.min(Math.abs(args[0]) || 1, maxPages)
   
-  let msg
-  const displayShop = async () => {
+
+  let msg = await message.channel.send("Shop Panel")
+
+  const displayShop = async (editMsg) => {
     page = Math.max(Math.min(page, maxPages), 1)
 
     const responseEmbed = new Discord.MessageEmbed()
@@ -54,34 +56,42 @@ exports.run = async (client, message, args) => {
       )
     }
   
+    
+    return await editMsg.edit(responseEmbed)
+      .then(async editedMsg => {
+        const reactionEmojis = ["⏪", "⬅️", "➡️", "⏩"]
+        const reactionFilter = (reaction, user) => user.id == message.author.id && reactionEmojis.includes(reaction.emoji.name)
 
-    msg = await message.channel.send(responseEmbed)
-
-    const reactionEmojis = ["⏪", "⬅️", "➡️", "⏩"]
-    for(const loopEmoji of reactionEmojis)
-      await msg.react(loopEmoji)
-    const reactionFilter = (reaction, user) => user.id == message.author.id && reactionEmojis.includes(reaction.emoji.name)
-    msg.awaitReactions(reactionFilter, { max: 1, time: 15000 })
-      .then(async collected => {
-        const emojiName = collected.first().emoji.name
-        switch(emojiName) {
-          case "⏪":
-            page = 1
-            break
-          case "⬅️":
-            page--
-            break
-          case "➡️":
-            page++
-            break
-          case "⏩":
-            page = maxPages
-            break
-        }
-        msg = await displayShop()
+        editedMsg.awaitReactions(reactionFilter, { max: 1, time: settings.shop.expireTimeout })
+          .then(async collected => {
+            const emojiName = collected.first().emoji.name
+            editedMsg.reactions.resolve(emojiName).users.remove(message.author) // remove user's reaction
+            switch(emojiName) {
+              case "⏪":
+                page = 1
+                break
+              case "⬅️":
+                page--
+                break
+              case "➡️":
+                page++
+                break
+              case "⏩":
+                page = maxPages
+                break
+            }
+            editedMsg.edit(await displayShop(editedMsg))
+          })
+          .catch(() => {
+            editedMsg.edit("This shop panel is no longer listening for reactions.\nPlease use the `shop` command again to change pages.", {
+              embed: responseEmbed.setColor(settings.colours.failure)
+            })
+          })
+        
+        for(const loopEmoji of reactionEmojis)
+          await editedMsg.react(loopEmoji)
       })
-      .catch(() => {})
   }
 
-  await displayShop()
+  msg = await displayShop(msg)
 }
