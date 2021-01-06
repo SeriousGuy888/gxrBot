@@ -58,7 +58,7 @@ exports.errorMessage = async (channel, options) => {
     options = {}
   
   const emb = new Discord.MessageEmbed()
-    .setColor(options.colour ?? config.main.colours.help)
+    .setColor(options.colour ?? config.main.colours.error)
     .setTitle(`${options.title || "Error"}`)
     .setDescription(options.description || "No specific information provided.")
   
