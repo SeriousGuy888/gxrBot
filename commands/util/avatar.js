@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     .setColor(config.main.colours.success)
     .setDescription("Here you go!")
     .setImage(user.avatarURL({ dynamic: true }))
-  embedder.addAuthor(emb, user)
+  embedder.addAuthor(emb, user, "%tag%'s Avatar")
 
   message.channel.send(emb)
 }
