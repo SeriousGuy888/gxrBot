@@ -1,1 +1,0 @@
-exports.alias = "new_year_countdown"
