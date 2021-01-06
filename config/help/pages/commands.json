@@ -24,6 +24,7 @@
     "item": "See some information about an item.",
     "pay": "Pay someone some moolah.",
     "sell": "Sell an item.",
+    "shop": "See all the items that exist.",
     "use": "Use an inventory item."
   },
   "karma": {
