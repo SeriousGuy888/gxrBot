@@ -1,5 +1,6 @@
 {
   "basic": {
+    "avatar": "Get a user's avatar",
     "help": "(`h`) %lowername% help command",
     "commands": "(`cmds`) Automatically generated list of all public commands",
     "ping": "Get bot latency",
