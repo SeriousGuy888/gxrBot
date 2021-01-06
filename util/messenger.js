@@ -40,12 +40,27 @@ exports.dm = async (userId, content, callback) => {
 
 exports.loadingMessage = async (channel, options) => {
   if(!options)
-    throw new Error("No options specified.")
+    options = {}
   
   const emb = new Discord.MessageEmbed()
     .setColor(options.colour ?? config.main.colours.help)
     .setTitle(`${config.main.emojis.loading} ${options.title || "Loading"}`)
     .setDescription(options.description || "Please wait...")
+  
+  if(options.footer)
+    emb.setFooter(options.footer)
+  
+  return await this.send(channel, emb)
+}
+
+exports.errorMessage = async (channel, options) => {
+  if(!options)
+    options = {}
+  
+  const emb = new Discord.MessageEmbed()
+    .setColor(options.colour ?? config.main.colours.help)
+    .setTitle(`${options.title || "Error"}`)
+    .setDescription(options.description || "No specific information provided.")
   
   if(options.footer)
     emb.setFooter(options.footer)
