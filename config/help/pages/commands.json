@@ -19,10 +19,12 @@
   },
   "economy": {
     "balance": "(`bal`) See your balance or somebody else's.",
+    "buy": "Buy an item.",
     "give": "Give someone some of your inventory items.",
     "inventory": "(`inv`) See your inventory or someone else's.",
     "item": "See some information about an item.",
     "pay": "Pay someone some moolah.",
+    "sell": "Sell an item.",
     "use": "Use an inventory item."
   },
   "karma": {
