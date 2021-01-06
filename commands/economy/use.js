@@ -15,10 +15,10 @@ exports.run = async (client, message, args) => {
 
 
   const inventory = await banker.getInventory(message.author.id)
-  if(!inventory[item])
-    return messenger.errorMessage(msg, { description: "You do not have this item." })
   if(!itemConfig[item])
     return messenger.errorMessage(msg, { description: "This item is unknown." })
+  if(!inventory[item])
+    return messenger.errorMessage(msg, { description: "You do not have this item." })
   if(!itemConfig[item].use)
     return messenger.errorMessage(msg, { description: "This item cannot be used." })
     
