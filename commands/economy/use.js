@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     message.channel.send("specify an item id")
     return
   }
-  const item = args[0]
+  const item = args[0].toLowerCase()
   
   const msg = await messenger.loadingMessage(message.channel, { colour: settings.colours.generic })
 
