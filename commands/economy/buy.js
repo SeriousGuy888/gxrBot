@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
   }
 
 
-  const item = args[0]
+  const item = args[0].toLowerCase()
   const amount = parseInt(args[1]) || 1
   
   const msg = await loadingMessage(message.channel, {

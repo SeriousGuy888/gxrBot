@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     return
   }
 
-  const item = args[0]
+  const item = args[0].toLowerCase()
   const itemInfo = itemConfig[item] ?? { unknown: true }
   
   const emb = embedder.newEmbed()

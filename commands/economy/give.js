@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
 
 
   const user = await getUserArg(message)
-  const item = args[1]
+  const item = args[1].toLowerCase()
   const amount = parseInt(args[2]) || 1
   
   const msg = await messenger.loadingMessage(message.channel, {
