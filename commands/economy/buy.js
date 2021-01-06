@@ -35,7 +35,7 @@ exports.run = async (client, message, args) => {
 
   if(balance < price)
     return errorMessage(msg, {
-      description: `You only have ${settings.lang.emojis.coin}${balance}. ${settings.lang.emojis.coin}${price} are needed.`
+      description: `You only have ${settings.lang.emojis.coin}${balance.toLocaleString()}. ${settings.lang.emojis.coin}${price.toLocaleString()} are needed.`
     })
   
 
@@ -46,7 +46,7 @@ exports.run = async (client, message, args) => {
   const emb = embedder.newEmbed()
     .setColor(settings.colours.generic)
     .setTitle(`Item Purchased`)
-    .setDescription(`Purchased \`${amount}\` of the item \`${item}\` for ${settings.lang.emojis.coin}${price}.`)
+    .setDescription(`Purchased \`${amount.toLocaleString()}\` of the item \`${item}\` for ${settings.lang.emojis.coin}${price.toLocaleString()}.`)
   embedder.addAuthor(emb, message.author)
 
 
