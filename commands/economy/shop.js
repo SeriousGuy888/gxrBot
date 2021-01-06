@@ -58,8 +58,7 @@ exports.run = async (client, message, args) => {
     msg = await message.channel.send(responseEmbed)
 
     const reactionEmojis = ["⏪", "⬅️", "➡️", "⏩"]
-    for(const loopEmoji of reactionEmojis)
-      await msg.react(loopEmoji)
+
     const reactionFilter = (reaction, user) => user.id == message.author.id && reactionEmojis.includes(reaction.emoji.name)
     msg.awaitReactions(reactionFilter, { max: 1, time: 15000 })
       .then(async collected => {
@@ -81,6 +80,9 @@ exports.run = async (client, message, args) => {
         msg = await displayShop()
       })
       .catch(() => {})
+
+    for(const loopEmoji of reactionEmojis)
+      await msg.react(loopEmoji)
   }
 
   await displayShop()
