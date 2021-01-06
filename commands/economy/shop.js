@@ -59,7 +59,7 @@ exports.run = async (client, message, args) => {
     
     return await editMsg.edit(responseEmbed)
       .then(async editedMsg => {
-        const reactionEmojis = ["⏪", "⬅️", "➡️", "⏩"]
+        const reactionEmojis = ["⏪", "◀️", "▶️", "⏩"]
         const reactionFilter = (reaction, user) => user.id == message.author.id && reactionEmojis.includes(reaction.emoji.name)
 
         editedMsg.awaitReactions(reactionFilter, { max: 1, time: settings.shop.expireTimeout })
@@ -70,10 +70,10 @@ exports.run = async (client, message, args) => {
               case "⏪":
                 page = 1
                 break
-              case "⬅️":
+              case "◀️":
                 page--
                 break
-              case "➡️":
+              case "▶️":
                 page++
                 break
               case "⏩":
