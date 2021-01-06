@@ -4,6 +4,10 @@ module.exports = {
     name: "Test Item",
     description: "A developer item.",
     givable: true,
+    value: {
+      buy: 666666666,
+      sell: 1
+    },
     use: async userId => {
       const index = require("../../index.js")
       const { banker } = index
