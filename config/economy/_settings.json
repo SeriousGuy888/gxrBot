@@ -11,5 +11,8 @@
   },
   "inventory": {
     "itemsPerPage": 9
+  },
+  "shop": {
+    "itemsPerPage": 9
   }
 }
