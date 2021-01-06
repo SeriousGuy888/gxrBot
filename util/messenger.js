@@ -53,7 +53,7 @@ exports.loadingMessage = async (channel, options) => {
   return await this.send(channel, emb)
 }
 
-exports.errorMessage = async (channel, options) => {
+exports.errorMessage = async (channelOrMessage, options, newMessage) => {
   if(!options)
     options = {}
   
@@ -65,5 +65,8 @@ exports.errorMessage = async (channel, options) => {
   if(options.footer)
     emb.setFooter(options.footer)
   
-  return await this.send(channel, emb)
+  if(newMessage)
+    return await this.send(channelOrMessage, emb)
+  else
+    return await channelOrMessage.edit(emb)
 }

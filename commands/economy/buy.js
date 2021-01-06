@@ -3,6 +3,7 @@ exports.run = async (client, message, args) => {
   const { config, banker, embedder, messenger } = index
   const settings = config.economy.settings
   const itemConfig = config.economy.items
+  const { loadingMessage, errorMessage } = messenger
   
   
   if(!args[0]) {
@@ -14,26 +15,28 @@ exports.run = async (client, message, args) => {
   const item = args[0]
   const amount = parseInt(args[1]) || 1
   
-  const msg = await messenger.loadingMessage(message.channel, {
+  const msg = await loadingMessage(message.channel, {
     colour: settings.colours.generic,
     title: "Buying item..."
   })
 
   const itemInfo = itemConfig[item]
   if(!itemInfo)
-    return msg.edit("Item unknown", { embed: null })
+    return errorMessage(msg, { description: "Item unknown" })
   if(!itemInfo.value || !itemInfo.value.buy)
-    return msg.edit("Item cannot be purchased", { embed: null })
+    return errorMessage(msg, { description: "Item cannot be purchased" })
 
   if(amount < 1)
-    return msg.edit("Purchase at least 1 of the item.", { embed: null })
+    return errorMessage(msg, { description: "Purchase at least 1 of the item." })
 
 
   const price = itemInfo.value.buy * amount
   const balance = await banker.getBalance(message.author.id)
 
   if(balance < price)
-    return msg.edit(`You only have ${balance} moolahs`, { embed: null })
+    return errorMessage(msg, {
+      description: `You only have ${settings.lang.emojis.coin}${balance}. ${settings.lang.emojis.coin}${price} are needed.`
+    })
   
 
   
