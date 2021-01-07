@@ -28,13 +28,15 @@ exports.run = async (client, message, args) => {
   if(user === "guild") {
     const users = (await message.guild.members.fetch()).map(u => u)
 
+    let inc = 0
     for(const loopUser of users) {
       if(loopUser.bot || loopUser.user.bot)
         continue
       banker.addToInventory(loopUser.id, item, amount)
+      inc++
     }
 
-    message.channel.send(`ok gave ${amount} of ${item} to ${users.length} users`)
+    message.channel.send(`ok gave ${amount} of ${item} to ${inc} non-bot users`)
   }
   else {
     banker.addToInventory(user.id, item, amount)
