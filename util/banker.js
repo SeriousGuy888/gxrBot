@@ -111,6 +111,8 @@ exports.updateInventories = async () => {
   logger.log(`Updating user inventories...`)
   logger.log(JSON.stringify(inventoryQueue, null, 4))
 
+  const batch = db.batch()
+
   for(let user in inventoryQueue) {
     if(!Object.keys(inventoryQueue[user]).length) {
       delete inventoryQueue[user]
@@ -130,9 +132,12 @@ exports.updateInventories = async () => {
 
     if(Object.keys(payload.inventory).length) { // inventory changes queued
       const docRef = db.collection("users").doc(user)
-      await docRef.set(payload, { merge: true })
+      // await .set(userPayload, { merge: true })
+      batch.set(docRef, payload, { merge: true })
     }
 
     delete inventoryQueue[user]
   }
+  
+  await batch.commit()
 }
