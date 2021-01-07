@@ -6,10 +6,10 @@ exports.run = async (client, message, args) => {
   
 
   let page = 1
-  if(args[1])
-    page = parseInt(args[1])
   if(args[0])
     page = parseInt(args[0])
+  if(args[1])
+    page = parseInt(args[1])
 
 
   let user = await getUserArg(message)
@@ -38,6 +38,10 @@ exports.run = async (client, message, args) => {
 
   const itemsPerPage = settings.inventory.itemsPerPage
   const pageCount = Math.ceil(inventoryKeys.length / itemsPerPage)
+
+  if(page > pageCount)
+    page = 1
+
   let itemsLooped = 0
   let itemNumber = itemsPerPage * (page - 1)
   let itemsAdded = 0
