@@ -52,8 +52,9 @@ exports.run = async (client, message, args) => {
           "",
           itemDescription
         ].join("\n"),
-        true
+        false
       )
+      embedder.addBlankField(responseEmbed)
     }
   
     
