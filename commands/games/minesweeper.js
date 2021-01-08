@@ -257,10 +257,14 @@ exports.run = async (client, message, args) => {
       if(options.move) {
         const squareCoords = options.move
 
-        if(playerData.flagMode)
+        if(playerData.flagMode) {
           await flagSquare(gameField, squareCoords[0], squareCoords[1])
-        else
+          playerData.moves.push(`F${squareCoords.join(",")}`)
+        }
+        else {
           await revealSquare(gameField, squareCoords[0], squareCoords[1])
+          playerData.moves.push(`C${squareCoords.join(",")}`)
+        }
       }
     }
 
@@ -285,8 +289,9 @@ exports.run = async (client, message, args) => {
         minesweeperCache[message.author.id] = {
           failure: false,
           message: null,
+          flagMode: false,
+          moves: [],
           field: gameField,
-          flagMode: false
         }
 
         addModeField()
@@ -325,7 +330,9 @@ exports.run = async (client, message, args) => {
     else {
       msg = playerData.message
 
-      emb.setColor(gameOver.win ? config.main.colours.success : config.main.colours.error)
+      emb
+        .setColor(gameOver.win ? config.main.colours.success : config.main.colours.error)
+        .addField("Moves Made", playerData.moves.join("\n").slice(0, 1024))
       msg.edit(gameOver.win ? "You win!" : "You got blown up by a landmine D:", { embed: emb })
 
       delete minesweeperCache[message.author.id]
@@ -354,10 +361,13 @@ exports.run = async (client, message, args) => {
     coords = coords.map(elem => parseInt(elem) - 1)
 
     if(coords.length < 2) {
-      message.channel.send("not enough dukcing coordinates you dukcing dukc")
+      message.channel.send("specify valid coordinates pls")
+        .then(m => m.delete({ timeout: 5000 }))
       return
     }
 
     await tickMinesweeper(message.channel, { move: coords })
+    if(message.deletable)
+      message.delete()
   }
 }
