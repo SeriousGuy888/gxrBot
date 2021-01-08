@@ -41,7 +41,7 @@ exports.run = async (client, message, args) => {
     for(let x = 0; x < field.length; x++) {
       for(let y = 0; y < field.length; y++) {
         field[x][y] = {
-          revealed: true,
+          revealed: false,
           flagged: false,
         }
       }
@@ -130,8 +130,14 @@ exports.run = async (client, message, args) => {
           if(currentSquare.flagged) {
             fieldRows[x].push("🚩")
           }
-          else {
-            fieldRows[x].push("🟦")
+          else { // if the square is not flagged
+            let orangify = false // make a checkerboard pattern
+            if(x % 2 === 0)
+              orangify = !orangify
+            if(y % 2 === 0)
+              orangify = !orangify
+            
+            fieldRows[x].push(orangify ? "🟧" : "🟨")
           }
         }
       }
