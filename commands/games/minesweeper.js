@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
 
   const columnCount = 12 // x
   const rowCount = 12 // y
-  const totalMines = 24
+  const totalMines = 12
 
   const playerData = minesweeperCache[message.author.id]
 
@@ -46,6 +46,7 @@ exports.run = async (client, message, args) => {
         field[x][y] = {
           revealed: false,
           flagged: false,
+          mine: false,
         }
       }
     }
@@ -108,8 +109,9 @@ exports.run = async (client, message, args) => {
 
   const revealSquare = async (field, x, y) => {
     if((!field[x]) || (!field[x][y]))
-      return -1
+      return
     
+    field[x][y].flagged = false
     field[x][y].revealed = true
 
     if(field[x][y].mine)
@@ -130,6 +132,17 @@ exports.run = async (client, message, args) => {
         }
       }
     }
+
+    return field
+  }
+
+  const flagSquare = async (field, x, y) => {
+    if((!field[x]) || (!field[x][y]))
+      return
+    
+    if(field[x][y].revealed) // no flagging or unflagging revealed squares
+      return
+    field[x][y].flagged = !field[x][y].flagged // invert flagged status
 
     return field
   }
@@ -241,10 +254,13 @@ exports.run = async (client, message, args) => {
       gameField = playerData.field
 
     if(options) {
-      if(options.reveal) {
-        const squareCoords = options.reveal
-        await revealSquare(gameField, squareCoords[0], squareCoords[1])
-        console.log(gameField[squareCoords[0]][squareCoords[1]])
+      if(options.move) {
+        const squareCoords = options.move
+
+        if(playerData.flagMode)
+          await flagSquare(gameField, squareCoords[0], squareCoords[1])
+        else
+          await revealSquare(gameField, squareCoords[0], squareCoords[1])
       }
     }
 
@@ -262,17 +278,48 @@ exports.run = async (client, message, args) => {
       .addField("Flags Placed", `${getFlagCount(gameField)} / ${totalMines}`, true)
     embedder.addAuthor(emb, message.author)
 
+    const addModeField = () => emb.addField("Mode", minesweeperCache[message.author.id].flagMode ? "Flagging" : "Clearing")
+
     if(!gameOver) {
       if(init) {
         minesweeperCache[message.author.id] = {
           failure: false,
-          message: await channel.send(emb),
+          message: null,
           field: gameField,
+          flagMode: false
         }
+
+        addModeField()
+        minesweeperCache[message.author.id].message = await channel.send(emb)
       }
       else {
         msg = playerData.message
+        addModeField()
         msg.edit(emb)
+          .then(async gameMessage => {
+            const reactionEmojis = ["👢", "🚩"]
+            const reactionFilter = (reaction, user) => user.id == message.author.id && reactionEmojis.includes(reaction.emoji.name)
+          
+            gameMessage.awaitReactions(reactionFilter, { max: 1, time: 300000 })
+              .then(async collected => {
+                const emojiName = collected.first().emoji.name
+                gameMessage.reactions.resolve(emojiName).users.remove(message.author) // remove user's reaction
+                switch(emojiName) {
+                  case "👢":
+                    setFlagMode(false)
+                    break
+                  case "🚩":
+                    setFlagMode(true)
+                    break
+                }
+              })
+              .catch(() => {
+                gameMessage.edit("This game is no longer listening for reactions.")
+              })
+            
+            for(const loopEmoji of reactionEmojis)
+              await gameMessage.react(loopEmoji)
+          })
       }
     }
     else {
@@ -285,8 +332,15 @@ exports.run = async (client, message, args) => {
     }
   }
 
+  const setFlagMode = (flag) => {
+    playerData.flagMode = flag
+    tickMinesweeper(message.channel)
+  }
+
+
+
   if(!args[0])
-    tickMinesweeper(message.channel, null, true)
+    await tickMinesweeper(message.channel, null, true)
   else {
     if((!playerData) || (!playerData.message)) {
       message.channel.send("you dont have an ongoing minesweeper game you dukc")
@@ -303,7 +357,7 @@ exports.run = async (client, message, args) => {
       message.channel.send("not enough dukcing coordinates you dukcing dukc")
       return
     }
-    
-    tickMinesweeper(message.channel, { reveal: coords })
+
+    await tickMinesweeper(message.channel, { move: coords })
   }
 }
