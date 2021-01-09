@@ -223,10 +223,19 @@ exports.run = async (client, message, args) => {
   }
 
   const checkGameOver = async (field) => {
+    if(!minesweeperCache[message.author.id])
+      return null
+
+    if(!minesweeperCache[message.author.id].failure)
+      return { win: false }
+
+    
+
     if(getFlagCount(field) > totalMines)
       return null
     
-    if(minesweeperCache[message.author.id] && minesweeperCache[message.author.id].failure)
+
+    if(minesweeperCache[message.author.id].failure)
       return { win: false }
 
     
@@ -280,7 +289,7 @@ exports.run = async (client, message, args) => {
 
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
-      .setTitle("Minesweeper but bad")
+      .setTitle("Bad Minesweeper")
       .setDescription(await renderField(gameField))
       .addField("Controls", [
         "W, A, S, D - Movement",
@@ -318,7 +327,7 @@ exports.run = async (client, message, args) => {
 
       emb
         .setColor(gameOver.win ? config.main.colours.success : config.main.colours.error)
-        .addField("Moves Made", minesweeperCache[message.author.id].moves.join("; ").slice(0, 1024))
+        .addField("Moves Made", "_" + minesweeperCache[message.author.id].moves.join("; ").slice(0, 1024))
       msg.edit(gameOver.win ? "You win!" : "You got blown up by a landmine D:", { embed: emb })
 
       delete minesweeperCache[message.author.id]
@@ -342,11 +351,16 @@ exports.run = async (client, message, args) => {
 
 
   if(!args[0]) {
-    delete minesweeperCache[message.author.id]
-    await tickMinesweeper(message.channel, null, true)
+    this.help(client, message, args)
+    return
   }
-  else {
-    if(args[0].toLowerCase() === "cursor") {
+
+  switch(args[0].toLowerCase()) {
+    case "play":
+      delete minesweeperCache[message.author.id]
+      await tickMinesweeper(message.channel, null, true)
+      break
+    case "cursor":
       if(message.deletable)
         message.delete()
       switch(args[1].toLowerCase().charAt(0)) {
@@ -373,28 +387,39 @@ exports.run = async (client, message, args) => {
         default:
           message.channel.send(`${message.author} See minesweeper game panel for controls!`)
       }
-    }
-    else {
-      if((!minesweeperCache[message.author.id]) || (!minesweeperCache[message.author.id].message)) {
-        message.channel.send("you dont have an ongoing minesweeper game you dukc")
+      break
+    case "forfeit":
+    case "quit":
+      if(!minesweeperCache[message.author.id]) {
+        message.channel.send("You do not currently have an ongoing minesweeper game!")
         return
       }
-  
-      let coords = args[0]
-        .split(",") // quakc
-        .splice(0, 2) // get first two coordinates
-        .reverse() // coords are reversed and i dont know why but this fixes it probably
-      coords = coords.map(elem => parseInt(elem) - 1)
-  
-      if(coords.length < 2) {
-        message.channel.send("specify valid coordinates pls")
-          .then(m => m.delete({ timeout: 5000 }))
-        return
-      }
-  
-      await tickMinesweeper(message.channel, { move: coords })
-      if(message.deletable)
-        message.delete()
-    }
+      minesweeperCache[message.author.id].failure = true
+      tickMinesweeper(message.channel)
+      break
+    default:
+      this.help(client, message, args)
+      return
   }
+}
+
+exports.help = (client, message, args) => {
+  const index = require("../../index.js")
+  const { config, commandHelpEmbed } = index
+
+  const embed = commandHelpEmbed(message, {
+    title: "**Bad Minesweeper**",
+    description: "Minesweeper but with a really slow cursor, unintuitive controls, and a tiny game board.",
+    syntax: `${config.main.prefix}minesweeper <play | quit>`,
+    example: [
+      `**Start a Minesweeper Game**`,
+      ` ${config.main.prefix}minesweeper play`,
+      "",
+      `**Forfeit Game**`,
+      ` ${config.main.prefix}hangman quit`,
+      "",
+    ].join("\n"),
+  })
+  
+  message.channel.send(embed)
 }
