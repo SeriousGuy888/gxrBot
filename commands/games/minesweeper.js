@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
   const rowCount = 12 // y
   const totalMines = 12
 
-  const playerData = minesweeperCache[message.author.id]
+  // let minesweeperCache[message.author.id] = minesweeperCache[message.author.id]
 
   const create2dArray = (cols, rows) => {
     let arr = new Array(cols)
@@ -115,7 +115,7 @@ exports.run = async (client, message, args) => {
     field[x][y].revealed = true
 
     if(field[x][y].mine)
-      playerData.failure = true
+      minesweeperCache[message.author.id].failure = true
 
     if(!checkAdjacentMines(field, x, y)) {
       for(let xOffset = -1; xOffset <= 1; xOffset++) {
@@ -147,37 +147,45 @@ exports.run = async (client, message, args) => {
     return field
   }
 
-  const renderField = (field) => {
+  const getSquareEmoji = (field, x, y, ignoreCursor) => {
+    if(
+      minesweeperCache[message.author.id] &&
+      (minesweeperCache[message.author.id].cursor[0] === x &&
+      minesweeperCache[message.author.id].cursor[1] === y) &&
+      (!ignoreCursor)
+    ) return "👆"
+    else {
+      const currentSquare = field[x][y]
+      if(currentSquare.revealed) {
+        if(currentSquare.mine)
+          return "💥"
+        else {
+          const mineCount = checkAdjacentMines(field, x, y)
+          if(mineCount === 0)
+            return "⬛"
+          else
+            return getNumberEmoji(mineCount)
+        }
+      }
+      else {
+        if(currentSquare.flagged)
+          return "🚩"
+        else // if the square is not flagged
+          return "🟨"
+      }
+    }
+  }
+
+  const renderField = async (field) => {
     let fieldRows = []
+    const gameOver = await checkGameOver(field)
 
     for(let x = 0; x < field.length; x++) {
       for(let y = 0; y < field[x].length; y++) {
         if(!fieldRows[x])
           fieldRows[x] = new Array(field[x].length)
         
-        const currentSquare = field[x][y]
-        if(currentSquare.revealed) {
-          if(currentSquare.mine) {
-            fieldRows[x].push("💥")
-          }
-          else {
-            const mineCount = checkAdjacentMines(field, x, y)
-            if(mineCount === 0) {
-              fieldRows[x].push(((x + 1) % 5 === 0 || (y + 1) % 5 === 0) ? "◾" : "⬛") 
-            }
-            else {
-              fieldRows[x].push(getNumberEmoji(mineCount))
-            }
-          }
-        }
-        else {
-          if(currentSquare.flagged) {
-            fieldRows[x].push("🚩")
-          }
-          else { // if the square is not flagged
-            fieldRows[x].push(((x + 1) % 5 === 0 || (y + 1) % 5 === 0) ? "🟧" : "🟨")
-          }
-        }
+        fieldRows[x].push(getSquareEmoji(field, x, y, gameOver))
       }
     }
 
@@ -218,7 +226,7 @@ exports.run = async (client, message, args) => {
     if(getFlagCount(field) > totalMines)
       return null
     
-    if(playerData && playerData.failure)
+    if(minesweeperCache[message.author.id] && minesweeperCache[message.author.id].failure)
       return { win: false }
 
     
@@ -226,14 +234,11 @@ exports.run = async (client, message, args) => {
       for(let y = 0; y < field[x].length; y++) {
         if(field[x][y].revealed) { // square is revealed
           if(field[x][y].mine) { // square is mine
-            // await revealAllMines(field)
-            // console.log("mine")
             return { win: false }
           }
         }
         else { // square is hidden
           if(!field[x][y].mine) { // square is safe
-            // console.log("safe")
             return null // game is not finished
           }
         }
@@ -244,27 +249,24 @@ exports.run = async (client, message, args) => {
   }
 
 
-
   const tickMinesweeper = async (channel, options, init) => {
     let gameField, msg
 
     if(init)
       gameField = createField(columnCount, rowCount)
     else
-      gameField = playerData.field
+      gameField = minesweeperCache[message.author.id].field
 
-    if(options) {
-      if(options.move) {
-        const squareCoords = options.move
+    if(options && options.move) {
+      const squareCoords = options.move
 
-        if(playerData.flagMode) {
-          await flagSquare(gameField, squareCoords[0], squareCoords[1])
-          playerData.moves.push(`F${squareCoords.join(",")}`)
-        }
-        else {
-          await revealSquare(gameField, squareCoords[0], squareCoords[1])
-          playerData.moves.push(`C${squareCoords.join(",")}`)
-        }
+      if(minesweeperCache[message.author.id].flagMode) {
+        await flagSquare(gameField, squareCoords[0], squareCoords[1])
+        minesweeperCache[message.author.id].moves.push(`f-${squareCoords.join(",")}`)
+      }
+      else {
+        await revealSquare(gameField, squareCoords[0], squareCoords[1])
+        minesweeperCache[message.author.id].moves.push(`r-${squareCoords.join(",")}`)
       }
     }
 
@@ -274,100 +276,125 @@ exports.run = async (client, message, args) => {
       await revealAllMines(gameField, gameOver.win)
     }
 
+
+
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
       .setTitle("Minesweeper but bad")
-      .setDescription(renderField(gameField))
+      .setDescription(await renderField(gameField))
+      .addField("Controls", [
+        "W, A, S, D - Movement",
+        "R - Reveal Cell",
+        "F - Flag Cell",
+      ].join("\n"))
       .addField("Field Size", `${columnCount}x${rowCount}`, true)
       .addField("Flags Placed", `${getFlagCount(gameField)} / ${totalMines}`, true)
     embedder.addAuthor(emb, message.author)
 
-    const addModeField = () => emb.addField("Mode", minesweeperCache[message.author.id].flagMode ? "Flagging" : "Clearing")
+    if(minesweeperCache[message.author.id]) {
+      const cursorLoc = minesweeperCache[message.author.id].cursor
+      emb.addField("Cursor is Over", getSquareEmoji(gameField, cursorLoc[0], cursorLoc[1], true))
+    }
+
 
     if(!gameOver) {
       if(init) {
         minesweeperCache[message.author.id] = {
           failure: false,
-          message: null,
+          message: await channel.send(emb),
           flagMode: false,
           moves: [],
+          cursor: [0, 0],
           field: gameField,
         }
-
-        addModeField()
-        minesweeperCache[message.author.id].message = await channel.send(emb)
       }
       else {
-        msg = playerData.message
-        addModeField()
+        msg = minesweeperCache[message.author.id].message
         msg.edit(emb)
-          .then(async gameMessage => {
-            const reactionEmojis = ["👢", "🚩"]
-            const reactionFilter = (reaction, user) => user.id == message.author.id && reactionEmojis.includes(reaction.emoji.name)
-          
-            gameMessage.awaitReactions(reactionFilter, { max: 1, time: 300000 })
-              .then(async collected => {
-                const emojiName = collected.first().emoji.name
-                gameMessage.reactions.resolve(emojiName).users.remove(message.author) // remove user's reaction
-                switch(emojiName) {
-                  case "👢":
-                    setFlagMode(false)
-                    break
-                  case "🚩":
-                    setFlagMode(true)
-                    break
-                }
-              })
-              .catch(() => {
-                gameMessage.edit("This game is no longer listening for reactions.")
-              })
-            
-            for(const loopEmoji of reactionEmojis)
-              await gameMessage.react(loopEmoji)
-          })
       }
     }
     else {
-      msg = playerData.message
+      msg = minesweeperCache[message.author.id].message
 
       emb
         .setColor(gameOver.win ? config.main.colours.success : config.main.colours.error)
-        .addField("Moves Made", playerData.moves.join("\n").slice(0, 1024))
+        .addField("Moves Made", minesweeperCache[message.author.id].moves.join("; ").slice(0, 1024))
       msg.edit(gameOver.win ? "You win!" : "You got blown up by a landmine D:", { embed: emb })
 
       delete minesweeperCache[message.author.id]
     }
   }
 
+
+    
+
   const setFlagMode = (flag) => {
-    playerData.flagMode = flag
+    minesweeperCache[message.author.id].flagMode = flag
+    tickMinesweeper(message.channel)
+  }
+
+  const moveCursor = (x, y) => {
+    minesweeperCache[message.author.id].cursor[0] += y // i dont know why these are reversed
+    minesweeperCache[message.author.id].cursor[1] += x
+
     tickMinesweeper(message.channel)
   }
 
 
-
-  if(!args[0])
+  if(!args[0]) {
+    delete minesweeperCache[message.author.id]
     await tickMinesweeper(message.channel, null, true)
+  }
   else {
-    if((!playerData) || (!playerData.message)) {
-      message.channel.send("you dont have an ongoing minesweeper game you dukc")
-      return
+    if(args[0].toLowerCase() === "cursor") {
+      if(message.deletable)
+        message.delete()
+      switch(args[1].toLowerCase().charAt(0)) {
+        case "w":
+          moveCursor(0, -1)
+          break
+        case "a":
+          moveCursor(-1, 0)
+          break
+        case "s":
+          moveCursor(0, 1)
+          break
+        case "d":
+          moveCursor(1, 0)
+          break
+        case "r":
+          setFlagMode(false)
+          tickMinesweeper(message.channel, { move: minesweeperCache[message.author.id].cursor })
+          break
+        case "f":
+          setFlagMode(true)
+          tickMinesweeper(message.channel, { move: minesweeperCache[message.author.id].cursor })
+          break
+        default:
+          message.channel.send(`${message.author} See minesweeper game panel for controls!`)
+      }
     }
-
-    let coords = args[0]
-      .split(",") // quakc
-      .splice(0, 2) // get first two coordinates
-      .reverse() // coords are reversed and i dont know why but this fixes it probably
-    coords = coords.map(elem => parseInt(elem) - 1)
-
-    if(coords.length < 2) {
-      message.channel.send("specify valid coordinates pls")
-        .then(m => m.delete({ timeout: 5000 }))
-      return
+    else {
+      if((!minesweeperCache[message.author.id]) || (!minesweeperCache[message.author.id].message)) {
+        message.channel.send("you dont have an ongoing minesweeper game you dukc")
+        return
+      }
+  
+      let coords = args[0]
+        .split(",") // quakc
+        .splice(0, 2) // get first two coordinates
+        .reverse() // coords are reversed and i dont know why but this fixes it probably
+      coords = coords.map(elem => parseInt(elem) - 1)
+  
+      if(coords.length < 2) {
+        message.channel.send("specify valid coordinates pls")
+          .then(m => m.delete({ timeout: 5000 }))
+        return
+      }
+  
+      await tickMinesweeper(message.channel, { move: coords })
+      if(message.deletable)
+        message.delete()
     }
-
-    await tickMinesweeper(message.channel, { move: coords })
-    if(message.deletable)
-      message.delete()
   }
 }

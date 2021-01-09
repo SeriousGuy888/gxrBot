@@ -91,6 +91,11 @@ module.exports = async (client, message) => {
       const args = ["guess"].concat(message.content.split(" "))
       command.run(client, message, args)
     }
+    else if(index.gameCache.minesweeper[message.author.id]) {
+      const command = client.commands.get("minesweeper")
+      const args = ["cursor"].concat(message.content.split(" "))
+      command.run(client, message, args)
+    }
   }
 
   autocarrot: {
