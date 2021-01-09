@@ -1,12 +1,11 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const minesweeperCache = index.gameCache.minesweeper
-  const { config, Discord, embedder } = index
+  const { config, Discord, banker, embedder } = index
+  const settings = config.minesweeper
 
-  const fieldSize = 10 // y
-  const totalMines = 8
-
-  // let minesweeperCache[message.author.id] = minesweeperCache[message.author.id]
+  const fieldSize = settings.game.field.size // y
+  const totalMines = settings.game.field.mines
 
   const create2dArray = (cols, rows) => {
     let arr = new Array(cols)
@@ -304,7 +303,9 @@ exports.run = async (client, message, args) => {
         "I, J, K, L - Fast Movement",
         "R - Reveal Cell",
         "F - Flag Cell",
-      ].join("\n"))
+      ].join("\n"), true)
+      .addField("Award for Winning", `${config.economy.settings.lang.emojis.coin}${settings.win.award}\n\`${config.main.prefix}bal\``, true)
+    embedder.addBlankField(emb)
       .addField("Field Size", `${fieldSize}x${fieldSize}`, true)
       .addField("Flags Placed", `${getFlagCount(gameField)} / ${totalMines}`, true)
     embedder.addAuthor(emb, message.author)
@@ -334,10 +335,19 @@ exports.run = async (client, message, args) => {
     else {
       msg = minesweeperCache[message.author.id].message
 
-      emb
-        .setColor(gameOver.win ? config.main.colours.success : config.main.colours.error)
+      embedder.addBlankField(emb)
         .addField("Moves Made", "_" + minesweeperCache[message.author.id].moves.join("; ").slice(0, 1024))
-      msg.edit(gameOver.win ? "You win!" : "You got blown up by a landmine D:", { embed: emb })
+      if(gameOver.win) {
+        banker.addToBalance(message.author.id, settings.win.award)
+        emb
+          .setColor(config.main.colours.success)
+          .addField("Moolah", `You have been awarded ${config.economy.settings.lang.emojis.coin}${settings.win.award} for your minesweeper skills!`)
+        msg.edit("You win!", { embed: emb })
+      }
+      else {
+        emb.setColor(config.main.colours.error)
+        msg.edit("You got blown up by a landmine D:", { embed: emb })
+      }
 
       delete minesweeperCache[message.author.id]
     }
@@ -435,7 +445,7 @@ exports.help = (client, message, args) => {
 
   const embed = commandHelpEmbed(message, {
     title: "**Bad Minesweeper**",
-    description: "Minesweeper but with a really slow cursor, unintuitive controls, and a tiny game board.",
+    description: "Minesweeper but with a really slow cursor, unintuitive controls, and a tiny game board. You do get free g9lbot moolah though.",
     syntax: `${config.main.prefix}minesweeper <play | quit>`,
     example: [
       `**Start a Minesweeper Game**`,
@@ -443,7 +453,7 @@ exports.help = (client, message, args) => {
       "Move cursor around and flag and reveal with shown controls during game.",
       "",
       `**Forfeit Game**`,
-      ` ${config.main.prefix}hangman quit`,
+      ` ${config.main.prefix}minesweeper quit`,
       "",
     ].join("\n"),
   })

@@ -1,0 +1,11 @@
+{
+  "game": {
+    "field": {
+      "size": 14,
+      "mines": 16
+    }
+  },
+  "win": {
+    "award": 0.2
+  }
+}

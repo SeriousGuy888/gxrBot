@@ -12,6 +12,7 @@ module.exports = {
   logger:             require("./logger.json"),
   magic8ball:         require("./magic8ball.json"),
   messageResponder:   require("./message_responder.json"),
+  minesweeper:        require("./minesweeper.json"),
   mute:               require("./mute.json"),
   propaganda:         require("./propaganda.json")
 }
