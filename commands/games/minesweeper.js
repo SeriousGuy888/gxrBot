@@ -3,9 +3,8 @@ exports.run = async (client, message, args) => {
   const minesweeperCache = index.gameCache.minesweeper
   const { config, Discord, embedder } = index
 
-  const columnCount = 12 // x
-  const rowCount = 12 // y
-  const totalMines = 12
+  const fieldSize = 10 // y
+  const totalMines = 8
 
   // let minesweeperCache[message.author.id] = minesweeperCache[message.author.id]
 
@@ -18,8 +17,8 @@ exports.run = async (client, message, args) => {
 
   const placeMines = (field) => {
     var options = [] // allowed places for mines
-    for(let x = 0; x < columnCount; x++) {
-      for (let y = 0; y < rowCount; y++) {
+    for(let x = 0; x < fieldSize; x++) {
+      for (let y = 0; y < fieldSize; y++) {
         options.push([x, y])
       }
     }
@@ -42,7 +41,7 @@ exports.run = async (client, message, args) => {
 
   const setupField = (field) => {
     for(let x = 0; x < field.length; x++) {
-      for(let y = 0; y < field.length; y++) {
+      for(let y = 0; y < field[x].length; y++) {
         field[x][y] = {
           revealed: false,
           flagged: false,
@@ -148,6 +147,15 @@ exports.run = async (client, message, args) => {
   }
 
   const getSquareEmoji = (field, x, y, ignoreCursor) => {
+    if(!field)
+      return "🦆"
+    if(!field[x])
+      return "🕊"
+    if(!field[x][y])
+      return "🐔"
+
+    const currentSquare = field[x][y]
+
     if(
       minesweeperCache[message.author.id] &&
       (minesweeperCache[message.author.id].cursor[0] === x &&
@@ -155,7 +163,6 @@ exports.run = async (client, message, args) => {
       (!ignoreCursor)
     ) return "👆"
     else {
-      const currentSquare = field[x][y]
       if(currentSquare.revealed) {
         if(currentSquare.mine)
           return "💥"
@@ -226,7 +233,7 @@ exports.run = async (client, message, args) => {
     if(!minesweeperCache[message.author.id])
       return null
 
-    if(!minesweeperCache[message.author.id].failure)
+    if(minesweeperCache[message.author.id].failure)
       return { win: false }
 
     
@@ -262,7 +269,7 @@ exports.run = async (client, message, args) => {
     let gameField, msg
 
     if(init)
-      gameField = createField(columnCount, rowCount)
+      gameField = createField(fieldSize, fieldSize)
     else
       gameField = minesweeperCache[message.author.id].field
 
@@ -271,11 +278,11 @@ exports.run = async (client, message, args) => {
 
       if(minesweeperCache[message.author.id].flagMode) {
         await flagSquare(gameField, squareCoords[0], squareCoords[1])
-        minesweeperCache[message.author.id].moves.push(`f-${squareCoords.join(",")}`)
+        minesweeperCache[message.author.id].moves.push(`f=${squareCoords.join(",")}`)
       }
       else {
         await revealSquare(gameField, squareCoords[0], squareCoords[1])
-        minesweeperCache[message.author.id].moves.push(`r-${squareCoords.join(",")}`)
+        minesweeperCache[message.author.id].moves.push(`r=${squareCoords.join(",")}`)
       }
     }
 
@@ -286,6 +293,7 @@ exports.run = async (client, message, args) => {
     }
 
 
+    const cursorLoc = (minesweeperCache[message.author.id] ?? {}).cursor ?? []
 
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
@@ -293,15 +301,16 @@ exports.run = async (client, message, args) => {
       .setDescription(await renderField(gameField))
       .addField("Controls", [
         "W, A, S, D - Movement",
+        "I, J, K, L - Fast Movement",
         "R - Reveal Cell",
         "F - Flag Cell",
       ].join("\n"))
-      .addField("Field Size", `${columnCount}x${rowCount}`, true)
+      .addField("Field Size", `${fieldSize}x${fieldSize}`, true)
       .addField("Flags Placed", `${getFlagCount(gameField)} / ${totalMines}`, true)
     embedder.addAuthor(emb, message.author)
 
     if(minesweeperCache[message.author.id]) {
-      const cursorLoc = minesweeperCache[message.author.id].cursor
+      // const cursorLoc = minesweeperCache[message.author.id].cursor
       emb.addField("Cursor is Over", getSquareEmoji(gameField, cursorLoc[0], cursorLoc[1], true))
     }
 
@@ -346,6 +355,11 @@ exports.run = async (client, message, args) => {
     minesweeperCache[message.author.id].cursor[0] += y // i dont know why these are reversed
     minesweeperCache[message.author.id].cursor[1] += x
 
+    if(minesweeperCache[message.author.id].cursor[0] > fieldSize) minesweeperCache[message.author.id].cursor[0] = fieldSize - 1
+    if(minesweeperCache[message.author.id].cursor[0] < 0) minesweeperCache[message.author.id].cursor[0] = 0
+    if(minesweeperCache[message.author.id].cursor[1] > fieldSize) minesweeperCache[message.author.id].cursor[1] = fieldSize - 1
+    if(minesweeperCache[message.author.id].cursor[1] < 0) minesweeperCache[message.author.id].cursor[1] = 0
+
     tickMinesweeper(message.channel)
   }
 
@@ -375,6 +389,18 @@ exports.run = async (client, message, args) => {
           break
         case "d":
           moveCursor(1, 0)
+          break
+        case "i":
+          moveCursor(0, -100)
+          break
+        case "j":
+          moveCursor(-100, 0)
+          break
+        case "k":
+          moveCursor(0, 100)
+          break
+        case "l":
+          moveCursor(100, 0)
           break
         case "r":
           setFlagMode(false)
@@ -414,6 +440,7 @@ exports.help = (client, message, args) => {
     example: [
       `**Start a Minesweeper Game**`,
       ` ${config.main.prefix}minesweeper play`,
+      "Move cursor around and flag and reveal with shown controls during game.",
       "",
       `**Forfeit Game**`,
       ` ${config.main.prefix}hangman quit`,
