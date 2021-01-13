@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.karma)
     .setTitle("Discord Karma Leaderboard")
-    .setDescription(`[Leaderboard on Web Panel](${settings.lang.web_panel.leaderboard})\nYou can click people's karma score to see and easily compare their score with other people's score on the web panel.\n\u200b`)
+    .setDescription(`Get karma by having people reacting with upvotes on your messages!\n[Leaderboard on Web Panel](${settings.lang.web_panel.leaderboard})\n\u200b`)
     .setFooter(settings.lang.footer)
   embedder.addAuthor(leaderboardEmbed, message.author)
 
