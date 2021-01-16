@@ -23,7 +23,7 @@ module.exports = {
   },
   twenty_twenty_one: {
     emoji: "<:2021:796514745837682688>",
-    name: "2021 New Year Award",
-    description: "i forgot what this does"
+    name: "2021 New Year Medal",
+    description: "Was awarded to all users who were members of the discord server at the start of 2021."
   }
 }
