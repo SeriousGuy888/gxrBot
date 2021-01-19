@@ -1,4 +1,4 @@
-exports.run = (author, message) => {
+module.exports = (author, message) => {
   const index = require("../index.js")
   const { client, config } = index
   const { logger } = client.util

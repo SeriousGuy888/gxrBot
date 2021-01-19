@@ -1,4 +1,4 @@
-exports.run = (message, options) => {
+module.exports = (message, options) => {
   const index = require("../index.js")
   const { config, Discord, embedder } = index
 

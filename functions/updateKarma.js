@@ -1,4 +1,4 @@
-exports.run = async () => {
+module.exports = async () => {
   const index = require("../index.js")
   const { client, firebaseAdmin, db, karmaQueue, karmaCache } = index
   const { logger } = client.util

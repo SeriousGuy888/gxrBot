@@ -1,4 +1,4 @@
-exports.run = async (reaction, user, removed) => {
+module.exports = async (reaction, user, removed) => {
   const index = require("../index.js")
   const { client, Discord, config, addKarma } = index
   const settings = config.karma

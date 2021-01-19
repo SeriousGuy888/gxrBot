@@ -145,18 +145,19 @@ for(let loopLog of logQueue)
 // setup ↑
 // function and util imports ↓
 
-const addKarma = client.functions.addKarma.run
-const autocarrotWebhook = client.functions.autocarrotWebhook.run
-const autoResponses = client.functions.autoResponses.run
-const awaitOrders = client.functions.awaitOrders.run
-const commandHelpEmbed = client.functions.commandHelpEmbed.run
-const coopChannels = client.functions.coopChannels.run
-const extractArgs = client.functions.extractArgs.run
-const getUserArg = client.functions.getUserArg.run
-const messageResponder = client.functions.messageResponder.run
-const updateKarma = client.functions.updateKarma.run
-const voteReactions = client.functions.voteReactions.run
-
+const {
+  addKarma,
+  autocarrotWebhook,
+  autoResponses,
+  awaitOrders,
+  commandHelpEmbed,
+  coopChannels,
+  extractArgs,
+  getUserArg,
+  messageResponder,
+  updateKarma,
+  voteReactions
+} = client.functions
 const { banker, embedder, messenger, permisser, timer } = client.util
 
 // function and util imports ↑

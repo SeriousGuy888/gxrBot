@@ -1,4 +1,4 @@
-exports.run = () => {
+module.exports = () => {
   const index = require("../index.js")
   const { client, config, db, Discord } = index
   const { logger } = client.util

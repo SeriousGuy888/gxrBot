@@ -1,4 +1,4 @@
-exports.run = async (message) => {
+module.exports = async (message) => {
   const index = require("../index.js")
   const { extractArgs } = index
 

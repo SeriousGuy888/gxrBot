@@ -1,4 +1,4 @@
-exports.run = (message) => {
+module.exports = (message) => {
   const index = require("../index.js")
   const { client, config, banker, messenger } = index
 
