@@ -202,6 +202,8 @@ module.exports = {
 // exports ↑
 
 
+process.on("unhandledRejection", console.error)
+
 process.once("SIGTERM", async () => {
   updateKarma()
   banker.updateBalances()
