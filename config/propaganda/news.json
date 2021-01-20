@@ -1,8 +1,12 @@
 {
   "announcements": [
-    "This just in"
+    "This just in",
+    "Breaking news",
+    "Latest news"
   ],
   "stories": [
-    "%animal% Republic seen conspiring to start war"
+    "%animal% Republic seen conspiring to start war",
+    "Recent study suggests that substance abuse is very prevalant among %animal% communities",
+    "Satan planning vacation to Earth"
   ]
 }
