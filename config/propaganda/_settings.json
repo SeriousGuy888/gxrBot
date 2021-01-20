@@ -3,5 +3,10 @@
   "channels": [
     "587769144619958277",
     "430565803293933582"
-  ]
+  ],
+  "languages": {
+    "host": "en-CA",
+    "guest": "en-GB",
+    "default": "en-CA"
+  }
 }

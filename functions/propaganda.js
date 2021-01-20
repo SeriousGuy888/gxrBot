@@ -40,11 +40,11 @@ module.exports = async (client) => {
     
     propagandaQueue.push({
       message: question,
-      language: "en-CA"
+      language: settings.languages.host
     })
     propagandaQueue.push({
       message: answer,
-      language: "en-GB"
+      language: settings.languages.guest
     })
   }
 
@@ -56,7 +56,7 @@ module.exports = async (client) => {
     const story = fillPlaceholders(randArrElem(stories))
     propagandaQueue.push({
       message: `${announcement}: ${story}`,
-      language: "en-CA"
+      language: settings.languages.host
     })
   }
 
@@ -67,16 +67,16 @@ module.exports = async (client) => {
         propagandaQueue = [
           ...propagandaQueue,
           {
-            message: "This is the Grade 9 League's propaganda show, with me, the Canadian voice,",
-            language: "en-CA"
+            message: "This is the Grade 9 League's propaganda show, with me, the Canadian Google Translate voice,",
+            language: settings.languages.host
           },
           {
-            message: "and me, the British voice.",
-            language: "en-GB"
+            message: "and me, the British Google Translate voice.",
+            language: settings.languages.guest
           },
           {
             message: "Please wait while you are indoctrinated.",
-            language: "en-CA"
+            language: settings.languages.host
           }
         ]
       }
@@ -91,11 +91,11 @@ module.exports = async (client) => {
         default:
           const line = {
             message: fillPlaceholders(randArrElem(propagandaMessages)),
-            language: "en-CA"
+            language: settings.languages.host
           }
           const line2 = {
             message: fillPlaceholders(randArrElem(interviewItems.yesNo)),
-            language: "en-GB"
+            language: settings.languages.guest
           }
   
           propagandaQueue.push(line)
@@ -115,7 +115,7 @@ module.exports = async (client) => {
       propagandaMessage = propagandaQueue[0]
     }
   
-    const urls = await googleTts.getAllAudioUrls(propagandaMessage.message, { lang: propagandaMessage.language ?? "en-CA" })
+    const urls = await googleTts.getAllAudioUrls(propagandaMessage.message, { lang: propagandaMessage.language ?? settings.languages.default })
   
     const play = async piece => {
       if(!piece) {
