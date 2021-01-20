@@ -1,6 +1,7 @@
 require("dotenv").config() // .env
 
 const fs = require("fs")
+const path = require("path")
 
 const Discord = require("discord.js")
 const client = new Discord.Client({
@@ -29,6 +30,8 @@ const emojiDictionary = require("emoji-dictionary") // also emojis
 const translate = require("translate-google") // google translate i think
 const schedule = require("node-schedule") // node scheduler
 const stringSimilarity = require("string-similarity")
+const ytdl = require("ytdl-core")
+const googleTts = require("google-tts-api")
 
 let balanceQueue = {}
 let inventoryQueue = {}
@@ -51,6 +54,7 @@ let priorityExports = {
   client,
   config,
   fs,
+  path,
   prefix,
   firebaseAdmin,
   db,
@@ -155,6 +159,7 @@ const {
   extractArgs,
   getUserArg,
   messageResponder,
+  propaganda,
   updateKarma,
   voteReactions
 } = client.functions
@@ -173,6 +178,9 @@ module.exports = {
   translate,
   schedule,
   stringSimilarity,
+  ytdl,
+  googleTts,
+  
   karmaQueue,
   karmaCache,
   graphCache,
@@ -188,6 +196,7 @@ module.exports = {
   extractArgs,
   getUserArg,
   messageResponder,
+  propaganda,
   updateKarma,
   voteReactions,
 
