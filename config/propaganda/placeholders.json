@@ -37,5 +37,9 @@
     "Satan",
     "New Jersey Duck Patrol",
     "Trumpty Dumpty"
+  ],
+  "not": [
+    "not",
+    ""
   ]
 }

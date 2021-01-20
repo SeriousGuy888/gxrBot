@@ -5,9 +5,9 @@
     "Latest news"
   ],
   "stories": [
-    "%animal% Republic seen conspiring to start war",
-    "Recent study suggests that substance abuse is very prevalant among %animal% communities",
+    "%animal% Republic probably %not% conspiring to start war",
+    "Recent study suggests that substance abuse is %not% very prevalent among %animal% communities",
     "%person% planning vacation to Earth",
-    "%thing% on decline"
+    "%thing% %not% on decline"
   ]
 }
