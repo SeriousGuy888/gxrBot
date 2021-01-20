@@ -5,14 +5,18 @@ module.exports = async (client) => {
   const interviewItems = config.propaganda.interview
   const newsItems = config.propaganda.news
   const placeholders = config.propaganda.placeholders
+  const settings = config.propaganda.settings
 
-  const channel = await client.channels.cache.get("430565803293933582")
-  if(!channel) {
-    logger.log("Propaganda channel does not exist!")
-    return
+  const broadcast = client.voice.createBroadcast()
+  const connections = []
+
+  for(const channelId of settings.channels) {
+    const channel = await client.channels.cache.get(channelId)
+    connections.push(await channel.join())
   }
-
-  const connection = await channel.join()
+  for(const connection of connections) {
+    connection.play(broadcast)
+  }
 
 
   let propagandaQueue = []
@@ -123,7 +127,7 @@ module.exports = async (client) => {
       }
   
       const { url } = piece
-      await connection.play(url)
+      await broadcast.play(url)
         .on("finish", async () => {
           urls.shift()
           play(urls[0])
