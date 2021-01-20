@@ -24,31 +24,5 @@
     "I agree",
     "I disagree",
     "Shut up"
-  ],
-  "placeholders": {
-    "quality": [
-      "amazing",
-      "great",
-      "good",
-      "bad",
-      "awful",
-      "fucked up"
-    ],
-    "events": [
-      "the North Korean election",
-      "the nuking of the Indian Ocean",
-      "the very evil virus thing",
-      "the invention of the dishwasher"
-    ],
-    "things": [
-      "the meaning of life",
-      "the wellbeing of humans",
-      "genocide",
-      "crime",
-      "global warming",
-      "typography",
-      "propaganda",
-      "doin' your mom"
-    ]
-  }
+  ]
 }
