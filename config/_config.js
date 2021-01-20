@@ -6,6 +6,7 @@ module.exports = {
   economy:            require("./economy/_economy.js"),
   hangman:            require("./hangman/_hangman.js"),
   help:               require("./help/_help.js"),
+  propaganda:         require("./propaganda/_propaganda.js"),
   main:               require("./_main.json"),
   admins:             require("./admins.json"),
   karma:              require("./karma.json"),
@@ -14,5 +15,4 @@ module.exports = {
   messageResponder:   require("./message_responder.json"),
   minesweeper:        require("./minesweeper.json"),
   mute:               require("./mute.json"),
-  propaganda:         require("./propaganda.json")
 }

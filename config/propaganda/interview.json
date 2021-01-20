@@ -1,0 +1,50 @@
+{
+  "questions": [
+    "Do you think that %event% will have any effect on %thing%?",
+    "What is your opinion on %thing%?",
+    "Were you the one behind %event%?",
+    "This show is pretty %quality%, right?"
+  ],
+  "answers": [
+    "Yes",
+    "No",
+    "I think that this is a complicated issue, really?",
+    "Fuck off.",
+    "Pretty %quality%.",
+    "%quality%",
+    "I don't even know why I'm on this show.",
+    "You need to stop asking me questions.",
+    "You think I care?"
+  ],
+  "yesNo": [
+    "Yes",
+    "No",
+    "I agree",
+    "I disagree",
+    "Shut up"
+  ],
+  "placeholders": {
+    "quality": [
+      "amazing",
+      "great",
+      "good",
+      "bad",
+      "awful"
+    ],
+    "events": [
+      "the North Korean election",
+      "the nuking of the Indian Ocean",
+      "the very evil virus thing",
+      "the invention of the dishwasher"
+    ],
+    "things": [
+      "the meaning of life",
+      "the wellbeing of humans",
+      "genocide",
+      "crime",
+      "global warming",
+      "typography",
+      "propaganda"
+    ]
+  }
+}
