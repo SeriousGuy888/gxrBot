@@ -3,7 +3,8 @@
     "Do you think that %event% will have any effect on %thing%?",
     "What is your opinion on %thing%?",
     "Were you the one behind %event%?",
-    "This show is pretty %quality%, right?"
+    "This show is pretty %quality%, right?",
+    "Why did %event% happen?"
   ],
   "answers": [
     "Yes",
