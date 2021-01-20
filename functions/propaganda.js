@@ -20,12 +20,12 @@ module.exports = async (client) => {
   const randArrElem = arr => arr[Math.floor(Math.random() * arr.length)]
 
 
-  const { quality, event, thing, animal } = placeholders
-  const fillPlaceholders = text => text
-    .replace(/%quality%/gi, randArrElem(quality))
-    .replace(/%event%/gi, randArrElem(event))
-    .replace(/%thing%/gi, randArrElem(thing))
-    .replace(/%animal%/gi, randArrElem(animal))
+  const fillPlaceholders = text => {
+    for(const i in placeholders) {
+      text = text.replace(new RegExp(`%${i}%`, "gi"), randArrElem(placeholders[i]))
+    }
+    return text
+  }
 
 
   const interview = () => {
