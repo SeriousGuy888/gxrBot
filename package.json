@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/SeriousGuy888/G8C-Bot#readme",
   "dependencies": {
+    "@discordjs/opus": "github:discordjs/opus",
     "discord.js": "^12.3.1",
     "dot-prop": "^5.3.0",
     "dotenv": "^8.2.0",
@@ -28,11 +29,14 @@
     "enmap": "^5.2.3",
     "ffmpeg-static": "^4.2.7",
     "firebase-admin": "^9.4.1",
+    "google-tts-api": "^2.0.1",
     "i": "^0.3.6",
     "node-schedule": "^1.3.2",
     "npm": "^7.2.0",
     "quickchart-js": "^1.0.5",
+    "say": "^0.16.0",
     "string-similarity": "^4.0.3",
-    "translate-google": "^1.4.3"
+    "translate-google": "^1.4.3",
+    "ytdl": "^1.4.1"
   }
 }
