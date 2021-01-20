@@ -86,11 +86,11 @@ module.exports = async (client) => {
           break
         default:
           const line = {
-            message: randArrElem(propagandaMessages),
+            message: fillPlaceholders(randArrElem(propagandaMessages)),
             language: "en-CA"
           }
           const line2 = {
-            message: randArrElem(interviewItems.yesNo),
+            message: fillPlaceholders(randArrElem(interviewItems.yesNo)),
             language: "en-GB"
           }
   
