@@ -7,13 +7,13 @@
     "awful",
     "fucked up"
   ],
-  "events": [
+  "event": [
     "the North Korean election",
     "the nuking of the Indian Ocean",
     "the very evil virus thing",
     "the invention of the dishwasher"
   ],
-  "things": [
+  "thing": [
     "the meaning of life",
     "the wellbeing of humans",
     "genocide",
@@ -22,5 +22,12 @@
     "typography",
     "propaganda",
     "doin' your mom"
+  ],
+  "animal": [
+    "Penguin",
+    "Dog",
+    "Cat",
+    "Parrot",
+    "Earthworm"
   ]
 }
