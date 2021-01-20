@@ -4,6 +4,7 @@ module.exports = async (client) => {
   const propagandaMessages = config.propaganda.messages
   const interviewItems = config.propaganda.interview
   const newsItems = config.propaganda.news
+  const placeholders = config.propaganda.placeholders
 
   const channel = await client.channels.cache.get("430565803293933582")
   if(!channel) {
@@ -18,17 +19,19 @@ module.exports = async (client) => {
 
   const randArrElem = arr => arr[Math.floor(Math.random() * arr.length)]
 
+
+  const fillPlaceholders = text => text
+    .replace(/%quality%/gi, randArrElem(quality))
+    .replace(/%event%/gi, randArrElem(events))
+    .replace(/%thing%/gi, randArrElem(things))
+  const { quality, events, things } = placeholders
+
+
   const interview = () => {
     const { questions, answers } = interviewItems
-    const { quality, events, things } = interviewItems.placeholders
 
-    const placeholders = text => text
-      .replace(/%quality%/gi, randArrElem(quality))
-      .replace(/%event%/gi, randArrElem(events))
-      .replace(/%thing%/gi, randArrElem(things))
-
-    const question = placeholders(randArrElem(questions))
-    const answer = placeholders(randArrElem(answers))
+    const question = fillPlaceholders(randArrElem(questions))
+    const answer = fillPlaceholders(randArrElem(answers))
     
     propagandaQueue.push({
       message: question,
@@ -44,8 +47,8 @@ module.exports = async (client) => {
     const { announcements, stories } = newsItems
 
 
-    const announcement = randArrElem(announcements)
-    const story = randArrElem(stories)
+    const announcement = fillPlaceholders(randArrElem(announcements))
+    const story = fillPlaceholders(randArrElem(stories))
     propagandaQueue.push({
       message: `${announcement}: ${story}`,
       language: "en-CA"
