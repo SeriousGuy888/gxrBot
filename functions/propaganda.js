@@ -40,7 +40,22 @@ module.exports = async (client) => {
   }
 
   const generatePropagandaQueue = async () => {
-    for(let i = 0; i < 5; i++) {
+    for(let i = 0; i < 20; i++) {
+      if(i === 0) {
+        propagandaQueue.push({
+          message: "This is the Grade 9 League's propaganda show, with me, the Canadian voice,",
+          language: "en-CA"
+        })
+        propagandaQueue.push({
+          message: "and me, the British voice.",
+          language: "en-GB"
+        })
+        propagandaQueue.push({
+          message: "Please wait while you are indoctrinated.",
+          language: "en-CA"
+        })
+      }
+
       if(Math.round(Math.random())) {
         interview()
       }
@@ -59,7 +74,7 @@ module.exports = async (client) => {
       }
     }
 
-    console.log(propagandaQueue)
+    logger.log(JSON.stringify(propagandaQueue))
   }
 
 
