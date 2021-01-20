@@ -18,4 +18,8 @@ module.exports = async (client, message) => {
     banker.updateBalances()
     banker.updateInventories()
   }, 5 * 60 * 1000)
+
+  setTimeout(async () => {
+    index.propaganda(client)
+  }, 1000)
 }
