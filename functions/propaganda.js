@@ -3,6 +3,7 @@ module.exports = async (client) => {
   const { config, googleTts, logger } = index
   const propagandaMessages = config.propaganda.messages
   const interviewItems = config.propaganda.interview
+  const newsItems = config.propaganda.news
 
   const channel = await client.channels.cache.get("430565803293933582")
   if(!channel) {
@@ -13,7 +14,7 @@ module.exports = async (client) => {
   const connection = await channel.join()
 
 
-  const propagandaQueue = []
+  let propagandaQueue = []
 
   const randArrElem = arr => arr[Math.floor(Math.random() * arr.length)]
 
@@ -39,38 +40,59 @@ module.exports = async (client) => {
     })
   }
 
+  const news = () => {
+    const { announcements, stories } = newsItems
+
+
+    const announcement = randArrElem(announcements)
+    const story = randArrElem(stories)
+    propagandaQueue.push({
+      message: `${announcement}: ${story}`,
+      language: "en-CA"
+    })
+  }
+
+
   const generatePropagandaQueue = async () => {
     for(let i = 0; i < 20; i++) {
       if(i === 0) {
-        propagandaQueue.push({
-          message: "This is the Grade 9 League's propaganda show, with me, the Canadian voice,",
-          language: "en-CA"
-        })
-        propagandaQueue.push({
-          message: "and me, the British voice.",
-          language: "en-GB"
-        })
-        propagandaQueue.push({
-          message: "Please wait while you are indoctrinated.",
-          language: "en-CA"
-        })
+        propagandaQueue = [
+          ...propagandaQueue,
+          {
+            message: "This is the Grade 9 League's propaganda show, with me, the Canadian voice,",
+            language: "en-CA"
+          },
+          {
+            message: "and me, the British voice.",
+            language: "en-GB"
+          },
+          {
+            message: "Please wait while you are indoctrinated.",
+            language: "en-CA"
+          }
+        ]
       }
 
-      if(Math.round(Math.random())) {
-        interview()
-      }
-      else {
-        const line = {
-          message: randArrElem(propagandaMessages),
-          language: "en-CA"
-        }
-        const line2 = {
-          message: randArrElem(interviewItems.yesNo),
-          language: "en-GB"
-        }
-
-        propagandaQueue.push(line)
-        propagandaQueue.push(line2)
+      switch(Math.floor(Math.random() * 3)) {
+        case 1:
+          interview()
+          break
+        case 2:
+          news()
+          break
+        default:
+          const line = {
+            message: randArrElem(propagandaMessages),
+            language: "en-CA"
+          }
+          const line2 = {
+            message: randArrElem(interviewItems.yesNo),
+            language: "en-GB"
+          }
+  
+          propagandaQueue.push(line)
+          propagandaQueue.push(line2)
+          break
       }
     }
 
