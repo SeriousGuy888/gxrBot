@@ -6,8 +6,8 @@
   ],
   "stories": [
     "%animal% Republic probably %not% conspiring to start war",
-    "Recent study suggests that substance abuse is %not% very prevalent among %animal% communities",
-    "%person% planning vacation to Earth",
+    "Recent study suggests that substance abuse is %not% very prevalent among %animal% communities in %location%",
+    "%person% planning vacation to %location%",
     "%thing% %not% on decline"
   ]
 }

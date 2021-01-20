@@ -41,5 +41,12 @@
   "not": [
     "not",
     ""
+  ],
+  "location": [
+    "Earth",
+    "New Jersey",
+    "Atlantis",
+    "Hell",
+    "Santa's Workshop"
   ]
 }
