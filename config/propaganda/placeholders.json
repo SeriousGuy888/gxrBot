@@ -13,7 +13,7 @@
     "every %animal% yelling, 'fuck you humans'",
     "the stock market crash",
     "the rise of drug usage",
-    "the assassination of grumpy cat"
+    "the assassination of %person%"
   ],
   "thing": [
     "the meaning of life",
@@ -26,7 +26,8 @@
     "doin' your mom",
     "the American Dream",
     "happiness",
-    "doing as much coca-nine as humanly possible"
+    "doing as much coca-nine as humanly possible",
+    "violent crime"
   ],
   "animal": [
     "Penguin",
@@ -42,8 +43,12 @@
     "Satan",
     "New Jersey Duck Patrol",
     "Trumpty Dumpty",
+    "Hangman",
     "Howoang",
-    "Luwucas"
+    "Luwucas",
+    "billzowo",
+    "Show McShowerson",
+    "Grumpy Cat"
   ],
   "not": [
     "not",
@@ -63,6 +68,7 @@
     "The Sun",
     "The Indian Ocean",
     "The Caterpillar Republic",
-    "Brazil"
+    "Brazil",
+    "Antarctica"
   ]
 }
