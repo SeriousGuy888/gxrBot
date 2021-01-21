@@ -81,14 +81,8 @@ module.exports = async (client) => {
         ]
       }
 
-      switch(Math.floor(Math.random() * 3)) {
+      switch(Math.floor(Math.random() * 4)) {
         case 1:
-          interview()
-          break
-        case 2:
-          news()
-          break
-        default:
           const line = {
             message: fillPlaceholders(randArrElem(propagandaMessages)),
             language: settings.languages.host
@@ -100,6 +94,12 @@ module.exports = async (client) => {
   
           propagandaQueue.push(line)
           propagandaQueue.push(line2)
+          break
+        case 2:
+          interview()
+          break
+        default:
+          news()
           break
       }
     }
