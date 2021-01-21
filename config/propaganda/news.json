@@ -2,12 +2,15 @@
   "announcements": [
     "This just in",
     "Breaking news",
-    "Latest news"
+    "Latest news",
+    "In other news",
+    "In related news"
   ],
   "stories": [
-    "%animal% Republic probably %not% conspiring to start war",
+    "%animal% Republic probably %not% planning to invade %location%",
     "Recent study suggests that substance abuse is %not% very prevalent among %animal% communities in %location%",
     "%person% planning vacation to %location%",
-    "%thing% %not% on decline"
+    "%thing% %not% on decline",
+    "%person% commits a massive scandal"
   ]
 }

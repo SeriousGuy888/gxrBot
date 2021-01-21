@@ -55,7 +55,7 @@ module.exports = async (client) => {
     const announcement = fillPlaceholders(randArrElem(announcements))
     const story = fillPlaceholders(randArrElem(stories))
     propagandaQueue.push({
-      message: `${announcement}: ${story}`,
+      message: `${announcement}, ${story}`,
       language: settings.languages.host
     })
   }
