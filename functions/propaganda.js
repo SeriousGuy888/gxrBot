@@ -67,11 +67,11 @@ module.exports = async (client) => {
         propagandaQueue = [
           ...propagandaQueue,
           {
-            message: "This is the Grade 9 League's propaganda show, with me, the Canadian Google Translate voice,",
+            message: "This is the very cool propaganda show, with me, disembodied voice 1,",
             language: settings.languages.host
           },
           {
-            message: "and me, the British Google Translate voice.",
+            message: "and me, disembodied voice 2.",
             language: settings.languages.guest
           },
           {
