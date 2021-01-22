@@ -115,7 +115,10 @@ module.exports = async (client) => {
       propagandaMessage = propagandaQueue[0]
     }
   
-    const urls = await googleTts.getAllAudioUrls(propagandaMessage.message, { lang: propagandaMessage.language ?? settings.languages.default })
+    const urls = await googleTts.getAllAudioUrls(propagandaMessage.message, {
+      lang: propagandaMessage.language ?? settings.languages.default,
+      splitPunct: ".!?"
+    })
   
     const play = async piece => {
       if(!piece) {
