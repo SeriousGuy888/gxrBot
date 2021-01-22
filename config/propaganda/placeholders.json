@@ -12,7 +12,7 @@
     "the very evil virus thing",
     "every %animal% yelling, 'fuck you humans'",
     "the stock market crash",
-    "the rise of drug usage",
+    "the rise of %thing%",
     "the assassination of %person%"
   ],
   "thing": [
@@ -28,7 +28,11 @@
     "happiness",
     "doing as much coca-nine as humanly possible",
     "violent crime",
-    "substance abuse"
+    "substance abuse",
+    "Satanic worship",
+    "arson",
+    "police brutality",
+    "press censorship"
   ],
   "animal": [
     "Penguin",
@@ -38,7 +42,10 @@
     "Duck",
     "Earthworm",
     "Pufferfish",
-    "Caterpillar"
+    "Caterpillar",
+    "Butterfly",
+    "Pig",
+    "Sheep"
   ],
   "person": [
     "Satan",
@@ -49,7 +56,8 @@
     "Luwucas",
     "billzowo",
     "Show McShowerson",
-    "Grumpy Cat"
+    "Grumpy Cat",
+    "Kim Jong Un"
   ],
   "not": [
     "not",
@@ -70,6 +78,8 @@
     "The Indian Ocean",
     "The Caterpillar Republic",
     "Brazil",
-    "Antarctica"
+    "Antarctica",
+    "The Moon",
+    "North Korea"
   ]
 }

@@ -12,6 +12,7 @@
     "%person% planning vacation to %location%",
     "%thing% %not% on decline",
     "%person% commits a massive scandal",
-    "%person% may run for president of %location%"
+    "%person% may run for president of %location%",
+    "%person% may have been behind the terrorist attacks in %location%"
   ]
 }
