@@ -25,8 +25,10 @@ module.exports = async (client) => {
 
 
   const fillPlaceholders = text => {
-    for(const i in placeholders) {
-      text = text.replace(new RegExp(`%${i}%`, "gi"), randArrElem(placeholders[i]))
+    for(let i = 0; i < 5; i++) {
+      for(let j in placeholders) {
+        text = text.replace(new RegExp(`%${j}%`, "i"), randArrElem(placeholders[j]))
+      }
     }
     return text
   }
