@@ -10,7 +10,7 @@ module.exports = async (client) => {
   const broadcast = client.voice.createBroadcast()
   const connections = []
 
-  for(const channelId of settings.channels) {
+  for(const channelId of Object.keys(settings.channels)) {
     const channel = await client.channels.cache.get(channelId)
     connections.push(await channel.join())
     logger.log(`Broadcasting propaganda to channel ${channelId}.`)
