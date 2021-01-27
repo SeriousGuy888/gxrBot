@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
       const badgeInfo = config.badges[badge]
       const badgeDesc = badgeInfo?.description || "No description"
       const badgeEmoji = badgeInfo?.emoji + " " || ""
-	  	badgeContent += `**${badgeEmoji}${badge.toUpperCase()}**: ${badgeDesc}\n`
+	  	badgeContent += `**${badgeEmoji}${badge.toUpperCase()}**\n${badgeDesc}\n\n`
 	  }
   }
   emb.addField("Badges", (badgeContent || "This user does not have any badges.") + `\n[What are badges?](${config.main.links.github_pages}#faq-badges)`)
