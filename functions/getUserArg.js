@@ -8,7 +8,7 @@ module.exports = async (message) => {
   if(!args[0])
     user = message.author
   else
-    user = message.mentions.members.first() || await message.guild.members.fetch(args[0]).catch(() => {})
+    user = message.mentions.members?.first() || await message.guild?.members.fetch(args[0]).catch(() => {})
   
   if(!user)
     user = message.author
