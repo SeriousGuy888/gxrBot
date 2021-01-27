@@ -36,6 +36,11 @@ const stringSimilarity = require("string-similarity")
 const ytdl = require("ytdl-core")
 const googleTts = require("google-tts-api")
 
+let preferenceCache = {
+  default: {
+    notifications: true
+  }
+}
 let balanceQueue = {}
 let inventoryQueue = {}
 let badgeQueue = {}
@@ -64,6 +69,7 @@ let priorityExports = {
   db,
   auth,
 
+  preferenceCache,
   inventoryQueue,
   balanceQueue,
   badgeQueue,
