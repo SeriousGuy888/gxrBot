@@ -56,7 +56,17 @@ exports.run = async (client, message, args) => {
   if(karmaQueue[user.id])
     karma = `${karma} and ${karmaQueue[user.id]} pending`
   
-  responseEmbed.setDescription(notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}`)
+  let description = [notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}`]
+
+  if(config.main.guild.id !== message.guild.id) {
+    description = [
+      ...description,
+      "",
+      `:warning: Gaining or losing karma is unavailable outside ${config.main.guild.name}. -billzo`
+    ]
+  }
+
+  responseEmbed.setDescription(description.join("\n"))
 
   msg.edit(responseEmbed)
 }
