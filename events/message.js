@@ -23,7 +23,7 @@ module.exports = async (client, message) => {
       if(commandName.length === 0)
         break commands
 
-      logger.log(`${message.author.tag} (${message.author.id}) executed command in "#${message.channel.name}" (${message.channel.id}) of guild "${message.guild?.name ?? "[None]"}" (${message.guild.id}) with message content "${message.content}"`)
+      logger.log(`${message.author.tag} (${message.author.id}) executed command in "#${message.channel?.name}" (${message.channel?.id}) of guild "${message.guild?.name ?? "[None]"}" (${message.guild?.id}) with message content "${message.content}"`)
 
       command = client.commands.get(commandName) //grab cmds from enmap
 
