@@ -16,11 +16,6 @@ module.exports = {
       return "Item consumed. Did nothing."
     }
   },
-  kindergarten_diploma: {
-    emoji: ":scroll:",
-    name: "Kindergarten Diploma",
-    description: "Awarded for very cool achievements in the counting channel.\n`This item is currently not obtainable.`"
-  },
   twenty_twenty_one: {
     emoji: "<:2021:796514745837682688>",
     name: "2021 New Year Medal",
