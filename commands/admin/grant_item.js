@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
   
   
 
-  if(config.admins.superadmin.id !== message.author.id) {
+  if(!config.admins.ids[message.author.id]) {
     message.reply("no permission")
     return
   }
@@ -21,6 +21,9 @@ exports.run = async (client, message, args) => {
   }
   else
     user = await getUserArg(message)
+
+  if(!args[1])
+    return message.channel.send("specify item idot")
 
   const item = args[1].toLowerCase()
   const amount = parseInt(args[2]) || 1
