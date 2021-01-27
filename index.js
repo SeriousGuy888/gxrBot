@@ -38,6 +38,7 @@ const googleTts = require("google-tts-api")
 
 let balanceQueue = {}
 let inventoryQueue = {}
+let badgeQueue = {}
 let karmaQueue = {}
 let karmaCache = []
 let graphCache = {
@@ -65,6 +66,7 @@ let priorityExports = {
 
   inventoryQueue,
   balanceQueue,
+  badgeQueue,
 }
 
 module.exports = priorityExports
@@ -166,7 +168,7 @@ const {
   updateKarma,
   voteReactions
 } = client.functions
-const { banker, embedder, messenger, permisser, timer } = client.util
+const { badger, banker, embedder, messenger, permisser, timer } = client.util
 
 // function and util imports ↑
 // exports ↓
@@ -203,6 +205,7 @@ module.exports = {
   updateKarma,
   voteReactions,
 
+  badger,
   banker,
   embedder,
   logger,
@@ -214,10 +217,11 @@ module.exports = {
 // exports ↑
 
 
-process.on("unhandledRejection", console.error)
+// process.on("unhandledRejection", console.error)
 
 process.once("SIGTERM", async () => {
   updateKarma()
+  badger.updateBadges()
   banker.updateBalances()
   banker.updateInventories()
   logger.uploadLogs("Automatic log upload due to SIGTERM signal.", true)
@@ -226,6 +230,7 @@ process.once("SIGTERM", async () => {
 
 process.once("SIGINT", async () => {
   updateKarma()
+  badger.updateBadges()
   banker.updateBalances()
   banker.updateInventories()
   logger.uploadLogs("Automatic log upload due to SIGINT signal.", true)

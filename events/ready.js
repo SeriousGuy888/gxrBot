@@ -15,6 +15,7 @@ module.exports = async (client, message) => {
 
   setInterval(() => {
     updateKarma()
+    badger.updateBadges()
     banker.updateBalances()
     banker.updateInventories()
   }, 5 * 60 * 1000)
