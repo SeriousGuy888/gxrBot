@@ -4,6 +4,7 @@
     "help": "(`h`) %lowername% help command",
     "commands": "(`cmds`) Automatically generated list of all public commands",
     "ping": "Get bot latency",
+    "profile": "(`prof`) See a user's %lowername% profile.",
     "web": "Get web panel link"
   },
   "fun": {
