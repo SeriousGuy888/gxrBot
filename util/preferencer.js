@@ -33,6 +33,8 @@ exports.set = async (userId, preference, value) => {
   updatedUsers.push(userId)
 }
 
+exports.isValid = (preference) => Object.keys(preferenceCache.default).includes(preference) // returns whether a preference is valid
+
 exports.update = async () => {
   const batch = db.batch()
 
