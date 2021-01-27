@@ -174,7 +174,7 @@ const {
   updateKarma,
   voteReactions
 } = client.functions
-const { badger, banker, embedder, messenger, permisser, timer } = client.util
+const { badger, banker, embedder, messenger, permisser, preferencer, timer } = client.util
 
 // function and util imports ↑
 // exports ↓
@@ -217,6 +217,7 @@ module.exports = {
   logger,
   messenger,
   permisser,
+  preferencer,
   timer,
 }
 
@@ -227,6 +228,7 @@ module.exports = {
 
 process.once("SIGTERM", async () => {
   updateKarma()
+  preferencer.update()
   badger.updateBadges()
   banker.updateBalances()
   banker.updateInventories()
@@ -236,6 +238,7 @@ process.once("SIGTERM", async () => {
 
 process.once("SIGINT", async () => {
   updateKarma()
+  preferencer.update()
   badger.updateBadges()
   banker.updateBalances()
   banker.updateInventories()
