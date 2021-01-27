@@ -13,6 +13,7 @@ module.exports = async (client) => {
   for(const channelId of settings.channels) {
     const channel = await client.channels.cache.get(channelId)
     connections.push(await channel.join())
+    logger.log(`Broadcasting propaganda to channel ${channelId}.`)
   }
   for(const connection of connections) {
     connection.play(broadcast)
