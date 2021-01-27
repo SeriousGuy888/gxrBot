@@ -5,6 +5,7 @@
     "commands": "(`cmds`) Automatically generated list of all public commands",
     "ping": "Get bot latency",
     "profile": "(`prof`) See a user's %lowername% profile.",
+    "settings": "Edit your %lowername% user-settings",
     "web": "Get web panel link"
   },
   "fun": {
