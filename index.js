@@ -11,7 +11,10 @@ const client = new Discord.Client({
     "MESSAGE",
     "GUILD_MEMBER",
     "REACTION"
-  ]
+  ],
+  ws: {
+    intents: new Discord.Intents(Discord.Intents.ALL)
+  }
 })
 
 const config = require("./config/_config.js") // config file
