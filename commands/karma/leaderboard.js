@@ -17,8 +17,8 @@ exports.run = async (client, message, args) => {
   if(config.main.guild.id !== message.guild.id) {
     description = [
       ...description,
-      "",
-      `:warning: Gaining or losing karma is unavailable outside ${config.main.guild.name}. -billzo`
+      `:warning: Gaining or losing karma is unavailable outside ${config.main.guild.name}. -billzo`,
+      ""
     ]
   }
 
