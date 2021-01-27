@@ -1,7 +1,9 @@
+const { Discord } = require("../index.js")
 const index = require("../index.js")
-const { client, firebaseAdmin, db } = index
-const { arrayRemove, arrayUnion } = firebaseAdmin.firestore.FieldValue
+const { client, config, firebaseAdmin, db } = index
+const badgeData = config.badges
 let { badgeQueue } = index
+const { arrayRemove, arrayUnion } = firebaseAdmin.firestore.FieldValue
 
 
 exports.getBadges = async userId => {
@@ -36,6 +38,33 @@ exports.addBadge = async (userId, badge, remove) => {
   badgeQueue[userId][badge] = { remove }
 
   logger.log(`${remove ? "Removed" : "Granted"} badge \`${badge}\` to user ${userId}.`)
+}
+
+exports.awardBadge = async (userId, badge, remove, reason) => {
+  const { messenger, preferencer, embedder } = client.util
+
+  if((await this.getBadges(userId)).includes(badge)) {
+    return
+  }
+
+  await this.addBadge(userId, badge, remove)
+
+  const notifPrefs = (await preferencer.get(userId)).notifications
+  if(notifPrefs) {
+    const emb = new Discord.MessageEmbed()
+      .setColor(config.main.colours.success)
+      .setTitle("Badge Awarded")
+      .setDescription([
+        `You have been awarded a badge for reason \`${reason ?? "no reason provided"}\`, which is quite cool.`,
+        `You can check what badges you have with \`${config.main.prefix}prof\`.`
+      ].join("\n"))
+    embedder.addBlankField(emb)
+      .addField((badgeData[badge].emoji + " " ?? "") + badge.toUpperCase(), badgeData[badge].description ?? "No description provided.")
+    embedder.addBlankField(emb)
+      .addField("-", `*PS: You can disable these notifications by disabling the corresponding setting with the command \`${config.main.prefix}settings\`.*`)
+
+    messenger.dm(userId, emb)
+  }
 }
 
 
