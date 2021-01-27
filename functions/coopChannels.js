@@ -1,6 +1,7 @@
 module.exports = (message) => {
   const index = require("../index.js")
-  const { client, config, banker, messenger } = index
+  const { client, config, banker } = index
+  const { messenger, badger } = client.util
 
   const legal = () => message.attachments.array().length === 0
 
@@ -40,6 +41,7 @@ module.exports = (message) => {
       if(owsLegal(message.content)) {
         // random amount of money between 0 and 0.1
         banker.addToBalance(message.author.id, parseFloat((Math.random() * 0.1).toFixed(2)))
+        badger.awardBadge(message.author.id, "storyteller", false, "contributing to the one word story")
         return
       }
       this.punish(message, "ows")

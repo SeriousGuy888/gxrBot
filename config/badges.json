@@ -1,6 +1,10 @@
 {
   "dev": {
-    "emoji": ":keyboard:",
+    "emoji": "⌨",
     "description": "Contributed directly to my codebase. Thank you!"
+  },
+  "storyteller": {
+    "emoji": "📚",
+    "description": "Make your first contribution to the one word story.\n(Not awarded before 2021-01-27)"
   }
 }
