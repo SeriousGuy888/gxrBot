@@ -66,7 +66,7 @@ exports.run = async (client, message, args) => {
     ]
   }
 
-  responseEmbed.setDescription(description.join("\n"))
+  responseEmbed.setDescription(description.join("\n") + `\n[What is karma?](${config.main.links.github_pages}#faq-karma)`)
 
   msg.edit(responseEmbed)
 }

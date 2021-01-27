@@ -18,14 +18,13 @@ exports.run = async (client, message, args) => {
     description = [
       ...description,
       `:warning: Gaining or losing karma is unavailable outside ${config.main.guild.name}. -billzo`,
-      ""
     ]
   }
 
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.karma)
     .setTitle("Discord Karma Leaderboard")
-    .setDescription(description.join("\n"))
+    .setDescription(description.join("\n") + `\n[What is karma?](${config.main.links.github_pages}#faq-karma)`)
     .setFooter(settings.lang.footer)
   embedder.addAuthor(leaderboardEmbed, message.author)
 
