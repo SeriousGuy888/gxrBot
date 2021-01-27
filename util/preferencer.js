@@ -9,12 +9,10 @@ exports.get = async (userId) => {
   let preferences = {}
   if(preferenceCache[userId]) {
     preferences = preferenceCache[userId]
-    console.log("aaa")
   }
   else {
     const doc = await userRef.get()
     const data = doc.data()
-    console.log(data)
 
     if(data.settings)
       preferences = data.settings
