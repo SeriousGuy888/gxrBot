@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
 	  	badgeContent += `**${badgeEmoji}${badge.toUpperCase()}**: ${badgeDesc}\n`
 	  }
   }
-  emb.addField("Badges", badgeContent || "This user does not have any badges.")
+  emb.addField("Badges", (badgeContent || "This user does not have any badges.") + `\n[What are badges?](${config.main.links.github_pages}#faq-badges)`)
 
 
   message.channel.send(emb)
