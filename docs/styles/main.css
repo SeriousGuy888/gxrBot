@@ -1,0 +1,44 @@
+* {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+html {
+  background-color: #37393F;
+  color: white;
+}
+
+html header {
+  background-color: #212225;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 10vh;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 0;
+}
+
+html main {
+  margin-top: 15vh;
+}
+
+html main div {
+  background-color: #303136;
+  padding: 2em;
+  margin-bottom: 2%;
+}
+
+html main img {
+  border-radius: 3%;
+}
+/*# sourceMappingURL=main.css.map */
