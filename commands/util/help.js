@@ -21,10 +21,22 @@ exports.run = async (client, message, args) => {
 
   const noArgs = () => {
     const fields = require("../../config/help/pages/commands.json")
+    let description = [
+      `The prefix is \`${prefix}\`.`,
+      "Use the prefix before a command name to use that command."
+    ]
+
+    if(config.main.guild.id !== message.guild.id) {
+      description = [
+        ...description,
+        "",
+        `:warning: Some features such as karma, one word story participation income, and the web panel may not work as intended outside the ${config.main.guild.name} Discord server. -billzo`
+      ]
+    }
 
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.help)
-      .setDescription(`The prefix is \`${prefix}\`.\nUse the prefix before a command name to use that command.`)
+      .setDescription(description.join("\n"))
       .setTitle("Command List")
       .setFooter(`Use ${prefix}help info for info or somehting`)
     for(const fieldTitle in fields) {
@@ -38,7 +50,7 @@ exports.run = async (client, message, args) => {
 
       let content = ""
       for(let loopCommand of commandList) {
-        content += `\n\`${loopCommand.title}\` - ${loopCommand.content}\n`
+        content += `\n\\⭐\`${loopCommand.title}\` - ${loopCommand.content}`
       }
       
       emb.addField(fieldTitle.toUpperCase(), content, true)

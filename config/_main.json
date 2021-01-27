@@ -1,6 +1,10 @@
 {
   "prefix": "-",
   "maxCommandNameLength": 127,
+  "guild": {
+    "id": "587769144619958273",
+    "name": "Grade 9 League"
+  },
   "botNames": {
     "lowerCamelCase": "g9lBot",
     "upperCase": "G9LBOT"
