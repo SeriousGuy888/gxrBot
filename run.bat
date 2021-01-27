@@ -1,4 +1,4 @@
 title g9lbot
 :a
-node --trace-warnings .
+node .
 goto a
