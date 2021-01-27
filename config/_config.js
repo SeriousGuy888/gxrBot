@@ -9,6 +9,7 @@ module.exports = {
   propaganda:         require("./propaganda/_propaganda.js"),
   main:               require("./_main.json"),
   admins:             require("./admins.json"),
+  badges:             require("./badges.json"),
   karma:              require("./karma.json"),
   logger:             require("./logger.json"),
   magic8ball:         require("./magic8ball.json"),
