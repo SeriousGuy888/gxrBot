@@ -33,6 +33,8 @@ exports.set = async (guildId, preference, value) => {
   const fieldType = guildPreferenceCache.default[preference].type
   const allowNull = guildPreferenceCache.default[preference].allowNull
 
+  console.log(fieldType)
+
   let parsedValue = value
   switch(fieldType) {
     case "boolean":
@@ -60,12 +62,12 @@ exports.set = async (guildId, preference, value) => {
   if(inputType === "string")
     parsedValue = parsedValue.slice(0, 512) // limits strings to 512 characters
 
-  if((!(fieldType && inputType === fieldType) && !(allowNull && value === null))) {
+  if(((fieldType && inputType !== fieldType) && !(allowNull && value === null))) {
     return `❌ The field \`${preference}\` only accepts values of type \`${fieldType + (allowNull ? "` and `null" : "")}\`, but the input provided was of type \`${typeof value}\`.`
   }
 
 
-  guildPreferenceCache[guildId][preference] = value
+  guildPreferenceCache[guildId][preference] = parsedValue
   updatedGuilds.push(guildId)
   return `✅ Set \`${preference}\` to \`${value}\`.`
 }
