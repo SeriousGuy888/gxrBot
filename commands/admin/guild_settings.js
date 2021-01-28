@@ -12,20 +12,12 @@ exports.run = async (client, message, args) => {
 
   const authorMember = await guild.members.fetch(message.author)
 
-  if(!(permisser.hasPermission(authorMember, "ADMINISTRATOR") || permisser.hasPermission(authorMember, "MANAGE_GUILD"))) {
-    const emb = new Discord.MessageEmbed()
-      .setColor(config.main.colours.error)
-      .setTitle("Insufficient Permissions")
-      .setDescription("You may not use this command as you do not have the permission `ADMINISTRATOR` or `MANAGE_GUILD`.")
-      .setFooter("Is this a mistake? Contact server admins.")
-    embedder.addAuthor(emb, message.author)
-    message.channel.send(emb)
+  if(!await permisser.permissionEmbed(authorMember, ["ADMINISTRATOR", "MANAGE_GUILD"], false, message.channel))
     return
-  }
 
 
   const prefEmbed = async (status) => {
-    let description = "Use `-guild_settings <setting> <value>` to change a setting."
+    let description = "Use `-guild_settings <setting> <value>` to change a setting.\nYou can leave out the value field to set the setting to `null`."
     if(status)
       description += `\n\n${status}`
 
