@@ -1,7 +1,7 @@
 const index = require("../index.js")
-const { Discord } = index
+const { client, config, Discord } = index
+const { embedder } = client.util
 
-exports.hasPermission = (guildMember, permissionFlag) => {
 exports.hasPermission = (guildMember, permissionFlags, all) => {
   if(!(guildMember instanceof Discord.GuildMember))
     throw "Invalid GuildMember provided!"
@@ -23,4 +23,18 @@ exports.hasPermission = (guildMember, permissionFlags, all) => {
   else
     return permissionsAllowed.some(perm => perm) // at least one is true
 }
+
+exports.permissionEmbed = async (guildMember, permissionFlags, all, channel) => {
+  if(!this.hasPermission(guildMember, permissionFlags, all)) {
+    const emb = new Discord.MessageEmbed()
+      .setColor(config.main.colours.error)
+      .setTitle("Insufficient Permissions")
+      .setDescription(`You may not use this command as you do not have ${all ? "all" : "at least one"} of the permissions ${permissionFlags.map(e => `\`${e}\``).join(", ")}.`)
+      .setFooter("Is this a mistake? Contact server admins.")
+    embedder.addAuthor(emb, guildMember.user)
+    await channel.send(emb)
+    return false
+  }
+  else
+    return true
 }
