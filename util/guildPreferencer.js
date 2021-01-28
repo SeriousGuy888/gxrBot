@@ -56,8 +56,9 @@ exports.set = async (guildId, preference, value) => {
       break
   }
   
-
-  const inputType = typeof value
+  const inputType = typeof parsedValue
+  if(inputType === "string")
+    parsedValue = parsedValue.slice(0, 512) // limits strings to 512 characters
 
   if((!(fieldType && inputType === fieldType) && !(allowNull && value === null))) {
     return `❌ The field \`${preference}\` only accepts values of type \`${fieldType + (allowNull ? "` and `null" : "")}\`, but the input provided was of type \`${typeof value}\`.`
