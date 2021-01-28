@@ -16,10 +16,10 @@ exports.run = async (client, message, args) => {
     return
 
 
-  const prefEmbed = async (status) => {
+  const prefEmbed = async (statusMessage) => {
     let description = `Use \`${config.main.prefix}config <setting> <value>\` to change a setting.\nYou can leave out the value field to set the setting to \`null\`.`
-    if(status)
-      description += `\n\n${status}`
+    if(statusMessage)
+      description += `\n\n${statusMessage}`
 
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
