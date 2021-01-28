@@ -59,7 +59,7 @@ exports.set = async (guildId, preference, value) => {
 
   const inputType = typeof value
 
-  if((!(fieldType && inputType === fieldType) || !(allowNull && value === null))) {
+  if((!(fieldType && inputType === fieldType) && !(allowNull && value === null))) {
     return `❌ The field \`${preference}\` only accepts values of type \`${fieldType + (allowNull ? "` and `null" : "")}\`, but the input provided was of type \`${typeof value}\`.`
   }
 
