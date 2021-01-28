@@ -6,5 +6,9 @@
   "storyteller": {
     "emoji": "📚",
     "description": "Make your first contribution to the one word story.\n(Not awarded before 2021-01-27)"
+  },
+  "minesweeper": {
+    "emoji": "🚩",
+    "description": "Win a game of minesweeper."
   }
 }

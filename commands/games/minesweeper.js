@@ -1,7 +1,8 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const minesweeperCache = index.gameCache.minesweeper
-  const { config, Discord, banker, embedder } = index
+  const { config, Discord } = index
+  const { banker, embedder, badger } = client.util
   const settings = config.minesweeper
 
   const fieldSize = settings.game.field.size // y
@@ -338,11 +339,13 @@ exports.run = async (client, message, args) => {
       embedder.addBlankField(emb)
         .addField("Moves Made", "_" + minesweeperCache[message.author.id].moves.join("; ").slice(0, 1024))
       if(gameOver.win) {
-        banker.addToBalance(message.author.id, settings.win.award)
         emb
           .setColor(config.main.colours.success)
           .addField("Moolah", `You have been awarded ${config.economy.settings.lang.emojis.coin}${settings.win.award} for your minesweeper skills!`)
         msg.edit("You win!", { embed: emb })
+
+        banker.addToBalance(message.author.id, settings.win.award)
+        badger.awardBadge(message.author.id, "minesweeper", false, "winning a game of minesweeper")
       }
       else {
         emb.setColor(config.main.colours.error)
