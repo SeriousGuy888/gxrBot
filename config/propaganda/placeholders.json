@@ -32,7 +32,8 @@
     "Satanic worship",
     "arson",
     "police brutality",
-    "press censorship"
+    "press censorship",
+    "the fire at %location%"
   ],
   "animal": [
     "Penguin",
@@ -69,7 +70,7 @@
     "New Jersey",
     "Atlantis",
     "Hell",
-    "Heavan",
+    "Heaven",
     "Santa's Workshop",
     "the Atlantic Ocean",
     "your mom's house",
@@ -81,6 +82,8 @@
     "Brazil",
     "Antarctica",
     "The Moon",
-    "North Korea"
+    "North Korea",
+    "QV",
+    "Toronto"
   ]
 }
