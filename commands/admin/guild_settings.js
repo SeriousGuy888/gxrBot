@@ -24,15 +24,19 @@ exports.run = async (client, message, args) => {
   }
 
 
-  const prefEmbed = async () => {
+  const prefEmbed = async (status) => {
+    let description = "Use `-guild_settings <setting> <value>` to change a setting."
+    if(status)
+      description += `\n\n${status}`
+
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
       .setTitle(`:gear: \`${guild.name}\` Guild Settings`)
-      .setDescription("Use `-guild_settings <setting> <value>` to change a setting.")
+      .setDescription(description)
 
     const preferences = await guildPreferencer.get(guild.id)
     for(const i in preferences) {
-      emb.addField(i.toUpperCase(), typeof preferences[i] === "boolean" ? `\`[BOOL]\` ${preferences[i].toString().toUpperCase()}` : preferences[i], true)
+      emb.addField(i.toUpperCase(), `\`[${typeof preferences[i]}]\` ${preferences[i]}`, true)
     }
 
     return emb
@@ -54,28 +58,13 @@ exports.run = async (client, message, args) => {
   const prefName = args[0]?.toLowerCase()
   let prefValue = args[1] ?? null
 
-  switch(prefValue.toLowerCase()) {
-    case "true":
-      prefValue = true
-      break
-    case "false":
-      prefValue = false
-      break
-    case "null":
-      prefValue = null
-      break
-  }
 
   if(!guildPreferencer.isValid(prefName)) {
     message.channel.send("Invalid preference name!")
     return
   }
-  if(prefValue === null) {
-    message.channel.send("Specify `true`, `false`, or `null`. Anything else will be interpreted as a string.")
-    return
-  }
-
-  await guildPreferencer.set(guild.id, prefName, prefValue)
-  const responseEmbed = await prefEmbed()
+  
+  const status = await guildPreferencer.set(guild.id, prefName, prefValue)
+  const responseEmbed = await prefEmbed(status)
   message.channel.send(responseEmbed)
 }

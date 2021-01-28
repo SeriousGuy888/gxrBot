@@ -20,7 +20,7 @@ exports.get = async (userId) => {
 
   for(const i in preferenceCache.default) { // any unset settings will be set to the default value
     if(preferences[i] === undefined)
-      preferences[i] = preferenceCache.default[i]
+      preferences[i] = preferenceCache.default[i].value
   }
 
   preferenceCache[userId] = preferences

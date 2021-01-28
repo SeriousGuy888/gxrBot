@@ -43,7 +43,11 @@ let preferenceCache = {
 }
 let guildPreferenceCache = {
   default: {
-    changelog_channel_id: null
+    changelog_channel_id: {
+      type: "string",
+      allowNull: true,
+      value: null
+    }
   }
 }
 let balanceQueue = {}
