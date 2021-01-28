@@ -22,7 +22,6 @@ exports.run = async (client, message, args) => {
     message.channel.send(emb)
     return
   }
-  message.channel.send("a")
 
 
   const prefEmbed = async () => {
