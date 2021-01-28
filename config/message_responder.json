@@ -78,6 +78,19 @@
         }
       },
       "response": "uwu"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "smh",
+          "flags": "gi"
+        },
+        "fail": {
+          "pattern": "asdaaaaaaaafdsfinteresting regex pattern quakc uqakc quakcas",
+          "flags": ""
+        }
+      },
+      "response": "smh"
     }
   ]
 }
