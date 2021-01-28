@@ -12,11 +12,15 @@ module.exports = async (client) => {
 
   for(const channelId of Object.keys(settings.channels)) {
     const channel = await client.channels.cache.get(channelId)
-    connections.push(await channel.join())
+    connections.push(await channel.join().catch(() => {}))
     logger.log(`Broadcasting propaganda to channel ${channelId}.`)
   }
+
   for(const connection of connections) {
     connection.play(broadcast)
+    setInterval(() => {
+      connection.play(broadcast)
+    }, 1000 * 60 * 10)
   }
 
 
