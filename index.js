@@ -41,6 +41,11 @@ let preferenceCache = {
     notifications: true
   }
 }
+let guildPreferenceCache = {
+  default: {
+    changelog_channel_id: null
+  }
+}
 let balanceQueue = {}
 let inventoryQueue = {}
 let badgeQueue = {}
@@ -70,6 +75,7 @@ let priorityExports = {
   auth,
 
   preferenceCache,
+  guildPreferenceCache,
   inventoryQueue,
   balanceQueue,
   badgeQueue,
@@ -174,7 +180,7 @@ const {
   updateKarma,
   voteReactions
 } = client.functions
-const { badger, banker, embedder, messenger, permisser, preferencer, timer } = client.util
+const { badger, banker, embedder, guildPreferencer, messenger, permisser, preferencer, timer } = client.util
 
 // function and util imports ↑
 // exports ↓
@@ -214,6 +220,7 @@ module.exports = {
   badger,
   banker,
   embedder,
+  guildPreferencer,
   logger,
   messenger,
   permisser,
@@ -229,6 +236,7 @@ module.exports = {
 process.once("SIGTERM", async () => {
   updateKarma()
   preferencer.update()
+  guildPreferencer.update()
   badger.updateBadges()
   banker.updateBalances()
   banker.updateInventories()
@@ -239,6 +247,7 @@ process.once("SIGTERM", async () => {
 process.once("SIGINT", async () => {
   updateKarma()
   preferencer.update()
+  guildPreferencer.update()
   badger.updateBadges()
   banker.updateBalances()
   banker.updateInventories()
