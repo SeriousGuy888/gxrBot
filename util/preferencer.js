@@ -12,7 +12,7 @@ exports.get = async (userId) => {
   }
   else {
     const doc = await userRef.get()
-    const data = doc.data()
+    const data = doc.exists ? doc.data() : {}
 
     if(data.settings)
       preferences = data.settings

@@ -12,7 +12,7 @@ exports.get = async (guildId) => {
   }
   else {
     const doc = await guildRef.get()
-    const data = doc.data()
+    const data = doc.exists ? doc.data() : {}
 
     if(data.settings)
       preferences = data.settings
