@@ -6,10 +6,13 @@ module.exports = async (client, message) => {
     prefix,
     stringSimilarity,
     extractArgs,
+  } = index
+  const {
     logger,
     messenger,
     timer,
-  } = index
+    guildPreferencer,
+  } = client.util
 
 
   commands: {
@@ -101,7 +104,11 @@ module.exports = async (client, message) => {
   }
 
   autocarrot: {
-    if(config.autocarrot.settings.enabled) {
+    if(
+      config.autocarrot.settings.enabled && // bot config has enabled autocarrot
+      message.guild && // message was sent in a guild
+      (await guildPreferencer.get(message.guild.id)).autocarrot_enabled // guild has autocarrot enabled
+    ) {
       let pauseAutocarrotCache = index.pauseAutocarrotCache
       
       if(message.content.toLowerCase().includes(config.autocarrot.settings.pause.message)) {
@@ -114,13 +121,13 @@ module.exports = async (client, message) => {
         break autocarrot
       }
 
-      if(
-        message.author.id == client.user.id ||
-        config.autocarrot.settings.exempt.bots && message.author.bot ||
-        config.autocarrot.settings.exempt.webhooks && message.webhookID ||
-        config.autocarrot.settings.exempt.userList.includes(message.author.id) ||
-        config.autocarrot.settings.exempt.channels.includes(message.channel.id) ||
-        pauseAutocarrotCache[message.author.id] && config.autocarrot.settings.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000
+      if( // don't autocarrot if
+        message.author.id == client.user.id || // is client
+        config.autocarrot.settings.exempt.bots && message.author.bot || // bots are exempted and user is bot
+        config.autocarrot.settings.exempt.webhooks && message.webhookID || // webhooks are exempted and author is webhook
+        config.autocarrot.settings.exempt.userList.includes(message.author.id) || // user is exempted
+        config.autocarrot.settings.exempt.channels.includes(message.channel.id) || // channel is exempted
+        pauseAutocarrotCache[message.author.id] && config.autocarrot.settings.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000 // user has paused autocarrot
       )
         break autocarrot
 

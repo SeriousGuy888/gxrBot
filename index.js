@@ -46,7 +46,14 @@ let guildPreferenceCache = {
     changelog_channel_id: {
       type: "string",
       allowNull: true,
-      value: null
+      value: null,
+      emoji: "📜"
+    },
+    autocarrot_enabled: {
+      type: "boolean",
+      allowNull: false,
+      value: false,
+      emoji: "🥕"
     }
   }
 }
