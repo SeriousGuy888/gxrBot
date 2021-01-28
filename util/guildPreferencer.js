@@ -70,8 +70,6 @@ exports.set = async (guildId, preference, value) => {
   return `✅ Set \`${preference}\` to \`${value}\`.`
 }
 
-exports.isValid = (preference) => Object.keys(guildPreferenceCache.default).includes(preference) // returns whether a preference is valid
-
 exports.update = async () => {
   const batch = db.batch()
 
@@ -86,3 +84,6 @@ exports.update = async () => {
 
   await batch.commit()
 }
+
+exports.default = () => guildPreferenceCache.default
+exports.isValid = (preference) => Object.keys(guildPreferenceCache.default).includes(preference) // returns whether a preference is valid
