@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index
-  const { messenger, embedder, guildPreferencer, permisser } = client.util
+  const { messenger, guildPreferencer, permisser } = client.util
 
 
   const guild = message.guild
