@@ -46,17 +46,8 @@ module.exports = (message) => {
       }
       this.punish(message, "ows")
       break
-    // case config.coopchannels.counting.channel:
-    //   console.log("aaaaaadsfaa")
-    //   setTimeout(async () => {
-    //     const msg = await message.fetch(true)
-    //     if(!msg)
-    //       return
-        
-    //     console.log("aaaa")
-    //     messenger.dm(message.author, "test")
-    //   }, 2000)
-    //   break
+    case config.coopchannels.counting.channel:
+      break
   }
 }
 

@@ -142,7 +142,7 @@ module.exports = async (client, message) => {
   }
 
   coopChannels: {
-    if([config.coopchannels.cult.channel, config.coopchannels.ows.channel].includes(message.channel.id))
+    if([config.coopchannels.cult.channel, config.coopchannels.ows.channel, config.coopchannels.counting.channel].includes(message.channel.id))
       index.coopChannels(message)
   }
   
