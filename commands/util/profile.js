@@ -25,4 +25,4 @@ exports.run = async (client, message, args) => {
   message.channel.send(emb)
 }
 
-exports.cooldown = 15
+exports.cooldown = 30
