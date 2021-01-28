@@ -28,7 +28,9 @@ exports.run = async (client, message, args) => {
 
     const preferences = await guildPreferencer.get(guild.id)
     for(const i in preferences) {
-      emb.addField(i.toUpperCase(), `\`[${preferences[i] === null ? "null" : typeof preferences[i]}]\` ${preferences[i]}`, true)
+      const fieldType = `\`[${preferences[i] === null ? "null" : typeof preferences[i]}]\``
+      const fieldTitle = `${guildPreferencer.default()[i].emoji ? guildPreferencer.default()[i].emoji + " " : ""}${i.toUpperCase()}`
+      emb.addField(fieldTitle, `${fieldType} ${preferences[i]}`, true)
     }
 
     return emb
