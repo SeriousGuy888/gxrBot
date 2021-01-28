@@ -105,3 +105,5 @@ exports.updateBadges = async () => {
   
   await batch.commit()
 }
+
+exports.badgeData = () => badgeData
