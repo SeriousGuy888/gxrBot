@@ -9,6 +9,17 @@ exports.run = async (client, message, args) => {
     .setThumbnail(user.avatarURL({ dynamic: true, size: 2048 }))
   embedder.addAuthor(emb, user, `%tag%'s ${config.main.botNames.lowerCamelCase} Profile`)
 
+  const { knownGuilds } = config.main
+  let mutualGuilds = []
+  for(const guildId in knownGuilds) {
+    const guild = await client.guilds.fetch(guildId).catch(() => {})
+    const member = await guild.members.fetch(user.id).catch(() => {})
+
+    if(member)
+      mutualGuilds.push(`${knownGuilds[guildId]}`)
+  }
+  emb.addField("Member of", mutualGuilds.join("\n"))
+
   const badges = await badger.getBadges(user.id)
   let badgeContent = ""
   if(badges.length) {

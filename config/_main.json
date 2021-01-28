@@ -5,6 +5,11 @@
     "id": "587769144619958273",
     "name": "Grade 9 League"
   },
+  "knownGuilds": {
+    "430565803293933578": "☢ Billzo's Nuclear Laboratory",
+    "587769144619958273": "<a:rainbow_g9l:796410720723664907> Grade 9 League",
+    "755562242342387913": "🇶 The QV Server (Gifted)"
+  },
   "botNames": {
     "lowerCamelCase": "g9lBot",
     "upperCase": "G9LBOT"
