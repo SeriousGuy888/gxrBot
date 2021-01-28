@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
 
 
   const prefEmbed = async (status) => {
-    let description = "Use `-guild_settings <setting> <value>` to change a setting.\nYou can leave out the value field to set the setting to `null`."
+    let description = `Use \`${config.main.prefix}config <setting> <value>\` to change a setting.\nYou can leave out the value field to set the setting to \`null\`.`
     if(status)
       description += `\n\n${status}`
 
