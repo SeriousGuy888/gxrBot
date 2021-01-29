@@ -14,7 +14,7 @@ module.exports = (message) => {
 
   for(let loopCase of settings.cases) {
     let passCondition = new RegExp(loopCase.conditions.pass.pattern, loopCase.conditions.pass.flags)
-    let failCondition = new RegExp(loopCase.conditions.fail.pattern, loopCase.conditions.fail.flags)
+    let failCondition = new RegExp(loopCase.conditions.fail?.pattern ?? (Math.random() * 50000).toString(), loopCase.conditions.fail?.flags ?? "")
     
     if(content.match(passCondition) && !message.content.match(failCondition))
       message.channel.send(loopCase.response)

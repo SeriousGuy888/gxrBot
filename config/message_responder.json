@@ -6,10 +6,6 @@
         "pass": {
           "pattern": "(^|\\s)o{2,}f",
           "flags": "gim"
-        },
-        "fail": {
-          "pattern": "assffgfjhsdfsdfsdfsddddddddddddddddddddddddddddddddddfsddfhbcvbazxcccccczxcz",
-          "flags": "gi"
         }
       },
       "response": "**œuf**"
@@ -45,10 +41,6 @@
         "pass": {
           "pattern": "\\w+ (died|passed away)",
           "flags": "gi"
-        },
-        "fail": {
-          "pattern": "asdaaaaaaaafdsfinteresting regex pattern quakc uqakc quakcas",
-          "flags": ""
         }
       },
       "response": "f"
@@ -58,10 +50,6 @@
         "pass": {
           "pattern": "owo",
           "flags": "gi"
-        },
-        "fail": {
-          "pattern": "asdaaaaaaaafdsfinteresting regex pattern quakc uqakc quakcas",
-          "flags": ""
         }
       },
       "response": "owo"
@@ -71,10 +59,6 @@
         "pass": {
           "pattern": "uwu",
           "flags": "gi"
-        },
-        "fail": {
-          "pattern": "asdaaaaaaaafdsfinteresting regex pattern quakc uqakc quakcas",
-          "flags": ""
         }
       },
       "response": "uwu"
@@ -84,13 +68,27 @@
         "pass": {
           "pattern": "smh",
           "flags": "gi"
-        },
-        "fail": {
-          "pattern": "asdaaaaaaaafdsfinteresting regex pattern quakc uqakc quakcas",
-          "flags": ""
         }
       },
       "response": "smh"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "your (mom|mother)",
+          "flags": "gi"
+        }
+      },
+      "response": "your dad"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "your (dad|father)",
+          "flags": "gi"
+        }
+      },
+      "response": "your mom"
     }
   ]
 }
