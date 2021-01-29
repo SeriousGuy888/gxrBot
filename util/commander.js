@@ -91,6 +91,24 @@ exports.handle = async (message) => {
         // sets last used timestamp for the command so command cooldown can be applied again
         client.commandCooldowns[commandName][message.author.id] = new Date()
       }
+      if(message.guild) {
+        const prefs = await guildPreferencer.get(message.guild.id)
+        if(typeof prefs.disabled_commands === "string") {
+          const disabledCommands = prefs.disabled_commands
+            .split(",")
+            .map(e => e.trim())
+          
+          if(disabledCommands.includes(commandName)) {
+            const emb = new Discord.MessageEmbed()
+              .setColor(config.main.colours.error)
+              .setTitle(`Command \`${commandName}\` is disabled in this server.`)
+              .setDescription("Ask an admin to reenable this command if you want to use it.")
+              .setFooter(`${prefix}config is the command to do so`)
+            message.channel.send(emb) // send error message
+            return
+          }
+        }
+      }
       command.run(client, message, args)
     }
   }

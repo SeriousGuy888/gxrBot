@@ -1,8 +1,7 @@
-const { client } = require("../index.js")
-
 module.exports = async (message) => {
   const index = require("../index.js")
-  const { extractArgs } = index
+  const { client } = require("../index.js")
+  const extractArgs = client.util.commander.extractArgs
 
   const { args } = extractArgs(message)
   

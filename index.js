@@ -43,18 +43,24 @@ let preferenceCache = {
 }
 let guildPreferenceCache = {
   default: {
+    autocarrot_enabled: {
+      type: "boolean",
+      allowNull: false,
+      value: false,
+      emoji: "🥕"
+    },
     changelog_channel_id: {
       type: "string",
       allowNull: true,
       value: null,
       emoji: "📜"
     },
-    autocarrot_enabled: {
-      type: "boolean",
-      allowNull: false,
-      value: false,
-      emoji: "🥕"
-    }
+    disabled_commands: {
+      type: "string",
+      allowNull: true,
+      value: "spam_ping,test",
+      emoji: "🚫"
+    },
   }
 }
 let balanceQueue = {}

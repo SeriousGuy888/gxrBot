@@ -50,7 +50,7 @@ exports.run = async (client, message, args) => {
   }
 
   const prefName = args[0]?.toLowerCase()
-  let prefValue = args[1] ?? null
+  let prefValue = args.slice(1).join(" ")
 
 
   if(!guildPreferencer.isValid(prefName)) {
