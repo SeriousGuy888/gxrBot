@@ -85,11 +85,19 @@ let priorityExports = {
   db,
   auth,
 
+  stringSimilarity,
+
   preferenceCache,
   guildPreferenceCache,
   inventoryQueue,
   balanceQueue,
   badgeQueue,
+  
+  karmaQueue,
+  karmaCache,
+  graphCache,
+  pauseAutocarrotCache,
+  gameCache,
 }
 
 module.exports = priorityExports
@@ -191,7 +199,16 @@ const {
   updateKarma,
   voteReactions
 } = client.functions
-const { badger, banker, embedder, guildPreferencer, messenger, permisser, preferencer, timer } = client.util
+const {
+  badger,
+  banker,
+  embedder,
+  guildPreferencer,
+  messenger,
+  permisser,
+  preferencer,
+  timer
+} = client.util
 
 // function and util imports ↑
 // exports ↓
@@ -205,15 +222,8 @@ module.exports = {
   emojiDictionary,
   translate,
   schedule,
-  stringSimilarity,
   ytdl,
   googleTts,
-  
-  karmaQueue,
-  karmaCache,
-  graphCache,
-  pauseAutocarrotCache,
-  gameCache,
 
   addKarma,
   autocarrotWebhook,
