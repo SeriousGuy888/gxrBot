@@ -347,17 +347,19 @@ exports.run = async (client, message, args) => {
         emb
           .setColor(config.main.colours.success)
           .addField("Moolah", `You have been awarded ${config.economy.settings.lang.emojis.coin}${settings.win.award} for your minesweeper skills!`)
-        msg.edit("You win!", { embed: emb })
+        await msg.edit("You win!", { embed: emb })
 
         banker.addToBalance(message.author.id, settings.win.award)
         badger.awardBadge(message.author.id, "minesweeper", false, "winning a game of minesweeper")
+
+        delete minesweeperCache[message.author.id]
       }
       else {
         emb.setColor(config.main.colours.error)
-        msg.edit("You got blown up by a landmine D:", { embed: emb })
-      }
+        await msg.edit("You got blown up by a landmine D:", { embed: emb })
 
-      delete minesweeperCache[message.author.id]
+        delete minesweeperCache[message.author.id]
+      }
     }
   }
 
