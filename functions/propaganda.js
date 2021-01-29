@@ -17,6 +17,8 @@ module.exports = async (client) => {
   }
 
   for(const connection of connections) {
+    if(!connection)
+      continue
     connection.play(broadcast)
     setInterval(() => {
       connection.play(broadcast)
