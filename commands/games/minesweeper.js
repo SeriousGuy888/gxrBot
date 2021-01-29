@@ -305,7 +305,7 @@ exports.run = async (client, message, args) => {
         "R - Reveal Cell",
         "F - Flag Cell",
         "",
-        "You can combine these too:",
+        "You can chain these too:",
         "`wwwwwd` - Moves 5 up and 1 right",
         "`drdrdf` - Right, reveal, right, reveal, right, flag",
         "`wasd` - Move nowhere, do nothing"
