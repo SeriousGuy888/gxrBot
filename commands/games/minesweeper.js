@@ -342,7 +342,7 @@ exports.run = async (client, message, args) => {
       msg = minesweeperCache[message.author.id]?.message
 
       embedder.addBlankField(emb)
-        .addField("Moves Made", "_" + minesweeperCache[message.author.id].moves.join("; ").slice(0, 1024))
+        .addField("Moves Made", "_" + (minesweeperCache[message.author.id]?.moves ?? ["Error"]).join("; ").slice(0, 1024))
       if(gameOver.win) {
         emb
           .setColor(config.main.colours.success)
