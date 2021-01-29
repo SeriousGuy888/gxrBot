@@ -3,10 +3,6 @@ exports.run = async (client, message, args) => {
   const { Discord, config, getUserArg, embedder, messenger } = index
   
   let user = await getUserArg(message)
-  if(user.id === message.author.id) {
-    message.channel.send("Specify a user that is not yourself!")
-    return
-  }
   let times = Math.max(Math.min(parseInt(args[1]), 25), 1) || 5
 
   const responseEmbed = new Discord.MessageEmbed()
@@ -17,6 +13,16 @@ exports.run = async (client, message, args) => {
 
   message.channel.send(responseEmbed)
 
+
+
+
+  const delay = ms => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(2)
+      }, ms)
+    })
+  }
 
 
   const ping = (w, str) => {
@@ -35,7 +41,8 @@ exports.run = async (client, message, args) => {
 
 
   for(let i = 0; i < times; i++) {
-    ping(webhook, `${user}, Spam-pinging courtesy of ${message.author.tag}. (${i + 1}/${times})`)
+    await ping(webhook, `${user}, Spam-pinging courtesy of ${message.author.tag}. (${i + 1}/${times})`)
+    await delay(1250)
   }
 }
 
