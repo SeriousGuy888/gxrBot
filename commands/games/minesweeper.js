@@ -278,11 +278,11 @@ exports.run = async (client, message, args) => {
 
       if(minesweeperCache[message.author.id].flagMode) {
         await flagSquare(gameField, squareCoords[0], squareCoords[1])
-        minesweeperCache[message.author.id].moves.push(`f=${squareCoords.join(",")}`)
+        minesweeperCache[message.author.id]?.moves.push(`f=${squareCoords.join(",")}`)
       }
       else {
         await revealSquare(gameField, squareCoords[0], squareCoords[1])
-        minesweeperCache[message.author.id].moves.push(`r=${squareCoords.join(",")}`)
+        minesweeperCache[message.author.id]?.moves.push(`r=${squareCoords.join(",")}`)
       }
     }
 
@@ -304,6 +304,11 @@ exports.run = async (client, message, args) => {
         "I, J, K, L - Fast Movement",
         "R - Reveal Cell",
         "F - Flag Cell",
+        "",
+        "You can combine these too:",
+        "`wwwwwd` - Moves 5 up and 1 right",
+        "`drdrdf` - Right, reveal, right, reveal, right, flag",
+        "`wasd` - Move nowhere, do nothing"
       ].join("\n"), true)
       .addField("Award for Winning", `${config.economy.settings.lang.emojis.coin}${settings.win.award}\n\`${config.main.prefix}bal\``, true)
     embedder.addBlankField(emb)
@@ -334,7 +339,7 @@ exports.run = async (client, message, args) => {
       }
     }
     else {
-      msg = minesweeperCache[message.author.id].message
+      msg = minesweeperCache[message.author.id]?.message
 
       embedder.addBlankField(emb)
         .addField("Moves Made", "_" + minesweeperCache[message.author.id].moves.join("; ").slice(0, 1024))
@@ -390,41 +395,42 @@ exports.run = async (client, message, args) => {
     case "cursor":
       if(message.deletable)
         message.delete()
-      switch(args[1].toLowerCase().charAt(0)) {
-        case "w":
-          moveCursor(0, -1)
-          break
-        case "a":
-          moveCursor(-1, 0)
-          break
-        case "s":
-          moveCursor(0, 1)
-          break
-        case "d":
-          moveCursor(1, 0)
-          break
-        case "i":
-          moveCursor(0, -100)
-          break
-        case "j":
-          moveCursor(-100, 0)
-          break
-        case "k":
-          moveCursor(0, 100)
-          break
-        case "l":
-          moveCursor(100, 0)
-          break
-        case "r":
-          setFlagMode(false)
-          tickMinesweeper(message.channel, { move: minesweeperCache[message.author.id].cursor })
-          break
-        case "f":
-          setFlagMode(true)
-          tickMinesweeper(message.channel, { move: minesweeperCache[message.author.id].cursor })
-          break
-        default:
-          message.channel.send(`${message.author} See minesweeper game panel for controls!`)
+
+      for(let i = 0; i < Math.min(args[1].length, 50); i++) {
+        switch(args[1].toLowerCase().charAt(i)) {
+          case "w":
+            moveCursor(0, -1)
+            break
+          case "a":
+            moveCursor(-1, 0)
+            break
+          case "s":
+            moveCursor(0, 1)
+            break
+          case "d":
+            moveCursor(1, 0)
+            break
+          case "i":
+            moveCursor(0, -100)
+            break
+          case "j":
+            moveCursor(-100, 0)
+            break
+          case "k":
+            moveCursor(0, 100)
+            break
+          case "l":
+            moveCursor(100, 0)
+            break
+          case "r":
+            setFlagMode(false)
+            tickMinesweeper(message.channel, { move: minesweeperCache[message.author.id].cursor })
+            break
+          case "f":
+            setFlagMode(true)
+            tickMinesweeper(message.channel, { move: minesweeperCache[message.author.id].cursor })
+            break
+        }
       }
       break
     case "forfeit":
