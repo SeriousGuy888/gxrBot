@@ -1,12 +1,13 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, prefix, Discord, timer, extractArgs } = index
+  const { config, prefix, Discord } = index
+  const { timer, commander } = client.util
   
   const age = await timer.convert(new Date() - client.user.createdAt)
   let ageYears = (age.d / 365).toFixed(2)
 
   // gets the name of the command used
-  const cmdName = extractArgs(message).commandName
+  const cmdName = commander.extractArgs(message).commandName
 
   const loadingEmoji = config.main.emojis.loading
 
