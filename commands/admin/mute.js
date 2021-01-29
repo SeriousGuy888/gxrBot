@@ -1,8 +1,10 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, Discord, embedder, permisser } = index
+  const { config, Discord } = index
+  const { embedder, permisser } = client.util
 
-  if(!message.guild || !args[0]) return this.help(client, message, args)
+  if(!message.guild || !args[0])
+    return this.help(client, message, args)
 
   
   const guild = message.guild
