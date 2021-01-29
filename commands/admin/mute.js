@@ -4,71 +4,65 @@ exports.run = async (client, message, args) => {
 
   if(!message.guild || !args[0]) return this.help(client, message, args)
 
-  const outputEmbed = new Discord.MessageEmbed()
   
   const guild = message.guild
   const allMembers = await guild.members.fetch()
 
 
   const authorGuildMember = allMembers.find(gm => gm.id === message.author.id)
-  if(!permisser.hasPermission(authorGuildMember, "MUTE_MEMBERS")) {
+  if(!await permisser.permissionEmbed(authorGuildMember, ["MUTE_MEMBERS"], false, message.channel))
+    return
+
+  const outputEmbed = new Discord.MessageEmbed()
+
+  let queryId = args[0]
+  if(queryId === ".") {
+    if(!authorGuildMember.voice.channelID)
+      return message.channel.send("You are not in a VC!")
+    queryId = authorGuildMember.voice.channelID
+  }
+
+  const vc = guild.channels.resolve(queryId)
+  if(!vc || vc.type !== "voice")
+    return message.channel.send("Specified channel ID is not of a voice channel in this guild.")
+  
+  const membersInVc = allMembers.filter(gm => gm.voice.channelID && gm.voice.channelID === vc.id)
+  if(Array.from(membersInVc).length === 0) {
     outputEmbed
       .setColor(config.main.colours.error)
-      .setTitle("Insufficient Permissions")
-      .setDescription("You may not use this command as you do not have the permission `MUTE_MEMBERS`.")
-      .setFooter("Is this a mistake? Contact server admins.")
+      .setTitle("Specified Voice Channel Empty")
+      .setDescription(`The VC ${vc} is currently empty.`)
     embedder.addAuthor(outputEmbed, message.author)
   }
   else {
-    let queryId = args[0]
-    if(queryId === ".") {
-      if(!authorGuildMember.voice.channelID)
-        return message.channel.send("You are not in a VC!")
-      queryId = authorGuildMember.voice.channelID
-    }
+    const isUnmuting = args[1] && args[1].toLowerCase().startsWith("u")
+    const startTime = new Date()
 
-    const vc = guild.channels.resolve(queryId)
-    if(!vc || vc.type !== "voice")
-      return message.channel.send("Specified channel ID is not of a voice channel in this guild.")
-    
-    const membersInVc = allMembers.filter(gm => gm.voice.channelID && gm.voice.channelID === vc.id)
-    if(Array.from(membersInVc).length === 0) {
-      outputEmbed
-        .setColor(config.main.colours.error)
-        .setTitle("Specified Voice Channel Empty")
-        .setDescription(`The VC ${vc} is currently empty.`)
-      embedder.addAuthor(outputEmbed, message.author)
-    }
-    else {
-      const isUnmuting = args[1] && args[1].toLowerCase().startsWith("u")
-      const startTime = new Date()
+    const delay = ms => new Promise(res => setTimeout(res, ms))
 
-      const delay = ms => new Promise(res => setTimeout(res, ms))
-
-      let membersMutedCount = 0
-      for(let loopMember of membersInVc) {
-        const guildMember = allMembers.find(gm => gm.id === loopMember[0])
-        if(!isUnmuting !== guildMember.voice.serverMute) {
-          const reason = `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`
-          guildMember.voice.setMute(!isUnmuting, reason)
-          membersMutedCount++
-          await delay(config.mute.perMemberDelay)
-        }
+    let membersMutedCount = 0
+    for(let loopMember of membersInVc) {
+      const guildMember = allMembers.find(gm => gm.id === loopMember[0])
+      if(!isUnmuting !== guildMember.voice.serverMute) {
+        const reason = `${isUnmuting ? "Unmute" : "Mute"} all users in VC ${vc} by ${message.author.tag}`
+        guildMember.voice.setMute(!isUnmuting, reason)
+        membersMutedCount++
+        await delay(config.mute.perMemberDelay)
       }
-
-      const endTime = new Date()
-      const timeDiff = (endTime.getTime() - startTime.getTime())
-  
-      const completedAction = isUnmuting ? "Unmuted" : "Muted"
-      outputEmbed
-        .setColor(isUnmuting ? config.mute.colours.unmute : config.mute.colours.mute)
-        .setTitle(`${completedAction} All Users in \`${vc.name}\``)
-        .setDescription(isUnmuting ? "To mute again, omit the final argument." : "To unmute, add `u` to the end of the command.")
-        .addField(`Members ${completedAction}`, membersMutedCount, true)
-        .addField(`Time Taken`, `${timeDiff} ms`, true)
-        .setFooter("Warning: Command is often rate limited. Not much I can do about it. -billzo")
-      embedder.addAuthor(outputEmbed, message.author)
     }
+
+    const endTime = new Date()
+    const timeDiff = (endTime.getTime() - startTime.getTime())
+
+    const completedAction = isUnmuting ? "Unmuted" : "Muted"
+    outputEmbed
+      .setColor(isUnmuting ? config.mute.colours.unmute : config.mute.colours.mute)
+      .setTitle(`${completedAction} All Users in \`${vc.name}\``)
+      .setDescription(isUnmuting ? "To mute again, omit the final argument." : "To unmute, add `u` to the end of the command.")
+      .addField(`Members ${completedAction}`, membersMutedCount, true)
+      .addField(`Time Taken`, `${timeDiff} ms`, true)
+      .setFooter("Warning: Command is often rate limited. Not much I can do about it. -billzo")
+    embedder.addAuthor(outputEmbed, message.author)
   }
 
   return message.channel.send(outputEmbed)
