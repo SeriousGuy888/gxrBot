@@ -1,6 +1,5 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, Discord } = index
   const { permisser } = client.util
 
   if(!args[0])
@@ -22,7 +21,8 @@ exports.run = async (client, message, args) => {
 
 exports.help = async (client, message, args) => {
   const index = require("../../index.js")
-  const { commandHelpEmbed, prefix } = index
+  const { prefix } = index
+  const { commandHelpEmbed } = client.functions
 
   const embed = commandHelpEmbed(message, {
     title: "**Say Command**",
