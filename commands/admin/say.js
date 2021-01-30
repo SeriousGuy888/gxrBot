@@ -1,14 +1,17 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const config = index.config
-  const Discord = index.Discord
+  const { config, Discord } = index
+  const { permisser } = client.util
 
   if(!args[0])
     return this.help(client, message, args)
 
-  if(!config.admins.ids[message.author.id]) {
-    message.reply("no permission")
-    return
+
+  const guild = message.guild
+  if(guild) {
+    const authorMember = await guild.members.fetch(message.author)
+    if(!await permisser.permissionEmbed(authorMember, ["ADMINISTRATOR", "MANAGE_MESSAGES"], false, message.channel))
+      return
   }
 
   await message.channel.send(args.join(" "))
