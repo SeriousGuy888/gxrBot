@@ -24,12 +24,7 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
       .setTimestamp()
   }
   else {
-    pollEmb
-      .addField("Instructions", [
-        "React with an option to **cast your vote**.",
-        `${owner}, use \`${config.main.prefix}poll ${message.channel.id} close ${pollObject.id}\` to **close poll**.`
-      ].join("\n"))
-      .setFooter(`Poll ID: ${pollObject.id ?? "[ERROR]"}`)
+    pollEmb.setFooter(`${owner.tag}, can close poll with ${config.main.prefix}poll ${message.channel.id} close ${pollObject.id}`)
   }
   embedder.addBlankField(pollEmb)
 
