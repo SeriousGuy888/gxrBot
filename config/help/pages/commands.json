@@ -5,6 +5,7 @@
     "help": "(`h`) %lowername% help command",
     "commands": "(`cmds`) Automatically generated list of all public commands",
     "ping": "Get bot latency",
+    "poll": "(`polls`) Make polls with bar graphs :D. Run command for more info.",
     "profile": "(`prof`) See a user's %lowername% profile.",
     "settings": "Edit your %lowername% user-settings",
     "web": "Get web panel link"
