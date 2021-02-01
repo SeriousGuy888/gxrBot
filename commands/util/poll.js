@@ -46,18 +46,25 @@ exports.run = async (client, message, args) => {
       await msg.react(config.polls.emoji)
       const filter = (reaction, reactor) => (reactor.id === message.author.id)
       const collector = msg.createReactionCollector(filter, { time: config.polls.collectorTimeout, dispose: true })
-        .on("collect", async reaction => {
+        .on("collect", async (reaction, reactor) => {
           collector.resetTimer({ time: config.polls.collectorTimeout })
-          if(reaction.emoji instanceof Discord.GuildEmoji) {
-            message.channel.send("Custom emojis cannot be used in these polls!")
-            return
-          }
 
           if(reaction.emoji.name === config.polls.emoji) {
-            poller.startPoll(poll)
-            collector.stop()
+            const startPollResult = await poller.startPoll(poll)
+            if(startPollResult?.error) {
+              poll.options = new Set()
+              message.channel.send(startPollResult.message)
+              reaction.users.remove(reactor)
+            }
+            else {
+              collector.stop()
+            }
           }
           else {
+            if(reaction.emoji instanceof Discord.GuildEmoji) {
+              message.channel.send("Custom emojis cannot be used in these polls!")
+              return
+            }
             if(poll.options.size < config.polls.maxOptions) {
               poll.options.add(reaction.emoji.name)
               const newEmb = await poller.getPollEmbed(poll)
@@ -65,9 +72,11 @@ exports.run = async (client, message, args) => {
             }
           }
         })
-        .on("remove", async reaction => {
+        .on("remove", async (reaction, reactor) => {
           collector.resetTimer({ time: config.polls.collectorTimeout })
 
+          if(reaction.emoji.name === config.polls.emoji)
+            return
           poll.options.delete(reaction.emoji.name)
           const newEmb = await poller.getPollEmbed(poll)
           msg.edit(newEmb)

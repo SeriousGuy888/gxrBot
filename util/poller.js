@@ -18,14 +18,16 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
   }
   else if(closed) {
     pollEmb
-      .addField("Poll Closed", "This poll is no longer taking reactions.")
       .setColor("#bf2323")
+      .addField("Poll Closed", "This poll is no longer taking reactions.")
+      .setFooter("Poll closed")
+      .setTimestamp()
   }
   else {
     pollEmb
       .addField("Instructions", [
         "React with an option to **cast your vote**.",
-        `${owner} can use \`${config.main.prefix}poll ${message.channel.id} close ${pollObject.id}\` to **close this poll**.`
+        `${owner}, use \`${config.main.prefix}poll ${message.channel.id} close ${pollObject.id}\` to **close poll**.`
       ].join("\n"))
       .setFooter(`Poll ID: ${pollObject.id ?? "[ERROR]"}`)
   }
@@ -80,6 +82,14 @@ exports.startPoll = async pollObject => {
 
   const channel = await client.channels.fetch(pollObject.channel)
   pollObject.options = [...pollObject.options]
+
+  if(!pollObject.options.length) {
+    return {
+      error: true,
+      message: "Provide at least one option!"
+    }
+  }
+
   pollObject.wip = false
 
 
