@@ -30,6 +30,11 @@ exports.run = async (client, message, args) => {
           message.channel.send(`Your poll channel setting was ignored because you do not have administrator or manage channels permissions. Your poll will be created in this channel, where you are running the command.`)
         }
       }
+      if(message.guild && pollChannel.guild?.id !== message.guild.id) {
+        message.channel.send("Specify a channel within this guild!")
+        return
+      }
+
 
       const question = args.slice(2).join(" ")
       if(!question) {
