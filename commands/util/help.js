@@ -51,7 +51,7 @@ exports.run = async (client, message, args) => {
       let content = ""
       for(let loopCommand of commandList) {
         let commandContent = loopCommand.content
-        let bulletPoint = "\\→"
+        let bulletPoint = "»"
         if(loopCommand.content.endsWith("+")) {
           bulletPoint = "\\⭐"
           commandContent = commandContent.substring(0, commandContent.length - 1)
