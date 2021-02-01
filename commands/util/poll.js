@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index
-  const { embedder, poller } = client.util
+  const { embedder, permisser, poller } = client.util
 
   if(!args[0] || !args[1]) {
     this.help(client, message, args)
@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
   let queryChannelId = args[0]
   if(queryChannelId === ".")
     queryChannelId = message.channel.id
-  const pollChannel = await client.channels.fetch(queryChannelId)
+  let pollChannel = await client.channels.fetch(queryChannelId)
     .catch(() => invalidChannelId = true)
   if(invalidChannelId) {
     message.channel.send("Invalid channel ID specified. Make sure it is a valid ID (a string of numbers), and that I have access to the channel. You can also use a period (`.`) to specify the channel in which the command is being executed.")
@@ -24,6 +24,13 @@ exports.run = async (client, message, args) => {
     case "open":
     case "start":
     case "create":
+      if(message.guild && !permisser.hasPermission(message.member, ["ADMINISTRATOR", "MANAGE_CHANNELS"])) {
+        if(pollChannel.id !== message.channel.id) {
+          pollChannel = await client.channels.fetch(message.channel.id)
+          message.channel.send(`Your poll channel setting was ignored because you do not have administrator or manage channels permissions. Your poll will be created in this channel, where you are running the command.`)
+        }
+      }
+
       const question = args.slice(2).join(" ")
       if(!question) {
         this.help(client, message, args)
@@ -94,7 +101,7 @@ exports.run = async (client, message, args) => {
       embedder.addAuthor(pollCloseEmb, message.author)
         .setColor(pollClosedStatus.error ? config.main.colours.error : config.main.colours.success)
         .setTitle("Close Poll")
-        .setDescription(pollClosedStatus.message)
+        .setDescription(pollClosedStatus?.message)
       
       message.channel.send(pollCloseEmb)
       break
@@ -111,11 +118,24 @@ exports.help = async (client, message, args) => {
 
   const embed = commandHelpEmbed(message, {
     title: "**Poll Command**",
-    description: "Create a fancy poll with bar graphs!",
+    description: [
+      "Create a fancy poll with bar graphs!",
+      "Anybody is allowed to make a poll, not just server admins,",
+      "but you can only close a poll that you made."
+    ].join(" "),
     syntax: `${config.main.prefix}poll <Channel ID | .> <(create <question>) | (close <Poll ID>)>`,
     example: [
       `**Create Poll in This Channel**`,
       ` ${config.main.prefix}poll . create Election or Something:tm:`,
+      ""
+      `**End Poll in This Channel**`,
+      ` ${config.main.prefix}poll . close 1234213412341234`,
+      "",
+      `**Create Poll in Some Other Channel __SERVER ADMIN ONLY__**`,
+      ` ${config.main.prefix}poll 1234213412341234 create Election or Something:tm:`,
+      ""
+      `**End Poll in Some Other Channel**`,
+      ` ${config.main.prefix}poll 1234213412341234 close 1234213412341234`,
     ].join("\n"),
   })
   
