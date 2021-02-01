@@ -51,7 +51,7 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
         const votes = reaction.count - 1
 
         const barColour = config.polls.bars[i % config.polls.bars.length]
-        let barSize = round((votes / maxCount) * config.polls.maxBarLength)
+        let barSize = Math.round((votes / maxCount) * config.polls.maxBarLength)
         resultsField.push(reaction.emoji.name + ` | \`${votes}\` | ${barColour.repeat(barSize)}`)
       }
 
