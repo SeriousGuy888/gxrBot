@@ -5,8 +5,8 @@
     "help": "(`h`) %lowername% help command",
     "commands": "(`cmds`) Automatically generated list of all public commands",
     "ping": "Get bot latency",
-    "poll": "(`polls`) Make polls with bar graphs :D. Run command for more info.",
-    "profile": "(`prof`) See a user's %lowername% profile.",
+    "poll": "(`polls`) Make polls with bar graphs :D. Run command for more info.+",
+    "profile": "(`prof`) See a user's %lowername% profile.+",
     "settings": "Edit your %lowername% user-settings",
     "web": "Get web panel link"
   },
@@ -14,7 +14,7 @@
     "billzo": "Know all the different editions of billzo.",
     "google_translate": "(`gt`) Translate a phrase through several languages.",
     "impostor": "Who's the impostor?",
-    "spam_ping": "Spam ping a user!"
+    "spam_ping": "Spam ping a user!+"
   },
   "games": {
     "coinflip": "Flip a coin.",
@@ -41,7 +41,7 @@
   },
   "admin": {
     "auth": "For signing in to the admin web panel.",
-    "config": "(`guild_settings`, `server_settings`) Edit %lowername% settings for this particular Discord server.",
+    "config": "(`guild_settings`, `server_settings`) Edit %lowername% settings for this particular Discord server.+",
     "cult": "Set the cult channel.",
     "mute": "Force mute and unmute everyone in a specified VC.",
     "ows": "Set up the one word story channel.",
