@@ -117,15 +117,22 @@ exports.stopPoll = async (pollId, requester) => {
   const doc = await pollRef.get()
   const data = doc.data()
 
-  if(data.owner !== requester) {
+  if(!data) {
     return {
       error: true,
-      message: `Only <@${data.owner}> is allowed to close this [poll](${message.url})!`
+      message: "Poll does not exist!"
     }
   }
 
   const channel = await client.channels.fetch(data.channel)
   const message = await channel.messages.fetch(pollId)
+
+  if(data.owner !== requester && requester !== client.user.id) {
+    return {
+      error: true,
+      message: `Only <@${data.owner}> is allowed to close this [poll](${message.url})!`
+    }
+  }
 
   const emb = await this.getPollEmbed(data, true, message)
   await message.edit(emb)
