@@ -127,13 +127,13 @@ exports.help = async (client, message, args) => {
     example: [
       `**Create Poll in This Channel**`,
       ` ${config.main.prefix}poll . create Election or Something:tm:`,
-      ""
+      "",
       `**End Poll in This Channel**`,
       ` ${config.main.prefix}poll . close 1234213412341234`,
       "",
       `**Create Poll in Some Other Channel __SERVER ADMIN ONLY__**`,
       ` ${config.main.prefix}poll 1234213412341234 create Election or Something:tm:`,
-      ""
+      "",
       `**End Poll in Some Other Channel**`,
       ` ${config.main.prefix}poll 1234213412341234 close 1234213412341234`,
     ].join("\n"),
