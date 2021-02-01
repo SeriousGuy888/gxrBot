@@ -2,7 +2,7 @@
   "emoji": "📊",
   "maxOptions": 15,
   "collectorTimeout": 30000,
-  "maxBarLength": 10,
+  "maxBarLength": 12,
   "bars": [
     "🟧",
     "🟨"
