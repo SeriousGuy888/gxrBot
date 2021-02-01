@@ -4,7 +4,7 @@
   "collectorTimeout": 30000,
   "maxBarLength": 10,
   "bars": [
-    "🟦",
-    "🟧"
+    "🟧",
+    "🟨"
   ]
 }
