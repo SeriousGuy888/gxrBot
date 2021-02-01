@@ -50,7 +50,15 @@ exports.run = async (client, message, args) => {
 
       let content = ""
       for(let loopCommand of commandList) {
-        content += `\n\\⭐\`${loopCommand.title}\` - ${loopCommand.content}`
+        let commandContent = loopCommand.content
+        let bulletPoint = "\\→"
+        if(loopCommand.content.endsWith("+")) {
+          bulletPoint = "\\⭐"
+          commandContent = commandContent.substring(0, commandContent.length - 1)
+        }
+
+
+        content += `\n${bulletPoint}\`${loopCommand.title}\` - ${commandContent}`
       }
       
       emb.addField(fieldTitle.toUpperCase(), content, true)
