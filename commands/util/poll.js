@@ -83,8 +83,9 @@ exports.run = async (client, message, args) => {
       const pollClosedStatus = await poller.stopPoll(args.slice(2).join(" "), message.author.id)
       const pollCloseEmb = new Discord.MessageEmbed()
       embedder.addAuthor(pollCloseEmb, message.author)
+        .setColor(pollClosedStatus.error ? config.main.colours.error : config.main.colours.success)
         .setTitle("Close Poll")
-        .setDescription(pollClosedStatus)
+        .setDescription(pollClosedStatus.message)
       
       message.channel.send(pollCloseEmb)
       break

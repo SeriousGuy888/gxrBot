@@ -98,14 +98,20 @@ exports.startPoll = async pollObject => {
 
 exports.stopPoll = async (pollId, requester) => {
   if(!pollId)
-    return "No Poll ID provided."
+    return {
+      error: true,
+      message: "No Poll ID was provided."
+    }
   
   const pollRef = db.collection("polls").doc(pollId)
   const doc = await pollRef.get()
   const data = doc.data()
 
   if(data.owner !== requester) {
-    return `Only <@${data.owner}> is allowed to close this poll!`
+    return {
+      error: true,
+      message: `Only <@${data.owner}> is allowed to close this [poll](${message.url})!`
+    }
   }
 
   const channel = await client.channels.fetch(data.channel)
@@ -115,5 +121,7 @@ exports.stopPoll = async (pollId, requester) => {
   await message.edit(emb)
   await pollRef.delete()
   
-  return "Poll successfully closed."
+  return {
+    message: `Successfully closed [poll](${message.url}).`
+  }
 }
