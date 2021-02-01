@@ -16,4 +16,5 @@ module.exports = {
   messageResponder:   require("./message_responder.json"),
   minesweeper:        require("./minesweeper.json"),
   mute:               require("./mute.json"),
+  polls:              require("./polls.json"),
 }
