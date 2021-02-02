@@ -13,22 +13,37 @@ exports.run = async (client, message, args) => {
   if(!await permisser.permissionEmbed(message.member, ["ADMINISTRATOR", "MANAGE_GUILD"], false, message.channel))
     return
 
+  let maxPages
 
-  const prefEmbed = async (statusMessage) => {
+  const prefEmbed = async (statusMessage, page = 1) => {
     let description = `Use \`${config.main.prefix}config <setting> <value>\` to change a setting.\nYou can leave out the value field to set the setting to \`null\`.`
     if(statusMessage)
       description += `\n\n${statusMessage}`
+
+    const preferences = await guildPreferencer.get(guild.id)
+
+    const keys = Object.keys(preferences)
+    const itemsPerPage = 9
+    const startAt = (page - 1) * itemsPerPage
+    const endAt = startAt + itemsPerPage
+    maxPages = Math.ceil(keys.length / itemsPerPage)
+
 
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
       .setTitle(`:gear: \`${guild.name}\` Guild Settings`)
       .setDescription(description)
+      .setFooter(`Page ${page} of ${maxPages}`)
 
-    const preferences = await guildPreferencer.get(guild.id)
-    for(const i in preferences) {
-      const fieldType = `\`[${preferences[i] === null ? "null" : typeof preferences[i]}]\``
-      const fieldTitle = `${guildPreferencer.default()[i].emoji ? guildPreferencer.default()[i].emoji + " " : ""}${i.toUpperCase()}`
-      emb.addField(fieldTitle, `${fieldType} ${preferences[i]}`, true)
+
+    for(var i = startAt; i < endAt; i++) {
+      const key = keys[i]
+      if(!key)
+        break
+
+      const fieldType = `\`[${preferences[key] === null ? "null" : typeof preferences[key]}]\``
+      const fieldTitle = `${guildPreferencer.default()[key].emoji ? guildPreferencer.default()[key].emoji + " " : ""}${key.toUpperCase()}`
+      emb.addField(fieldTitle, `${fieldType} ${preferences[key]}`, true)
     }
 
     return emb
@@ -41,9 +56,42 @@ exports.run = async (client, message, args) => {
       title: `Getting guild settings...`
     })
 
-    const emb = await prefEmbed()
+    let page = 1
 
-    msg.edit(emb)
+    const emojis = ["⏪", "◀️", "▶️", "⏩"]
+    const emb = await prefEmbed(null, page)
+
+    await msg.edit(emb)
+    const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
+    msg.createReactionCollector(filter, { time: 30000 })
+      .on("collect", async (reaction, reactor) => {
+        reaction.users.remove(reactor)
+        switch(reaction.emoji.name) {
+          case "⏪":
+            page = 1
+            break
+          case "◀️":
+            page--
+            break
+          case "▶️":
+            page++
+            break
+          case "⏩":
+            page = maxPages
+            break
+        }
+        page = Math.max(Math.min(maxPages, page), 1)
+
+        const newEmb = await prefEmbed(null, page)
+        msg.edit(newEmb)
+      })
+      .on("exit", collected => {
+        msg.edit("No longer collecting reactions.")
+      })
+    for(const emoji of emojis)
+      await msg.react(emoji)
+
+    
     return
   }
 
@@ -57,6 +105,5 @@ exports.run = async (client, message, args) => {
   }
   
   const status = await guildPreferencer.set(guild.id, prefName, prefValue)
-  const responseEmbed = await prefEmbed(status)
-  message.channel.send(responseEmbed)
+  message.channel.send(status)
 }
