@@ -40,8 +40,6 @@ exports.set = async (guildId, preference, value) => {
   const fieldType = guildPreferenceCache.default[preference].type
   const allowNull = guildPreferenceCache.default[preference].allowNull
 
-  console.log(fieldType)
-
   let parsedValue = value
   switch(fieldType) {
     case "boolean":
