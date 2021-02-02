@@ -74,7 +74,7 @@ exports.set = async (guildId, preference, value) => {
 
   guildPreferenceCache[guildId][preference] = parsedValue
   updatedGuilds.push(guildId)
-  return `✅ Set \`${preference}\` to \`${value}\`.`
+  return `✅ Set \`${preference}\` to \`${parsedValue}\`.`
 }
 
 exports.update = async () => {
