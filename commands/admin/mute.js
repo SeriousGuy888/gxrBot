@@ -11,17 +11,16 @@ exports.run = async (client, message, args) => {
   const allMembers = await guild.members.fetch()
 
 
-  const authorGuildMember = allMembers.find(gm => gm.id === message.author.id)
-  if(!await permisser.permissionEmbed(authorGuildMember, ["MUTE_MEMBERS"], false, message.channel))
+  if(!await permisser.permissionEmbed(message.member, ["MUTE_MEMBERS"], false, message.channel))
     return
 
   const outputEmbed = new Discord.MessageEmbed()
 
   let queryId = args[0]
   if(queryId === ".") {
-    if(!authorGuildMember.voice.channelID)
+    if(!message.member.voice.channelID)
       return message.channel.send("You are not in a VC!")
-    queryId = authorGuildMember.voice.channelID
+    queryId = message.member.voice.channelID
   }
 
   const vc = guild.channels.resolve(queryId)
