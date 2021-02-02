@@ -19,12 +19,11 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
   else if(closed) {
     pollEmb
       .setColor("#bf2323")
-      .addField("Poll Closed", "This poll is no longer taking reactions.")
       .setFooter("Poll closed")
       .setTimestamp()
   }
   else {
-    pollEmb.setFooter(`${owner.tag}, can close poll with ${config.main.prefix}poll ${message.channel.id} close ${pollObject.id}`)
+    pollEmb.setFooter(`${config.main.prefix}poll ${message.channel.id} close ${pollObject.id}`)
   }
   embedder.addBlankField(pollEmb)
 
