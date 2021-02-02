@@ -129,11 +129,16 @@ exports.stopPoll = async (pollId, requester) => {
     }
   }
 
+  
+  let messageNotFound = false
+
   const emb = await this.getPollEmbed(data, true, message)
   await message.edit(emb)
+    .catch(() => messageNotFound = true)
   await pollRef.delete()
   
   return {
-    message: `Successfully closed [poll](${message.url}).`
+    error: messageNotFound,
+    message: `Closed [poll](${message.url})${messageNotFound ? " but was not able to edit message I do not have access." : ""}.`
   }
 }
