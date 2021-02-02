@@ -89,6 +89,15 @@
         }
       },
       "response": "your mom"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "D:",
+          "flags": "g"
+        }
+      },
+      "response": "<:capital_d_preceding_a_colon:777038054605979658>"
     }
   ]
 }
