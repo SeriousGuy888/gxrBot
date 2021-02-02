@@ -1,5 +1,4 @@
 exports.run = async (client, message, args) => {
-  const index = require("../../index.js")
   const { permisser } = client.util
 
   if(!args[0])
@@ -8,8 +7,7 @@ exports.run = async (client, message, args) => {
 
   const guild = message.guild
   if(guild) {
-    const authorMember = await guild.members.fetch(message.author)
-    if(!await permisser.permissionEmbed(authorMember, ["ADMINISTRATOR", "MANAGE_MESSAGES"], false, message.channel))
+    if(!await permisser.permissionEmbed(message.member, ["ADMINISTRATOR", "MANAGE_MESSAGES"], false, message.channel))
       return
   }
 
