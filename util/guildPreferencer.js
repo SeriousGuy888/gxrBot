@@ -24,7 +24,14 @@ exports.get = async (guildId) => {
   }
 
   guildPreferenceCache[guildId] = preferences
-  return preferences
+
+  const preferenceKeys = Object.keys(preferences).sort()
+  let sortedPreferences = {}
+  for(const key of preferenceKeys) {
+    sortedPreferences[key] = preferences[key]
+  }
+
+  return sortedPreferences
 }
 
 exports.set = async (guildId, preference, value) => {
