@@ -10,9 +10,7 @@ exports.run = async (client, message, args) => {
     return
   }
 
-  const authorMember = await guild.members.fetch(message.author)
-
-  if(!await permisser.permissionEmbed(authorMember, ["ADMINISTRATOR", "MANAGE_GUILD"], false, message.channel))
+  if(!await permisser.permissionEmbed(message.member, ["ADMINISTRATOR", "MANAGE_GUILD"], false, message.channel))
     return
 
 
