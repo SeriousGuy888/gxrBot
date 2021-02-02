@@ -15,11 +15,7 @@ exports.run = async (client, message, args) => {
 
   let maxPages
 
-  const prefEmbed = async (statusMessage, page = 1) => {
-    let description = `Use \`${config.main.prefix}config <setting> <value>\` to change a setting.\nYou can leave out the value field to set the setting to \`null\`.`
-    if(statusMessage)
-      description += `\n\n${statusMessage}`
-
+  const prefEmbed = async (page) => {
     const preferences = await guildPreferencer.get(guild.id)
 
     const keys = Object.keys(preferences)
@@ -32,7 +28,7 @@ exports.run = async (client, message, args) => {
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
       .setTitle(`:gear: \`${guild.name}\` Guild Settings`)
-      .setDescription(description)
+      .setDescription(`Use \`${config.main.prefix}config <setting> <value>\` to change a setting.\nYou can leave out the value field to set the setting to \`null\`.`)
       .setFooter(`Page ${page} of ${maxPages}`)
 
 
@@ -59,7 +55,7 @@ exports.run = async (client, message, args) => {
     let page = 1
 
     const emojis = ["⏪", "◀️", "▶️", "⏩"]
-    const emb = await prefEmbed(null, page)
+    const emb = await prefEmbed(page)
 
     await msg.edit(emb)
     const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
@@ -82,7 +78,7 @@ exports.run = async (client, message, args) => {
         }
         page = Math.max(Math.min(maxPages, page), 1)
 
-        const newEmb = await prefEmbed(null, page)
+        const newEmb = await prefEmbed(page)
         msg.edit(newEmb)
       })
       .on("exit", collected => {
