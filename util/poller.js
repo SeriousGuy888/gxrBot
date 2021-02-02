@@ -9,7 +9,7 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
   const pollEmb = new Discord.MessageEmbed()
   embedder.addAuthor(pollEmb, owner)
     .setColor("#dfdf23")
-    .setTitle(`Poll`)
+    .setTitle("Poll")
     .setDescription(pollObject.question)
   if(pollObject.wip) {
     pollEmb
@@ -19,7 +19,8 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
   else if(closed) {
     pollEmb
       .setColor("#bf2323")
-      .setFooter("Poll closed")
+      .setTitle("Poll Closed")
+      .setFooter("Poll Closed")
       .setTimestamp()
   }
   else {
