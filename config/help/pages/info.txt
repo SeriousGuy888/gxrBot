@@ -4,9 +4,10 @@ __**WELCOME TO %uppername%**__
 :question: **Info**
 Web Panel: %webpanel%
 
-:computer: **Developers**
-Developed by billzo and also Liam but mostly billzo.
-(See https://seriousguy888.github.io/G9L-Bot/assets/images/contributions-2020-09-22.png)
+:computer: **Development**
+__Developers:__ billzo, Liam(? https://seriousguy888.github.io/G9L-Bot/assets/images/contributions-2020-09-22.png)
+__Source Code:__ https://github.com/SeriousGuy888/G9L-Bot
+
 
 :scroll: **Commands**
 __Prefix:__ `%prefix%` | Begin all commands with the prefix. (e.g: `%prefix%help`)
