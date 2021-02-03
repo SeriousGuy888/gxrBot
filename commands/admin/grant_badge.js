@@ -42,7 +42,7 @@ exports.run = async (client, message, args) => {
     message.channel.send(`ok ${remove ? "removed" : "gave"} ${badge} to ${inc} non-bot users`)
   }
   else {
-    badger.addBadge(user.id, badge, remove)
+    badger.awardBadge(user.id, badge, remove, "manually awarded")
     message.channel.send(`ok ${remove ? "removed" : "gave"} ${badge} to ${user}`)
   }
 }
