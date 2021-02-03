@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
 
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
-      .setTitle(`:gear: \`${guild.name}\` Guild Settings`)
+      .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
       .setDescription(`Use \`${config.main.prefix}config <setting> <value>\` to change a setting.\nYou can leave out the value field to set the setting to \`null\`.`)
       .setFooter(`Page ${page} of ${maxPages}`)
 
