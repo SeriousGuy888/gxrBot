@@ -29,7 +29,7 @@ exports.permissionEmbed = async (guildMember, permissionFlags, all, channel) => 
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.error)
       .setTitle("Insufficient Permissions")
-      .setDescription(`You may not use this command as you do not have ${all ? "all" : "at least one"} of the permissions ${permissionFlags.map(e => `\`${e}\``).join(", ")}.`)
+      .setDescription(`You may not use this command as you do not have **${all ? "all" : "at least one"}** of the permissions ${permissionFlags.map(e => `\`${e}\``).join(", ")}.`)
       .setFooter("Is this a mistake? Contact server admins.")
     embedder.addAuthor(emb, guildMember.user)
     await channel.send(emb)
