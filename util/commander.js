@@ -73,7 +73,7 @@ exports.handle = async (message) => {
       }
       if(message.guild) {
         const prefs = await guildPreferencer.get(message.guild.id)
-        if(typeof prefs.disabled_commands === "string") {
+        if(prefs.disabled_commands) {
           const disabledCommands = prefs.disabled_commands
             .split(",")
             .map(e => e.trim())
