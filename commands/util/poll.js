@@ -147,4 +147,4 @@ exports.help = async (client, message, args) => {
   message.channel.send(embed)
 }
 
-exports.cooldown = 60
+exports.cooldown = 30
