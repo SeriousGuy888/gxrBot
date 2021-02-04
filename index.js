@@ -41,34 +41,6 @@ let preferenceCache = {
     notifications: true
   }
 }
-let guildPreferenceCache = {
-  default: {
-    autocarrot_enabled: {
-      type: "boolean",
-      allowNull: false,
-      value: false,
-      emoji: "🥕"
-    },
-    changelog_channel_id: {
-      type: "string",
-      allowNull: true,
-      value: null,
-      emoji: "📜"
-    },
-    disabled_commands: {
-      type: "string",
-      allowNull: true,
-      value: "spam_ping,test",
-      emoji: "🚫"
-    },
-    admins_bypass_disabled_commands: {
-      type: "boolean",
-      allowNull: false,
-      value: false,
-      emoji: "🏸"
-    },
-  }
-}
 let balanceQueue = {}
 let inventoryQueue = {}
 let badgeQueue = {}
@@ -100,7 +72,6 @@ let priorityExports = {
   stringSimilarity,
 
   preferenceCache,
-  guildPreferenceCache,
   inventoryQueue,
   balanceQueue,
   badgeQueue,

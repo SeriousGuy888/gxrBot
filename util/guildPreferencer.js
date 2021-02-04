@@ -1,6 +1,35 @@
 const index = require("../index.js")
-const { guildPreferenceCache, db } = index
+const { db } = index
 
+
+let guildPreferenceCache = {
+  default: {
+    autocarrot_enabled: {
+      type: "boolean",
+      allowNull: false,
+      value: false,
+      emoji: "🥕"
+    },
+    changelog_channel_id: {
+      type: "string",
+      allowNull: true,
+      value: null,
+      emoji: "📜"
+    },
+    disabled_commands: {
+      type: "string",
+      allowNull: true,
+      value: "spam_ping,test",
+      emoji: "🚫"
+    },
+    admins_bypass_disabled_commands: {
+      type: "boolean",
+      allowNull: false,
+      value: false,
+      emoji: "🏸"
+    },
+  }
+}
 let updatedGuilds = []
 
 exports.get = async (guildId) => {
