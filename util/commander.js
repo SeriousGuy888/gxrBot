@@ -15,6 +15,7 @@ exports.handle = async (message) => {
     messenger,
     timer,
     guildPreferencer,
+    permisser,
   } = client.util
   const { extractArgs } = this
 
@@ -73,19 +74,26 @@ exports.handle = async (message) => {
       }
       if(message.guild) {
         const prefs = await guildPreferencer.get(message.guild.id)
+        const adminBypass = prefs.admins_bypass_disabled_commands
+
         if(prefs.disabled_commands) {
           const disabledCommands = prefs.disabled_commands
             .split(",")
             .map(e => e.trim().toLowerCase())
           
-          if(disabledCommands.includes(commandName)) {
-            const emb = new Discord.MessageEmbed()
-              .setColor(config.main.colours.error)
-              .setTitle(`Command \`${commandName}\` is disabled in this server.`)
-              .setDescription("Ask an admin to reenable this command if you want to use it.")
-              .setFooter(`${prefix}config is the command to do so`)
-            message.channel.send(emb) // send error message
-            return
+          if(disabledCommands.includes(commandName)) { // command is disabled
+            if(
+              !permisser.hasPermission(message.member, ["ADMINISTRATOR", "MANAGE_GUILD"]) || // member is not admin or
+              !adminBypass // admins cannot bypass disabled commands
+            ) {
+              const emb = new Discord.MessageEmbed()
+                .setColor(config.main.colours.error)
+                .setTitle(`Command \`${commandName}\` is disabled in this server.`)
+                .setDescription(`Ask an admin to reenable this command if you want to use it. ${adminBypass ? "Admins are allowed to bypass this." : ""}`)
+                .setFooter(`${prefix}config is the command to do so`)
+              message.channel.send(emb) // send error message
+              return
+            }
           }
         }
       }
