@@ -2,13 +2,14 @@ __**WELCOME TO %uppername%**__
 *This bot is for features that are made specifically for the Grade 9 League.*
 
 :question: **Info**
+FAQ: https://seriousguy888.github.io/G9L-Bot/
 Web Panel: <%webpanel%>
 
 :computer: **Development**
-__Developers:__ billzo, Liam(?) https://seriousguy888.github.io/G9L-Bot/assets/images/contributions-2020-09-22.png
-__Source Code:__ <https://github.com/SeriousGuy888/G9L-Bot>
-__Bug Reports:__ <https://github.com/SeriousGuy888/G9L-Bot/issues>
-__Upcoming Updates:__ <https://github.com/SeriousGuy888/G9L-Bot/projects/1>
+Developers: billzo, Liam(?) https://seriousguy888.github.io/G9L-Bot/assets/images/contributions-2020-09-22.png
+Source Code: <https://github.com/SeriousGuy888/G9L-Bot>
+Bug Reports: <https://github.com/SeriousGuy888/G9L-Bot/issues>
+Upcoming Updates: <https://github.com/SeriousGuy888/G9L-Bot/projects/1>
 
 
 :scroll: **Commands**
