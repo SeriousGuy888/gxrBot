@@ -61,6 +61,12 @@ let guildPreferenceCache = {
       value: "spam_ping,test",
       emoji: "🚫"
     },
+    admins_bypass_disabled_commands: {
+      type: "boolean",
+      allowNull: false,
+      value: false,
+      emoji: "🏸"
+    },
   }
 }
 let balanceQueue = {}
