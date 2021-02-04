@@ -1,7 +1,11 @@
 {
   "dev": {
     "emoji": "⌨",
-    "description": "Contributed directly to my codebase. Thank you!"
+    "description": "Contributed directly to my codebase. Thank you! (Manually awarded)"
+  },
+  "contributer": {
+    "emoji": "🔃",
+    "description": "Submit a pull request to contribute to the code. You can find the GitHub repo link with `-info`. (Manually awarded)"
   },
   "storyteller": {
     "emoji": "📚",
