@@ -51,6 +51,8 @@ exports.handle = async (message) => {
 
     if(command && command.alias) {
       commandName = command.alias
+      if(command.aliasArgs)
+        args = command.aliasArgs
       command = client.commands.get(commandName)
     }
     if(!command) {
