@@ -1,8 +1,9 @@
 {
   "basic": {
+    "help": "(`h`) %lowername% help command",
+    "info": "See links for FAQ, web panel, source code, bug reports, and upcoming updates.+",
     "avatar": "Get a user's avatar",
     "badges": "See information about badges.",
-    "help": "(`h`) %lowername% help command",
     "commands": "(`cmds`) Automatically generated list of all public commands",
     "ping": "Get bot latency",
     "poll": "(`polls`) Make polls with bar graphs :D. Run command for more info.+",
