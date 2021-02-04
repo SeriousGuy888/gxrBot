@@ -76,7 +76,7 @@ exports.handle = async (message) => {
         if(prefs.disabled_commands) {
           const disabledCommands = prefs.disabled_commands
             .split(",")
-            .map(e => e.trim())
+            .map(e => e.trim().toLowerCase())
           
           if(disabledCommands.includes(commandName)) {
             const emb = new Discord.MessageEmbed()
