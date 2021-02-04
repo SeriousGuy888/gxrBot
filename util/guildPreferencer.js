@@ -8,25 +8,32 @@ let guildPreferenceCache = {
       type: "boolean",
       allowNull: false,
       value: false,
-      emoji: "🥕"
+      emoji: "🥕",
+      description: [
+        "Will detect messages sent containing swear words and slurs and correct",
+        "them to what the author actually meant to write."
+      ].join("\n")
     },
     changelog_channel_id: {
       type: "string",
       allowNull: true,
       value: null,
-      emoji: "📜"
+      emoji: "📜",
+      description: "The ID of a channel in this server to receive changelogs. Set to null to opt out."
     },
     disabled_commands: {
       type: "string",
       allowNull: true,
       value: "spam_ping,test",
-      emoji: "🚫"
+      emoji: "🚫",
+      description: "Names of commands to disable in this server, separated by commas."
     },
     admins_bypass_disabled_commands: {
       type: "boolean",
       allowNull: false,
       value: false,
-      emoji: "🏸"
+      emoji: "🏸",
+      description: "Whether members with Administrator or Manage Server permissions can use commands in the DISABLED_COMMANDS setting."
     },
   }
 }
