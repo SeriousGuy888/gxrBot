@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
     const preferences = await guildPreferencer.get(guild.id)
 
     const keys = Object.keys(preferences)
-    const itemsPerPage = 9
+    const itemsPerPage = 5
     const startAt = (page - 1) * itemsPerPage
     const endAt = startAt + itemsPerPage
     maxPages = Math.ceil(keys.length / itemsPerPage)
@@ -39,7 +39,7 @@ exports.run = async (client, message, args) => {
 
       const fieldType = `\`[${preferences[key] === null ? "null" : typeof preferences[key]}]\``
       const fieldTitle = `${guildPreferencer.default()[key].emoji ? guildPreferencer.default()[key].emoji + " " : ""}${key.toUpperCase()}`
-      emb.addField(fieldTitle, `${fieldType} ${preferences[key]}`, true)
+      emb.addField(fieldTitle, `${fieldType} ${preferences[key]}`)
     }
 
     return emb
