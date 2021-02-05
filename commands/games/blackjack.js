@@ -1,7 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const config = index.config
-  const Discord = index.Discord
+  const { config, Discord } = index // import from index.js
   
   function cardValue(number){
     if(!number[0].isNan()) return parseInt(number[0])
