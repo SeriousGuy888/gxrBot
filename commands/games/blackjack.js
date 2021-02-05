@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
         else return 10
     }
 
-    const suits = ["♤", "♡", "♧", "♢"]
+    const suits = ["♠️", "♥️", "♣️", "♦️"]
     const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
     const cards = []
 
