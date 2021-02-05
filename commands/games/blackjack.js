@@ -9,12 +9,12 @@ exports.run = async (client, message, args) => {
         else return 10
     }
 
-    suits = ["♤", "♡", "♧", "♢"]
-    numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-    cards = []
+    const suits = ["♤", "♡", "♧", "♢"]
+    const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+    const cards = []
 
-    for(loopSuit of suits){
-        for(loopNumber of numbers){
+    for(const loopSuit of suits){
+        for(const loopNumber of numbers){
             cards.push(loopNumber + loopSuit)
         }
     }
