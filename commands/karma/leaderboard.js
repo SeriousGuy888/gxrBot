@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, db, embedder, karmaQueue } = index
-  let { karmaCache, messenger } = index
+  const { Discord, config, db, karmaQueue, karmaCache } = index
+  const { embedder, messenger } = client.util
 
   const settings = config.karma
   
