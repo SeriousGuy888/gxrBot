@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, getUserArg, banker, embedder } = index
-  const settings = config.economy.settings
+  const { config, getUserArg } = index
+  const { banker } = client.util
   
   
 

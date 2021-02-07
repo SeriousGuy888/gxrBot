@@ -1,8 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, getUserArg, badger, embedder } = index
-  const settings = config.economy.settings
-  
+  const { config, getUserArg } = index
+  const { badger } = client.util
   
 
   if(!config.admins.ids[message.author.id]) {
