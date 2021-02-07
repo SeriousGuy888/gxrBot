@@ -1,7 +1,8 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const hangmanCache = index.gameCache.hangman
-  const { config, Discord, embedder } = index
+  const { config, Discord } = index
+  const { embedder } = client.util
   const { settings, words } = config.hangman
 
   const uniqueCharCount = word => word.split("").filter((x, i, a) => a.indexOf(x) === i).length
