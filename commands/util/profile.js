@@ -1,6 +1,8 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, Discord, getUserArg, embedder, badger } = index
+  const { config, Discord } = index
+  const { getUserArg } = client.functions
+  const { embedder, badger } = client.util
 
   const user = await getUserArg(message)
 
