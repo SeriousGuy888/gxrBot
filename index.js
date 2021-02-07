@@ -183,7 +183,6 @@ const {
   voteReactions
 } = client.functions
 const {
-  badger,
   banker,
   embedder,
   guildPreferencer,
@@ -221,7 +220,6 @@ module.exports = {
   updateKarma,
   voteReactions,
 
-  badger,
   banker,
   embedder,
   guildPreferencer,
