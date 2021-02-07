@@ -26,7 +26,7 @@ exports.getBadges = async userId => {
     badges.add(badge)
   }
 
-  return [...badges] // cast set to array
+  return [...badges].sort() // cast set to array and sort
 }
 
 exports.addBadge = async (userId, badge, remove) => {
