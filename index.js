@@ -183,6 +183,7 @@ const {
   voteReactions
 } = client.functions
 const {
+  badger,
   banker,
   embedder,
   guildPreferencer,
