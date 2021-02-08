@@ -12,7 +12,7 @@
     "web": "Get web panel link"
   },
   "fun": {
-    "acronym": "Specify a word or acronym and get an expansion of the acronym.",
+    "acronym": "Specify a word or acronym and get an expansion of the acronym.+",
     "billzo": "Know all the different editions of billzo.",
     "google_translate": "(`gt`) Translate a phrase through several languages.",
     "impostor": "Who's the impostor?",
@@ -43,7 +43,7 @@
   },
   "admin": {
     "auth": "For signing in to the admin web panel.",
-    "config": "(`guild_settings`, `server_settings`) Edit %lowername% settings for this particular Discord server.+",
+    "config": "(`guild_settings`, `server_settings`) Edit %lowername% settings for this particular Discord server.",
     "cult": "Set the cult channel.",
     "mute": "Force mute and unmute everyone in a specified VC.",
     "ows": "Set up the one word story channel.",
