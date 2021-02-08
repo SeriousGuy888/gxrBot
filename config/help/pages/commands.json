@@ -5,6 +5,7 @@
     "avatar": "Get a user's avatar",
     "badges": "See information about badges.",
     "commands": "(`cmds`) Automatically generated list of all public commands",
+    "mybadges": "Badges+",
     "ping": "Get bot latency",
     "poll": "(`polls`) Make polls with bar graphs :D. Run command for more info.+",
     "profile": "(`prof`) See a user's %lowername% profile.",

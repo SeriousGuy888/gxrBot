@@ -20,22 +20,10 @@ exports.run = async (client, message, args) => {
     if(member)
       mutualGuilds.push(`${knownGuilds[guildId]}`)
   }
-  emb.addField("Member of", mutualGuilds.join("\n"))
-
-  const badges = await badger.getBadges(user.id)
-  let badgeContent = ""
-  if(badges.length) {
-	  for(const badge of badges) {
-      const badgeInfo = config.badges[badge]
-      const badgeDesc = badgeInfo?.description || "No description"
-      const badgeEmoji = badgeInfo?.emoji + " " || ""
-	  	badgeContent += `**${badgeEmoji}${badge.toUpperCase()}**\n${badgeDesc}\n\n`
-	  }
-  }
-  emb.addField("Badges", (badgeContent || "This user does not have any badges.") + `\n[What are badges?](${config.main.links.github_pages}#faq-badges)`)
+  emb
+    .addField("Member of", mutualGuilds.join("\n"))
+    .addField("Badges", "Psst! Badges have been moved to the `mybadges` command.")
 
 
   message.channel.send(emb)
 }
-
-exports.cooldown = 30
