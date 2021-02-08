@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
       wordsStartingWithLetter = wordsByStartingLetter[letter]
     }
     else {
-      wordsStartingWithLetter = words.filter(w => w.toLowerCase().startsWith(letter))
+      wordsStartingWithLetter = words.filter(w => w.toLowerCase().startsWith(letter) && w.length > 3)
     }
 
     let word = wordsStartingWithLetter[Math.floor(Math.random() * wordsStartingWithLetter.length)]
