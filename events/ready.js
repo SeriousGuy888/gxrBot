@@ -1,6 +1,8 @@
 module.exports = async (client, message) => {
   const index = require("../index.js")
-  const { awaitOrders, config, schedule, updateKarma, badger, banker, logger } = index
+  const { config, schedule } = index
+  const { badger, banker, logger } = client.util
+  const { awaitOrders, updateKarma } = client.functions
 
   awaitOrders()
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
