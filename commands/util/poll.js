@@ -24,10 +24,10 @@ exports.run = async (client, message, args) => {
     case "open":
     case "start":
     case "create":
-      if(message.guild && !permisser.hasPermission(message.member, ["ADMINISTRATOR", "MANAGE_CHANNELS"])) {
+      if(message.guild && !permisser.hasPermission(message.member, ["ADMINISTRATOR"])) {
         if(pollChannel.id !== message.channel.id) {
           pollChannel = await client.channels.fetch(message.channel.id)
-          message.channel.send(`Your poll channel setting was ignored because you do not have administrator or manage channels permissions. Your poll will be created in this channel, where you are running the command.`)
+          message.channel.send(`Your poll channel setting was ignored because you do not have administrator permissions. Your poll will be created in this channel, where you are running the command.`)
         }
       }
       if(message.guild && pollChannel.guild?.id !== message.guild.id) {
