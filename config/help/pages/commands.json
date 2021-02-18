@@ -48,6 +48,7 @@
     "cult": "Set the cult channel.",
     "mute": "Force mute and unmute everyone in a specified VC.",
     "ows": "Set up the one word story channel.",
-    "say": "Make %lowername% say something."
+    "say": "Make %lowername% say something.",
+    "slowmode": "Set a slowmode in a channel"
   }
 }
