@@ -66,7 +66,7 @@ exports.run = async (client, message, args) => {
         editedMsg.awaitReactions(reactionFilter, { max: 1, time: settings.shop.expireTimeout })
           .then(async collected => {
             const emojiName = collected.first().emoji.name
-            editedMsg.reactions.resolve(emojiName).users.remove(message.author) // remove user's reaction
+            editedMsg.reactions.resolve(emojiName).users.remove(message.author).catch(() => {}) // remove user's reaction
             switch(emojiName) {
               case "⏪":
                 page = 1

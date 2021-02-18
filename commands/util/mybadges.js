@@ -56,7 +56,7 @@ exports.run = async (client, message, args) => {
   const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
   msg.createReactionCollector(filter, { time: 30000 })
     .on("collect", async (reaction, reactor) => {
-      reaction.users.remove(reactor)
+      reaction.users.remove(reactor).catch(() => {})
       switch(reaction.emoji.name) {
         case "⏪":
           page = 1
