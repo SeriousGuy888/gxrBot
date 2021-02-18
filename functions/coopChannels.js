@@ -18,9 +18,6 @@ module.exports = (message) => {
         liamCult()
       return true
     }
-    else {
-      return false
-    }
   }
   const owsLegal = content => {
     content = content.toLowerCase().replace(/[^a-z ]/gi, "")
@@ -34,7 +31,6 @@ module.exports = (message) => {
 
   switch(message.channel.id) {
     case config.coopchannels.cult.channel:
-      console.log(message.content)
       if(cultLegal(message.content, config.coopchannels.cult.phrase))
         return
       this.punish(message, "cult", [
