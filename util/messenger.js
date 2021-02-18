@@ -36,6 +36,7 @@ exports.dm = async (userId, content, callback) => {
       if(callback)
         callback(msg)
     })
+    .catch(() => {})
 }
 
 exports.loadingMessage = async (channel, options) => {

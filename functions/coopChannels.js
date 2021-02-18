@@ -58,7 +58,7 @@ exports.deleteMessage = (message, errorMessage) => {
   const messenger = client.util.messenger
 
   if(!message.author.bot)
-    messenger.dm(message.author.id, errorMessage).catch(() => {})
+    messenger.dm(message.author.id, errorMessage)
   message.delete({ timeout: 500 })
 }
 
