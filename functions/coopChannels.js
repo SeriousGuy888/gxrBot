@@ -21,7 +21,7 @@ module.exports = (message) => {
   }
   const owsLegal = content => {
     content = content.toLowerCase().replace(/[^a-z ]/gi, "")
-    if(content.split(" ").length != 1)
+    if(content.split(" ").length > 1)
       return false
     return legal()
   }
