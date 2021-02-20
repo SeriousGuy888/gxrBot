@@ -8,7 +8,7 @@ module.exports = async (client, message) => {
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
 
   client.user.setPresence({ status: "online" })
-  client.user.setActivity(`for ${config.main.prefix}help`, { type: "WATCHING" })
+  client.user.setActivity(`antelope meat is called meat`, { type: "WATCHING" })
   
   
   schedule.scheduleJob("0 * * * *", () => {
