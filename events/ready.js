@@ -1,7 +1,7 @@
 module.exports = async (client, message) => {
   const index = require("../index.js")
-  const { config, schedule } = index
-  const { badger, banker, logger } = client.util
+  const { config, Discord, schedule } = index
+  const { badger, banker, logger, messenger } = client.util
   const { awaitOrders, updateKarma } = client.functions
 
   awaitOrders()
@@ -29,5 +29,13 @@ module.exports = async (client, message) => {
   schedule.scheduleJob("*/15 * * * *", async () => {
     const channel = await client.channels.fetch("749728416827310181")
     channel.send("e")
+  })
+
+  schedule.scheduleJob("0 0 * * *", () => {
+    const emb = new Discord.MessageEmbed()
+      .setColor("#23a1b1")
+      .setTitle("Activate Windows")
+      .setDescription("Daily reminder to give Microsoft money.")
+    messenger.dm("427925505581383721", emb)
   })
 }
