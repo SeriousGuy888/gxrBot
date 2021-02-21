@@ -38,7 +38,7 @@ exports.run = async (client, message, args) => {
       .setFooter("Use command `prof` to see what badges you have.")
 
     if(!badge) {
-      emb.setDescription("Not found.")
+      emb.setDescription("Not found. Are you sure you didn't mean to use the `mybadges` command?")
     }
     else {
       emb
