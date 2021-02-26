@@ -2,12 +2,13 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index // import from index.js
   
-  const getCardValue = (number) => {
-    const parsedInt = parseInt(number[0])
+  const getCardValue = (cardName) => {
+    const cardValue = cardName.charAt(0)
+    const parsedInt = parseInt(cardValue)
     if(parsedInt)
       return parsedInt
     
-    if(number[0] === "A")
+    if(cardValue === "A")
       return 1
     else
       return 10
