@@ -38,4 +38,12 @@ module.exports = async (client, message) => {
       .setDescription("Daily reminder to give Microsoft money.")
     messenger.dm("427925505581383721", emb)
   })
+
+  schedule.scheduleJob("0 */6 * * *", () => {
+    const emb = new Discord.MessageEmbed()
+      .setColor("#c32323")
+      .setTitle("fact pls")
+      .setDescription("<#735708848333258822>")
+    messenger.dm("414938441546203136", emb)
+  })
 }
