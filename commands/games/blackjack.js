@@ -86,8 +86,8 @@ exports.run = async (client, message, args) => {
 
       msg.edit("eeee")
     })
-    .on("exit", async collected => {
-      // await message.channel.send("No longer collecting reactions.")
+    .on("end", async collected => {
+      msg.edit("No longer collecting reactions.")
       delete gameData[message.author.id]
     })
 }
