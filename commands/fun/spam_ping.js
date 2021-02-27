@@ -4,6 +4,7 @@ exports.run = async (client, message, args) => {
   
   let user = await getUserArg(message)
   let times = Math.max(Math.min(parseInt(args[1]), 25), 1) || 5
+  let customMessage = args.length >= 3 ? args.slice(2).join(" ").slice(0, 500) : "Get spam-pinged lol"
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(config.main.colours.success)
@@ -41,7 +42,7 @@ exports.run = async (client, message, args) => {
 
 
   for(let i = 0; i < times; i++) {
-    await ping(webhook, `${user}, Spam-pinging courtesy of ${message.author.tag}. (${i + 1}/${times})`)
+    await ping(webhook, `${user}, ${customMessage} (From ${message.author.tag} \`${i + 1}/${times}\`)`)
     await delay(1250)
   }
 }
