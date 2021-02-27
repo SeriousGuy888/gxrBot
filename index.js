@@ -54,6 +54,7 @@ let graphCache = {
 }
 let pauseAutocarrotCache = {} // used for storing when people want g9lbot to stop autocarroting them
 let gameCache = { // for storing when people are playing g9lbot's games
+  blackjack: {},
   hangman: {},
   minesweeper: {}
 }
