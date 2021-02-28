@@ -215,9 +215,11 @@ exports.run = async (client, message, args) => {
   emojis.forEach(async emoji => await msg.react(emoji))
 
   const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
-  msg.createReactionCollector(filter, { time: 20000 })
+  const collector = msg.createReactionCollector(filter, { time: 30000 })
     .on("collect", async (reaction, reactor) => {
       reaction.users.remove(reactor).catch(() => {})
+      collector.resetTimer()
+
       switch(reaction.emoji.name) {
         case "🔨":
           userData.hand.add(userData.deck.draw())
