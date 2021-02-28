@@ -60,10 +60,10 @@ exports.run = async (client, message, args) => {
 
   // message.channel.send(cards.map(c => JSON.stringify(c)).join(",").slice(0, 2000))
 
-  let user_hand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
-  let cpu_hand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
+  let userHand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
+  let cpuHand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
 
-  function hand_string(hand){
+  function handString(hand){
     let output = []
     for(const card of hand){
       output.push(card.getNumber() + suits[card.getSuit()])
@@ -76,8 +76,8 @@ exports.run = async (client, message, args) => {
     .setColor("#ffff00")
     .setTitle("gambling")
     .setDescription("you're gonna lose all your moolah")
-    .addField("Your hand", hand_string(user_hand), true)
-    .addField("CPU hand", hand_string(cpu_hand), true)
+    .addField("Your hand", handString(userHand), true)
+    .addField("CPU hand", handString(cpuHand), true)
   
   const msg = await message.channel.send(emb)
 
@@ -92,9 +92,8 @@ exports.run = async (client, message, args) => {
         case "🧍":
           break
         case "🔨":
-          user_hand.push(cards[Math.floor(Math.random() * cards.length)])
+          userHand.push(cards[Math.floor(Math.random() * cards.length)])
       }
-
       msg.edit("eeee")
     })
     .on("end", async collected => {
