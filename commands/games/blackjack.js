@@ -108,20 +108,57 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  function gameDisplay(){
+  const checkWin = () => { // https://en.wikipedia.org/wiki/Blackjack#Rules
+    const { hand, dealer } = userData
+
+    const handVal = hand.getValue()
+    const dealerVal = dealer.getValue()
+
+    if(handVal > 21)
+      return -1
+    if(dealerVal > 21)
+      return 1
+    if(dealerVal === 21)
+      return -1
+    
+    return 0
+  }
+    const winner = checkWin()
+
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
-      .setColor("#ffff00")
       .setTitle("Blackjack")
-      .setDescription(`remaining in deck: ${userData.deck.toString()}`)
       .addField("🏠 Dealer's Hand", `${userData.dealer.toString()}\nTotal: ${userData.dealer.getValue()}`)
       .addField("✋ Your Hand", `${userData.hand.toString()}\nTotal: ${userData.hand.getValue()}`)
-      .setFooter("Gambling is always a good idea.")
+    
+    if(!winner) {
+      emb
+        .setColor("#ffff00")
+        .setDescription(`remaining in deck: ${userData.deck.toString()}`)
+        .setFooter("Gambling is always a good idea.")
+    }
+    else {
+      if(winner > 0) {
+        emb
+          .setColor("#00ff00")
+          .setDescription("You win.")
+      }
+      else {
+        emb
+          .setColor("#ff0000")
+          .setDescription("You lose.")
+      }
+    }
     
     return emb
   }
 
-  // message.channel.send(cards.map(c => JSON.stringify(c)).join(",").slice(0, 2000))
+  const makeDealerChoice = () => {
+    if(userData.dealer.getValue() < 17) {
+      userData.dealer.add(userData.deck.draw())
+    }
+  }
+
 
   userData.hand
     .add(userData.deck.draw())
@@ -146,6 +183,8 @@ exports.run = async (client, message, args) => {
         case "🧍":
           break
       }
+      makeDealerChoice()
+
       msg.edit(gameDisplay())
     })
     .on("end", async collected => {
