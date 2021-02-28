@@ -140,7 +140,7 @@ exports.run = async (client, message, args) => {
       return -1
     if(handVal === 21) {
       if(dealerVal === 21)
-        return 0
+        return -1
       else
         return 1
     }
