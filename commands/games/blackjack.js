@@ -103,16 +103,19 @@ exports.run = async (client, message, args) => {
     }
   }
 
-
-
-
-  if(!userData) {
+  
+  if(userData) {
+    message.channel.send("You currently have an ongoing blackjack game. Please finish or forfeit that game before starting a new one.")
+    return
+  }
+  else {
     userData = {
       deck: new Deck(),
       hand: new Hand(),
-      dealer: new Hand()
+      dealer: new Hand(),
+      win: false,
+      // gameOver: false
     }
-    message.channel.send("created new game instance for you")
   }
 
 
@@ -160,28 +163,35 @@ exports.run = async (client, message, args) => {
     return 0
   }
 
-  const gameDisplay = () => {
-    const winner = checkWin()
+  const gameDisplay = (forfeit) => {
+    let winner = checkWin()
+    if(forfeit)
+      winner = -1
 
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
       .setTitle("Blackjack")
     embedder.addBlankField(emb)
-      .addField("🏠 Dealer's Hand", `${userData.dealer.getValueString()}`)
-      .addField("✋ Your Hand", `${userData.hand.getValueString()}`)
-      .setFooter("Gambling is always a good idea.")
+      .addField("🏠 Dealer's Hand", `${userData.dealer.getValueString()}`, true)
+      .addField("✋ Your Hand", `${userData.hand.getValueString()}`, true)
     
     if(!winner) {
       emb
         .setColor("#ffff00")
+        .addField("Instructions", "React with 🔨 to HIT.\nReact with 🧍 to STAND.\nReact with 🛑 to forfeit.")
+        .setFooter(`Please react within 30 seconds.`)
     }
     else {
+      // gameData.gameOver = true
+
       if(winner > 0) {
+        gameData.win = true
         emb
           .setColor("#00ff00")
           .setDescription("You win.")
       }
-      else {
+      if(winner < 0) {
+        gameData.win = false
         emb
           .setColor("#ff0000")
           .setDescription("You lose.")
@@ -211,7 +221,7 @@ exports.run = async (client, message, args) => {
   
   const msg = await message.channel.send(gameDisplay())
 
-  const emojis = ["🔨", "🧍"]
+  const emojis = ["🔨", "🧍", "🛑"]
   emojis.forEach(async emoji => await msg.react(emoji))
 
   const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
@@ -220,6 +230,7 @@ exports.run = async (client, message, args) => {
       reaction.users.remove(reactor).catch(() => {})
       collector.resetTimer()
 
+      let forfeit
       switch(reaction.emoji.name) {
         case "🔨":
           userData.hand.add(userData.deck.draw())
@@ -228,13 +239,21 @@ exports.run = async (client, message, args) => {
         case "🧍":
           userData.hand.setStood(true)
           break
+        case "🛑":
+          forfeit = true
+          collector.stop()
+          break
       }
-      makeDealerChoice()
 
-      msg.edit(gameDisplay())
+      if(!forfeit)
+        makeDealerChoice()
+
+      await msg.edit(gameDisplay(forfeit))
+      // if(gameData.gameOver)
+      //   collector.stop()
     })
     .on("end", async collected => {
-      msg.edit("No longer collecting reactions.")
+      msg.edit(`Game Over ${gameData.win ? "you win" : "you lose"}`)
       delete gameData[message.author.id]
     })
 }
