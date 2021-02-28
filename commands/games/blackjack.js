@@ -94,8 +94,8 @@ exports.run = async (client, message, args) => {
       .setColor("#ffff00")
       .setTitle("gambling")
       .setDescription("you're gonna lose all your moolah")
-      .addField("Your hand", userData.hand.toString(), true)
-      .addField("CPU hand", userData.dealer.toString(), true)
+      .addField("Your Hand", userData.hand.toString(), true)
+      .addField("Dealer's Hand", userData.dealer.toString(), true)
     
     return emb
   }
