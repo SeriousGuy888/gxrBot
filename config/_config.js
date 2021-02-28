@@ -17,5 +17,5 @@ module.exports = {
   minesweeper:        require("./minesweeper.json"),
   mute:               require("./mute.json"),
   polls:              require("./polls.json"),
-  smashOrPass:      require("./smash_or_pass.json"),
+  smashOrPass:        require("./smash_or_pass.json"),
 }
