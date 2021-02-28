@@ -43,6 +43,14 @@ exports.run = async (client, message, args) => {
     }
   }
 
+  const drawFromDeck = () => {
+    const cardIndex = Math.floor(Math.random() * playerData.deck.length)
+    const card = playerData.deck[cardIndex]
+
+    playerData.deck.splice(cardIndex, 1)
+    return card
+  }
+
   const suits = {
     "spades": "♤",
     "hearts": "♡",
@@ -50,13 +58,13 @@ exports.run = async (client, message, args) => {
     "diamonds": "♢"
   }
   const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-  let cards = []
 
   for(const suit in suits) {
     for(const number of numbers) {
-      cards.push(new Card(suit, number))
+      userData.deck.push(new Card(suit, number))
     }
   }
+
 
   function handString(hand){
     let output = []
@@ -80,8 +88,8 @@ exports.run = async (client, message, args) => {
 
   // message.channel.send(cards.map(c => JSON.stringify(c)).join(",").slice(0, 2000))
 
-  let userHand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
-  let cpuHand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
+  let userHand = [drawFromDeck(), drawFromDeck()]
+  let cpuHand = [drawFromDeck(), drawFromDeck()]
   
   const msg = await message.channel.send(gameDisplay())
 
@@ -96,7 +104,7 @@ exports.run = async (client, message, args) => {
         case "🧍":
           break
         case "🔨":
-          userHand.push(cards[Math.floor(Math.random() * cards.length)])
+          userHand.push(userData.deck[Math.floor(Math.random() * userData.deck.length)])
       }
       msg.edit(gameDisplay())
     })
