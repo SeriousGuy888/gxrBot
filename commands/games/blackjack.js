@@ -44,10 +44,10 @@ exports.run = async (client, message, args) => {
   }
 
   const drawFromDeck = () => {
-    const cardIndex = Math.floor(Math.random() * playerData.deck.length)
-    const card = playerData.deck[cardIndex]
+    const cardIndex = Math.floor(Math.random() * userData.deck.length)
+    const card = userData.deck[cardIndex]
 
-    playerData.deck.splice(cardIndex, 1)
+    userData.deck.splice(cardIndex, 1)
     return card
   }
 
@@ -104,7 +104,7 @@ exports.run = async (client, message, args) => {
         case "🧍":
           break
         case "🔨":
-          userHand.push(userData.deck[Math.floor(Math.random() * userData.deck.length)])
+          userHand.push(drawFromDeck())
       }
       msg.edit(gameDisplay())
     })
