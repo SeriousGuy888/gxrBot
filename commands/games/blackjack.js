@@ -20,20 +20,8 @@ exports.run = async (client, message, args) => {
     getNumber() {
       return this.number
     }
-
-    calcValue() {
-      const number = this.number
-      const parsedInt = parseInt(cardValue)
-      if(parsedInt)
-        return parsedInt
-      
-      if(number === "A")
-        return 1
-      else
-        return 10
-    }
   }
-  class Hand {
+  class CardCollection {
     constructor(cards) {
       this.cards = cards ?? []
     }
@@ -51,29 +39,60 @@ exports.run = async (client, message, args) => {
       return this
     }
   }
+  class Deck extends CardCollection {
+    draw() {
+      const cardIndex = Math.floor(Math.random() * this.cards.length)
+      const card = this.cards[cardIndex]
+  
+      this.cards.splice(cardIndex, 1)
+      return card
+    }
+  }
+  class Hand extends CardCollection {
+    getValue() {
+      let cards = this.cards
+
+      const aces = []
+      for(const i in cards) {
+        if(cards[i].number === "A") {
+          aces.push(cards[i])
+          cards.splice(i, 1)
+        }
+      }
+
+      let value = 0
+      for(const i in cards) {
+        if(cards[i].number.match(/[JQK]/)) {
+          value += 10
+        }
+        else {
+          value += parseInt(cards[i].number)
+        }
+      }
+
+      aces.forEach(() => {
+        if(value + 11 > 21)
+          value += 1
+        else
+          value += 11
+      })
+
+      return value
+    }
+  }
 
 
 
 
   if(!userData) {
     userData = {
-      deck: [],
+      deck: new Deck(),
       hand: new Hand(),
       dealer: new Hand()
     }
     message.channel.send("created new game instance for you")
   }
 
-
-
-
-  const drawFromDeck = () => {
-    const cardIndex = Math.floor(Math.random() * userData.deck.length)
-    const card = userData.deck[cardIndex]
-
-    userData.deck.splice(cardIndex, 1)
-    return card
-  }
 
   const suits = {
     "spades": "♤",
@@ -82,9 +101,10 @@ exports.run = async (client, message, args) => {
     "diamonds": "♢"
   }
 
+  const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
   for(const suit in suits) {
-    for(const number of ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]) {
-      userData.deck.push(new Card(suit, number))
+    for(const number of numbers) {
+      userData.deck.add(new Card(suit, number))
     }
   }
 
@@ -94,8 +114,8 @@ exports.run = async (client, message, args) => {
       .setColor("#ffff00")
       .setTitle("gambling")
       .setDescription("you're gonna lose all your moolah")
-      .addField("Your Hand", userData.hand.toString(), true)
-      .addField("Dealer's Hand", userData.dealer.toString(), true)
+      .addField("Your Hand", `${userData.hand.toString()}\n${userData.hand.getValue()}`, true)
+      .addField("Dealer's Hand", `${userData.dealer.toString()}\n${userData.dealer.getValue()}`, true)
     
     return emb
   }
@@ -103,11 +123,11 @@ exports.run = async (client, message, args) => {
   // message.channel.send(cards.map(c => JSON.stringify(c)).join(",").slice(0, 2000))
 
   userData.hand
-    .add(drawFromDeck())
-    .add(drawFromDeck())
+    .add(userData.deck.draw())
+    .add(userData.deck.draw())
   userData.dealer
-    .add(drawFromDeck())
-    .add(drawFromDeck())
+    .add(userData.deck.draw())
+    .add(userData.deck.draw())
   
   const msg = await message.channel.send(gameDisplay())
 
@@ -120,7 +140,7 @@ exports.run = async (client, message, args) => {
       reaction.users.remove(reactor).catch(() => {})
       switch(reaction.emoji.name) {
         case "🔨":
-          userData.hand.add(drawFromDeck())
+          userData.hand.add(userData.deck.draw())
           break
         case "🧍":
           break
