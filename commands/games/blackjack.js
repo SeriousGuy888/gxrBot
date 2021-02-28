@@ -112,10 +112,11 @@ exports.run = async (client, message, args) => {
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
       .setColor("#ffff00")
-      .setTitle("gambling")
-      .setDescription("you're gonna lose all your moolah")
-      .addField("Your Hand", `${userData.hand.toString()}\n${userData.hand.getValue()}`, true)
-      .addField("Dealer's Hand", `${userData.dealer.toString()}\n${userData.dealer.getValue()}`, true)
+      .setTitle("Blackjack")
+      .setDescription(`remaining in deck: ${userData.deck.toString()}`)
+      .addField("🏠 Dealer's Hand", `${userData.dealer.toString()}\nTotal: ${userData.dealer.getValue()}`)
+      .addField("✋ Your Hand", `${userData.hand.toString()}\nTotal: ${userData.hand.getValue()}`)
+      .setFooter("Gambling is always a good idea.")
     
     return emb
   }
