@@ -29,9 +29,9 @@ exports.run = async (client, message, args) => {
     toString() {
       let output = []
       for(const card of this.cards) {
-        output.push(card.getNumber() + suits[card.getSuit()])
+        output.push(`\`${card.getNumber()}${suits[card.getSuit()]}\``)
       }
-      return output.join(", ")
+      return `**${output.join(" ")}**`
     }
 
     add(card) {
@@ -89,9 +89,11 @@ exports.run = async (client, message, args) => {
       const cardsString = this.toString()
       const total = this.getValue()
 
-      let totalString = `**Total:** ${total}`
+      let totalString = `**Total:** ${total} `
       if(total > 21)
-        totalString += " `BUST`"
+        totalString += "`BUST`"
+      if(total === 21)
+        totalString += "⭐"
       
       return `${cardsString}\n${totalString}`
     }
@@ -164,14 +166,14 @@ exports.run = async (client, message, args) => {
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
       .setTitle("Blackjack")
+    embedder.addBlankField(emb)
       .addField("🏠 Dealer's Hand", `${userData.dealer.getValueString()}`)
       .addField("✋ Your Hand", `${userData.hand.getValueString()}`)
+      .setFooter("Gambling is always a good idea.")
     
     if(!winner) {
       emb
         .setColor("#ffff00")
-        .setDescription(`remaining in deck: ${userData.deck.toString()}`)
-        .setFooter("Gambling is always a good idea.")
     }
     else {
       if(winner > 0) {
