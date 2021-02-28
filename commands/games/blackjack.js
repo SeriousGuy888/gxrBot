@@ -68,7 +68,7 @@ exports.run = async (client, message, args) => {
     for(const card of hand){
       output.push(card.getNumber() + suits[card.getSuit()])
     }
-    return output.join(",")
+    return output.join(", ")
   }
 
   const emb = new Discord.MessageEmbed()
@@ -85,14 +85,14 @@ exports.run = async (client, message, args) => {
   emojis.forEach(async emoji => await msg.react(emoji))
 
   const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
-  msg.createReactionCollector(filter, { time: 2000 })
+  msg.createReactionCollector(filter, { time: 20000 })
     .on("collect", async (reaction, reactor) => {
       reaction.users.remove(reactor).catch(() => {})
       switch(reaction.emoji.name) {
         case "🧍":
           break
         case "🔨":
-          break
+          user_hand.push(cards[Math.floor(Math.random() * cards.length)])
       }
 
       msg.edit("eeee")
