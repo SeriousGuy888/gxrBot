@@ -74,6 +74,8 @@ exports.run = async (client, message, args) => {
       .setDescription("you're gonna lose all your moolah")
       .addField("Your hand", handString(userHand), true)
       .addField("CPU hand", handString(cpuHand), true)
+    
+    return emb
   }
 
   // message.channel.send(cards.map(c => JSON.stringify(c)).join(",").slice(0, 2000))
