@@ -85,6 +85,17 @@ exports.run = async (client, message, args) => {
       return value
     }
 
+    getValueString() {
+      const cardsString = this.toString()
+      const total = this.getValue()
+
+      let totalString = `**Total:** ${total}`
+      if(total > 21)
+        totalString += " `BUST`"
+      
+      return `${cardsString}\n${totalString}`
+    }
+
     setStood(booleanValue) {
       this.stood = booleanValue
     }
@@ -153,8 +164,8 @@ exports.run = async (client, message, args) => {
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
       .setTitle("Blackjack")
-      .addField("🏠 Dealer's Hand", `${userData.dealer.toString()}\nTotal: ${userData.dealer.getValue()}`)
-      .addField("✋ Your Hand", `${userData.hand.toString()}\nTotal: ${userData.hand.getValue()}`)
+      .addField("🏠 Dealer's Hand", `${userData.dealer.getValueString()}`)
+      .addField("✋ Your Hand", `${userData.hand.getValueString()}`)
     
     if(!winner) {
       emb
