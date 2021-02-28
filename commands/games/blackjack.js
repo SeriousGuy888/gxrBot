@@ -5,15 +5,6 @@ exports.run = async (client, message, args) => {
   
   let gameData = index.gameCache.blackjack
   let userData = gameData[message.author.id]
-
-  if(!userData) {
-    userData = {
-      deck: [],
-      hand: [],
-      dealer: []
-    }
-    message.channel.send("created new game instance for you")
-  }
   
   
   class Card {
@@ -42,6 +33,39 @@ exports.run = async (client, message, args) => {
         return 10
     }
   }
+  class Hand {
+    constructor(cards) {
+      this.cards = cards ?? []
+    }
+
+    toString() {
+      let output = []
+      for(const card of this.cards) {
+        output.push(card.getNumber() + suits[card.getSuit()])
+      }
+      return output.join(", ")
+    }
+
+    add(card) {
+      this.cards.push(card)
+      return this
+    }
+  }
+
+
+
+
+  if(!userData) {
+    userData = {
+      deck: [],
+      hand: new Hand(),
+      dealer: new Hand()
+    }
+    message.channel.send("created new game instance for you")
+  }
+
+
+
 
   const drawFromDeck = () => {
     const cardIndex = Math.floor(Math.random() * userData.deck.length)
@@ -64,31 +88,26 @@ exports.run = async (client, message, args) => {
     }
   }
 
-
-  function handString(hand){
-    let output = []
-    for(const card of hand){
-      output.push(card.getNumber() + suits[card.getSuit()])
-    }
-    return output.join(", ")
-  }
-
   function gameDisplay(){
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
       .setColor("#ffff00")
       .setTitle("gambling")
       .setDescription("you're gonna lose all your moolah")
-      .addField("Your hand", handString(userData.hand), true)
-      .addField("CPU hand", handString(userData.dealer), true)
+      .addField("Your hand", userData.hand.toString(), true)
+      .addField("CPU hand", userData.dealer.toString(), true)
     
     return emb
   }
 
   // message.channel.send(cards.map(c => JSON.stringify(c)).join(",").slice(0, 2000))
 
-  userData.hand = [drawFromDeck(), drawFromDeck()]
-  userData.dealer = [drawFromDeck(), drawFromDeck()]
+  userData.hand
+    .add(drawFromDeck())
+    .add(drawFromDeck())
+  userData.dealer
+    .add(drawFromDeck())
+    .add(drawFromDeck())
   
   const msg = await message.channel.send(gameDisplay())
 
@@ -101,7 +120,7 @@ exports.run = async (client, message, args) => {
       reaction.users.remove(reactor).catch(() => {})
       switch(reaction.emoji.name) {
         case "🔨":
-          userData.hand.push(drawFromDeck())
+          userData.hand.add(drawFromDeck())
           break
         case "🧍":
           break
