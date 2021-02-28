@@ -60,13 +60,24 @@ exports.run = async (client, message, args) => {
 
   // message.channel.send(cards.map(c => JSON.stringify(c)).join(",").slice(0, 2000))
 
+  let user_hand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
+  let cpu_hand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
 
+  function hand_string(hand){
+    output = []
+    for(card of hand){
+      output.push(card.getNumber() + card.getSuit())
+    }
+    return output.join(",")
+  }
 
   const emb = new Discord.MessageEmbed()
   embedder.addAuthor(emb, message.author)
     .setColor("#ffff00")
     .setTitle("gambling")
     .setDescription("you're gonna lose all your moolah")
+    .addField("Your hand", hand_string(user_hand), true)
+    .addField("CPU hand", hand_string(cpu_hand), true)
   
   const msg = await message.channel.send(emb)
 
