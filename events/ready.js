@@ -1,8 +1,8 @@
 module.exports = async (client, message) => {
   const index = require("../index.js")
   const { config, Discord, schedule } = index
-  const { badger, banker, logger, messenger } = client.util
-  const { awaitOrders, updateKarma } = client.functions
+  const { badger, banker, logger, messenger, karmanator } = client.util
+  const { awaitOrders } = client.functions
 
   awaitOrders()
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
@@ -16,7 +16,7 @@ module.exports = async (client, message) => {
   })
 
   setInterval(() => {
-    updateKarma()
+    karmanator.update()
     badger.updateBadges()
     banker.updateBalances()
     banker.updateInventories()

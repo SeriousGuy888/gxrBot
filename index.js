@@ -180,7 +180,6 @@ const {
   getUserArg,
   messageResponder,
   propaganda,
-  updateKarma,
   voteReactions
 } = client.functions
 const {
@@ -219,7 +218,6 @@ module.exports = {
   getUserArg,
   messageResponder,
   propaganda,
-  updateKarma,
   voteReactions,
 
   banker,
@@ -238,7 +236,7 @@ module.exports = {
 // process.on("unhandledRejection", console.error)
 
 process.once("SIGTERM", async () => {
-  updateKarma()
+  client.util.karmanator.update()
   preferencer.update()
   guildPreferencer.update()
   badger.updateBadges()
@@ -249,7 +247,7 @@ process.once("SIGTERM", async () => {
 })
 
 process.once("SIGINT", async () => {
-  updateKarma()
+  client.util.karmanator.update()
   preferencer.update()
   guildPreferencer.update()
   badger.updateBadges()
