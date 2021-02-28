@@ -44,10 +44,10 @@ exports.run = async (client, message, args) => {
   }
 
   const suits = {
-    spades: "♤",
-    hearts: "♡",
-    clubs: "♧",
-    diamonds: "♢"
+    spades: "♠️",
+    hearts: "♥️",
+    clubs: "♣️",
+    diamonds: "♦️"
   }
   const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
   let cards = []
