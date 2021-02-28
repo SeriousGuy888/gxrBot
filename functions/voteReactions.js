@@ -1,6 +1,7 @@
 module.exports = async (reaction, user, removed) => {
   const index = require("../index.js")
-  const { client, Discord, config, addKarma } = index
+  const { client, Discord, config } = index
+  const { karmanator } = client.util
   const settings = config.karma
 
   let message = reaction.message
@@ -24,7 +25,7 @@ module.exports = async (reaction, user, removed) => {
   for(let i in settings.emojis) {
     if(settings.emojis[i].id === emoji) {
       if(settings.emojis[i].karma) {
-        addKarma(message.author.id, removed ? -settings.emojis[i].karma : settings.emojis[i].karma, {
+        karmanator.add(message.author.id, removed ? -settings.emojis[i].karma : settings.emojis[i].karma, {
           reason: `${removed ? "remove" : "add"} ${i}`,
           voterId: user.id,
           messageId: message.id
