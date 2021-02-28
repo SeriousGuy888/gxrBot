@@ -64,8 +64,8 @@ exports.run = async (client, message, args) => {
   let cpu_hand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
 
   function hand_string(hand){
-    output = []
-    for(card of hand){
+    let output = []
+    for(const card of hand){
       output.push(card.getNumber() + card.getSuit())
     }
     return output.join(",")
