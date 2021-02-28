@@ -1,0 +1,1 @@
+exports.alias = "smash_or_pass"
