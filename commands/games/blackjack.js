@@ -57,10 +57,9 @@ exports.run = async (client, message, args) => {
     "clubs": "♧",
     "diamonds": "♢"
   }
-  const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
   for(const suit in suits) {
-    for(const number of numbers) {
+    for(const number of ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]) {
       userData.deck.push(new Card(suit, number))
     }
   }
@@ -93,7 +92,7 @@ exports.run = async (client, message, args) => {
   
   const msg = await message.channel.send(gameDisplay())
 
-  const emojis = ["🧍", "🔨"]
+  const emojis = ["🔨", "🧍"]
   emojis.forEach(async emoji => await msg.react(emoji))
 
   const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
@@ -101,10 +100,11 @@ exports.run = async (client, message, args) => {
     .on("collect", async (reaction, reactor) => {
       reaction.users.remove(reactor).catch(() => {})
       switch(reaction.emoji.name) {
-        case "🧍":
-          break
         case "🔨":
           userData.hand.push(drawFromDeck())
+          break
+        case "🧍":
+          break
       }
       msg.edit(gameDisplay())
     })
