@@ -49,6 +49,11 @@ exports.run = async (client, message, args) => {
     }
   }
   class Hand extends CardCollection {
+    constructor(cards) {
+      super()
+      this.stood = false
+    }
+
     getValue() {
       let cards = this.cards
 
@@ -78,6 +83,10 @@ exports.run = async (client, message, args) => {
       })
 
       return value
+    }
+
+    setStood(booleanValue) {
+      this.stood = booleanValue
     }
   }
 
@@ -116,13 +125,29 @@ exports.run = async (client, message, args) => {
 
     if(handVal > 21)
       return -1
+    if(handVal === 21) {
+      if(dealerVal === 21)
+        return 0
+      else
+        return 1
+    }
+    
     if(dealerVal > 21)
       return 1
     if(dealerVal === 21)
       return -1
     
+    if(hand.stood && dealer.stood) { // if both players decided to stand
+      if(handVal > dealerVal)
+        return 1
+      else
+        return -1
+    }
+
     return 0
   }
+
+  const gameDisplay = () => {
     const winner = checkWin()
 
     const emb = new Discord.MessageEmbed()
@@ -156,6 +181,10 @@ exports.run = async (client, message, args) => {
   const makeDealerChoice = () => {
     if(userData.dealer.getValue() < 17) {
       userData.dealer.add(userData.deck.draw())
+      userData.dealer.setStood(false)
+    }
+    else {
+      userData.dealer.setStood(true)
     }
   }
 
@@ -179,8 +208,10 @@ exports.run = async (client, message, args) => {
       switch(reaction.emoji.name) {
         case "🔨":
           userData.hand.add(userData.deck.draw())
+          userData.hand.setStood(false)
           break
         case "🧍":
+          userData.hand.setStood(true)
           break
       }
       makeDealerChoice()
