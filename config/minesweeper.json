@@ -2,7 +2,7 @@
   "game": {
     "field": {
       "size": 8,
-      "mines": 16
+      "mines": 10
     }
   },
   "win": {
