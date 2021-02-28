@@ -58,11 +58,6 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  // message.channel.send(cards.map(c => JSON.stringify(c)).join(",").slice(0, 2000))
-
-  let userHand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
-  let cpuHand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
-
   function handString(hand){
     let output = []
     for(const card of hand){
@@ -71,15 +66,22 @@ exports.run = async (client, message, args) => {
     return output.join(", ")
   }
 
-  const emb = new Discord.MessageEmbed()
-  embedder.addAuthor(emb, message.author)
-    .setColor("#ffff00")
-    .setTitle("gambling")
-    .setDescription("you're gonna lose all your moolah")
-    .addField("Your hand", handString(userHand), true)
-    .addField("CPU hand", handString(cpuHand), true)
+  function gameDisplay(){
+    const emb = new Discord.MessageEmbed()
+    embedder.addAuthor(emb, message.author)
+      .setColor("#ffff00")
+      .setTitle("gambling")
+      .setDescription("you're gonna lose all your moolah")
+      .addField("Your hand", handString(userHand), true)
+      .addField("CPU hand", handString(cpuHand), true)
+  }
+
+  // message.channel.send(cards.map(c => JSON.stringify(c)).join(",").slice(0, 2000))
+
+  let userHand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
+  let cpuHand = [cards[Math.floor(Math.random() * cards.length)], cards[Math.floor(Math.random() * cards.length)]]
   
-  const msg = await message.channel.send(emb)
+  const msg = await message.channel.send(gameDisplay())
 
   const emojis = ["🧍", "🔨"]
   emojis.forEach(async emoji => await msg.react(emoji))
@@ -94,7 +96,7 @@ exports.run = async (client, message, args) => {
         case "🔨":
           userHand.push(cards[Math.floor(Math.random() * cards.length)])
       }
-      msg.edit("eeee")
+      msg.edit(gameDisplay())
     })
     .on("end", async collected => {
       msg.edit("No longer collecting reactions.")
