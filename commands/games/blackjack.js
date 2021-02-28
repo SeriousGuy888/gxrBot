@@ -80,16 +80,16 @@ exports.run = async (client, message, args) => {
       .setColor("#ffff00")
       .setTitle("gambling")
       .setDescription("you're gonna lose all your moolah")
-      .addField("Your hand", handString(userHand), true)
-      .addField("CPU hand", handString(cpuHand), true)
+      .addField("Your hand", handString(userData.hand), true)
+      .addField("CPU hand", handString(userData.dealer), true)
     
     return emb
   }
 
   // message.channel.send(cards.map(c => JSON.stringify(c)).join(",").slice(0, 2000))
 
-  let userHand = [drawFromDeck(), drawFromDeck()]
-  let cpuHand = [drawFromDeck(), drawFromDeck()]
+  userData.hand = [drawFromDeck(), drawFromDeck()]
+  userData.dealer = [drawFromDeck(), drawFromDeck()]
   
   const msg = await message.channel.send(gameDisplay())
 
@@ -104,7 +104,7 @@ exports.run = async (client, message, args) => {
         case "🧍":
           break
         case "🔨":
-          userHand.push(drawFromDeck())
+          userData.hand.push(drawFromDeck())
       }
       msg.edit(gameDisplay())
     })
