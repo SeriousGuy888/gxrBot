@@ -17,25 +17,48 @@ exports.run = async (client, message, args) => {
     }
   
     numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+
+    getSuitIcon(suit) {
+      if(this.suits[suit.toLowerCase()])
+        return this.suits[suit.toLowerCase()]
+      else
+        return "?"
+    }
   }
   class Card extends PlayingCards {
-    constructor(suit, number) {
+    constructor(suit, number, hidden) {
       super()
 
       this.suit = suit
       this.number = number
+      this.hidden = hidden
     }
 
-    getSuit() {
-      return this.suit
+    getSuit(force) {
+      if(force || !this.hidden) // if the card is face-up or force is true, reveal
+        return this.suit
+      else // if the card is face-down, return ?
+        return "?"
     }
 
-    getNumber() {
-      return this.number
+    getNumber(force) {
+      if(force || !this.hidden)
+        return this.number
+      else
+        return "?"
+    }
+
+    getHidden() {
+      return this.hidden
+    }
+
+    setHidden(hidden) {
+      this.hidden = hidden
+      return this
     }
 
     toString() {
-      return `\`${this.getNumber()}${this.suits[this.getSuit()]}\``
+      return `\`${this.getNumber()}${this.getSuitIcon(this.getSuit())}\``
     }
   }
   class CardCollection extends PlayingCards {
@@ -67,12 +90,16 @@ exports.run = async (client, message, args) => {
     }
   }
   class Deck extends CardCollection {
-    draw() {
+    draw(hidden) {
       const cardIndex = Math.floor(Math.random() * this.cards.length)
       const card = this.cards[cardIndex]
   
       this.cards.splice(cardIndex, 1)
-      return card
+
+      if(hidden === undefined)
+        return card
+      else
+        return card.setHidden(hidden)
     }
 
     create() {
@@ -91,24 +118,28 @@ exports.run = async (client, message, args) => {
       this.stood = false
     }
 
-    getValue() {
+    getValue(force) {
       let cards = this.cards
 
       const aces = []
       for(const i in cards) {
-        if(cards[i].number === "A") {
+        if(cards[i].getNumber(force) === "A") {
           aces.push(cards[i])
           cards.splice(i, 1)
         }
       }
 
+      let includesHiddenCards = false
       let value = 0
+
       for(const i in cards) {
-        if(cards[i].number.match(/[JQK]/)) {
+        if(cards[i].getHidden())
+          includesHiddenCards = true
+        if(cards[i].getNumber(force).match(/[JQK]/)) {
           value += 10
         }
         else {
-          value += parseInt(cards[i].number)
+          value += parseInt(cards[i].getNumber(force))
         }
       }
 
@@ -119,14 +150,17 @@ exports.run = async (client, message, args) => {
           value += 11
       })
 
-      return value
+      if(force || !includesHiddenCards)
+        return value
+      else
+        return -1
     }
 
     getValueString() {
       const cardsString = this.toString()
       const total = this.getValue()
 
-      let totalString = `**Total:** ${total} `
+      let totalString = `**Total:** ${total === -1 ? "?" : total} `
       if(total > 21)
         totalString += "`BUST`"
       if(total === 21)
@@ -137,6 +171,14 @@ exports.run = async (client, message, args) => {
 
     setStood(booleanValue) {
       this.stood = booleanValue
+    }
+
+    setAllHidden(hidden) {
+      for(const card of this.cards) {
+        card.setHidden(hidden)
+      }
+
+      return this
     }
   }
 
@@ -180,8 +222,8 @@ exports.run = async (client, message, args) => {
   const checkWin = () => { // https://en.wikipedia.org/wiki/Blackjack#Rules
     const { hand, dealer } = gameData[message.author.id]
 
-    const handVal = hand.getValue()
-    const dealerVal = dealer.getValue()
+    const handVal = hand.getValue(true)
+    const dealerVal = dealer.getValue(true)
 
     if(handVal > 21)
       return -1
@@ -214,12 +256,10 @@ exports.run = async (client, message, args) => {
 
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
-      .setTitle("Blackjack")
+      .setTitle("Blackjack `Click for Rules`")
+      .setURL("https://en.wikipedia.org/wiki/Blackjack#Rules")
       .setDescription(gameData[message.author.id].deck.cards.length + gameData[message.author.id].deck.toString())
       .addField(`Bet (\`${config.main.prefix}blackjack [bet]\`)`, `${coin}${gameData[message.author.id].bet}`)
-    embedder.addBlankField(emb)
-      .addField("🏠 Dealer's Hand", `${gameData[message.author.id].dealer.getValueString()}`, true)
-      .addField("✋ Your Hand", `${gameData[message.author.id].hand.getValueString()}`, true)
     
     if(!winner) {
       emb
@@ -229,6 +269,8 @@ exports.run = async (client, message, args) => {
     }
     else {
       // gameData.gameOver = true
+      gameData[message.author.id].dealer.setAllHidden(false)
+      gameData[message.author.id].hand.setAllHidden(false)
 
       if(winner > 0) {
         gameData.win = true
@@ -236,7 +278,6 @@ exports.run = async (client, message, args) => {
           .setColor("#00ff00")
           .setDescription("You win.")
         message.channel.send("win bet")
-        collector.stop()
       }
       if(winner < 0) {
         gameData.win = false
@@ -244,15 +285,21 @@ exports.run = async (client, message, args) => {
           .setColor("#ff0000")
           .setDescription("You lose.")
         message.channel.send("lose bet")
-        collector.stop()
       }
     }
+      
+    embedder.addBlankField(emb)
+      .addField("🏠 Dealer's Hand", `${gameData[message.author.id].dealer.getValueString()}`, true)
+      .addField("✋ Your Hand", `${gameData[message.author.id].hand.getValueString()}`, true)
+    
+    if(winner)
+      collector.stop()
     
     return emb
   }
 
   const makeDealerChoice = () => {
-    if(gameData[message.author.id].dealer.getValue() < 17) {
+    if(gameData[message.author.id].dealer.getValue(true) < 17) {
       gameData[message.author.id].dealer.add(gameData[message.author.id].deck.draw())
       gameData[message.author.id].dealer.setStood(false)
     }
@@ -267,7 +314,7 @@ exports.run = async (client, message, args) => {
     .add(gameData[message.author.id].deck.draw())
   gameData[message.author.id].dealer
     .add(gameData[message.author.id].deck.draw())
-    .add(gameData[message.author.id].deck.draw())
+    .add(gameData[message.author.id].deck.draw(true))
   
   await msg.edit(gameDisplay())
 
