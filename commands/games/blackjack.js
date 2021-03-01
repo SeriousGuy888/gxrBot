@@ -8,8 +8,20 @@ exports.run = async (client, message, args) => {
   const coin = config.economy.settings.lang.emojis.coin
   
   
-  class Card {
+  class PlayingCards {
+    suits = {
+      "spades": "♤",
+      "hearts": "♡",
+      "clubs": "♧",
+      "diamonds": "♢"
+    }
+  
+    numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+  }
+  class Card extends PlayingCards {
     constructor(suit, number) {
+      super()
+
       this.suit = suit
       this.number = number
     }
@@ -23,11 +35,13 @@ exports.run = async (client, message, args) => {
     }
 
     toString() {
-      return `\`${this.getNumber()}${suits[this.getSuit()]}\``
+      return `\`${this.getNumber()}${this.suits[this.getSuit()]}\``
     }
   }
-  class CardCollection {
+  class CardCollection extends PlayingCards {
     constructor(cards) {
+      super()
+
       this.cards = cards ?? []
     }
 
@@ -43,6 +57,14 @@ exports.run = async (client, message, args) => {
       this.cards.push(card)
       return this
     }
+
+
+    getNumbers() {
+      return this.numbers
+    }
+    getSuits() {
+      return this.suits
+    }
   }
   class Deck extends CardCollection {
     draw() {
@@ -51,6 +73,16 @@ exports.run = async (client, message, args) => {
   
       this.cards.splice(cardIndex, 1)
       return card
+    }
+
+    create() {
+      for(const suit in this.getSuits()) {
+        for(const number of this.getNumbers()) {
+          this.add(new Card(suit, number))
+        }
+      }
+
+      return this
     }
   }
   class Hand extends CardCollection {
@@ -136,27 +168,12 @@ exports.run = async (client, message, args) => {
     }
 
     gameData[message.author.id] = {
-      deck: new Deck(),
+      deck: new Deck().create(),
       hand: new Hand(),
       dealer: new Hand(),
       bet: betAmount,
       win: false,
       // gameOver: false
-    }
-  }
-
-
-  const suits = {
-    "spades": "♤",
-    "hearts": "♡",
-    "clubs": "♧",
-    "diamonds": "♢"
-  }
-
-  const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-  for(const suit in suits) {
-    for(const number of numbers) {
-      gameData[message.author.id].deck.add(new Card(suit, number))
     }
   }
 
