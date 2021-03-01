@@ -216,7 +216,7 @@ exports.run = async (client, message, args) => {
     embedder.addAuthor(emb, message.author)
       .setTitle("Blackjack")
       .setDescription(gameData[message.author.id].deck.cards.length + gameData[message.author.id].deck.toString())
-      .addField("Bet", `${coin}${gameData[message.author.id].bet}`)
+      .addField(`Bet (\`${config.main.prefix}blackjack [bet]\`)`, `${coin}${gameData[message.author.id].bet}`)
     embedder.addBlankField(emb)
       .addField("🏠 Dealer's Hand", `${gameData[message.author.id].dealer.getValueString()}`, true)
       .addField("✋ Your Hand", `${gameData[message.author.id].hand.getValueString()}`, true)
