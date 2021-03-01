@@ -1,10 +1,12 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index // import from index.js
-  const { embedder } = client.util
+  const { banker, embedder, messenger } = client.util
   
   let gameData = index.gameCache.blackjack
   let userData = gameData[message.author.id]
+
+  const coin = config.economy.settings.lang.emojis.coin
   
   
   class Card {
@@ -103,16 +105,38 @@ exports.run = async (client, message, args) => {
     }
   }
 
+
+  let msg
   
   if(userData) {
     message.channel.send("You currently have an ongoing blackjack game. Please finish or forfeit that game before starting a new one.")
     return
   }
   else {
+    const betAmount = Math.abs(parseInt(args[0]) || 0)
+
+    msg = await messenger.loadingMessage(message.channel, {
+      colour: config.main.colours.help,
+      title: "Placing Bet...",
+      description: `Amount: ${coin}${betAmount}`
+    })
+
+    if(betAmount) {
+      const balance = await banker.getBalance(message.author.id)
+      if(balance < betAmount) {
+        msg.edit(messenger.errorMessage(msg, {
+          title: "Insufficient Funds",
+          description: `Your bet was ${coin}${betAmount} but you only have ${coin}${balance}.`
+        }))
+        return
+      }
+    }
+
     userData = {
       deck: new Deck(),
       hand: new Hand(),
       dealer: new Hand(),
+      bet: betAmount,
       win: false,
       // gameOver: false
     }
@@ -171,6 +195,7 @@ exports.run = async (client, message, args) => {
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
       .setTitle("Blackjack")
+      .addField("Bet", `${coin}${userData.bet}`)
     embedder.addBlankField(emb)
       .addField("🏠 Dealer's Hand", `${userData.dealer.getValueString()}`, true)
       .addField("✋ Your Hand", `${userData.hand.getValueString()}`, true)
@@ -189,12 +214,14 @@ exports.run = async (client, message, args) => {
         emb
           .setColor("#00ff00")
           .setDescription("You win.")
+        message.channel.send("win bet")
       }
       if(winner < 0) {
         gameData.win = false
         emb
           .setColor("#ff0000")
           .setDescription("You lose.")
+        message.channel.send("lose bet")
       }
     }
     
@@ -219,7 +246,7 @@ exports.run = async (client, message, args) => {
     .add(userData.deck.draw())
     .add(userData.deck.draw())
   
-  const msg = await message.channel.send(gameDisplay())
+  await msg.edit(gameDisplay())
 
   const emojis = ["🔨", "🧍", "🛑"]
   emojis.forEach(async emoji => await msg.react(emoji))
