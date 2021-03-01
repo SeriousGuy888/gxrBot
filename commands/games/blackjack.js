@@ -219,6 +219,7 @@ exports.run = async (client, message, args) => {
           .setColor("#00ff00")
           .setDescription("You win.")
         message.channel.send("win bet")
+        collector.stop()
       }
       if(winner < 0) {
         gameData.win = false
@@ -226,6 +227,7 @@ exports.run = async (client, message, args) => {
           .setColor("#ff0000")
           .setDescription("You lose.")
         message.channel.send("lose bet")
+        collector.stop()
       }
     }
     
