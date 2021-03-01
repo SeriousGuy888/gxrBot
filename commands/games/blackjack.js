@@ -214,7 +214,7 @@ exports.run = async (client, message, args) => {
       hand: new Hand(),
       dealer: new Hand(),
       bet: betAmount,
-      win: false,
+      win: null,
       // gameOver: false
     }
   }
@@ -256,9 +256,8 @@ exports.run = async (client, message, args) => {
 
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
-      .setTitle("Blackjack `Click for Rules`")
-      .setURL("https://en.wikipedia.org/wiki/Blackjack#Rules")
-      .setDescription(gameData[message.author.id].deck.cards.length + gameData[message.author.id].deck.toString())
+      .setTitle("Blackjack")
+      .setDescription("Click [here](https://en.wikipedia.org/wiki/Blackjack#Rules) for the ruleset we're using.")
       .addField(`Bet (\`${config.main.prefix}blackjack [bet]\`)`, `${coin}${gameData[message.author.id].bet}`)
     
     if(!winner) {
@@ -273,14 +272,14 @@ exports.run = async (client, message, args) => {
       gameData[message.author.id].hand.setAllHidden(false)
 
       if(winner > 0) {
-        gameData.win = true
+        gameData[message.author.id].win = true
         emb
           .setColor("#00ff00")
           .setDescription("You win.")
         message.channel.send("win bet")
       }
       if(winner < 0) {
-        gameData.win = false
+        gameData[message.author.id].win = false
         emb
           .setColor("#ff0000")
           .setDescription("You lose.")
@@ -293,7 +292,7 @@ exports.run = async (client, message, args) => {
       .addField("✋ Your Hand", `${gameData[message.author.id].hand.getValueString()}`, true)
     
     if(winner)
-      collector.stop()
+      collector?.stop()
     
     return emb
   }
@@ -320,9 +319,11 @@ exports.run = async (client, message, args) => {
 
   const emojis = ["🔨", "🧍", "🛑"]
   emojis.forEach(async emoji => await msg.react(emoji))
-
   const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
-  const collector = msg.createReactionCollector(filter, { time: 30000 })
+
+  // if(gameData[message.author.id].win !== null)
+  //   return
+  const collector = msg.createReactionCollector(filter, { time: 60000 })
     .on("collect", async (reaction, reactor) => {
       reaction.users.remove(reactor).catch(() => {})
       collector.resetTimer()
@@ -349,8 +350,10 @@ exports.run = async (client, message, args) => {
       // if(gameData.gameOver)
       //   collector.stop()
     })
-    .on("end", async collected => {
-      msg.edit(`Game Over ${gameData.win ? "you win" : "you lose"}`)
+    .on("end", async (collected, reason) => {
+      if(reason === "time") {
+        msg.edit("```This blackjack game expired!```")
+      }
       delete gameData[message.author.id]
     })
 }
