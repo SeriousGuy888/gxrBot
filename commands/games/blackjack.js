@@ -4,7 +4,6 @@ exports.run = async (client, message, args) => {
   const { banker, embedder, messenger } = client.util
   
   let gameData = index.gameCache.blackjack
-  let userData = gameData[message.author.id]
 
   const coin = config.economy.settings.lang.emojis.coin
   
@@ -112,7 +111,7 @@ exports.run = async (client, message, args) => {
 
   let msg
   
-  if(userData) {
+  if(gameData[message.author.id]) {
     message.channel.send("You currently have an ongoing blackjack game. Please finish or forfeit that game before starting a new one.")
     return
   }
@@ -136,7 +135,7 @@ exports.run = async (client, message, args) => {
       }
     }
 
-    userData = {
+    gameData[message.author.id] = {
       deck: new Deck(),
       hand: new Hand(),
       dealer: new Hand(),
@@ -157,12 +156,12 @@ exports.run = async (client, message, args) => {
   const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
   for(const suit in suits) {
     for(const number of numbers) {
-      userData.deck.add(new Card(suit, number))
+      gameData[message.author.id].deck.add(new Card(suit, number))
     }
   }
 
   const checkWin = () => { // https://en.wikipedia.org/wiki/Blackjack#Rules
-    const { hand, dealer } = userData
+    const { hand, dealer } = gameData[message.author.id]
 
     const handVal = hand.getValue()
     const dealerVal = dealer.getValue()
@@ -199,10 +198,11 @@ exports.run = async (client, message, args) => {
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
       .setTitle("Blackjack")
-      .addField("Bet", `${coin}${userData.bet}`)
+      .setDescription(gameData[message.author.id].deck.cards.length + gameData[message.author.id].deck.toString())
+      .addField("Bet", `${coin}${gameData[message.author.id].bet}`)
     embedder.addBlankField(emb)
-      .addField("🏠 Dealer's Hand", `${userData.dealer.getValueString()}`, true)
-      .addField("✋ Your Hand", `${userData.hand.getValueString()}`, true)
+      .addField("🏠 Dealer's Hand", `${gameData[message.author.id].dealer.getValueString()}`, true)
+      .addField("✋ Your Hand", `${gameData[message.author.id].hand.getValueString()}`, true)
     
     if(!winner) {
       emb
@@ -233,22 +233,22 @@ exports.run = async (client, message, args) => {
   }
 
   const makeDealerChoice = () => {
-    if(userData.dealer.getValue() < 17) {
-      userData.dealer.add(userData.deck.draw())
-      userData.dealer.setStood(false)
+    if(gameData[message.author.id].dealer.getValue() < 17) {
+      gameData[message.author.id].dealer.add(gameData[message.author.id].deck.draw())
+      gameData[message.author.id].dealer.setStood(false)
     }
     else {
-      userData.dealer.setStood(true)
+      gameData[message.author.id].dealer.setStood(true)
     }
   }
 
 
-  userData.hand
-    .add(userData.deck.draw())
-    .add(userData.deck.draw())
-  userData.dealer
-    .add(userData.deck.draw())
-    .add(userData.deck.draw())
+  gameData[message.author.id].hand
+    .add(gameData[message.author.id].deck.draw())
+    .add(gameData[message.author.id].deck.draw())
+  gameData[message.author.id].dealer
+    .add(gameData[message.author.id].deck.draw())
+    .add(gameData[message.author.id].deck.draw())
   
   await msg.edit(gameDisplay())
 
@@ -264,11 +264,11 @@ exports.run = async (client, message, args) => {
       let forfeit
       switch(reaction.emoji.name) {
         case "🔨":
-          userData.hand.add(userData.deck.draw())
-          userData.hand.setStood(false)
+          gameData[message.author.id].hand.add(gameData[message.author.id].deck.draw())
+          gameData[message.author.id].hand.setStood(false)
           break
         case "🧍":
-          userData.hand.setStood(true)
+          gameData[message.author.id].hand.setStood(true)
           break
         case "🛑":
           forfeit = true
