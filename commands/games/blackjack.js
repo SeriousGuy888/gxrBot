@@ -22,6 +22,10 @@ exports.run = async (client, message, args) => {
     getNumber() {
       return this.number
     }
+
+    toString() {
+      return `\`${this.getNumber()}${suits[this.getSuit()]}\``
+    }
   }
   class CardCollection {
     constructor(cards) {
@@ -31,7 +35,7 @@ exports.run = async (client, message, args) => {
     toString() {
       let output = []
       for(const card of this.cards) {
-        output.push(`\`${card.getNumber()}${suits[card.getSuit()]}\``)
+        output.push(card.toString())
       }
       return `**${output.join(" ")}**`
     }
