@@ -190,7 +190,7 @@ exports.run = async (client, message, args) => {
     return
   }
   else {
-    const betAmount = Math.abs(parseInt(args[0]) || 0)
+    const betAmount = Math.abs(parseFloat(parseFloat(args[0]).toFixed(2)) || 0)
 
     msg = await messenger.loadingMessage(message.channel, {
       colour: config.main.colours.help,
