@@ -1,5 +1,3 @@
-const { set } = require("dot-prop")
-
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index
