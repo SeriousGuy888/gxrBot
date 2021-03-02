@@ -1,18 +1,26 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, getUserArg, embedder, messenger } = index
+  const { Discord, config } = index
+  const { getUserArg } = client.functions
+  const { embedder, logger } = client.util
   
   let user = await getUserArg(message)
   let times = Math.max(Math.min(parseInt(args[1]), 25), 1) || 5
-  let customMessage = args.length >= 3 ? args.slice(2).join(" ").slice(0, 500) : "Get spam-pinged lol"
+
+  const ghostPing = !!args.slice(args.length - 1).join(" ").match(/--ghost|-g/gi)
+  if(ghostPing)
+    args.splice(args.length - 1, 1)
+
+  let customMessage = args[2] ? args.slice(2).join(" ").slice(0, 500) : "get pinged lol"
 
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(config.main.colours.success)
-    .setTitle("Spam Pinger")
-    .setDescription(`Spam-pinging ${user} ${times} times`)
+    .setTitle(ghostPing ? "Ghost-Pinger" : "Spam-Pinger")
+    .setDescription(`Pinging ${user} ${times} times`)
   embedder.addAuthor(responseEmbed, message.author, "Courtesy of %tag%")
 
   message.channel.send(responseEmbed)
+  logger.log(`${message.author.id} pinged ${user.id} ${times} times${ghostPing ? " with -g flag" : ""} in ${message.channel.id}.`)
 
 
 
@@ -26,10 +34,13 @@ exports.run = async (client, message, args) => {
   }
 
 
-  const ping = (w, str) => {
+  const ping = async (w, str) => {
     w.send(str, {
-      "username": "Spam-Pinger",
+      "username": ghostPing ? "Ghost-Pinger" : "Spam-Pinger",
       "avatarURL": client.user.avatarURL(),
+    }).then(m => {
+      if(ghostPing)
+        m.delete()
     }).catch(error => message.channel.send(error))
   }
 
@@ -43,7 +54,7 @@ exports.run = async (client, message, args) => {
 
   for(let i = 0; i < times; i++) {
     await ping(webhook, `${user}, ${customMessage} (From ${message.author.tag} \`${i + 1}/${times}\`)`)
-    await delay(1250)
+    await delay(1500)
   }
 }
 
