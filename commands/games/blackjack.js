@@ -105,7 +105,7 @@ exports.run = async (client, message, args) => {
 
       if(winner > 0) {
         gameData[message.author.id].win = true
-        statTracker.add(message.author.id, "bj_win", 1)
+        statTracker.add(message.author.id, "blackjack_win", 1)
 
         emb
           .setColor("#00ff00")
@@ -115,7 +115,7 @@ exports.run = async (client, message, args) => {
       }
       if(winner < 0) {
         gameData[message.author.id].win = false
-        statTracker.add(message.author.id, "bj_lose", 1)
+        statTracker.add(message.author.id, "blackjack_lose", 1)
 
         emb
           .setColor("#ff0000")
