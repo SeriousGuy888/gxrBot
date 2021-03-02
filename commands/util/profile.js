@@ -2,7 +2,7 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index
   const { getUserArg } = client.functions
-  const { embedder, badger } = client.util
+  const { embedder, statTracker } = client.util
 
   const user = await getUserArg(message)
 
@@ -22,6 +22,7 @@ exports.run = async (client, message, args) => {
   }
   emb
     .addField("Member of", mutualGuilds.join("\n"))
+    .addField("[WIP] Stats", JSON.stringify(await statTracker.get(user.id)).slice(0, 1024))
     .addField("Badges", "Psst! Badges have been moved to the `mybadges` command.")
 
 
