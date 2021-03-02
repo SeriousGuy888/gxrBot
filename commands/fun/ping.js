@@ -2,7 +2,7 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, config } = index
   const { getUserArg } = client.functions
-  const { embedder, logger } = client.util
+  const { embedder, logger, messenger } = client.util
   
   let user = await getUserArg(message)
   let times = Math.max(Math.min(parseInt(args[1]), 25), 1) || 5
@@ -19,7 +19,11 @@ exports.run = async (client, message, args) => {
     .setDescription(`Pinging ${user} ${times} times.\nAdd \`-g\` or \`--ghost-ping\` to the end to ghost ping.`)
   embedder.addAuthor(responseEmbed, message.author, "Courtesy of %tag%")
 
-  message.channel.send(responseEmbed)
+  if(ghostPing)
+    messenger.dm(message.author.id, responseEmbed)
+  else
+    message.channel.send(responseEmbed)
+
   logger.log(`${message.author.id} pinged ${user.id} ${times} times${ghostPing ? " with -g flag" : ""} in ${message.channel.id}.`)
 
 
