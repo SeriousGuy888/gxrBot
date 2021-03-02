@@ -47,6 +47,7 @@ let inventoryQueue = {}
 let badgeQueue = {}
 let karmaQueue = {}
 let karmaCache = []
+let statQueue = {}
 let graphCache = {
   karmaChange: {
     complete: false,
@@ -81,6 +82,7 @@ let priorityExports = {
   
   karmaQueue,
   karmaCache,
+  statQueue,
   graphCache,
   pauseAutocarrotCache,
   gameCache,
@@ -239,6 +241,7 @@ module.exports = {
 
 process.once("SIGTERM", async () => {
   client.util.karmanator.update()
+  client.util.statTracker.update()
   preferencer.update()
   guildPreferencer.update()
   badger.updateBadges()
@@ -250,6 +253,7 @@ process.once("SIGTERM", async () => {
 
 process.once("SIGINT", async () => {
   client.util.karmanator.update()
+  client.util.statTracker.update()
   preferencer.update()
   guildPreferencer.update()
   badger.updateBadges()

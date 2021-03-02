@@ -1,7 +1,7 @@
 module.exports = async (client, message) => {
   const index = require("../index.js")
   const { config, Discord, schedule } = index
-  const { badger, banker, logger, messenger, karmanator, preferencer, guildPreferencer } = client.util
+  const { badger, banker, logger, messenger, karmanator, preferencer, guildPreferencer, statTracker } = client.util
   const { awaitOrders } = client.functions
 
   awaitOrders()
@@ -17,6 +17,7 @@ module.exports = async (client, message) => {
 
   setInterval(() => {
     karmanator.update()
+    statTracker.update()
     preferencer.update()
     guildPreferencer.update()
     badger.updateBadges()
