@@ -36,6 +36,8 @@ exports.run = async (client, message, args) => {
         }))
         return
       }
+
+      banker.addToBalance(message.author.id, -betAmount)
     }
 
     gameData[message.author.id] = {
@@ -104,15 +106,18 @@ exports.run = async (client, message, args) => {
         gameData[message.author.id].win = true
         emb
           .setColor("#00ff00")
-          .setDescription("You win.")
-        message.channel.send("win bet")
+          .setDescription("You win. Your bet was returned and doubled.")
+        if(gameData[message.author.id].bet)
+          banker.addToBalance(message.author.id, gameData[message.author.id].bet * 2) // return bet and double
       }
       if(winner < 0) {
         gameData[message.author.id].win = false
         emb
           .setColor("#ff0000")
-          .setDescription("You lose.")
-        message.channel.send("lose bet")
+          .setDescription("You lose. Your bet was not returned.")
+        if(forfeit)
+          emb.setFooter("Game was forfeited.")
+        // bet was taken at start of game
       }
     }
       
@@ -168,7 +173,6 @@ exports.run = async (client, message, args) => {
           break
         case "🛑":
           forfeit = true
-          collector.stop()
           break
       }
 
