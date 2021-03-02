@@ -1,7 +1,7 @@
 module.exports = (message) => {
   const index = require("../index.js")
   const { client, config, banker } = index
-  const { messenger, badger } = client.util
+  const { messenger, badger, stackTracker } = client.util
 
   const legal = () => message.attachments.array().length === 0
 
@@ -31,8 +31,10 @@ module.exports = (message) => {
 
   switch(message.channel.id) {
     case config.coopchannels.cult.channel:
-      if(cultLegal(message.content, config.coopchannels.cult.phrase))
+      if(cultLegal(message.content, config.coopchannels.cult.phrase)) {
+        statTracker.add(message.author.id, "coop_cult", 1)
         return
+      }
       this.punish(message, "cult", [
         config.coopchannels.cult.phrase,
         message.content
@@ -43,6 +45,7 @@ module.exports = (message) => {
         // random amount of money between 0 and 0.1
         banker.addToBalance(message.author.id, parseFloat((Math.random() * 0.1).toFixed(2)))
         badger.awardBadge(message.author.id, "storyteller", false, "contributing to the one word story")
+        statTracker.add(message.author.id, "coop_ows", 1)
         return
       }
       this.punish(message, "ows")
