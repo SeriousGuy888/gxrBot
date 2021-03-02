@@ -51,7 +51,7 @@ exports.add = async (userId, stat, amount) => {
 }
 
 
-exports.update = async () => { // todo: make work
+exports.update = async () => {
   const { logger } = client.util
 
   if(Object.keys(statQueue).length === 0)
