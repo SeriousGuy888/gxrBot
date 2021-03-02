@@ -2,7 +2,7 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const minesweeperCache = index.gameCache.minesweeper
   const { config, Discord } = index
-  const { banker, embedder, badger } = client.util
+  const { banker, embedder, badger, statTracker } = client.util
   const settings = config.minesweeper
 
   const fieldSize = settings.game.field.size // y
@@ -350,6 +350,7 @@ exports.run = async (client, message, args) => {
         await msg.edit("You win!", { embed: emb })
 
         banker.addToBalance(message.author.id, settings.win.award)
+        statTracker.add(message.author.id, "mines_win", 1)
         badger.awardBadge(message.author.id, "minesweeper", false, "winning a game of minesweeper")
 
         delete minesweeperCache[message.author.id]
@@ -357,6 +358,8 @@ exports.run = async (client, message, args) => {
       else {
         emb.setColor(config.main.colours.error)
         await msg.edit("You got blown up by a landmine D:", { embed: emb })
+        
+        statTracker.add(message.author.id, "mines_lose", 1)
 
         delete minesweeperCache[message.author.id]
       }
