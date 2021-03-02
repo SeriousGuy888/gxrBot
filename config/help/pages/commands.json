@@ -17,7 +17,7 @@
     "billzo": "Know all the different editions of billzo.",
     "google_translate": "(`gt`) Translate a phrase through several languages.",
     "impostor": "Who's the impostor?",
-    "ping": "Spam ping or ghost ping a user!+"
+    "spam_ping": "Spam ping or ghost ping a user!+"
   },
   "games": {
     "blackjack": "Play blackjack.",
