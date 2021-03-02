@@ -3,7 +3,7 @@ const { set } = require("dot-prop")
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index
-  const { embedder } = client.util
+  const { embedder, statTracker } = client.util
   const settings = config.smashOrPass
 
   // https://discord.js.org
@@ -93,12 +93,14 @@ exports.run = async (client, message, args) => {
         case settings.emojis.smash: // hammer
           if(currentCandidate) {
             smashes++
+            statTracker.add(message.author.id, "sop_smash", 1)
             smashed[currentCandidate.id] = true
           }
           break
         case settings.emojis.pass: // passport control
           if(currentCandidate) {
             passes++
+            statTracker.add(message.author.id, "sop_pass", 1)
             smashed[currentCandidate.id] = false
           }
           break
