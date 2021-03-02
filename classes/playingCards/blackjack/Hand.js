@@ -1,6 +1,6 @@
-const BaseHand = require("../BaseHand.js")
+const PlayingCards = require("../PlayingCards.js")
 
-module.exports = class Hand extends BaseHand {
+module.exports = class Hand extends PlayingCards.BaseHand {
   constructor(cards) {
     super()
     this.stood = false

@@ -7,8 +7,9 @@ exports.run = async (client, message, args) => {
 
   const coin = config.economy.settings.lang.emojis.coin
 
-  const Deck = require("../../classes/playingCards/Deck.js")
-  const Hand = require("../../classes/playingCards/blackjack/Hand.js")
+
+  const { Deck } = require("../../classes/playingCards/PlayingCards.js")
+  const { Hand } = require("../../classes/playingCards/blackjack/Blackjack.js")
 
 
   let msg

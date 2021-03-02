@@ -1,4 +1,4 @@
-const PlayingCards = require("./PlayingCards.js")
+const PlayingCardUtils = require("./PlayingCardUtils.js")
 
 module.exports = class CardCollection {
   constructor(cards) {
@@ -20,9 +20,9 @@ module.exports = class CardCollection {
 
 
   getNumbers() {
-    return PlayingCards.numbers
+    return PlayingCardUtils.numbers
   }
   getSuits() {
-    return PlayingCards.suits
+    return PlayingCardUtils.suits
   }
 }

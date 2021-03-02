@@ -1,4 +1,4 @@
-const PlayingCards = require("./PlayingCards.js")
+const PlayingCardUtils = require("./PlayingCardUtils.js")
 
 module.exports = class Card {
   constructor(suit, number, hidden) {
@@ -31,6 +31,6 @@ module.exports = class Card {
   }
 
   toString() {
-    return `\`${this.getNumber()}${PlayingCards.getSuitIcon(this.getSuit())}\``
+    return `\`${this.getNumber()}${PlayingCardUtils.getSuitIcon(this.getSuit())}\``
   }
 }
