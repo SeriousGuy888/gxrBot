@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
   const responseEmbed = new Discord.MessageEmbed()
     .setColor(config.main.colours.success)
     .setTitle(ghostPing ? "Ghost-Pinger" : "Spam-Pinger")
-    .setDescription(`Pinging ${user} ${times} times`)
+    .setDescription(`Pinging ${user} ${times} times.\nAdd \`-g\` or \`--ghost-ping\` to the end to ghost ping.`)
   embedder.addAuthor(responseEmbed, message.author, "Courtesy of %tag%")
 
   message.channel.send(responseEmbed)
