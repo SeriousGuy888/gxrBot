@@ -89,7 +89,7 @@ exports.run = async (client, message, args) => {
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
       .setTitle("Blackjack")
-      .setDescription(`${gameData[message.author.id].deck.toString()} Click [here](https://en.wikipedia.org/wiki/Blackjack#Rules) for the ruleset we're using.`)
+      .setDescription(`Click [here](https://en.wikipedia.org/wiki/Blackjack#Rules) for the ruleset we're using.`)
       .addField(`Bet (\`${config.main.prefix}blackjack [bet]\`)`, `${coin}${gameData[message.author.id].bet}`)
     
     if(!winner) {
