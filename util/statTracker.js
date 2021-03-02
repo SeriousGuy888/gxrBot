@@ -86,6 +86,9 @@ exports.update = async () => {
 
     delete statQueue[user]
   }
+  for(const i in statCache) {
+    delete statCache[i]
+  }
   
   await batch.commit()
 }
