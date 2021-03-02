@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index // import from index.js
-  const { banker, embedder, messenger } = client.util
+  const { banker, embedder, messenger, statTracker } = client.util
   
   let gameData = index.gameCache.blackjack
 
@@ -105,6 +105,8 @@ exports.run = async (client, message, args) => {
 
       if(winner > 0) {
         gameData[message.author.id].win = true
+        statTracker.add(message.author.id, "bj_win", 1)
+
         emb
           .setColor("#00ff00")
           .setDescription("You win. Your bet was returned and doubled.")
@@ -113,6 +115,8 @@ exports.run = async (client, message, args) => {
       }
       if(winner < 0) {
         gameData[message.author.id].win = false
+        statTracker.add(message.author.id, "bj_lose", 1)
+
         emb
           .setColor("#ff0000")
           .setDescription("You lose. Your bet was not returned.")
