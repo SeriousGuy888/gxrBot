@@ -1,7 +1,7 @@
 module.exports = (message) => {
   const index = require("../index.js")
   const { client, config, banker } = index
-  const { messenger, badger, stackTracker } = client.util
+  const { messenger, badger, statTracker } = client.util
 
   const legal = () => message.attachments.array().length === 0
 
