@@ -16,6 +16,7 @@ exports.handle = async (message) => {
     timer,
     guildPreferencer,
     permisser,
+    statTracker,
   } = client.util
   const { extractArgs } = this
 
@@ -120,6 +121,7 @@ exports.handle = async (message) => {
         client.commandCooldowns[commandName][message.author.id] = new Date()
       }
       command.run(client, message, args)
+      statTracker.add(message.author.id, "commands_run", 1)
     }
   }
   else if(gameCache.hangman[message.author.id]) {
