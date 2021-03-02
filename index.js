@@ -41,6 +41,7 @@ let preferenceCache = {
     notifications: true
   }
 }
+let balanceCache = {}
 let balanceQueue = {}
 let inventoryQueue = {}
 let badgeQueue = {}
@@ -74,6 +75,7 @@ let priorityExports = {
 
   preferenceCache,
   inventoryQueue,
+  balanceCache,
   balanceQueue,
   badgeQueue,
   

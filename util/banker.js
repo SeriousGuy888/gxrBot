@@ -1,23 +1,29 @@
 const index = require("../index.js")
 const { client, firebaseAdmin, db } = index
 const { increment } = firebaseAdmin.firestore.FieldValue
-let { balanceQueue, inventoryQueue } = index
+let { balanceCache, balanceQueue, inventoryQueue } = index
 
 exports.getBalance = async userId => {
-  const userRef = db.collection("users").doc(userId)
-  const doc = await userRef.get()
-
   let balance = 0
-
-  if(doc.exists) {
-    let data = doc.data()
-
-    if(data.balance) // if database record for user's balance exists
-      balance = data.balance // read record and use as balance
-    balance += balanceQueue[userId] ?? 0 // add on any pending changes to the balance
+  if(balanceCache[userId])
+    balance = balanceCache[userId]
+  else {
+    const userRef = db.collection("users").doc(userId)
+    const doc = await userRef.get()
+  
+    if(doc.exists) {
+      let data = doc.data()
+  
+      if(data.balance) // if database record for user's balance exists
+        balance = data.balance // read record and use as balance
+    }
   }
 
-  return balance.toFixed(2)
+  balance += balanceQueue[userId] ?? 0 // add on any pending changes to the balance
+  balance = parseFloat(balance.toFixed(2))
+
+  balanceCache[userId] = balance
+  return balance
 }
 
 exports.addToBalance = async (userId, amount) => {
@@ -54,6 +60,9 @@ exports.updateBalances = async () => {
 
 
     delete balanceQueue[i]
+  }
+  for(const i in balanceCache) {
+    delete balanceCache[i]
   }
 }
 
