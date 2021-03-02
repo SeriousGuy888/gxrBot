@@ -17,8 +17,9 @@ exports.getBalance = async userId => {
       if(data.balance) // if database record for user's balance exists
         balance = data.balance // read record and use as balance
     }
+    
+    balanceCache[userId] = balance
   }
-  balanceCache[userId] = balance
 
   balance += balanceQueue[userId] ?? 0 // add on any pending changes to the balance
   balance = parseFloat(balance.toFixed(2))
