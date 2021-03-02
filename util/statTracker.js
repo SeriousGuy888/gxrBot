@@ -1,20 +1,24 @@
 const index = require("../index.js")
 const { client, firebaseAdmin, db } = index
 const { increment } = firebaseAdmin.firestore.FieldValue
-let { statQueue } = index
+let { statCache, statQueue } = index
 
 exports.get = async userId => {
-  const userRef = db.collection("users").doc(userId)
-  const doc = await userRef.get()
-
   let stats = {}
+  if(statCache[userId])
+    stats = statCache[userId]
+  else {
+    const userRef = db.collection("users").doc(userId)
+    const doc = await userRef.get()
 
-  if(doc.exists) {
-    let data = doc.data()
-
-    if(data.stats) // if database record for user's stats exists
-      stats = data.stats // read record and use as stats
+    if(doc.exists) {
+      let data = doc.data()
+  
+      if(data.stats) // if database record for user's stats exists
+        stats = data.stats // read record and use as stats
+    }
     
+    statCache[userId] = stats
   }
 
   if(!statQueue[userId])

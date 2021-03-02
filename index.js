@@ -48,6 +48,7 @@ let badgeQueue = {}
 let karmaQueue = {}
 let karmaCache = []
 let statQueue = {}
+let statCache = {}
 let graphCache = {
   karmaChange: {
     complete: false,
@@ -83,6 +84,7 @@ let priorityExports = {
   karmaQueue,
   karmaCache,
   statQueue,
+  statCache,
   graphCache,
   pauseAutocarrotCache,
   gameCache,
