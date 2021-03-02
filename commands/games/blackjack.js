@@ -80,15 +80,16 @@ exports.run = async (client, message, args) => {
     return 0
   }
 
+  let winner
   const gameDisplay = (forfeit) => {
-    let winner = checkWin()
+    winner = checkWin()
     if(forfeit)
       winner = -1
 
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
       .setTitle("Blackjack")
-      .setDescription("Click [here](https://en.wikipedia.org/wiki/Blackjack#Rules) for the ruleset we're using.")
+      .setDescription(`${gameData[message.author.id].deck.toString()} Click [here](https://en.wikipedia.org/wiki/Blackjack#Rules) for the ruleset we're using.`)
       .addField(`Bet (\`${config.main.prefix}blackjack [bet]\`)`, `${coin}${gameData[message.author.id].bet}`)
     
     if(!winner) {
@@ -124,9 +125,6 @@ exports.run = async (client, message, args) => {
     embedder.addBlankField(emb)
       .addField("🏠 Dealer's Hand", `${gameData[message.author.id].dealer.getValueString()}`, true)
       .addField("✋ Your Hand", `${gameData[message.author.id].hand.getValueString()}`, true)
-    
-    if(winner)
-      collector?.stop()
     
     return emb
   }
@@ -180,6 +178,8 @@ exports.run = async (client, message, args) => {
         makeDealerChoice()
 
       await msg.edit(gameDisplay(forfeit))
+      if(winner)
+        collector.stop()
       // if(gameData.gameOver)
       //   collector.stop()
     })
