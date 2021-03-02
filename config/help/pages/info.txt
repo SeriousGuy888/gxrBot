@@ -6,7 +6,7 @@ FAQ: https://seriousguy888.github.io/G9L-Bot/
 Web Panel: <%webpanel%>
 
 :computer: **Development**
-Developers: billzo, Liam(?) https://seriousguy888.github.io/G9L-Bot/assets/images/contributions-2021-02-07.png
+Developers: billzo, Liam(?) https://seriousguy888.github.io/G9L-Bot/assets/images/contributions-2021-03-02.png
 Source Code: <https://github.com/SeriousGuy888/G9L-Bot>
 Bug Reports: <https://github.com/SeriousGuy888/G9L-Bot/issues>
 Upcoming Updates: <https://github.com/SeriousGuy888/G9L-Bot/projects/1>
