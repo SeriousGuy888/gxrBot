@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
 
     const itemsPerPage = 5
     const startAt = (queryPage - 1) * itemsPerPage
-    const endAt = startAt + itemsPerPage - 1
+    const endAt = startAt + itemsPerPage
     maxPages = Math.ceil(badges.length / itemsPerPage)
 
 
