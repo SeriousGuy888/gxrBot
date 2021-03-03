@@ -11,6 +11,7 @@ const {
 
 exports.handle = async (message) => {
   const {
+    embedder,
     logger,
     messenger,
     timer,
@@ -88,6 +89,7 @@ exports.handle = async (message) => {
               !adminBypass // admins cannot bypass disabled commands
             ) {
               const emb = new Discord.MessageEmbed()
+              embedder.addAuthor(emb, message.author)
                 .setColor(config.main.colours.error)
                 .setTitle(`Command \`${commandName}\` is disabled in this server.`)
                 .setDescription(`Ask an admin to reenable this command if you want to use it. ${adminBypass ? "Admins are allowed to bypass this." : ""}`)
@@ -108,6 +110,7 @@ exports.handle = async (message) => {
           if(timeSinceLastUse < cooldown) { // cooldown has not been completed
             const timeString = await timer.stringify(cooldown - timeSinceLastUse, { truncZero: true, dropMs: true }) // get str for time left in cooldown
             const emb = new Discord.MessageEmbed()
+            embedder.addAuthor(emb, message.author)
               .setColor(config.main.colours.error)
               .setTitle(`Command \`${commandName}\` is on cooldown.`)
               .setDescription(`You must wait \`${timeString}\` before using this command again.`)
