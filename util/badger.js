@@ -56,12 +56,12 @@ exports.awardBadge = async (userId, badge, remove, reason) => {
       .setTitle("Badge Awarded")
       .setDescription([
         `You have been awarded a badge for reason \`${reason ?? "no reason provided"}\`, which is quite cool.`,
-        `You can check what badges you have with \`${config.main.prefix}prof\`.`
+        `You can check what badges you have with \`${config.main.prefix}mybadges\`.`
       ].join("\n"))
     embedder.addBlankField(emb)
-      .addField((badgeData[badge].emoji + " " ?? "") + badge.toUpperCase(), badgeData[badge].description ?? "No description provided.")
+      .addField((badgeData[badge]?.emoji + " " ?? "") + badge?.toUpperCase(), badgeData[badge]?.description ?? "No description provided.")
     embedder.addBlankField(emb)
-      .addField("-", `*PS: You can disable these notifications by disabling the corresponding setting with the command \`${config.main.prefix}settings\`.*`)
+      .addField("\u200b", `*PS: You can disable these notifications by disabling the corresponding setting with the command \`${config.main.prefix}settings\`.*`)
 
     messenger.dm(userId, emb)
   }
