@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     embedder.addAuthor(emb, message.author)
       .setColor(config.main.colours.help)
       .setTitle("All Badges")
-      .setFooter("Use command `badges <badge id>` for a detailed description. Use command `prof` to see what badges you have.")
+      .setFooter("Use command `badges <badge id>` for a detailed description. Use command `mybadges` to see what badges you have.")
 
     let description = `[What are badges?](${config.main.links.github_pages}#faq-badges)\n\n`
     for(const i in badgeData) {
@@ -35,7 +35,7 @@ exports.run = async (client, message, args) => {
     embedder.addAuthor(emb, message.author)
       .setColor(config.main.colours.success)
       .setTitle(badgeName.toUpperCase())
-      .setFooter("Use command `prof` to see what badges you have.")
+      .setFooter("Use command `mybadges` to see what badges you have.")
 
     if(!badge) {
       emb.setDescription("Not found. Are you sure you didn't mean to use the `mybadges` command?")
