@@ -8,7 +8,7 @@ module.exports = async (client, message) => {
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
 
   client.user.setPresence({ status: "online" })
-  client.user.setActivity(`for -spam_ping`, { type: "WATCHING" })
+  client.user.setActivity(`Latest Bugfix: Server config settings no longer randomly reset.`, { type: "WATCHING" })
   
   
   schedule.scheduleJob("0 * * * *", () => {
