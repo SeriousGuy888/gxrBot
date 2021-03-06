@@ -22,5 +22,9 @@
   "2021": {
     "emoji": "<:2021:796514745837682688>",
     "description": "Awarded to all users who were members of the Grade 9 League server at the start of 2021. Those users may have converted the item to a badge. If you have an old item version of this, use command `use twenty_twenty_one` to transfer."
+  },
+  "hundredaire": {
+    "emoji": "🪙",
+    "description": "Obtain a balance of 100 or more currency units."
   }
 }
