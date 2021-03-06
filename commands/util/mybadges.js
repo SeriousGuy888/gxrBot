@@ -75,7 +75,7 @@ exports.run = async (client, message, args) => {
       const newEmb = await badgeEmbed(page)
       msg.edit(newEmb)
     })
-    .on("exit", collected => {
+    .on("end", collected => {
       msg.edit("No longer collecting reactions.")
     })
   for(const emoji of emojis)
