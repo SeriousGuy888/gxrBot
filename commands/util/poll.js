@@ -1,24 +1,16 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index
-  const { embedder, permisser, poller } = client.util
+  const { commander, embedder, permisser, poller } = client.util
 
   if(!args[0] || !args[1]) {
     this.help(client, message, args)
     return
   }
 
-  let invalidChannelId = false
-  let queryChannelId = args[0]
-  if(queryChannelId === ".")
-    queryChannelId = message.channel.id
-  let pollChannel = await client.channels.fetch(queryChannelId)
-    .catch(() => invalidChannelId = true)
-  if(invalidChannelId) {
-    message.channel.send("Invalid channel ID specified. Make sure it is a valid ID (a string of numbers), and that I have access to the channel. You can also use a period (`.`) to specify the channel in which the command is being executed.")
-    this.help(client, message, args)
-    return
-  }
+  let pollChannel = await commander.getMentionArgs(args[0], 1, message, true)
+  if(!pollChannel)
+    return message.channel.send("specify valid channel in guild!")
 
   switch(args[1].toLowerCase()) {
     case "open":
