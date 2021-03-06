@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, config } = index
-  const { embedder, permisser, timer } = client.util
+  const { commander, embedder, permisser, timer } = client.util
 
   if(!args[0])
     return this.help(client, message, args)
@@ -13,20 +13,7 @@ exports.run = async (client, message, args) => {
       return
   }
 
-  let queryChannelId = args[0]
-  if(queryChannelId === ".")
-    queryChannelId = message.channel.id
-  let invalidChannelId = false
-  let queryChannel = await client.channels.fetch(queryChannelId)
-    .catch(() => invalidChannelId = true)
-  if(invalidChannelId) {
-    message.channel.send("Invalid channel ID! Use a period (`.`) to specify this channel.")
-    return
-  }
-  if(message.guild && queryChannel.guild?.id !== message.guild.id) {
-    message.channel.send("Specify a channel within this guild!")
-    return
-  }
+  const queryChannel = await commander.getMentionArgs(args[0], 1, message, true)
   
 
   const maxTimespan = await timer.parse("6h")
@@ -59,7 +46,7 @@ exports.help = async (client, message, args) => {
   const embed = commandHelpEmbed(message, {
     title: "**Slowmode**",
     description: "Set a custom slowmode.",
-    syntax: `${prefix}slowmode <channel id> <timespan>`,
+    syntax: `${prefix}slowmode <channel mention or id> <timespan>`,
     example: [
       `**Set slowmode of this channel**`,
       ` ${prefix}slowmode . 3s`,
