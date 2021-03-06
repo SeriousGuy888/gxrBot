@@ -102,7 +102,7 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "lov(e|ing)",
+          "pattern": "lov(e|ing?)",
           "flags": "gi"
         }
       },
