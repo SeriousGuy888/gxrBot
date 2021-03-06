@@ -98,6 +98,15 @@
         }
       },
       "response": "<:capital_d_preceding_a_colon:777038054605979658>"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "lov(e|ing)",
+          "flags": "gi"
+        }
+      },
+      "response": "**Misinformation Warning**\nBe cautious and recognize that \"love\" is not a real phenomenon and that you may be being misled. \n`Antimismisinformation brought to you by billzo.`"
     }
   ]
 }
