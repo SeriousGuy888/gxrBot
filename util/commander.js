@@ -165,7 +165,7 @@ exports.getMentionArgs = async (str, type, message, guildOnly) => {
   let matches = []
   
   if(type === 0) { // user mentions
-    const userMentionRegex = /^(?:<@!?)?(\d+)(?:>)$/
+    const userMentionRegex = /^(?:<@!?)?(\d+)(?:>)?$/
     if(str.match)
       matches = str.match(userMentionRegex)
 
