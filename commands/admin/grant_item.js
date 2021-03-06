@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, getUserArg } = index
-  const { banker } = client.util
+  const { config } = index
+  const { banker, commander } = client.util
   
   
 
@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
     user = args[0].toLowerCase()
   }
   else
-    user = await getUserArg(message)
+    user = await commander.getMentionArgs(args[0], 0, message)
 
   if(!args[1])
     return message.channel.send("specify item idot")
