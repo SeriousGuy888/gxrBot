@@ -160,18 +160,20 @@ exports.extractArgs = (message) => {
 exports.getMentionArgs = async (str, type, message, guildOnly) => {
   const { guild } = message
   if(!str)
-    str = ""
+    str = "."
 
+  let matches = []
+  
   if(type === 0) { // user mentions
-    const userMentionEmbed = /^(?:<@!?)?(\d+)(?:>)$/
-    const matches = str.match(userMentionEmbed)
+    const userMentionRegex = /^(?:<@!?)?(\d+)(?:>)$/
+    if(str.match)
+      matches = str.match(userMentionRegex)
 
     let user
-
-    if(!matches)
-      return message?.author
-
     const userId = matches[1]
+    
+    if(!userId)
+      return message?.author
 
     if(guildOnly)
       user = (await guild.members.fetch(userId)).user
@@ -185,7 +187,7 @@ exports.getMentionArgs = async (str, type, message, guildOnly) => {
       return message.channel
       
     const channelMentionRegex = /^(?:<#)?(\d+)(?:>)?$/
-    const matches = str.match(channelMentionRegex)
+    matches = str.match(channelMentionRegex)
 
 
     if(!matches)
