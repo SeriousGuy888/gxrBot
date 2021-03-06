@@ -1,23 +1,6 @@
 module.exports = async (message) => {
-  const index = require("../index.js")
   const { client } = require("../index.js")
-  const extractArgs = client.util.commander.extractArgs
-
-  const { args } = extractArgs(message)
+  const { commander } = client.util
   
-  let user
-  if(!args[0])
-    user = message.author
-  else
-    user = 
-      message.mentions.members?.first() ||
-      await message.guild?.members.fetch(args[0]).catch(() => {}) ||
-      await client.users.fetch(args[0]).catch(() => {})
-  
-  if(!user)
-    user = message.author
-  if(user.user)
-    user = user.user
-  
-  return user
+  return await commander.getMentionArgs(message, 0)
 }
