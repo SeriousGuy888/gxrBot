@@ -23,7 +23,10 @@ exports.getBadges = async userId => {
     badgeQueue[userId] = {}
 
   for(const badge of Object.keys(badgeQueue[userId])) {
-    badges.add(badge)
+    if(badgeQueue[userId][badge].remove)
+      badges.delete(badge)
+    else
+      badges.add(badge)
   }
 
   return [...badges].sort() // cast set to array and sort
@@ -43,14 +46,14 @@ exports.addBadge = async (userId, badge, remove) => {
 exports.awardBadge = async (userId, badge, remove, reason) => {
   const { messenger, preferencer, embedder } = client.util
 
-  if((await this.getBadges(userId)).includes(badge)) {
+  if(!remove && (await this.getBadges(userId)).includes(badge)) {
     return
   }
 
   await this.addBadge(userId, badge, remove)
 
   const notifPrefs = (await preferencer.get(userId)).notifications
-  if(notifPrefs) {
+  if(!remove && notifPrefs) {
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
       .setTitle("Badge Awarded")
