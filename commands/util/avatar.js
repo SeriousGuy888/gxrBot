@@ -1,10 +1,9 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index
-  const { embedder } = client.util
-  const { getUserArg } = client.functions
+  const { commander, embedder } = client.util
 
-  const user = await getUserArg(message)
+  const user = await commander.getMentionArgs(args[0], 0, message)
 
   const emb = new Discord.MessageEmbed()
     .setColor(config.main.colours.success)
@@ -14,5 +13,3 @@ exports.run = async (client, message, args) => {
 
   message.channel.send(emb)
 }
-
-exports.cooldown = 30
