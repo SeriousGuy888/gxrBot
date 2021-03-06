@@ -14,7 +14,8 @@ exports.run = async (client, message, args) => {
   }
 
   const queryChannel = await commander.getMentionArgs(args[0], 1, message, true)
-  
+  if(!queryChannel)
+    return message.channel.send("specify valid channel in guild!")
 
   const maxTimespan = await timer.parse("6h")
   const timespan = await timer.parse(args.slice(1).join(""), 0, maxTimespan)
