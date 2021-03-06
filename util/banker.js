@@ -28,13 +28,17 @@ exports.getBalance = async userId => {
 }
 
 exports.addToBalance = async (userId, amount) => {
-  const { logger } = client.util
+  const { badger, logger } = client.util
 
   if(!balanceQueue[userId])
     balanceQueue[userId] = 0
   balanceQueue[userId] += amount
 
   logger.log(`Added ${amount} to balance of user ${userId}.`)
+
+  if(this.getBalance(userId) >= 100) {
+    await badger.awardBadge(userId, "hundredaire", false, "getting a large amount of moolah")
+  }
 }
 
 exports.updateBalances = async () => {
