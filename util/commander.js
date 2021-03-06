@@ -179,6 +179,9 @@ exports.getMentionArgs = async (str, type, message, guildOnly) => {
     return user || null
   }
   if(type === 1) { // channel mentions
+    if(str === ".")
+      return message.channel
+      
     const channelMentionRegex = /^(?:<#)?(\d+)(?:>)?$/
     const matches = str.match(channelMentionRegex)
 
