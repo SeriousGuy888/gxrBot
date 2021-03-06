@@ -159,6 +159,8 @@ exports.extractArgs = (message) => {
 
 exports.getMentionArgs = async (str, type, message, guildOnly) => {
   const { guild } = message
+  if(!str)
+    str = ""
 
   if(type === 0) { // user mentions
     const userMentionEmbed = /^(?:<@!?)?(\d+)(?:>)$/
