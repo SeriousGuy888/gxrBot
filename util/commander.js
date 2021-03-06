@@ -170,10 +170,11 @@ exports.getMentionArgs = async (str, type, message, guildOnly) => {
       matches = str.match(userMentionRegex)
 
     let user
-    const userId = matches[1]
     
-    if(!userId)
+    if(!matches)
       return message?.author
+
+    const userId = matches[1]
 
     if(guildOnly)
       user = (await guild.members.fetch(userId)).user

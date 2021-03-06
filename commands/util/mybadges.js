@@ -1,11 +1,10 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index
-  const { getUserArg } = client.functions
-  const { messenger, embedder, badger } = client.util
+  const { commander, badger, embedder, messenger } = client.util
 
 
-  const user = await getUserArg(message)
+  const user = await commander.getMentionArgs(args[0], 0, message)
 
 
   let maxPages
