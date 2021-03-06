@@ -157,29 +157,40 @@ exports.extractArgs = (message) => {
   }
 }
 
-exports.getMentionArgs = async (message, type) => {
-  const extractArgs = this.extractArgs
-  const { args } = extractArgs(message)
-  
+exports.getMentionArgs = async (str, type, guild) => {
   switch(type) {
     case 0: // user mentions
       let user
       if(!args[0])
-        user = message.author
+        user = str.author
       else
         user = 
-          message.mentions.members?.first() ||
-          await message.guild?.members.fetch(args[0]).catch(() => {}) ||
+          str.mentions.members?.first() ||
+          await str.guild?.members.fetch(args[0]).catch(() => {}) ||
           await client.users.fetch(args[0]).catch(() => {})
       
       if(!user)
-        user = message.author
+        user = str.author
       if(user.user)
         user = user.user
       
       return user
     case 1: // channel mentions
-      break
+      const channelMentionRegex = /^(?:<#)?(\d+)(?:>)?$/
+      const matches = str.match(channelMentionRegex)
+
+      let channel
+
+      if(!matches)
+        return null
+      const channelId = matches[1]
+
+      if(guild)
+        channel = await guild.channels.resolve(channelId)
+      else
+        channel = await client.channels.fetch(channelId)
+
+      return channel || null
     default:
       return new Error("Invalid mention arg type!")
   }
