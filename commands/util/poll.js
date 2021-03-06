@@ -22,11 +22,6 @@ exports.run = async (client, message, args) => {
           message.channel.send(`Your poll channel setting was ignored because you do not have administrator permissions. Your poll will be created in this channel, where you are running the command.`)
         }
       }
-      if(message.guild && pollChannel.guild?.id !== message.guild.id) {
-        message.channel.send("Specify a channel within this guild!")
-        return
-      }
-
 
       const question = args.slice(2).join(" ")
       if(!question) {
@@ -120,7 +115,7 @@ exports.help = async (client, message, args) => {
       "Anybody is allowed to make a poll, not just server admins,",
       "but you can only close a poll that you made."
     ].join(" "),
-    syntax: `${config.main.prefix}poll <Channel ID | .> <(create <question>) | (close <Poll ID>)>`,
+    syntax: `${config.main.prefix}poll <Channel> <(create <question>) | (close <Poll ID>)>`,
     example: [
       `**Create Poll in This Channel**`,
       ` ${config.main.prefix}poll . create Election or Something:tm:`,
