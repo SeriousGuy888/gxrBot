@@ -2,10 +2,9 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, config } = index
   const settings = config.economy.settings
-  const { banker, embedder, messenger } = client.util
-  const { getUserArg } = client.functions
+  const { banker, commander, embedder, messenger } = client.util
   
-  let user = await getUserArg(message)
+  let user = await commander.getMentionArgs(args[0], 0, message)
   
   const msg = await messenger.loadingMessage(message.channel, {
     colour: settings.colours.generic,
