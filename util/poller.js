@@ -1,6 +1,7 @@
 const index = require("../index.js")
-const { client, config, Discord, db } = index
+const { client, config, Discord, db, firebaseAdmin } = index
 const { embedder, messenger } = client.util
+const { serverTimestamp } = firebaseAdmin.firestore.FieldValue
 
 
 exports.getPollEmbed = async (pollObject, closed, message) => {
@@ -86,6 +87,7 @@ exports.startPoll = async pollObject => {
   }
 
   pollObject.wip = false
+  pollObject.timestamp = serverTimestamp()
 
 
   const message = await messenger.loadingMessage(channel, { title: "Loading Poll..." })
