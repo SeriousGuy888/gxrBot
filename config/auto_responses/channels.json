@@ -312,30 +312,6 @@
   ],
   "739976529437524029": [
     {
-      "comment": "example - nuke#a",
-      "enabled": false,
-      "messages": [
-        {
-          "content": "@everyone",
-          "embed": {
-            "title": "not ghost ping :D"
-          },
-          "options": {
-            "autoDelete": {
-              "comment": "timeout is in milliseconds",
-              "enabled": false,
-              "timeout": 1
-            }
-          }
-        }
-      ],
-      "reactions": [
-        "rainbow_cheez",
-        "#724008047453929563",
-        "#🥝"
-      ]
-    },
-    {
       "enabled": true,
       "conditional": {
         "comment": "enabled - whether this response is conditional. allRequired - toggles whether every condition or at least one needs to pass",
@@ -356,32 +332,6 @@
         "amongus",
         "skribbl"
       ]
-    },
-    {
-      "enabled": true,
-      "conditional": {
-        "enabled": true,
-        "conditions": [
-          {
-            "enabled": true,
-            "type": "regex",
-            "expression": "\\b(\\w)[ \\t,'\"]*(?:(\\w)[ \\t,'\"]*(?:(\\w)[ \\t,'\"]*(?:(\\w)[ \\t,'\"]*(?:(\\w)[ \\t,'\"]*(?:(\\w)[ \\t,'\"]*(?:(\\w)[ \\t,'\"]*(?:(\\w)[ \\t,'\"]*(?:(\\w)[ \\t,'\"]*(?:(\\w)[ \\t,'\"]*(?:(\\w)[ \\t,'\"]*\\11?[ \\t,'\"]*\\10|\\10?)[ \\t,'\"]*\\9|\\9?)[ \\t,'\"]*\\8|\\8?)[ \\t,'\"]*\\7|\\7?)[ \\t,'\"]*\\6|\\6?)[ \\t,'\"]*\\5|\\5?)[ \\t,'\"]*\\4|\\4?)[ \\t,'\"]*\\3|\\3?)[ \\t,'\"]*\\2|\\2?))?[ \\t,'\"]*\\1\\b",
-            "flags": "gi"
-          }
-        ]
-      },
-      "reactions": [
-        "#🎁"
-      ]
-    },
-    {
-      "enabled": true,
-      "autoEmoji": {
-        "comment": "any word that is the name of an emoji will cause a reaction",
-        "enabled": true,
-        "maxEmojiCount": 10,
-        "blacklistNationalFlags": true
-      }
     }
   ]
 }
