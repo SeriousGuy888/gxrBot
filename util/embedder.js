@@ -6,6 +6,6 @@ exports.addBlankField = (embed, inline) => embed.addField("\u200b", "\u200b", !!
 exports.addAuthor = (embed, user, authorText) => {
   return embed.setAuthor(
     (authorText ?? user.tag).replace(/%tag%/gi, user.tag),
-    user.avatarURL({ dynamic: true })
+    user.displayAvatarURL({ dynamic: true })
   )
 }
