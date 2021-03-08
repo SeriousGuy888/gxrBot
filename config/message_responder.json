@@ -116,6 +116,15 @@
         }
       },
       "response": "📗🦉🔪"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "(n(i|1)(g|b|q|6|9){2,}(a|(e|3)r))",
+          "flags": "gi"
+        }
+      },
+      "response": "woah there"
     }
   ]
 }
