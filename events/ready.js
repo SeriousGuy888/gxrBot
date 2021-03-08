@@ -47,6 +47,7 @@ module.exports = async (client, message) => {
       .setColor("#c32323")
       .setTitle("fact pls")
       .setDescription("<#735708848333258822>")
+      .setImage(process.env.BLACKMAIL)
     messenger.dm("414938441546203136", emb)
   })
 }
