@@ -106,7 +106,7 @@
           "flags": "gi"
         }
       },
-      "response": "**Misinformation Warning**\nLove is fake.\n`Antimismisinformation brought to you by billzo.`"
+      "response": "love is fake. `Antimismisinformation brought to you by billzo.`"
     },
     {
       "conditions": {
@@ -116,6 +116,15 @@
         }
       },
       "response": "chess: checkers but its nothing like checkers"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "duolingo",
+          "flags": "gi"
+        }
+      },
+      "response": "📗🦉🔪"
     }
   ]
 }
