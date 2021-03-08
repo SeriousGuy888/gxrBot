@@ -46,8 +46,29 @@ exports.handle = async (message) => {
       if(invalid)
         message.channel.send("The requested command failed to run as it is not coded properly.") 
       else {
-        let similarCommandNames = stringSimilarity.findBestMatch(commandName, client.publicCommandList)
-        message.channel.send(`The requested command does not exist or is invalid.\nI have a command registered called \`${similarCommandNames.bestMatch.target}\`. Perhaps you meant to type that?\n\nIf not, try using the command \`${prefix}help\`.`)
+        const allCommandSimilarities = stringSimilarity.findBestMatch(commandName, client.publicCommandList).ratings
+        allCommandSimilarities.sort((a, b) => {
+          if(a.rating < b.rating)
+            return 1
+          if(a.rating > b.rating)
+            return -1
+          return 0
+        })
+
+        const topCommands = []
+        for(let i = 0; i < 5; i++)
+          topCommands.push(allCommandSimilarities[i].target)
+
+
+        const commandSuggestionsStr = "```md\n" + topCommands.map(e => `* ${e}`).join("\n") + "```"
+
+        const emb = new Discord.MessageEmbed()
+        embedder.addAuthor(emb, message.author)
+          .setColor(config.main.colours.error)
+          .setTitle("Invalid Command")
+          .setDescription(`Did you mean one of these commands?\n${commandSuggestionsStr}`.slice(0, 2048))
+          .setFooter(`${prefix}help to see list of commands.`)
+        message.channel.send(emb)
       }
     }
 
