@@ -102,15 +102,6 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "lov(e|ing?)",
-          "flags": "gi"
-        }
-      },
-      "response": "love is fake. `Antimismisinformation brought to you by billzo.`"
-    },
-    {
-      "conditions": {
-        "pass": {
           "pattern": "chess",
           "flags": "gi"
         }
