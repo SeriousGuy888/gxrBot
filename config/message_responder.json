@@ -26,7 +26,7 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "(lonely|sad|depress(ed|ion)|heart(broken|break)|glum)|(:\\(|\\):)",
+          "pattern": "lonely|sad|depress(ed|ion)|heart(broken|break)|glum|miser(y|able)|sorrow|gloom",
           "flags": "gi"
         },
         "fail": {
