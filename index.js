@@ -176,13 +176,11 @@ for(let loopLog of logQueue)
 // function and util imports ↓
 
 const {
-  addKarma,
   autocarrotWebhook,
   autoResponses,
   awaitOrders,
   commandHelpEmbed,
   coopChannels,
-  extractArgs,
   getUserArg,
   messageResponder,
   propaganda,
@@ -214,13 +212,11 @@ module.exports = {
   ytdl,
   googleTts,
 
-  addKarma,
   autocarrotWebhook,
   autoResponses,
   awaitOrders,
   commandHelpEmbed,
   coopChannels,
-  extractArgs,
   getUserArg,
   messageResponder,
   propaganda,
