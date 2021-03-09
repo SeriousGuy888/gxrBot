@@ -12,11 +12,11 @@ exports.run = async (client, message, args) => {
 
 
 
-  const upvote = `<:upvote:${settings.emojis.upvote.id}>`
-  const downvote = `<:downvote:${settings.emojis.downvote.id}>`
+
+  const { positive, negative } = settings.leaderboard.emojis
 
   let description = [
-    `Have people to your messages with ${upvote} or ${downvote} to affect your ~~popularity~~ karma score!`,
+    `Have people to your messages with ${positive} or ${negative} to affect your ~~popularity~~ karma score!`,
     "",
     `[Leaderboard on Web Panel](${settings.lang.web_panel.leaderboard})`,
     `[What is karma?](${config.main.links.github_pages}#faq-karma)`,
@@ -80,8 +80,6 @@ exports.run = async (client, message, args) => {
 
     let rank = parseInt(i) + 1
     let rankingStr = getRankingStr(rank, field.id === message.author.id)
-
-    const { positive, negative } = settings.leaderboard.emojis
 
     let karma = field.karma
     let emoji = karma > 0 ? positive : negative
