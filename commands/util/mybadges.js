@@ -32,9 +32,9 @@ exports.run = async (client, message, args) => {
 
       const badgeInfo = config.badges[badge]
       const badgeDesc = badgeInfo?.description || "No description"
-      const badgeEmoji = badgeInfo?.emoji + " " || ""
+      const badgeEmoji = badgeInfo?.emoji ?? ""
 
-      pageEmbed.addField(`${badgeEmoji}${badge.toUpperCase()}`, badgeDesc)
+      pageEmbed.addField(`${badgeEmoji} ${badge.toUpperCase()}`, badgeDesc)
     }
 
     return pageEmbed
