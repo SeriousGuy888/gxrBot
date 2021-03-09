@@ -58,14 +58,15 @@ exports.run = async (client, message, args) => {
   if(karmaQueue[user.id])
     karma = `${karma} and ${karmaQueue[user.id]} pending`
   
-  let description = [
+    
+  const { positive, negative } = settings.leaderboard.emojis
+
+  responseEmbed.setDescription([
     `[What is karma?](${config.main.links.github_pages}#faq-karma)`,
-    notFound ? "No Database Entry" : `:sparkles: ${karma.toLocaleString()}`,
+    notFound ? "No Database Entry" : `${karma > 0 ? positive : negative} ${karma.toLocaleString()}`,
     "",
     config.main.guild.id !== message.guild.id ? settings.lang.unavailableInGuild : ""
-  ]
-
-  responseEmbed.setDescription(description.join("\n") + `\n`)
+  ].join("\n"))
 
   msg.edit(responseEmbed)
 }
