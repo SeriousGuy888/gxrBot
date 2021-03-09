@@ -12,19 +12,22 @@ exports.run = async (client, message, args) => {
 
 
 
-  let description = [`Get karma by having people reacting with upvotes on your messages!\n[Leaderboard on Web Panel](${settings.lang.web_panel.leaderboard})\n\u200b`]
+  const upvote = `<:upvote:${settings.emojis.upvote.id}>`
+  const downvote = `<:downvote:${settings.emojis.downvote.id}>`
 
-  if(config.main.guild.id !== message.guild.id) {
-    description = [
-      ...description,
-      `:warning: Gaining or losing karma is unavailable outside ${config.main.guild.name}. -billzo`,
-    ]
-  }
+  let description = [
+    `Have people to your messages with ${upvote} or ${downvote} to affect your ~~popularity~~ karma score!`,
+    "",
+    `[Leaderboard on Web Panel](${settings.lang.web_panel.leaderboard})`,
+    `[What is karma?](${config.main.links.github_pages}#faq-karma)`,
+    config.main.guild.id !== message.guild.id ? settings.lang.unavailableInGuild : "",
+    "\u200b"
+  ]
 
   const leaderboardEmbed = new Discord.MessageEmbed()
     .setColor(settings.colours.karma)
     .setTitle("Discord Karma Leaderboard")
-    .setDescription(description.join("\n") + `\n[What is karma?](${config.main.links.github_pages}#faq-karma)`)
+    .setDescription(description.join("\n"))
     .setFooter(settings.lang.footer)
   embedder.addAuthor(leaderboardEmbed, message.author)
 
