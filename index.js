@@ -36,31 +36,20 @@ const stringSimilarity = require("string-similarity")
 const ytdl = require("ytdl-core")
 const googleTts = require("google-tts-api")
 
-let preferenceCache = {
-  default: {
-    notifications: true
-  }
-}
-let balanceCache = {}
-let balanceQueue = {}
-let inventoryQueue = {}
-let badgeQueue = {}
-let karmaQueue = {}
-let karmaCache = []
-let statQueue = {}
-let statCache = {}
-let graphCache = {
-  karmaChange: {
-    complete: false,
-    cache: []
-  }
-}
-let pauseAutocarrotCache = {} // used for storing when people want g9lbot to stop autocarroting them
-let gameCache = { // for storing when people are playing g9lbot's games
-  blackjack: {},
-  hangman: {},
-  minesweeper: {}
-}
+let {
+  preferenceCache,
+  balanceCache,
+  balanceQueue,
+  inventoryQueue,
+  badgeQueue,
+  karmaQueue,
+  karmaCache,
+  statQueue,
+  statCache,
+  graphCache,
+  pauseAutocarrotCache,
+  gameCache,
+} = require("./cache.js")
 
 let priorityExports = {
   Discord,
