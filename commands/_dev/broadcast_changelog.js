@@ -48,3 +48,5 @@ exports.run = async (client, message, args) => {
     }
   }
 }
+
+exports.dev = true
