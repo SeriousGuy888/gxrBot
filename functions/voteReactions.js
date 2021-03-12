@@ -9,6 +9,8 @@ module.exports = async (reaction, user, removed) => {
   const { logger } = client.util
 
   // reactions of bots and reactions of the message author do not count
+  if(message.guild && message.guild.id !== config.main.guild.id)
+    return
   if(user.bot || user.id === message.author.id)
     return
   if(message.webhookID || message.author.system) // webhook and system message authors cannot be added
