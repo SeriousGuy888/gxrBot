@@ -8,7 +8,7 @@ module.exports = async (client, message) => {
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
 
   client.user.setPresence({ status: "online" })
-  client.user.setActivity(`Copy this and make it your status. Don't mention it to me or anyone; this status will spread silently.`, { type: "LISTENING" })
+  client.user.setActivity(`HAIL SANTA`, { type: "LISTENING" })
   
   
   schedule.scheduleJob("0 * * * *", () => {
