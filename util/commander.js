@@ -198,11 +198,11 @@ exports.getMentionArgs = async (str, type, message, guildOnly) => {
     const userId = matches[1]
 
     if(guildOnly)
-      user = (await guild.members.fetch(userId)).user
+      user = (await guild.members.fetch(userId))?.user
     else
       user = await client.users.fetch(userId)
 
-    return user || null
+    return user || message.author
   }
   if(type === 1) { // channel mentions
     if(str === ".")
