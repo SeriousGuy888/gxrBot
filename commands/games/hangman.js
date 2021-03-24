@@ -41,9 +41,9 @@ exports.run = async (client, message, args) => {
         `ℹ️ Why can't I see the execution? [Hover](https://www.youre-not-supposed-to-click-this-idot.com "Because there isnt a good way to display a hanging with variable guess counts.")`,
         `ℹ️ How do I guess a letter? [Hover](https://www.youre-not-supposed-to-click-this-idot.com "Send a message with the letter you want to guess.")`
       ].join("\n"))
-      .addField("\u200b", "\u200b")
+    embedder.addBlankField(embed)
       .addField(`Word (${word.length})`, `\`${blanks}\`${playerData.failure ? "\nThe word was `" + word + "`" : ""}`, false)
-      .addField("\u200b", "\u200b")
+    embedder.addBlankField(embed)
       .addField(`All Guesses (${gamePlayerData[message.author.id].data.guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
       .addField(`Incorrect Guesses`, gamePlayerData[message.author.id].data.incorrectGuesses, true)
       .setFooter(`ID: ${message.author.id}   |   (Give up? ${config.main.prefix}quit_game)`)
