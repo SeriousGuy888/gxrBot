@@ -46,7 +46,7 @@ exports.run = async (client, message, args) => {
       .addField("\u200b", "\u200b")
       .addField(`All Guesses (${gamePlayerData[message.author.id].data.guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
       .addField(`Incorrect Guesses`, gamePlayerData[message.author.id].data.incorrectGuesses, true)
-      .setFooter(`ID: ${message.author.id}   |   (Give up? ${config.main.prefix}hangman quit)`)
+      .setFooter(`ID: ${message.author.id}   |   (Give up? ${config.main.prefix}quit_game)`)
     embedder.addAuthor(embed, message.author)
 
     
@@ -134,12 +134,10 @@ exports.run = async (client, message, args) => {
       break
     case "forfeit":
     case "quit":
-      if(!gamePlayerData[message.author.id].data) {
-        message.reply("You do not have an ongoing hangman game!")
-        break
-      }
-      message.reply(`Ok, forfeiting your hangman game. The word was ${gamePlayerData[message.author.id].data.word}.`)
-      clearUserHangman(message.author)
+      client
+        .commands
+        .get("quit_game")
+        .run(client, message, [])
       break
     case "sets":
       message.reply(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nUse \`${config.main.prefix}hangman\` to see how to choose a set.\nIf you don't specify, a random word will be chosen from the sets \`${settings.defaultSets.join(", ")}\`.`)
@@ -214,7 +212,7 @@ exports.help = async (client, message, args) => {
       " *For when someone decides to start playing hangman or using Dank Memer in the same channel as your hangman game. This command will give you a new game panel so you don't have to scroll up.*",
       "",
       `**Forfeit Game**`,
-      ` ${config.main.prefix}hangman quit`,
+      ` ${config.main.prefix}quit_game`,
       "",
       `**See Available Word Sets**`,
       ` ${config.main.prefix}hangman sets`,
