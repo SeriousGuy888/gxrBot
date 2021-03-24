@@ -1,21 +1,20 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const hangmanCache = index.gameCache.hangman
+  const { gamePlayerData } = require("../../cache.js")
   const { config, Discord } = index
-  const { embedder } = client.util
+  const { embedder, gamer } = client.util
   const { settings, words } = config.hangman
 
   const uniqueCharCount = word => word.split("").filter((x, i, a) => a.indexOf(x) === i).length
 
   const clearUserHangman = user => {
-    hangmanCache[user.id] = undefined
-    delete hangmanCache[user.id]
+    gamer.clearGame(user.id)
   }
 
   const tickHangman = async (channel, init) => {
     const hidden = settings.hiddenLetterPlaceholder
 
-    const playerData = hangmanCache[message.author.id]
+    const playerData = gamePlayerData[message.author.id].data
     const word = playerData.word
     const attempedLetters = playerData.attempedLetters
     let blanks = hidden.repeat(word.length)
@@ -45,8 +44,8 @@ exports.run = async (client, message, args) => {
       .addField("\u200b", "\u200b")
       .addField(`Word (${word.length})`, `\`${blanks}\`${playerData.failure ? "\nThe word was `" + word + "`" : ""}`, false)
       .addField("\u200b", "\u200b")
-      .addField(`All Guesses (${hangmanCache[message.author.id].guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
-      .addField(`Incorrect Guesses`, hangmanCache[message.author.id].incorrectGuesses, true)
+      .addField(`All Guesses (${gamePlayerData[message.author.id].data.guesses})`, `[${attempedLetters.sort().join(", ")}]`, true)
+      .addField(`Incorrect Guesses`, gamePlayerData[message.author.id].data.incorrectGuesses, true)
       .setFooter(`ID: ${message.author.id}   |   (Give up? ${config.main.prefix}hangman quit)`)
     embedder.addAuthor(embed, message.author)
 
@@ -76,8 +75,10 @@ exports.run = async (client, message, args) => {
 
   switch(args[0]) {
     case "play":
-      if(hangmanCache[message.author.id])
-        return message.reply(`You are already playing a game of Hangman. Make a guess or forfeit the game with \`${config.main.prefix}hangman quit\`. If you want to continue the game, you can use \`${config.main.prefix}hangman panel\` to get a new game panel.`)
+      if(gamer.isPlaying(message.author.id)) {
+        message.reply(`You are already playing another of my games! To prevent everything from breaking, you will need to quit this game first. Use command \`quit_game\`.`)
+        return
+      }
       
       let setName, chosenSet
       
@@ -101,7 +102,7 @@ exports.run = async (client, message, args) => {
       let wordSet = chosenSet.words
       let chosenWord = wordSet[Math.floor(Math.random() * wordSet.length)]
 
-      hangmanCache[message.author.id] = {
+      gamer.createGame(message.author.id, "hangman", {
         word: chosenWord,
         set: setName,
         maxIncorrectGuesses: Math.min(
@@ -113,15 +114,16 @@ exports.run = async (client, message, args) => {
         attempedLetters: [],
         failure: false,
         message: null
-      }
+      })
 
       tickHangman(message.channel, true)
       break
     case "panel":
-      if(!hangmanCache[message.author.id])
+      if(gamer.isPlaying(message.author.id, "hangman")) {
         return message.reply(`You are not currently playing Hangman!`)
+      }
 
-      let oldMsg = hangmanCache[message.author.id].message
+      let oldMsg = gamePlayerData[message.author.id].data.message
       let oldMsgEmbed = new Discord.MessageEmbed()
         .setColor(config.main.colours.error)
         .setAuthor(message.author.tag, message.author.avatarURL())
@@ -132,21 +134,21 @@ exports.run = async (client, message, args) => {
       break
     case "forfeit":
     case "quit":
-      if(!hangmanCache[message.author.id]) {
+      if(!gamePlayerData[message.author.id].data) {
         message.reply("You do not have an ongoing hangman game!")
         break
       }
-      message.reply(`Ok, forfeiting your hangman game. The word was ${hangmanCache[message.author.id].word}.`)
+      message.reply(`Ok, forfeiting your hangman game. The word was ${gamePlayerData[message.author.id].data.word}.`)
       clearUserHangman(message.author)
       break
     case "sets":
       message.reply(`Here are the available hangman word sets: \`${Object.keys(words).join(", ")}\`\nUse \`${config.main.prefix}hangman\` to see how to choose a set.\nIf you don't specify, a random word will be chosen from the sets \`${settings.defaultSets.join(", ")}\`.`)
       break
     case "guess":
-      const playerData = hangmanCache[message.author.id]
-      if(!hangmanCache[message.author.id])
+      const playerData = gamePlayerData[message.author.id].data
+      if(!gamePlayerData[message.author.id].data)
         return message.reply("You are not currently playing hangman.")
-      if(hangmanCache[message.author.id].message.channel.id != message.channel.id)
+      if(gamePlayerData[message.author.id].data.message.channel.id != message.channel.id)
         return message.reply("You are already playing in another channel. Please use `hangman quit` first.")
       if(!args[1])
         return message.reply("Please specify a letter, you idiot.")
@@ -162,22 +164,23 @@ exports.run = async (client, message, args) => {
           }, settings.errMsgDelTimeout))
         return
       }
-      if(hangmanCache[message.author.id].attempedLetters.includes(guessChar)) {
+      if(gamePlayerData[message.author.id].data.attempedLetters.includes(guessChar)) {
         if(message.deletable)
           message.delete()
         message.reply("You've already guessed this letter, idiot.")
-          .then(msg => setTimeout(() => {
-            if(msg.deletable)
-              msg.delete()
-          }, settings.errMsgDelTimeout))
+          .then(msg => {
+            if(msg.deletable) {
+              msg.delete({ timeout: settings.errMsgDelTimeout })
+            }
+          })
         return
       }
 
-      hangmanCache[message.author.id].guesses++
-      if(!hangmanCache[message.author.id].word.includes(guessChar))
+      gamePlayerData[message.author.id].data.guesses++
+      if(!gamePlayerData[message.author.id].data.word.includes(guessChar))
         playerData.incorrectGuesses++
 
-      hangmanCache[message.author.id].attempedLetters.push(guessChar)
+      gamePlayerData[message.author.id].data.attempedLetters.push(guessChar)
       if(playerData.incorrectGuesses >= playerData.maxIncorrectGuesses)
         playerData.failure = true
 

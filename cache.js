@@ -19,9 +19,10 @@ module.exports = {
     },
   },
   pauseAutocarrotCache: {}, // used for storing when people want g9lbot to stop autocarroting them
-  gameCache: { // for storing when people are playing g9lbot's games
+  gameCache: { // for storing when people are playing g9lbot's games (old system)
     blackjack: {},
     hangman: {},
     minesweeper: {},
   },
+  gamePlayerData: {} // new system
 }

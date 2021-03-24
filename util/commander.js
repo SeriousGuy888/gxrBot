@@ -7,6 +7,7 @@ const {
   stringSimilarity,
   gameCache
 } = index
+const { gamePlayerData } = require("../cache.js")
 
 
 exports.handle = async (message) => {
@@ -18,6 +19,7 @@ exports.handle = async (message) => {
     guildPreferencer,
     permisser,
     statTracker,
+    gamer,
   } = client.util
   const { extractArgs } = this
 
@@ -148,10 +150,12 @@ exports.handle = async (message) => {
       statTracker.add(message.author.id, "commands_run", 1)
     }
   }
-  else if(gameCache.hangman[message.author.id]) {
-    const command = client.commands.get("hangman")
-    const args = ["guess"].concat(message.content.split(" "))
-    command.run(client, message, args)
+  else if(gamer.isPlaying(message.author.id)) {
+    if(gamer.isPlaying(message.author.id, "hangman")) {
+      const command = client.commands.get("hangman")
+      const args = ["guess"].concat(message.content.split(" "))
+      command.run(client, message, args)
+    }
   }
   else if(gameCache.minesweeper[message.author.id]) {
     const command = client.commands.get("minesweeper")
