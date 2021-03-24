@@ -102,15 +102,6 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "chess",
-          "flags": "gi"
-        }
-      },
-      "response": "♟"
-    },
-    {
-      "conditions": {
-        "pass": {
           "pattern": "duolingo",
           "flags": "gi"
         }
