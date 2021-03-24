@@ -156,6 +156,11 @@ exports.handle = async (message) => {
       const args = ["guess"].concat(message.content.split(" "))
       command.run(client, message, args)
     }
+    if(gamer.isPlaying(message.author.id, "chess")) {
+      const command = client.commands.get("chess")
+      const args = ["move"].concat(message.content.split(" "))
+      command.run(client, message, args)
+    }
   }
   else if(gameCache.minesweeper[message.author.id]) {
     const command = client.commands.get("minesweeper")

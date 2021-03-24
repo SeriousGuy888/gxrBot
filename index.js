@@ -35,6 +35,8 @@ const schedule = require("node-schedule") // node scheduler
 const stringSimilarity = require("string-similarity")
 const ytdl = require("ytdl-core")
 const googleTts = require("google-tts-api")
+const Canvas = require("canvas")
+const Chess = require("@ninjapixel/chess").Chess
 
 let {
   preferenceCache,
@@ -200,6 +202,8 @@ module.exports = {
   schedule,
   ytdl,
   googleTts,
+  Canvas,
+  Chess,
 
   autocarrotWebhook,
   autoResponses,
