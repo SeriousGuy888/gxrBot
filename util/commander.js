@@ -151,6 +151,10 @@ exports.handle = async (message) => {
     }
   }
   else if(gamer.isPlaying(message.author.id)) {
+    if(config.main.commands.blacklistedChannels.includes(message.channel.id)) {
+      return
+    }
+
     if(gamer.isPlaying(message.author.id, "hangman")) {
       const command = client.commands.get("hangman")
       const args = ["guess"].concat(message.content.split(" "))
