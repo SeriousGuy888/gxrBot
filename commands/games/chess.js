@@ -81,8 +81,22 @@ exports.run = async (client, message, args) => {
     // }
 
     let flagsMessage = ""
-    if(playerData.state.inCheck()) {
-      flagsMessage = ":gun: Check!"
+    if(playerData.state) {
+      if(playerData.state.inCheckmate()) {
+        flagsMessage = ":hash: Checkmate!"
+        gamer.clearGame(message.author.id)
+      }
+      else if(playerData.state.inCheck()) {
+        flagsMessage = ":gun: Check!"
+      }
+      else if(
+        playerData.state.inStalemate() ||
+        playerData.state.inDraw() ||
+        playerData.state.inThreefoldRepetition()
+      ) {
+        flagsMessage = ":heavy_division_sign: Draw!"
+        gamer.clearGame(message.author.id)
+      }
     }
 
     const attachment = new Discord.MessageAttachment(renderBoard(playerData.state), "board.png")
@@ -114,7 +128,7 @@ exports.run = async (client, message, args) => {
 
 
     if(playerData.failure) {
-      gamer.clearGame(user.id)
+      gamer.clearGame(message.author.id)
       await msg.edit(`You lose!`)
     }
   }
