@@ -160,6 +160,11 @@ exports.handle = async (message) => {
       const args = ["guess"].concat(message.content.split(" "))
       command.run(client, message, args)
     }
+    if(gamer.isPlaying(message.author.id, "minesweeper")) {
+      const command = client.commands.get("minesweeper")
+      const args = ["cursor"].concat(message.content.split(" "))
+      command.run(client, message, args)
+    }
     if(gamer.isPlaying(message.author.id, "chess")) {
       if(gamer.getPlayerData(message.author.id).data.message.channel.id === message.channel.id) {
         const command = client.commands.get("chess")
@@ -167,11 +172,6 @@ exports.handle = async (message) => {
         command.run(client, message, args)
       }
     }
-  }
-  else if(gameCache.minesweeper[message.author.id]) {
-    const command = client.commands.get("minesweeper")
-    const args = ["cursor"].concat(message.content.split(" "))
-    command.run(client, message, args)
   }
 }
 

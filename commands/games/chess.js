@@ -200,7 +200,6 @@ exports.help = async (client, message, args) => {
   const index = require("../../index.js")
   const { commandHelpEmbed } = index
   const config = index.config
-  const { settings } = config.hangman
 
   const embed = commandHelpEmbed(message, {
     title: "**Chezz**",

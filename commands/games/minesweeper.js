@@ -1,8 +1,8 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const minesweeperCache = index.gameCache.minesweeper
   const { config, Discord } = index
-  const { banker, embedder, badger, statTracker } = client.util
+  const { gamePlayerData } = require("../../cache.js")
+  const { banker, embedder, badger, statTracker, gamer } = client.util
   const settings = config.minesweeper
 
   const fieldSize = settings.game.field.size // y
@@ -114,7 +114,7 @@ exports.run = async (client, message, args) => {
     field[x][y].revealed = true
 
     if(field[x][y].mine)
-      minesweeperCache[message.author.id].failure = true
+      gamer.getPlayerData(message.author.id).data.failure = true
 
     if(!checkAdjacentMines(field, x, y)) {
       for(let xOffset = -1; xOffset <= 1; xOffset++) {
@@ -157,9 +157,9 @@ exports.run = async (client, message, args) => {
     const currentSquare = field[x][y]
 
     if(
-      minesweeperCache[message.author.id] &&
-      (minesweeperCache[message.author.id].cursor[0] === x &&
-      minesweeperCache[message.author.id].cursor[1] === y) &&
+      gamer.getPlayerData(message.author.id)?.data &&
+      (gamer.getPlayerData(message.author.id)?.data.cursor[0] === x &&
+      gamer.getPlayerData(message.author.id)?.data.cursor[1] === y) &&
       (!ignoreCursor)
     ) return "👆"
     else {
@@ -230,20 +230,24 @@ exports.run = async (client, message, args) => {
   }
 
   const checkGameOver = async (field) => {
-    if(!minesweeperCache[message.author.id])
+    if(!gamer.getPlayerData(message.author.id)?.data) {
       return null
+    }
 
-    if(minesweeperCache[message.author.id].failure)
+    if(gamer.getPlayerData(message.author.id)?.data.failure) {
       return { win: false }
+    }
 
     
 
-    if(getFlagCount(field) > totalMines)
+    if(getFlagCount(field) > totalMines) {
       return null
+    }
     
 
-    if(minesweeperCache[message.author.id].failure)
+    if(gamer.getPlayerData(message.author.id)?.data.failure) {
       return { win: false }
+    }
 
     
     for(let x = 0; x < field.length; x++) {
@@ -268,21 +272,19 @@ exports.run = async (client, message, args) => {
   const tickMinesweeper = async (channel, options, init) => {
     let gameField, msg
 
-    if(init)
-      gameField = createField(fieldSize, fieldSize)
-    else
-      gameField = minesweeperCache[message.author.id].field
+    if(init) gameField = createField(fieldSize, fieldSize)
+    else     gameField = gamer.getPlayerData(message.author.id)?.data.field
 
     if(options && options.move) {
       const squareCoords = options.move
 
-      if(minesweeperCache[message.author.id].flagMode) {
+      if(gamer.getPlayerData(message.author.id)?.data.flagMode) {
         await flagSquare(gameField, squareCoords[0], squareCoords[1])
-        minesweeperCache[message.author.id]?.moves.push(`f(${squareCoords.join(",")})`)
+        gamer.getPlayerData(message.author.id)?.data?.moves.push(`f(${squareCoords.join(",")})`)
       }
       else {
         await revealSquare(gameField, squareCoords[0], squareCoords[1])
-        minesweeperCache[message.author.id]?.moves.push(`r(${squareCoords.join(",")})`)
+        gamer.getPlayerData(message.author.id)?.data?.moves.push(`r(${squareCoords.join(",")})`)
       }
     }
 
@@ -293,7 +295,7 @@ exports.run = async (client, message, args) => {
     }
 
 
-    const cursorLoc = (minesweeperCache[message.author.id] ?? {}).cursor ?? []
+    const cursorLoc = (gamer.getPlayerData(message.author.id)?.data ?? {}).cursor ?? []
 
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
@@ -316,33 +318,33 @@ exports.run = async (client, message, args) => {
       .addField("Flags Placed", `${getFlagCount(gameField)} / ${totalMines}`, true)
     embedder.addAuthor(emb, message.author)
 
-    if(minesweeperCache[message.author.id]) {
-      // const cursorLoc = minesweeperCache[message.author.id].cursor
+    if(gamer.getPlayerData(message.author.id)?.data) {
+      // const cursorLoc = gamer.getPlayerData(message.author.id).data.cursor
       emb.addField("Cursor is Over", getSquareEmoji(gameField, cursorLoc[0], cursorLoc[1], true))
     }
 
 
     if(!gameOver) {
       if(init) {
-        minesweeperCache[message.author.id] = {
+        gamer.createGame(message.author.id, "minesweeper", {
           failure: false,
           message: await channel.send(emb),
           flagMode: false,
           moves: [],
           cursor: [0, 0],
           field: gameField,
-        }
+        })
       }
       else {
-        msg = minesweeperCache[message.author.id].message
+        msg = gamer.getPlayerData(message.author.id)?.data.message
         msg.edit(emb)
       }
     }
     else {
-      msg = minesweeperCache[message.author.id]?.message
+      msg = gamer.getPlayerData(message.author.id)?.data?.message
 
       embedder.addBlankField(emb)
-        .addField("Moves Made", `size(${fieldSize});mines(${totalMines});` + (minesweeperCache[message.author.id]?.moves ?? ["Error"]).join(";").slice(0, 1024))
+        .addField("Moves Made", `size(${fieldSize});mines(${totalMines});` + (gamer.getPlayerData(message.author.id).data?.moves ?? ["Error"]).join(";").slice(0, 1024))
       if(gameOver.win) {
         emb
           .setColor(config.main.colours.success)
@@ -353,7 +355,7 @@ exports.run = async (client, message, args) => {
         statTracker.add(message.author.id, "minesweeper_win", 1)
         badger.awardBadge(message.author.id, "minesweeper", false, "winning a game of minesweeper")
 
-        delete minesweeperCache[message.author.id]
+        gamer.clearGame(message.author.id)
       }
       else {
         emb.setColor(config.main.colours.error)
@@ -361,7 +363,7 @@ exports.run = async (client, message, args) => {
 
         statTracker.add(message.author.id, "minesweeper_lose", 1)
 
-        delete minesweeperCache[message.author.id]
+        gamer.clearGame(message.author.id)
       }
     }
   }
@@ -370,18 +372,18 @@ exports.run = async (client, message, args) => {
     
 
   const setFlagMode = (flag) => {
-    minesweeperCache[message.author.id].flagMode = flag
+    gamePlayerData[message.author.id].data.flagMode = flag
     tickMinesweeper(message.channel)
   }
 
   const moveCursor = (x, y) => {
-    minesweeperCache[message.author.id].cursor[0] += y // i dont know why these are reversed
-    minesweeperCache[message.author.id].cursor[1] += x
+    gamePlayerData[message.author.id].data.cursor[0] += y // i dont know why these are reversed
+    gamePlayerData[message.author.id].data.cursor[1] += x
 
-    if(minesweeperCache[message.author.id].cursor[0] > fieldSize) minesweeperCache[message.author.id].cursor[0] = fieldSize - 1
-    if(minesweeperCache[message.author.id].cursor[0] < 0) minesweeperCache[message.author.id].cursor[0] = 0
-    if(minesweeperCache[message.author.id].cursor[1] > fieldSize) minesweeperCache[message.author.id].cursor[1] = fieldSize - 1
-    if(minesweeperCache[message.author.id].cursor[1] < 0) minesweeperCache[message.author.id].cursor[1] = 0
+    if(gamePlayerData[message.author.id]?.data.cursor[0] > fieldSize) gamePlayerData[message.author.id].data.cursor[0] = fieldSize - 1
+    if(gamePlayerData[message.author.id]?.data.cursor[0] < 0) gamePlayerData[message.author.id].data.cursor[0] = 0
+    if(gamePlayerData[message.author.id]?.data.cursor[1] > fieldSize) gamePlayerData[message.author.id].data.cursor[1] = fieldSize - 1
+    if(gamePlayerData[message.author.id]?.data.cursor[1] < 0) gamePlayerData[message.author.id].data.cursor[1] = 0
 
     tickMinesweeper(message.channel)
   }
@@ -394,7 +396,7 @@ exports.run = async (client, message, args) => {
 
   switch(args[0].toLowerCase()) {
     case "play":
-      delete minesweeperCache[message.author.id]
+      gamer.clearGame(message.author.id)
       await tickMinesweeper(message.channel, null, true)
       break
     case "cursor":
@@ -429,22 +431,22 @@ exports.run = async (client, message, args) => {
             break
           case "r":
             setFlagMode(false)
-            tickMinesweeper(message.channel, { move: minesweeperCache[message.author.id].cursor })
+            tickMinesweeper(message.channel, { move: gamer.getPlayerData(message.author.id).data.cursor })
             break
           case "f":
             setFlagMode(true)
-            tickMinesweeper(message.channel, { move: minesweeperCache[message.author.id].cursor })
+            tickMinesweeper(message.channel, { move: gamer.getPlayerData(message.author.id).data.cursor })
             break
         }
       }
       break
     case "forfeit":
     case "quit":
-      if(!minesweeperCache[message.author.id]) {
+      if(!gamer.isPlaying(message.author.id, "minesweeper")) {
         message.channel.send("You do not currently have an ongoing minesweeper game!")
         return
       }
-      minesweeperCache[message.author.id].failure = true
+      gamer.getPlayerData(message.author.id).data.failure = true
       tickMinesweeper(message.channel)
       break
     default:
