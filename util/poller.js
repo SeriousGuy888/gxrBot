@@ -12,6 +12,10 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
     .setColor("#dfdf23")
     .setTitle("Poll")
     .setDescription(pollObject.question)
+  if(pollObject.image) {
+    pollEmb.setImage(pollObject.image)
+  }
+
   if(pollObject.wip) {
     pollEmb
       .addField("Channel", pollObject.channel)

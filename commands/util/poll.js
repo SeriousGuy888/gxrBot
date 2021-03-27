@@ -29,13 +29,17 @@ exports.run = async (client, message, args) => {
         return
       }
 
+      const { attachments } = message
+      let attachmentImage = attachments.first().url
+
 
       let poll = {
         owner: message.author.id,
         channel: pollChannel.id,
+        image: attachmentImage,
         question,
         wip: true,
-        options: new Set()
+        options: new Set(),
       }
 
 
