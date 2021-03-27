@@ -4,7 +4,7 @@ const { embedder, messenger } = client.util
 const { serverTimestamp } = firebaseAdmin.firestore.FieldValue
 
 
-exports.getPollEmbed = async (pollObject, closed, message) => {
+exports.getPollEmbed = async (pollObject, closed, message, timeoutClose) => {
   const owner = await client.users.fetch(pollObject.owner)
 
   const pollEmb = new Discord.MessageEmbed()
@@ -25,7 +25,7 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
     pollEmb
       .setColor("#bf2323")
       .setTitle("Poll Closed")
-      .setFooter("Poll Closed")
+      .setFooter(timeoutClose ? "Poll Closed due to Expiration" : "Poll Closed")
       .setTimestamp()
   }
   else {
@@ -138,7 +138,7 @@ exports.stopPoll = async (pollId, requester) => {
   
   let messageNotFound = false
 
-  const emb = await this.getPollEmbed(data, true, message)
+  const emb = await this.getPollEmbed(data, true, message, requester === client.user.id)
   await message.edit(emb)
     .catch(() => messageNotFound = true)
   await pollRef.delete()
@@ -147,4 +147,18 @@ exports.stopPoll = async (pollId, requester) => {
     error: messageNotFound,
     message: `Closed [poll](${message.url})${messageNotFound ? " but was not able to edit message I do not have access." : ""}.`
   }
+}
+
+exports.closeOldPolls = async () => {
+  // const pollsColl = db.collection("polls")
+  // const querySnapshot = await pollsColl
+  //   .orderBy("timestamp", "asc")
+  //   .limit(1)
+  //   .get()
+  
+  // if(!querySnapshot.empty) {
+    // if(querySnapshot.docs[0].data().timestamp < Date.now() - 60 * 24 * 60 * 60 * 1000) {
+    //   this.stopPoll(querySnapshot.docs[0].data().id, client.user.id)
+    // }
+  // }
 }

@@ -1,10 +1,21 @@
 module.exports = async (client, message) => {
   const index = require("../index.js")
   const { config, Discord, schedule } = index
-  const { badger, banker, logger, messenger, karmanator, preferencer, guildPreferencer, statTracker } = client.util
+  const {
+    badger,
+    banker,
+    karmanator,
+    logger,
+    messenger,
+    poller,
+    preferencer,
+    guildPreferencer,
+    statTracker
+  } = client.util
   const { awaitOrders } = client.functions
 
   awaitOrders()
+  poller.closeOldPolls()
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
 
   client.user.setPresence({ status: "online" })
