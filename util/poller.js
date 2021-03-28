@@ -119,7 +119,7 @@ exports.stopPoll = async (pollId, requester) => {
   
   const pollRef = db.collection("polls").doc(pollId)
   const doc = await pollRef.get()
-  const data = doc.data()
+  const data = doc?.data()
 
   if(!data) {
     return {
