@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
       }
 
       const { attachments } = message
-      let attachmentImage = attachments.first().url
+      let attachmentImage = attachments.first()?.url
 
 
       let poll = {
