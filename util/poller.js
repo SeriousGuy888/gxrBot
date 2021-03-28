@@ -82,6 +82,9 @@ exports.startPoll = async pollObject => {
 
   const channel = await client.channels.fetch(pollObject.channel)
   pollObject.options = [...pollObject.options]
+  if(!pollObject.image) {
+    pollObject.image = null
+  }
 
   if(!pollObject.options.length) {
     return {
