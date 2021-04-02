@@ -12,9 +12,6 @@ exports.getPollEmbed = async (pollObject, closed, message, timeoutClose) => {
     .setColor("#dfdf23")
     .setTitle("Poll")
     .setDescription(pollObject.question)
-  if(pollObject.image) {
-    pollEmb.setImage(pollObject.image)
-  }
 
   if(pollObject.wip) {
     pollEmb
@@ -31,6 +28,11 @@ exports.getPollEmbed = async (pollObject, closed, message, timeoutClose) => {
   else {
     pollEmb.setFooter(`${config.main.prefix}poll ${message.channel.id} close ${pollObject.id}`)
   }
+
+  if(pollObject.image) {
+    pollEmb.setImage(pollObject.image)
+  }
+
   embedder.addBlankField(pollEmb)
 
   const options = [...pollObject.options] ?? []
