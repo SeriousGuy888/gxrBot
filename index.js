@@ -175,7 +175,6 @@ const {
   getUserArg,
   messageResponder,
   propaganda,
-  voteReactions
 } = client.functions
 const {
   badger,
@@ -213,7 +212,6 @@ module.exports = {
   getUserArg,
   messageResponder,
   propaganda,
-  voteReactions,
 
   banker,
   embedder,

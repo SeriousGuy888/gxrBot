@@ -1,9 +1,9 @@
 module.exports = async (client, reaction, user) => {
-  const { voteReactions } = client.functions
+  const { karmanator } = client.util
 
   let message = reaction.message
   if(reaction.message.partial)
     message = await reaction.message.fetch()
 
-  voteReactions(reaction, user, false)
+  karmanator.countVote(reaction, user, false)
 }
