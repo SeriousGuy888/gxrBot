@@ -48,9 +48,10 @@ module.exports = async (client, message) => {
   schedule.scheduleJob("0 0 * * *", () => {
     const emb = new Discord.MessageEmbed()
       .setColor("#23a1b1")
-      .setTitle("Activate Windows")
-      .setDescription("Daily reminder to give Microsoft money.")
-    messenger.dm("427925505581383721", emb)
+      .setTitle("<:microsoft:829801007764471808> This is Microsoft")
+      .setDescription("Feed me moolah immediately or your :computer: will be :bricks:ed.")
+    messenger.dm("427925505581383721", emb) // liaosmdk
+    messenger.dm("393590581000929281", emb) // jajspoder
   })
 
   schedule.scheduleJob("0 */6 * * *", () => {
