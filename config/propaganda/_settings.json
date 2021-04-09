@@ -1,5 +1,6 @@
 {
   "enabled": true,
+  "logNews": false,
   "channels": {
     "587769144619958277": "g9l",
     "430565803293933582": "nuke",

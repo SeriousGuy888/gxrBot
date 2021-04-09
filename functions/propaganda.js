@@ -113,7 +113,9 @@ module.exports = async (client) => {
       }
     }
 
-    logger.log(JSON.stringify(propagandaQueue))
+    if(settings.logNews) {
+      logger.log(JSON.stringify(propagandaQueue))
+    }
   }
 
 
