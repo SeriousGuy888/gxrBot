@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
       const responseData = response.data
       const dictionaryData = await csv().fromString(responseData)
 
-      const itemsPerPage = 9
+      const itemsPerPage = 6
       let maxPages = Math.ceil(dictionaryData.length / itemsPerPage)
 
       let page = 1
@@ -79,15 +79,31 @@ exports.run = async (client, message, args) => {
             "`billzonian [page]` to go to a page, **or** `billzonian [search term]` to search for a word.",
             "`AF` = Alt Forms | `AS` = Alt Spellings | `IR` = Irregular!",
             "",
-            `Search Term: \`${searchTerm || "[None]"}\``,
             "",
-            "⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️",
+            "------------------------------------------------",
+            `:mag: Search Term: \`${searchTerm || "[None]"}\``,
+            "------------------------------------------------",
+            "",
+            "\u200b",
           ].join("\n"))
           .setFooter(`Page ${page} of ${maxPages}`)
         
 
 
         if(maxPages > 0) {
+          const moveArrayItem = (array, fromIndex, toIndex) => {
+            const arr = [...array]
+            arr.splice(toIndex, 0, ...arr.splice(fromIndex, 1))
+            return arr
+          }
+
+          const exactMatchIndex = searchResults.findIndex(e => e.word.toLowerCase() === searchTerm && e.word) // empty strings dont count
+          if(exactMatchIndex >= 0) {
+            searchResults = moveArrayItem(searchResults, exactMatchIndex, 0)
+            searchResults[0].isExactMatch = true
+          }
+
+
           for(let i = 0; i < itemsPerPage; i++) {
             const entryIndex = i + ((page - 1) * itemsPerPage)
             const wordData = searchResults[entryIndex]
@@ -103,13 +119,17 @@ exports.run = async (client, message, args) => {
             responseEmbed.addField(
               `${wordData.word && "**" + wordData.word + "**"} \`${wordData.partOfSpeech}\``,
               [
+                wordData.isExactMatch && "⭐ __EXACT MATCH__ ⭐\n",
                 translation  && numberise(translation, false, false) + "\n",
                 example      && numberise(example, true, false),
                 notes        && numberise(notes, false, true),
               ].filter(e => e).join("\n"),
-              true
+              !wordData.isExactMatch // make field not inline if exact match
             )
-  
+            if(wordData.isExactMatch) {
+              embedder.addBlankField(responseEmbed)
+            }
+
             if((i + 1) % 3 === 0) {
               embedder.addBlankField(responseEmbed)
             }
@@ -118,9 +138,7 @@ exports.run = async (client, message, args) => {
         else {
           responseEmbed.addField("No Words Found :(", "Try double checking your search term?")
         }
-
-
-        responseEmbed.addField("\u200b", "⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️")
+        embedder.addBlankField(responseEmbed)
   
     
         return await targetMessage.edit(responseEmbed)
