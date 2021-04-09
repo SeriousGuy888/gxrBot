@@ -120,6 +120,17 @@
         }
       },
       "response": "that's not a thing you can say"
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "cheezsurv",
+          "flags": "gi"
+        }
+      },
+      "reactions": [
+        "🧀"
+      ]
     }
   ]
 }
