@@ -33,6 +33,8 @@ const emojiDictionary = require("emoji-dictionary") // also emojis
 const translate = require("translate-google") // google translate i think
 const schedule = require("node-schedule") // node scheduler
 const stringSimilarity = require("string-similarity")
+const axios = require("axios")
+const csv = require("csvtojson")
 const ytdl = require("ytdl-core")
 const googleTts = require("google-tts-api")
 const Canvas = require("canvas")
@@ -200,6 +202,8 @@ module.exports = {
   translate,
   schedule,
   ytdl,
+  axios,
+  csv,
   googleTts,
   Canvas,
   Chess,
