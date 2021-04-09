@@ -1,23 +1,23 @@
 {
   "basic": {
     "help": "(`h`) %lowername% help command",
-    "info": "See links for FAQ, web panel, source code, bug reports, and upcoming updates.+",
+    "info": "See links for FAQ, web panel, source code, bug reports, and upcoming updates.",
     "avatar": "Get a user's avatar",
     "badges": "See information about badges.",
     "commands": "(`cmds`) Automatically generated list of all public commands",
-    "mybadges": "Badges+",
+    "mybadges": "Badges",
     "ping": "Get bot latency",
-    "poll": "(`polls`) Make polls with bar graphs :D. Run command for more info.+",
+    "poll": "(`polls`) Make polls with bar graphs :D. Run command for more info.",
     "profile": "(`prof`) See a user's %lowername% profile.",
     "settings": "Edit your %lowername% user-settings",
     "web": "Get web panel link"
   },
   "fun": {
-    "acronym": "Specify a word or acronym and get an expansion of the acronym.+",
-    "billzo": "Know all the different editions of billzo.",
+    "acronym": "Specify a word or acronym and get an expansion of the acronym.",
+    "billzonian": "Billzonian-English dictionary!+",
     "google_translate": "(`gt`) Translate a phrase through several languages.",
     "impostor": "Who's the impostor?",
-    "spam_ping": "Spam ping or ghost ping a user!+"
+    "spam_ping": "Spam ping or ghost ping a user!"
   },
   "games": {
     "blackjack": "Play blackjack.",
