@@ -87,32 +87,39 @@ exports.run = async (client, message, args) => {
         
 
 
-        for(let i = 0; i < itemsPerPage; i++) {
-          const entryIndex = i + ((page - 1) * itemsPerPage)
-          const wordData = searchResults[entryIndex]
-
-          if(!wordData) {
-            break
-          }
-
-          const translation = wordData.translation
-          const example = wordData.example
-          const notes  = wordData.notes
-
-          responseEmbed.addField(
-            `${wordData.word && "**" + wordData.word + "**"} \`${wordData.partOfSpeech}\``,
-            [
-              translation  && numberise(translation, false, false) + "\n",
-              example      && numberise(example, true, false),
-              notes        && numberise(notes, false, true),
-            ].filter(e => e).join("\n"),
-            true
-          )
-
-          if((i + 1) % 3 === 0) {
-            embedder.addBlankField(responseEmbed)
+        if(maxPages > 0) {
+          for(let i = 0; i < itemsPerPage; i++) {
+            const entryIndex = i + ((page - 1) * itemsPerPage)
+            const wordData = searchResults[entryIndex]
+  
+            if(!wordData) {
+              break
+            }
+  
+            const translation = wordData.translation
+            const example = wordData.example
+            const notes  = wordData.notes
+  
+            responseEmbed.addField(
+              `${wordData.word && "**" + wordData.word + "**"} \`${wordData.partOfSpeech}\``,
+              [
+                translation  && numberise(translation, false, false) + "\n",
+                example      && numberise(example, true, false),
+                notes        && numberise(notes, false, true),
+              ].filter(e => e).join("\n"),
+              true
+            )
+  
+            if((i + 1) % 3 === 0) {
+              embedder.addBlankField(responseEmbed)
+            }
           }
         }
+        else {
+          responseEmbed.addField("No Words Found :(", "Try double checking your search term?")
+        }
+
+
         responseEmbed.addField("\u200b", "⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️")
   
     
