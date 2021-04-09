@@ -1,4 +1,4 @@
-module.exports = (message) => {
+module.exports = async (message) => {
   const index = require("../index.js")
   const { config } = index
   const settings = config.messageResponder
@@ -12,11 +12,20 @@ module.exports = (message) => {
   
   let content = message.content
 
-  for(let loopCase of settings.cases) {
+  for(const loopCase of settings.cases) {
     let passCondition = new RegExp(loopCase.conditions.pass.pattern, loopCase.conditions.pass.flags)
     let failCondition = new RegExp(loopCase.conditions.fail?.pattern ?? (Math.random() * 50000).toString(), loopCase.conditions.fail?.flags ?? "")
     
-    if(content.match(passCondition) && !message.content.match(failCondition))
-      message.channel.send(loopCase.response)
+    if(content.match(passCondition) && !message.content.match(failCondition)) {
+      if(loopCase.response) {
+        message.channel.send(loopCase.response)
+      }
+      if(loopCase.reactions) {
+        for(const loopReaction of loopCase.reactions) {
+          await message.react(loopReaction)
+            .catch(() => {})
+        }
+      }
+    }
   }
 }
