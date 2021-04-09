@@ -32,3 +32,5 @@ exports.run = async (client, message, args) => {
 exports.help = async (client, message, args) => {
   message.channel.send("this is a command that replies with a random version of billzo")
 }
+
+exports.disabled = "eeeeeeee"
