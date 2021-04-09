@@ -95,14 +95,14 @@ module.exports = () => {
 
 
 
-  const permanentOrdersDoc = db.collection("orders").doc("permanent")
-  permanentOrdersDoc.onSnapshot(docSnapshot => {
-    const data = docSnapshot.data()
-    const orders = data.orders
+  // const permanentOrdersDoc = db.collection("orders").doc("permanent")
+  // permanentOrdersDoc.onSnapshot(docSnapshot => {
+  //   const data = docSnapshot.data()
+  //   const orders = data.orders
 
-    for(const order of orders)
-      processOrder(order, true)
-  })
+  //   for(const order of orders)
+  //     processOrder(order, true)
+  // })
 
   
   const instantOrdersColl = db
