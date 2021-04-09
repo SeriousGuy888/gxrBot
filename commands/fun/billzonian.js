@@ -70,16 +70,12 @@ exports.run = async (client, message, args) => {
           .setTitle("The Billzonian-English Dictionary")
           .setURL(dictionaryUrl)
           .setDescription([
-            "Use `billzonian [page]` to go to a page, **or**",
-            "use `billzonian [search term]` to search for a word.",
-            "",
-            "AF = Alt Forms",
-            "AS = Alt Spellings",
-            "IR = Irregular!",
+            "`billzonian [page]` to go to a page, **or** `billzonian [search term]` to search for a word.",
+            "`AF` = Alt Forms | `AS` = Alt Spellings | `IR` = Irregular!",
             "",
             `Search Term: \`${searchTerm || "[None]"}\``,
             "",
-            "\u200b",
+            "⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️",
           ].join("\n"))
           .setFooter(`Page ${page} of ${maxPages}`)
         
@@ -111,6 +107,7 @@ exports.run = async (client, message, args) => {
             embedder.addBlankField(responseEmbed)
           }
         }
+        responseEmbed.addField("\u200b", "⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️")
   
     
         return await targetMessage.edit(responseEmbed)
