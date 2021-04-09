@@ -123,6 +123,7 @@ const loadJsFiles = async (directory, callback) => {
   queueLog("============")
 }
 
+queueLog(process.env.DEV_MODE ? "Starting in dev mode..." : "Starting...")
 queueLog("============")
 
 
