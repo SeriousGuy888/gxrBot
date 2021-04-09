@@ -57,7 +57,13 @@ exports.run = async (client, message, args) => {
         let searchResults = dictionaryData
         if(!pageSpecified) {
           searchTerm = params.toLowerCase()
-          searchResults = dictionaryData.filter(e => e.word.toLowerCase().includes(searchTerm))
+          searchResults = dictionaryData.filter(e => {
+            return (
+              e.word.toLowerCase().includes(searchTerm) ||
+              e.translation.toLowerCase().includes(searchTerm) ||
+              e.notes.toLowerCase().includes(searchTerm)
+            )
+          })
         }
 
         maxPages = Math.ceil(searchResults.length / itemsPerPage)
