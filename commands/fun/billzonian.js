@@ -112,7 +112,7 @@ exports.run = async (client, message, args) => {
               break
             }
   
-            const ipa = wordData.ipa
+            const ipaReadings = wordData.ipa.split("|")
             const translation = wordData.translation
             const example = wordData.example
             const notes  = wordData.notes
@@ -121,7 +121,7 @@ exports.run = async (client, message, args) => {
               `${wordData.word && "**" + wordData.word + "**"} \`${wordData.partOfSpeech}\``,
               [
                 wordData.isExactMatch && "⭐ __EXACT MATCH__ ⭐\n",
-                ipa          && `/[${ipa}](http://ipa-reader.xyz/?text=${ipa.replace(/ /g, "%20")})/`,
+                ipaReadings  && ipaReadings.map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`).join(" or "),
                 translation  && numberise(translation, false, false) + "\n",
                 example      && numberise(example, true, false),
                 notes        && numberise(notes, false, true),
