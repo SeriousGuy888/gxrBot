@@ -8,7 +8,7 @@ const secretKey = process.env.USER_KEYS_SECRET
 exports.encrypt = (text, customKey) => {
   const key = secretKey + "-" + customKey
 
-  const iv = crypto.randomBytes(16)
+  const iv = "g9lbot----------" // crypto.randomBytes(16)
   const cipher = crypto.createCipheriv(algorithm, Buffer.concat([Buffer.from(key), Buffer.alloc(32)], 32), iv)
   
   let encrypted = cipher.update(text)
