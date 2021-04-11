@@ -200,46 +200,58 @@ exports.getMentionArgs = async (str, type, message, guildOnly) => {
 
   let matches = []
   
-  if(type === 0) { // user mentions
-    const userMentionRegex = /^(?:<@!?)?(\d+)(?:>)?$/
-    if(str.match)
-      matches = str.match(userMentionRegex)
-
-    let user
-    
-    if(!matches)
-      return message?.author
-
-    const userId = matches[1]
-
-    if(guildOnly)
-      user = (await guild.members.fetch(userId))?.user
-    else
-      user = await client.users.fetch(userId)
-
-    return user || message.author
-  }
-  if(type === 1) { // channel mentions
-    if(str === ".")
-      return message.channel
+  switch(type) {
+    case 0: // user mentions
+      const userMentionRegex = /^(?:<@!?)?(\d+)(?:>)?$/
+      if(str.match) {
+        matches = str.match(userMentionRegex)
+      }
+  
+      let user
       
-    const channelMentionRegex = /^(?:<#)?(\d+)(?:>)?$/
-    matches = str.match(channelMentionRegex)
+      if(!matches)
+        return message?.author
+  
+      const userId = matches[1]
+  
+      if(guildOnly)
+        user = (await guild.members.fetch(userId))?.user
+      else
+        user = await client.users.fetch(userId)
+  
+      return user || message.author
+    case 1: // channel mentions
+      if(str === ".") {
+        return message.channel
+      }
+        
+      const channelMentionRegex = /^(?:<#)?(\d+)(?:>)?$/
+      matches = str.match(channelMentionRegex)
+  
+      if(!matches) return null
+  
+      let channel
+      const channelId = matches[1]
+  
+      if(guildOnly) channel = await guild.channels.resolve(channelId)
+      else          channel = await client.channels.fetch(channelId)
+  
+      return channel || null
+    case 2: // voice channels
+      let voiceId = str
+      if(str === ".") {
+        if(!message.member.voice.channelID)
+          return null
+        voiceId = message.member.voice.channelID
+      }
 
+      const vc = message.guild.channels.resolve(queryId)
+      if(!vc || vc.type !== "voice") {
+        return null
+      }
 
-    if(!matches)
-      return null
-
-    let channel
-    const channelId = matches[1]
-
-    if(guildOnly)
-      channel = await guild.channels.resolve(channelId)
-    else
-      channel = await client.channels.fetch(channelId)
-
-    return channel || null
+      return vc
+    default:
+      return new Error("Invalid mention arg type!")
   }
-  else
-    return new Error("Invalid mention arg type!")
 }

@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index
-  const { embedder, permisser } = client.util
+  const { commander, embedder, permisser } = client.util
 
   if(!message.guild || !args[0])
     return this.help(client, message, args)
@@ -16,16 +16,8 @@ exports.run = async (client, message, args) => {
 
   const outputEmbed = new Discord.MessageEmbed()
 
-  let queryId = args[0]
-  if(queryId === ".") {
-    if(!message.member.voice.channelID)
-      return message.channel.send("You are not in a VC!")
-    queryId = message.member.voice.channelID
-  }
-
-  const vc = guild.channels.resolve(queryId)
-  if(!vc || vc.type !== "voice")
-    return message.channel.send("Specified channel ID is not of a voice channel in this guild.")
+  const vc = commander.getMentionArgs(args[0], 2, message, true)
+  if(!vc) return message.channel.send("Specified channel ID is not of a voice channel in this guild.")
   
   const membersInVc = allMembers.filter(gm => gm.voice.channelID && gm.voice.channelID === vc.id)
   if(Array.from(membersInVc).length === 0) {
