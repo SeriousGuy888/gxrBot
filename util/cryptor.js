@@ -8,20 +8,20 @@ const secretKey = process.env.USER_KEYS_SECRET
 exports.encrypt = (text, customKey) => {
   const key = secretKey + "-" + customKey
 
-  const iv = "g9lbot----------" // crypto.randomBytes(16)
+  const iv = "g9lbot----------" // crypto.randomBytes(16).toString("hex")
   const cipher = crypto.createCipheriv(algorithm, Buffer.concat([Buffer.from(key), Buffer.alloc(32)], 32), iv)
   
   let encrypted = cipher.update(text)
   encrypted = Buffer.concat([encrypted, cipher.final()])
 
-  return iv.toString("hex") + ":" + encrypted.toString("hex")
+  return iv + ":" + encrypted.toString("hex")
 }
 
 exports.decrypt = (text, customKey) => {
   const key = secretKey + "-" + customKey
 
   const textParts = text.split(":")
-  const iv = Buffer.from(textParts.shift(), "hex")
+  const iv = textParts.shift()
 
   const encryptedText = Buffer.from(textParts.join(":"), "hex")
   
