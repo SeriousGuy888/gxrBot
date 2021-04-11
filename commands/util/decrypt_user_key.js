@@ -3,7 +3,7 @@ exports.run = async (client, message, args) => {
   const { Discord } = index
   const { messenger, cryptor } = client.util
 
-  const input = args.splice(0)[0]
+  const input = args.shift()
   const customKey = args.join(" ")
   const decrypted = cryptor.decrypt(input, customKey)
 
