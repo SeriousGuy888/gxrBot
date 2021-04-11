@@ -3,14 +3,15 @@ exports.run = async (client, message, args) => {
   const { Discord } = index
   const { messenger, cryptor } = client.util
 
-  // https://lollyrock.com/posts/nodejs-encryption/
-  // https://stackoverflow.com/questions/60369148/how-do-i-replace-deprecated-crypto-createcipher-in-node-js
+  const input = args.splice(0)[0]
+  const customKey = args.join(" ")
+  const decrypted = cryptor.decrypt(input, customKey)
 
-  const userKey = cryptor.encrypt(message.author.id, args.join(" "))
   const emb = new Discord.MessageEmbed()
     .setColor("#edad01")
-    .setTitle("Key")
-    .setDescription("```" + userKey + "```")
+    .setTitle("Decrypted Key")
+    .addField("Encrypted", "```" + input + "```")
+    .addField("Decrypted", "```" + decrypted + "```")
 
   messenger.dm(message.author.id, emb, () => {
     message.channel.send("Check your DMs!")
