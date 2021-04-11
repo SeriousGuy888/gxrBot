@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
 
   const outputEmbed = new Discord.MessageEmbed()
 
-  const vc = commander.getMentionArgs(args[0], 2, message, true)
+  const vc = await commander.getMentionArgs(args[0], 2, message, true)
   if(!vc) return message.channel.send("Specified channel ID is not of a voice channel in this guild.")
   
   const membersInVc = allMembers.filter(gm => gm.voice.channelID && gm.voice.channelID === vc.id)
