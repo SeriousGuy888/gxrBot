@@ -17,12 +17,39 @@ exports.run = async (client, message, args) => {
     const guild = await client.guilds.fetch(guildId).catch(() => {})
     const member = await guild.members.fetch(user.id).catch(() => {})
 
-    if(member)
-      mutualGuilds.push(`${knownGuilds[guildId]}`)
+    if(member) mutualGuilds.push(`${knownGuilds[guildId]}`)
   }
+
+  const userStats = await statTracker.get(user.id)
+  const statsToInclude = {
+    commands_run: "⏯️",
+    coop_cult: "🧿",
+    coop_ows: "📕",
+  }
+
+  let statText = ""
+  let longestStatNameLength = 0
+
+
+  for(const statName in statsToInclude) {
+    if(statName.length > longestStatNameLength) {
+      longestStatNameLength = statName.length
+    }
+  }
+
+  for(const statName in statsToInclude) {
+    if(userStats[statName]) {
+      let statEmoji = statsToInclude[statName] || ""
+      let paddedStatName = `\`${statName.toUpperCase().padStart(longestStatNameLength, " ")}\``
+
+      statText += `${statEmoji} ${paddedStatName}: \`${userStats[statName]}\`\n`
+    }
+  }
+
+
   emb
     .addField("Member of", mutualGuilds.join("\n") || "This user does not share any of my known guilds.")
-    .addField("[WIP] Stats", JSON.stringify(await statTracker.get(user.id)).slice(0, 1024) || "None")
+    .addField("Stats (See full stats with `-stats`)", statText)
     .addField("Badges", "Psst! Badges have been moved to the `mybadges` command.")
 
 
