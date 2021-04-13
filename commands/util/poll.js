@@ -85,9 +85,7 @@ exports.run = async (client, message, args) => {
           const newEmb = await poller.getPollEmbed(poll)
           msg.edit(newEmb)
         })
-        .on("end", collected => {
-          msg.edit("No longer listening for reactions.")
-        })
+        .on("end", collected => msg.edit("No longer listening for reactions."))
 
       break
     case "close":
