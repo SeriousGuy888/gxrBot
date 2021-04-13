@@ -10,7 +10,7 @@ exports.getPollEmbed = async (pollObject, closed, message, timeoutClose) => {
   const pollEmb = new Discord.MessageEmbed()
   embedder.addAuthor(pollEmb, owner)
     .setColor("#dfdf23")
-    .setTitle("Poll")
+    .setTitle(`Poll (${pollObject.type ? "Survey" : "Vote"} Mode)`)
     .setDescription(pollObject.question)
 
   if(pollObject.wip) {
