@@ -38,6 +38,7 @@ exports.run = async (client, message, args) => {
         channel: pollChannel.id,
         image: attachmentImage,
         question,
+        type: 0,
         wip: true,
         options: new Set(),
       }
