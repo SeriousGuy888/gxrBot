@@ -131,6 +131,17 @@
       "reactions": [
         "🧀"
       ]
+    },
+    {
+      "conditions": {
+        "pass": {
+          "pattern": "\\\"Doing teachers would be really fun\\\" -( )?Jakob (2021)?",
+          "flags": "gi"
+        }
+      },
+      "reactions": [
+        "😮"
+      ]
     }
   ]
 }
