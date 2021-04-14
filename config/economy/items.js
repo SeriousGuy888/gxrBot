@@ -16,6 +16,16 @@ module.exports = {
       return "Item consumed. Did nothing."
     }
   },
+  asa: {
+    emoji: "🤦‍♂️",
+    name: "Asa",
+    description: "Is Asa.",
+    givable: true,
+    value: {
+      buy: 5,
+      sell: 5
+    },
+  },
   twenty_twenty_one: {
     emoji: "<:2021:796514745837682688>",
     name: "2021 New Year Medal",
