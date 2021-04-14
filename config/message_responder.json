@@ -135,7 +135,7 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "\\\"(You see)?,? doing teachers would be really fun\\.\\\" -( )?Jakob( 2021)?",
+          "pattern": "\\\"(You see)?,? doing teachers would be really fun\\.\\\" ?- ?Jakob",
           "flags": "gi"
         }
       },
