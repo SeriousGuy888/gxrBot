@@ -26,6 +26,16 @@ module.exports = {
       sell: 5
     },
   },
+  quinn: {
+    emoji: "🔥",
+    name: "Quinn",
+    description: "Is Quinn.",
+    givable: true,
+    value: {
+      buy: 0.05,
+      sell: 0.05
+    },
+  },
   twenty_twenty_one: {
     emoji: "<:2021:796514745837682688>",
     name: "2021 New Year Medal",
