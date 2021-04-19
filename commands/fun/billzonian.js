@@ -3,6 +3,7 @@ exports.run = async (client, message, args) => {
   const { axios, config, csv, Discord } = index
   const { embedder, logger } = client.util
 
+  const repoUrl = "https://github.com/SeriousGuy888/Billzonian"
   const dictionaryUrl = "https://seriousguy888.github.io/Billzonian/vocabulary.csv"
 
   try {
@@ -76,9 +77,10 @@ exports.run = async (client, message, args) => {
           .setTitle("The Billzonian-English Dictionary")
           .setURL(dictionaryUrl)
           .setDescription([
-            "`billzonian [page]` to go to a page, **or** `billzonian [search term]` to search for a word.",
+            "`billzonian [page]` to go to a page, **or** `billzonian [search term]` to search.",
             "`AF` = Alt Forms | `AS` = Alt Spellings | `IR` = Irregular!",
             "",
+            `Is a word missing? [Make an issue here.](${repoUrl})`,
             "",
             "------------------------------------------------",
             `:mag: Search Term: \`${searchTerm || "[None]"}\``,
