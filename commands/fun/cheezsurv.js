@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
   const emb = new Discord.MessageEmbed()
   embedder.addAuthor(emb, message.author)
     .setColor("#ad23ad")
-    .setTitle(`${responseData?.online ? "🟢" : "🔴"} CheezSurv4`)
+    .setTitle(`\`${responseData?.online ? "🟢" : "🔴"}\` CheezSurv4`)
     .setFooter("graph coming soon????????")
 
 
@@ -29,8 +29,10 @@ exports.run = async (client, message, args) => {
   if(responseData) {
     emb
       .setDescription(responseData.motd.replace(/§[0-9a-fk-o]/gim, "") || "`No MOTD`")
-      .addField("Players", `${responseData.playerCount}/${responseData.maxPlayers}`)
-      .addField("Plugins", responseData.plugins.join("\n").slice(0, 1024))
+      .addField("Players", `${responseData.playerCount}/${responseData.maxPlayers}`, true)
+      .addField("Current Server Plan", `\`${responseData.server_plan}\``, true)
+    embedder.addBlankField(emb)
+      .addField(`Plugins (${responseData.plugins.length})`, responseData.plugins.join("\n").slice(0, 1024))
   }
   else {
     emb.setDescription("minehut's api is dukcing deceased lol")
