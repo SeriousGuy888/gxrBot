@@ -22,8 +22,8 @@ exports.pingMinehut = async (name) => {
   }
 }
 
-exports.record = async (host, port, collectionName) => {
-  const responseData = await this.ping(host, port)
+exports.recordMinehut = async (name, collectionName) => {
+  const responseData = await this.pingMinehut(name)
   const collRef = db
     .collection("stats")
     .doc("minecraft_track")
@@ -33,14 +33,20 @@ exports.record = async (host, port, collectionName) => {
   const currentIsoDate = `${currentDate.getUTCFullYear()}-${currentDate.getUTCMonth() + 1}-${currentDate.getUTCDate()}`
   const docRef = collRef.doc(currentIsoDate)
 
+
+  if(!responseData) {
+    return
+  }
+
+
   const serverOnline = responseData.online
 
   let payload = {}
   payload[`${currentDate.getUTCHours().toString().padStart(2, "0")}${currentDate.getUTCMinutes().toString().padStart(2, "0")}`] = {
     online: serverOnline,
     players: {
-      online: serverOnline ? responseData.players.online : 0,
-      max: serverOnline ? responseData.players.max : 0,
+      online: serverOnline ? responseData.playerCount : 0,
+      max: serverOnline ? responseData.maxPlayers : 0,
     }
   }
 
