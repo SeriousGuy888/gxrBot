@@ -4,7 +4,8 @@ exports.run = async (client, message, args) => {
   const { embedder, minecraftPinger } = client.util
 
 
-  const responseData = await minecraftPinger.ping("cheezsurv4.minehut.gg")
+  const responseData = await minecraftPinger.pingMinehut("cheezsurv4")
+
 
   const emb = new Discord.MessageEmbed()
   embedder.addAuthor(emb, message.author)
@@ -13,25 +14,25 @@ exports.run = async (client, message, args) => {
     .setFooter("graph coming soon????????")
 
 
-  let attachment
-  const iconBase64 = responseData.icon
-  if(iconBase64) {
-    const imageStream = Buffer.from(iconBase64.split(",")[1], "base64")
-    attachment = new Discord.MessageAttachment(imageStream, "icon.png")
-  }
-  if(attachment) {
-    emb
-      .attachFiles(attachment)
-      .setThumbnail("attachment://icon.png")
-  }
+  // let attachment
+  // const iconBase64 = responseData.icon
+  // if(iconBase64) {
+  //   const imageStream = Buffer.from(iconBase64.split(",")[1], "base64")
+  //   attachment = new Discord.MessageAttachment(imageStream, "icon.png")
+  // }
+  // if(attachment) {
+  //   emb
+  //     .attachFiles(attachment)
+  //     .setThumbnail("attachment://icon.png")
+  // }
 
-  if(responseData.online) {
+  if(responseData) {
     emb
-      .setDescription(responseData.motd.clean.join("\n") || "`No MOTD`")
-      .addField("Players", `${responseData.players.online}/${responseData.players.max}`)
+      .setDescription(responseData.motd || "`No MOTD`")
+      .addField("Players", `${responseData.playerCount}/${responseData.maxPlayers}`)
   }
   else {
-    emb.setDescription("minehut's dukcing deceased lol")
+    emb.setDescription("minehut's api is dukcing deceased lol")
   }
 
 
