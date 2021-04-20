@@ -24,7 +24,7 @@ exports.record = async (host, port, collectionName) => {
   const serverOnline = responseData.online
 
   let payload = {}
-  payload[`${currentDate.getUTCHours()}_${currentDate.getUTCMinutes()}`] = {
+  payload[`${currentDate.getUTCHours().toString().padStart(2, "0")}${currentDate.getUTCMinutes().toString().padStart(2, "0")}`] = {
     online: serverOnline,
     players: {
       online: serverOnline ? responseData.players.online : 0,
