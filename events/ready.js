@@ -7,6 +7,7 @@ module.exports = async (client, message) => {
     karmanator,
     logger,
     messenger,
+    minecraftPinger,
     poller,
     preferencer,
     guildPreferencer,
@@ -43,6 +44,10 @@ module.exports = async (client, message) => {
   schedule.scheduleJob("*/15 * * * *", async () => {
     const channel = await client.channels.fetch("749728416827310181")
     channel.send("e")
+  })
+
+  schedule.scheduleJob("*/30 * * * *", async () => {
+    minecraftPinger.record("cheezsurv4.minehut.gg", null, "cheezsurv4")
   })
 
   schedule.scheduleJob("0 0 * * *", () => {
