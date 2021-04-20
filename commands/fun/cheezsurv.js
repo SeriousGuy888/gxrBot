@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
   const emb = new Discord.MessageEmbed()
   embedder.addAuthor(emb, message.author)
     .setColor("#ad23ad")
-    .setTitle(`\`${responseData?.online ? "🟢" : "🔴"}\` CheezSurv4`)
+    .setTitle(`CheezSurv4 \`${responseData?.online ? "🟢 Online" : "🔴 Offline"}\``)
     .setFooter("graph coming soon????????")
 
 
