@@ -1,11 +1,10 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { axios, Discord } = index
-  const { embedder } = client.util
+  const { Discord } = index
+  const { embedder, minecraftPinger } = client.util
 
 
-  const responseData = (await axios.get("https://api.mcsrvstat.us/2/cheezsurv4.minehut.gg")).data
-
+  const responseData = await minecraftPinger.ping("cheezsurv4.minehut.gg")
 
   const emb = new Discord.MessageEmbed()
   embedder.addAuthor(emb, message.author)
