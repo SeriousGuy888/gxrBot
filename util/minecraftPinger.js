@@ -45,8 +45,7 @@ exports.recordMinehut = async (name, collectionName) => {
     .doc("minecraft_track")
     .collection(collectionName)
 
-  const currentDate = new Date()
-  const currentIsoDate = `${currentDate.getUTCFullYear()}-${currentDate.getUTCMonth() + 1}-${currentDate.getUTCDate()}`
+  const currentIsoDate = this.getIsoDate()
   const docRef = collRef.doc(currentIsoDate)
 
 
@@ -58,7 +57,7 @@ exports.recordMinehut = async (name, collectionName) => {
   const serverOnline = responseData.online
 
   let payload = {}
-  payload[`${currentDate.getUTCHours().toString().padStart(2, "0")}${currentDate.getUTCMinutes().toString().padStart(2, "0")}`] = {
+  payload[this.getTimeString()] = {
     online: serverOnline,
     players: {
       online: serverOnline ? responseData.playerCount : 0,
@@ -68,3 +67,6 @@ exports.recordMinehut = async (name, collectionName) => {
 
   docRef.set(payload, { merge: true })
 }
+
+exports.getIsoDate = () => `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`
+exports.getTimeString = () => `${currentDate.getUTCHours().toString().padStart(2, "0")}${currentDate.getUTCMinutes().toString().padStart(2, "0")}`
