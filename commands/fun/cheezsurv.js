@@ -73,7 +73,7 @@ exports.run = async (client, message, args) => {
             {
               ticks: {
                 min: 0,
-                max: Math.max(topOnlinePlayerCount, 16),
+                max: Math.max(topOnlinePlayerCount, 10),
                 stepSize: 1
               }
             }
