@@ -47,7 +47,7 @@ module.exports = async (client, message) => {
   })
 
   schedule.scheduleJob("*/30 * * * *", async () => {
-    minecraftPinger.record("cheezsurv4", "cheezsurv4")
+    minecraftPinger.recordMinehut("cheezsurv4", "cheezsurv4")
   })
 
   schedule.scheduleJob("0 0 * * *", () => {
