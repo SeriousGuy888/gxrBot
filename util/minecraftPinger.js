@@ -1,5 +1,5 @@
 const index = require("../index.js")
-const { db } = index
+const { db, firebaseAdmin } = index
 
 const axios = require("axios")
 
@@ -56,17 +56,19 @@ exports.recordMinehut = async (name, collectionName) => {
 
   const serverOnline = responseData.online
 
-  let payload = {}
+  let payload = {
+    timestamp: firebaseAdmin.firestore.FieldValue.serverTimestamp()
+  }
   payload[this.getTimeString()] = {
     online: serverOnline,
     players: {
       online: serverOnline ? responseData.playerCount : 0,
       max: serverOnline ? responseData.maxPlayers : 0,
-    }
+    },
   }
 
   docRef.set(payload, { merge: true })
 }
 
-exports.getIsoDate = () => `${new Date().getUTCFullYear()}-${new Date().getUTCMonth() + 1}-${new Date().getUTCDate()}`
+exports.getIsoDate = () => `${new Date().getUTCFullYear()}-${(new Date().getUTCMonth() + 1).toString().padStart(2, "0")}-${new Date().getUTCDate().toString().padStart(2, "0")}`
 exports.getTimeString = () => `${currentDate.getUTCHours().toString().padStart(2, "0")}${currentDate.getUTCMinutes().toString().padStart(2, "0")}`

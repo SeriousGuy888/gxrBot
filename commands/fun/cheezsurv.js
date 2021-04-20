@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord } = index
+  const { db, Discord, QuickChart } = index
   const { embedder, minecraftPinger } = client.util
 
 
@@ -11,20 +11,66 @@ exports.run = async (client, message, args) => {
   embedder.addAuthor(emb, message.author)
     .setColor("#ad23ad")
     .setTitle(`CheezSurv4 \`${responseData?.online ? "🟢 Online" : "🔴 Offline"}\``)
-    .setFooter("graph coming soon????????")
+    .setFooter("graph coming now????????")
 
 
-  // let attachment
-  // const iconBase64 = responseData.icon
-  // if(iconBase64) {
-  //   const imageStream = Buffer.from(iconBase64.split(",")[1], "base64")
-  //   attachment = new Discord.MessageAttachment(imageStream, "icon.png")
-  // }
-  // if(attachment) {
-  //   emb
-  //     .attachFiles(attachment)
-  //     .setThumbnail("attachment://icon.png")
-  // }
+  const collRef = db
+    .collection("stats")
+    .doc("minecraft_track")
+    .collection("cheezsurv4")
+  const snapshot = await collRef
+    .orderBy("timestamp", "desc")
+    .limit(2)
+    .get()
+
+  let allStats = {}
+
+  snapshot.forEach(async doc => {
+    const data = doc.data()
+    for(const timeField in data) {
+      if(timeField === "timestamp") continue
+      allStats[`${doc.id}_${timeField}`] = data[timeField]
+    }
+  })
+
+  const xAxisLabels = Object.keys(allStats)
+  const playersOnlineDataset = Object.values(allStats).map(e => e.players.online)
+
+  const chart = new QuickChart()
+    .setConfig({
+      type: "line",
+      data: {
+        labels: xAxisLabels,
+        datasets: [
+          {
+            label: "Players Online",
+            data: playersOnlineDataset,
+            fill: false,
+            borderColor: "#b4eb34",
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Players Online [All times in UTC]"
+        },
+        plugins: {
+          legend: false,
+          datalabels: {
+            display: true,
+            align: "right",
+            backgroundColor: "#cdcdcd",
+            borderRadius: 3
+          }
+        }
+      }
+    })
+    .setWidth(640)
+    .setHeight(370)
+    .setFormat("webp")
+    .setBackgroundColor("#ffffff")
+  emb.setImage(chart.getUrl())
 
   if(responseData) {
     emb
