@@ -8,13 +8,21 @@ const axios = require("axios")
 
 exports.ping = async (host, port) => {
   const serverAddress = `${host}:${parseInt(port) || 25565}`
-  const responseData = (await axios.get(`https://api.mcsrvstat.us/2/${serverAddress}`)).data
+  let response = await axios.get(`https://api.mcsrvstat.us/2/${serverAddress}`)
+    .catch(err => {
+      response = null
+    })
+  
 
-  return responseData
+  return response.data
 }
 
 exports.pingMinehut = async (name) => {
-  const response = (await axios.get(`https://api.minehut.com/server/${name}?byName=true`))
+  let response
+  response = await axios.get(`https://api.minehut.com/server/${name}?byName=true`)
+    .catch(err => {
+      response = null
+    })
 
   if(response.status === 200) {
     let responseData = response.data.server
@@ -47,20 +55,24 @@ exports.recordMinehut = async (name, collectionName) => {
   const currentIsoDate = this.getIsoDate()
 
 
-  if(!responseData) {
-    return
-  }
-
-
-  const serverOnline = responseData.online
-
   let payload = minecraftTrackCache?.[collectionName]?.[currentIsoDate]?.payload ?? {}
-  payload.timestamp = firebaseAdmin.firestore.FieldValue.serverTimestamp()
 
-  payload[this.getTimeString()] = {
-    online: serverOnline,
-    playerCount: responseData.playerCount,
+  if(!responseData) {
+    payload[this.getTimeString()] = {
+      online: false,
+      playerCount: 0,
+    }
   }
+  else {
+    const serverOnline = responseData.online
+    payload.timestamp = firebaseAdmin.firestore.FieldValue.serverTimestamp()
+  
+    payload[this.getTimeString()] = {
+      online: serverOnline,
+      playerCount: responseData.playerCount,
+    }
+  }
+
 
   if(!minecraftTrackCache[collectionName]) minecraftTrackCache[collectionName] = {}
   if(!minecraftTrackCache[collectionName][currentIsoDate]) minecraftTrackCache[collectionName][currentIsoDate] = {}
