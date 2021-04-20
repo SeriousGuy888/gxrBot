@@ -14,7 +14,23 @@ exports.pingMinehut = async (name) => {
   const response = (await axios.get(`https://api.minehut.com/server/${name}?byName=true`))
 
   if(response.status === 200) {
-    const responseData = response.data.server
+    let responseData = response.data.server
+
+    const pluginsData = await axios.get("https://api.minehut.com/plugins_public")
+    if(pluginsData.data && pluginsData.data.all) {
+      const allPlugins = pluginsData.data.all
+
+      let decodedPlugins = []
+      for(const plugin of allPlugins) {
+        for(const pluginId of responseData.active_plugins) {
+          if(plugin._id === pluginId) {
+            decodedPlugins.push(`${plugin.name} \`${plugin.version}\``)
+          }
+        }
+      }
+
+      responseData.plugins = decodedPlugins.sort()
+    }
     return responseData
   }
   else {

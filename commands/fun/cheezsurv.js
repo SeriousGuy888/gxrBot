@@ -28,8 +28,9 @@ exports.run = async (client, message, args) => {
 
   if(responseData) {
     emb
-      .setDescription(responseData.motd || "`No MOTD`")
+      .setDescription(responseData.motd.replace(/§[0-9a-fk-o]/gim, "") || "`No MOTD`")
       .addField("Players", `${responseData.playerCount}/${responseData.maxPlayers}`)
+      .addField("Plugins", responseData.plugins.join("\n").slice(0, 1024))
   }
   else {
     emb.setDescription("minehut's api is dukcing deceased lol")
