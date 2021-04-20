@@ -57,8 +57,9 @@ exports.run = async (client, message, args) => {
           {
             label: "Players Online",
             data: playersOnlineDataset,
-            fill: false,
-            borderColor: "#b4eb34",
+            fill: true,
+            borderColor: "#c94b42",
+            backgroundColor: '#e85d5480'
           }
         ]
       },
