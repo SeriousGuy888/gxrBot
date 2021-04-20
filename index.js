@@ -241,6 +241,7 @@ process.once("SIGTERM", async () => {
   badger.updateBadges()
   banker.updateBalances()
   banker.updateInventories()
+  client.util.minecraftPinger.update()
   logger.uploadLogs("Automatic log upload due to SIGTERM signal.", true)
   process.exit()
 })
@@ -253,6 +254,7 @@ process.once("SIGINT", async () => {
   badger.updateBadges()
   banker.updateBalances()
   banker.updateInventories()
+  client.util.minecraftPinger.update()
   logger.uploadLogs("Automatic log upload due to SIGINT signal.", true)
 })
 

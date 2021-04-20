@@ -24,5 +24,6 @@ module.exports = {
     hangman: {},
     minesweeper: {},
   },
-  gamePlayerData: {} // new system
+  gamePlayerData: {}, // new system,
+  minecraftTrack: {}
 }

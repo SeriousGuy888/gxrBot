@@ -1,6 +1,9 @@
 const index = require("../index.js")
 const { db, firebaseAdmin } = index
 
+const cache = require("../cache.js")
+const minecraftTrackCache = cache.minecraftTrack
+
 const axios = require("axios")
 
 exports.ping = async (host, port) => {
@@ -40,13 +43,8 @@ exports.pingMinehut = async (name) => {
 
 exports.recordMinehut = async (name, collectionName) => {
   const responseData = await this.pingMinehut(name)
-  const collRef = db
-    .collection("stats")
-    .doc("minecraft_track")
-    .collection(collectionName)
 
   const currentIsoDate = this.getIsoDate()
-  const docRef = collRef.doc(currentIsoDate)
 
 
   if(!responseData) {
@@ -56,9 +54,9 @@ exports.recordMinehut = async (name, collectionName) => {
 
   const serverOnline = responseData.online
 
-  let payload = {
-    timestamp: firebaseAdmin.firestore.FieldValue.serverTimestamp()
-  }
+  let payload = minecraftTrackCache?.[collectionName]?.[currentIsoDate]?.payload ?? {}
+  payload.timestamp = firebaseAdmin.firestore.FieldValue.serverTimestamp()
+
   payload[this.getTimeString()] = {
     online: serverOnline,
     players: {
@@ -67,7 +65,28 @@ exports.recordMinehut = async (name, collectionName) => {
     },
   }
 
-  docRef.set(payload, { merge: true })
+  if(!minecraftTrackCache[collectionName]) minecraftTrackCache[collectionName] = {}
+  if(!minecraftTrackCache[collectionName][currentIsoDate]) minecraftTrackCache[collectionName][currentIsoDate] = {}
+
+  minecraftTrackCache[collectionName][currentIsoDate].payload = payload
+}
+
+exports.update = async () => {
+  const batch = db.batch()
+
+  for(const collectionName in minecraftTrackCache) {
+    for(const docName in minecraftTrackCache[collectionName]) {
+      const docRef = db
+        .collection("stats")
+        .doc("minecraft_track")
+        .collection(collectionName)
+        .doc(docName)
+      
+      batch.set(docRef, minecraftTrackCache[collectionName][docName].payload, { merge: true })
+    }
+  }
+
+  batch.commit()
 }
 
 exports.getIsoDate = () => `${new Date().getUTCFullYear()}-${(new Date().getUTCMonth() + 1).toString().padStart(2, "0")}-${new Date().getUTCDate().toString().padStart(2, "0")}`

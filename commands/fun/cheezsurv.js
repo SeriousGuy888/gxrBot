@@ -3,6 +3,9 @@ exports.run = async (client, message, args) => {
   const { db, Discord, QuickChart } = index
   const { embedder, minecraftPinger } = client.util
 
+  const cache = require("../../cache.js")
+  const minecraftTrackCache = cache.minecraftTrack
+
 
   const responseData = await minecraftPinger.pingMinehut("cheezsurv4")
 
@@ -33,9 +36,17 @@ exports.run = async (client, message, args) => {
     }
   })
 
-  const xAxisLabels = Object.keys(allStats)
-  const playersOnlineDataset = Object.values(allStats).map(e => e.players.online)
-  const maxPlayers = Math.max(...Object.values(allStats).map(e => e.players.max))
+  let cachedPayload = minecraftTrackCache?.cheezsurv4?.[minecraftPinger.getIsoDate()]?.payload
+  for(const timeField in cachedPayload) {
+    if(timeField === "timestamp") continue
+    allStats[`${minecraftPinger.getIsoDate()}_${timeField}`] = cachedPayload[timeField]
+  }
+
+  const insertColonAtPos2 = str => str.slice(0, 2) + ":" + str.slice(2, str.length)
+
+  const xAxisLabels = Object.keys(allStats).map(e => insertColonAtPos2(e.split("_")[1]))
+  const playersOnlineDataset = Object.values(allStats).map(e => e.players?.online)
+  const maxPlayers = Math.max(...Object.values(allStats).map(e => e.players?.max))
 
   const chart = new QuickChart()
     .setConfig({
