@@ -45,8 +45,8 @@ exports.run = async (client, message, args) => {
   const insertColonAtPos2 = str => str.slice(0, 2) + ":" + str.slice(2, str.length)
 
   const xAxisLabels = Object.keys(allStats).map(e => insertColonAtPos2(e.split("_")[1]))
-  const playersOnlineDataset = Object.values(allStats).map(e => e.players?.online)
-  const maxPlayers = Math.max(...Object.values(allStats).map(e => e.players?.max))
+  const playersOnlineDataset = Object.values(allStats).map(e => e.playerCount)
+  const topOnlinePlayerCount = Math.max(...playersOnlineDataset)
 
   const chart = new QuickChart()
     .setConfig({
@@ -67,19 +67,21 @@ exports.run = async (client, message, args) => {
           display: true,
           text: "Players Online [All times in UTC]"
         },
-        yAxes: [
-          {
-            ticks: {
-              min: 0,
-              max: maxPlayers,
-              stepSize: 1
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                min: 0,
+                max: Math.max(topOnlinePlayerCount, 16),
+                stepSize: 1
+              }
             }
-          }
-        ],
+          ]
+        },
         plugins: {
           legend: false,
           datalabels: {
-            display: true,
+            display: false,
             align: "right",
             backgroundColor: "#cdcdcd",
             borderRadius: 3

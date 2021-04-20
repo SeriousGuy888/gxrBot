@@ -59,10 +59,7 @@ exports.recordMinehut = async (name, collectionName) => {
 
   payload[this.getTimeString()] = {
     online: serverOnline,
-    players: {
-      online: serverOnline ? responseData.playerCount : 0,
-      max: serverOnline ? responseData.maxPlayers : 0,
-    },
+    playerCount: responseData.playerCount,
   }
 
   if(!minecraftTrackCache[collectionName]) minecraftTrackCache[collectionName] = {}
