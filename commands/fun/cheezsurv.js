@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
     .doc("minecraft_track")
     .collection("cheezsurv4")
   const snapshot = await collRef
-    .orderBy("timestamp", "desc")
+    .orderBy("timestamp", "asc")
     .limit(2)
     .get()
 
@@ -35,6 +35,7 @@ exports.run = async (client, message, args) => {
 
   const xAxisLabels = Object.keys(allStats)
   const playersOnlineDataset = Object.values(allStats).map(e => e.players.online)
+  const maxPlayers = Math.max(...Object.values(allStats).map(e => e.players.max))
 
   const chart = new QuickChart()
     .setConfig({
@@ -55,6 +56,15 @@ exports.run = async (client, message, args) => {
           display: true,
           text: "Players Online [All times in UTC]"
         },
+        yAxes: [
+          {
+            ticks: {
+              min: 0,
+              max: maxPlayers,
+              stepSize: 1
+            }
+          }
+        ],
         plugins: {
           legend: false,
           datalabels: {
