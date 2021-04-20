@@ -43,6 +43,7 @@ exports.update = async () => {
   let dbChanges = false
   let totalKarmaChanges = Object.values(karmaQueue).reduce((acc, curr) => acc + curr)
 
+  const batch = db.batch()
   for(let i in karmaQueue) {
     if(!karmaQueue[i]) {
       delete karmaQueue[i]
@@ -52,9 +53,7 @@ exports.update = async () => {
     const increment = firebaseAdmin.firestore.FieldValue.increment(karmaQueue[i]) // increment by net change
     const docRef = db.collection("users").doc(i)
 
-    let payload = {
-      karma: increment
-    }
+    let payload = { karma: increment }
     const user = client.users.cache.find(u => u.id === i) // caches the user's tag for leaderboard or somehting
     if(user) {
       payload.tag = user.tag
@@ -62,11 +61,14 @@ exports.update = async () => {
     }
 
   
-    await docRef.set(payload, { merge: true })
+    batch.set(docRef, payload, { merge: true })
 
     delete karmaQueue[i]
     dbChanges = true
   }
+  await batch.commit()
+
+
 
   if(dbChanges) {
     karmaCache.splice(0, karmaCache.length)
