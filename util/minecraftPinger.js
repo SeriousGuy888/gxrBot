@@ -86,5 +86,35 @@ exports.update = async () => {
   batch.commit()
 }
 
+exports.getTrackedData = async (collectionName, days) => {
+  const collRef = db
+    .collection("stats")
+    .doc("minecraft_track")
+    .collection(collectionName)
+  const snapshot = await collRef
+    .orderBy("timestamp", "asc")
+    .limit(days)
+    .get()
+
+  
+  let allStats = {}
+
+  snapshot.forEach(async doc => {
+    const data = doc.data()
+    for(const timeField in data) {
+      if(timeField === "timestamp") continue
+      allStats[`${doc.id}_${timeField}`] = data[timeField]
+    }
+  })
+
+  let cachedPayload = minecraftTrackCache?.[collectionName]?.[this.getIsoDate()]?.payload
+  for(const timeField in cachedPayload) {
+    if(timeField === "timestamp") continue
+    allStats[`${this.getIsoDate()}_${timeField}`] = cachedPayload[timeField]
+  }
+
+  return allStats
+}
+
 exports.getIsoDate = () => `${new Date().getUTCFullYear()}-${(new Date().getUTCMonth() + 1).toString().padStart(2, "0")}-${new Date().getUTCDate().toString().padStart(2, "0")}`
 exports.getTimeString = () => `${new Date().getUTCHours().toString().padStart(2, "0")}${new Date().getUTCMinutes().toString().padStart(2, "0")}`
