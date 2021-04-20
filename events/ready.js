@@ -47,7 +47,7 @@ module.exports = async (client, message) => {
     channel.send("e")
   })
 
-  schedule.scheduleJob("*/30 * * * *", async () => {
+  schedule.scheduleJob("*/5 * * * *", async () => {
     minecraftPinger.recordMinehut("cheezsurv4", "cheezsurv4")
   })
 
