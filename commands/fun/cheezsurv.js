@@ -18,8 +18,8 @@ exports.run = async (client, message, args) => {
 
   const coloniseTimeString = str => str.slice(0, 2) + ":" + str.slice(2, str.length)
 
-  const xAxisLabels = Object.keys(allStats).map(e => coloniseTimeString(e.split("_")[1]))
-  const playersOnlineDataset = Object.values(allStats).map(e => e.playerCount)
+  const xAxisLabels = Array.from(allStats.keys()).map(e => coloniseTimeString(e.split("_")[1]))
+  const playersOnlineDataset = Array.from(allStats.values()).map(e => e.playerCount)
   const topOnlinePlayerCount = Math.max(...playersOnlineDataset)
 
   const chart = new QuickChart()

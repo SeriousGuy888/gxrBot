@@ -101,7 +101,7 @@ exports.update = async () => {
 }
 
 exports.getTrackedData = async (collectionName, days) => {
-  let allStats = {}
+  let allStats = new Map()
 
   const cachedStats = minecraftTrackCache?.[collectionName]?.cache
   if(cachedStats) {
@@ -113,7 +113,7 @@ exports.getTrackedData = async (collectionName, days) => {
       .doc("minecraft_track")
       .collection(collectionName)
     const snapshot = await collRef
-      .orderBy("timestamp", "asc")
+      .orderBy("timestamp", "desc")
       .limit(days)
       .get()
   
@@ -121,9 +121,11 @@ exports.getTrackedData = async (collectionName, days) => {
       const data = doc.data()
       for(const timeField in data) {
         if(timeField === "timestamp") continue
-        allStats[`${doc.id}_${timeField}`] = data[timeField]
+        allStats.set(`${doc.id}_${timeField}`, data[timeField])
       }
     })
+
+    allStats = new Map(Array.from(allStats).sort())
 
     if(!minecraftTrackCache[collectionName]) minecraftTrackCache[collectionName] = {}
     minecraftTrackCache[collectionName].cache = allStats
@@ -133,7 +135,7 @@ exports.getTrackedData = async (collectionName, days) => {
   const cachedPayload = minecraftTrackCache?.[collectionName]?.[this.getIsoDate()]?.payload
   for(const timeField in cachedPayload) {
     if(timeField === "timestamp") continue
-    allStats[`${this.getIsoDate()}_${timeField}`] = cachedPayload[timeField]
+    allStats.set(`${this.getIsoDate()}_${timeField}`, cachedPayload[timeField])
   }
 
   return allStats
