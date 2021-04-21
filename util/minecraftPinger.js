@@ -1,5 +1,5 @@
 const index = require("../index.js")
-const { db, firebaseAdmin } = index
+const { client, db, firebaseAdmin } = index
 
 const cache = require("../cache.js")
 const minecraftTrackCache = cache.minecraftTrack
@@ -81,6 +81,8 @@ exports.recordMinehut = async (name, collectionName) => {
 }
 
 exports.update = async () => {
+  const { logger } = client.util
+  
   const batch = db.batch()
 
   for(const collectionName in minecraftTrackCache) {
@@ -98,6 +100,7 @@ exports.update = async () => {
   }
 
   batch.commit()
+  logger.log("Updating minecraft tracking data!")
 }
 
 exports.getTrackedData = async (collectionName, days) => {

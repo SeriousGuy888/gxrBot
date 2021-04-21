@@ -234,16 +234,17 @@ module.exports = {
 // process.on("unhandledRejection", console.error)
 
 const beforeShutdown = require("./before_shutdown.js")
-beforeShutdown(() => {
-  client.util.karmanator.update()
-  client.util.statTracker.update()
-  preferencer.update()
-  guildPreferencer.update()
-  badger.updateBadges()
-  banker.updateBalances()
-  banker.updateInventories()
-  client.util.minecraftPinger.update()
-  logger.uploadLogs("Automatic log upload on exit.", true)
+beforeShutdown(async () => {
+  await client.util.karmanator.update()
+  await client.util.statTracker.update()
+  await preferencer.update()
+  await guildPreferencer.update()
+  await badger.updateBadges()
+  await banker.updateBalances()
+  await banker.updateInventories()
+  await client.util.minecraftPinger.update()
+  
+  await client.util.logger.uploadLogs("Automatic log upload on exit.", true)
   console.log("Shutting down!")
 })
 
