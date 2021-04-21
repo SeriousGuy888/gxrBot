@@ -74,7 +74,7 @@ exports.run = async (client, message, args) => {
     .setHeight(370)
     .setFormat("webp")
     .setBackgroundColor("#ffffff")
-  emb.setImage(chart.getUrl())
+  emb.setImage(await chart.getShortUrl())
 
   if(responseData) {
     emb
