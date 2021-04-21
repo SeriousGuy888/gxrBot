@@ -85,6 +85,8 @@ exports.update = async () => {
 
   for(const collectionName in minecraftTrackCache) {
     for(const docName in minecraftTrackCache[collectionName]) {
+      if(docName === "cache") continue
+
       const docRef = db
         .collection("stats")
         .doc("minecraft_track")
