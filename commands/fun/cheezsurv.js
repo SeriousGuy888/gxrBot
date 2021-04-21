@@ -59,6 +59,17 @@ exports.run = async (client, message, args) => {
             }
           ]
         },
+        // annotation: {
+        //   annotations: [{
+        //     type: "box",
+        //     xScaleID: "x-axis-0",
+        //     yScaleID: "y-axis-0",
+        //     xMin: 3,
+        //     xMax: 5,
+        //     backgroundColor: 'rgba(200, 200, 200, 0.2)',
+        //     borderColor: '#ccc',
+        //   }]
+        // },
         plugins: {
           legend: false,
           datalabels: {
