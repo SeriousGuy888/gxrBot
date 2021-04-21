@@ -233,7 +233,8 @@ module.exports = {
 
 // process.on("unhandledRejection", console.error)
 
-process.once("SIGTERM", async () => {
+const beforeShutdown = require("./before_shutdown.js")
+beforeShutdown(() => {
   client.util.karmanator.update()
   client.util.statTracker.update()
   preferencer.update()
@@ -242,21 +243,8 @@ process.once("SIGTERM", async () => {
   banker.updateBalances()
   banker.updateInventories()
   client.util.minecraftPinger.update()
-  logger.uploadLogs("Automatic log upload due to SIGTERM signal.", true)
-  process.exit()
+  logger.uploadLogs("Automatic log upload on exit.", true)
+  console.log("Shutting down!")
 })
-
-process.once("SIGINT", async () => {
-  client.util.karmanator.update()
-  client.util.statTracker.update()
-  preferencer.update()
-  guildPreferencer.update()
-  badger.updateBadges()
-  banker.updateBalances()
-  banker.updateInventories()
-  client.util.minecraftPinger.update()
-  logger.uploadLogs("Automatic log upload due to SIGINT signal.", true)
-})
-
 
 client.login(process.env.TOKEN)
