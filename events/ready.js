@@ -35,8 +35,11 @@ module.exports = async (client, message) => {
     badger.updateBadges()
     banker.updateBalances()
     banker.updateInventories()
-    minecraftPinger.update()
   }, 5 * 60 * 1000)
+
+  setInterval(() => {
+    minecraftPinger.update()
+  }, 30 * 60 * 1000)
 
   setTimeout(async () => {
     index.propaganda(client)
