@@ -16,9 +16,9 @@ exports.run = async (client, message, args) => {
 
   let allStats = await minecraftPinger.getTrackedData("cheezsurv4", 2)
 
-  const insertColonAtPos2 = str => str.slice(0, 2) + ":" + str.slice(2, str.length)
+  const coloniseTimeString = str => str.slice(0, 2) + ":" + str.slice(2, str.length)
 
-  const xAxisLabels = Object.keys(allStats).map(e => insertColonAtPos2(e.split("_")[1] === "0000" ? e.split("_")[0] : e.split("_")[1]))
+  const xAxisLabels = Object.keys(allStats).map(e => coloniseTimeString(e.split("_")[1]))
   const playersOnlineDataset = Object.values(allStats).map(e => e.playerCount)
   const topOnlinePlayerCount = Math.max(...playersOnlineDataset)
 
