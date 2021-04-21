@@ -31,6 +31,7 @@ exports.run = async (client, message, args) => {
           {
             label: "Players Online",
             data: playersOnlineDataset,
+            lineTension: 0.15,
             fill: true,
             borderColor: "#c94b42",
             backgroundColor: '#e85d5480'
@@ -41,6 +42,11 @@ exports.run = async (client, message, args) => {
         title: {
           display: true,
           text: "Players Online [All times in UTC]"
+        },
+        elements: {
+          point: {
+            radius: 0
+          }
         },
         scales: {
           yAxes: [
