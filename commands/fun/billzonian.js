@@ -120,7 +120,7 @@ exports.run = async (client, message, args) => {
             const notes  = wordData.notes
   
             responseEmbed.addField(
-              `${wordData.word && "**" + wordData.word + "**"} \`${wordData.partOfSpeech}\``,
+              `${wordData.word && "**" + wordData.word + "**"} \`${wordData.pos}\``,
               [
                 wordData.isExactMatch && "⭐ __EXACT MATCH__ ⭐\n",
                 ipaReadings  && ipaReadings.map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`).join(" or "),
