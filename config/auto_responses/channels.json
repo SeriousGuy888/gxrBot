@@ -151,6 +151,24 @@
       "reactions": [
         "amongus"
       ]
+    },
+    {
+      "enabled": true,
+      "conditional": {
+        "enabled": true,
+        "allRequired": false,
+        "conditions": [
+          {
+            "enabled": true,
+            "type": "regex",
+            "expression": "chess",
+            "flags": "gi"
+          }
+        ]
+      },
+      "reactions": [
+        "#♟"
+      ]
     }
   ],
   "634597235362889728": [
