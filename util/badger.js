@@ -109,4 +109,77 @@ exports.updateBadges = async () => {
   await batch.commit()
 }
 
+exports.paginateBadges = async (message, embed, badges, page) => {
+  const { messenger } = client.util
+
+
+  let maxPages
+  const badgeEmbed = async (currentPage) => {
+    embed.fields = []
+
+    const itemsPerPage = 6
+    const startAt = (currentPage - 1) * itemsPerPage
+    const endAt = startAt + itemsPerPage
+    maxPages = Math.ceil(badges.length / itemsPerPage)
+
+
+    for(var i = startAt; i < endAt; i++) {
+      const badge = badges[i]
+      if(!badge)
+        break
+
+      const badgeInfo = badgeData[badge]
+      const badgeDesc = badgeInfo?.description || "No description"
+      const badgeEmoji = badgeInfo?.emoji ?? ""
+
+      embed.addField(`${badgeEmoji} ${badge.toUpperCase()}`, badgeDesc, true)
+    }
+
+    embed.setFooter(`Page ${currentPage} of ${maxPages}`)
+
+    return embed
+  }
+
+
+  const msg = await messenger.loadingMessage(message.channel, {
+    colour: config.main.colours.help,
+    title: `Getting badges...`
+  })
+  
+
+  const emojis = ["⏪", "◀️", "▶️", "⏩"]
+  const emb = await badgeEmbed(page)
+
+  await msg.edit(emb)
+  const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
+  const collector = msg.createReactionCollector(filter, { time: 30000 })
+    .on("collect", async (reaction, reactor) => {
+      reaction.users.remove(reactor).catch(() => {})
+      collector.resetTimer()
+      
+      switch(reaction.emoji.name) {
+        case "⏪":
+          page = 1
+          break
+        case "◀️":
+          page--
+          break
+        case "▶️":
+          page++
+          break
+        case "⏩":
+          page = maxPages
+          break
+      }
+      page = Math.max(Math.min(maxPages, page), 1)
+
+      const newEmb = await badgeEmbed(page)
+      msg.edit(newEmb)
+    })
+    .on("end", collected => { msg.edit("No longer collecting reactions.") })
+  for(const emoji of emojis) {
+    await msg.react(emoji)
+  }
+}
+
 exports.badgeData = () => badgeData
