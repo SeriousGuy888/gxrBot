@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
   const badgeEmbed = async (queryPage) => {
     const badges = await badger.getBadges(user.id)
 
-    const itemsPerPage = 5
+    const itemsPerPage = 6
     const startAt = (queryPage - 1) * itemsPerPage
     const endAt = startAt + itemsPerPage
     maxPages = Math.ceil(badges.length / itemsPerPage)
@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
       const badgeDesc = badgeInfo?.description || "No description"
       const badgeEmoji = badgeInfo?.emoji ?? ""
 
-      pageEmbed.addField(`${badgeEmoji} ${badge.toUpperCase()}`, badgeDesc)
+      pageEmbed.addField(`${badgeEmoji} ${badge.toUpperCase()}`, badgeDesc, true)
     }
 
     return pageEmbed
