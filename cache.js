@@ -10,6 +10,7 @@ module.exports = {
   badgeQueue: {},
   karmaQueue: {},
   karmaCache: [],
+  newKarmaCache: {},
   statQueue: {},
   statCache: {},
   graphCache: {

@@ -6,8 +6,32 @@ const {
   firebaseAdmin,
   db,
   karmaQueue,
-  karmaCache
+  karmaCache,
+  newKarmaCache
 } = index
+
+exports.get = async (userId) => {
+  let karma = 0
+  if(newKarmaCache[userId]) {
+    karma = newKarmaCache[userId]
+  }
+  else {
+    const userRef = db.collection("users").doc(userId)
+    const doc = await userRef.get()
+  
+    if(doc.exists) {
+      let data = doc.data()
+  
+      if(data.karma) {
+        karma = data.karma
+      }
+    }
+    newKarmaCache[userId] = karma
+  }
+
+  karma += karmaQueue[userId] ?? 0
+  return karma
+}
 
 exports.add = async (userId, amount, options) => {
   const { logger } = client.util

@@ -48,6 +48,7 @@ let {
   badgeQueue,
   karmaQueue,
   karmaCache,
+  newKarmaCache,
   statQueue,
   statCache,
   graphCache,
@@ -76,6 +77,7 @@ let priorityExports = {
   
   karmaQueue,
   karmaCache,
+  newKarmaCache,
   statQueue,
   statCache,
   graphCache,
