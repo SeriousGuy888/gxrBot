@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
 
   const embed = new Discord.MessageEmbed()
   embedder.addAuthor(embed, user, "%tag%'s Badges")
-    .setDescription(user.id !== message.author.id ? "Wait, not my badges, their badges." : "Description")
+    .setTitle("User Badges")
     .setColor(config.main.colours.success)
 
   badger.paginateBadges(message, embed, badges, 1)
