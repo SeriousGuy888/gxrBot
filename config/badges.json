@@ -27,8 +27,16 @@
     "emoji": "🪙",
     "description": "Obtain a balance of 100 or more currency units."
   },
+  "karma_100": {
+    "emoji": "<:upvote:713823817004220416>",
+    "description": "Acquire 100 karma points."
+  },
   "kilokarma": {
     "emoji": "<:upvote:713823817004220416>",
     "description": "Acquire 1000 karma points."
+  },
+  "karma_2k": {
+    "emoji": "<:upvote:713823817004220416>",
+    "description": "Acquire 2000 karma points."
   }
 }
