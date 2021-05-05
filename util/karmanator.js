@@ -8,6 +8,7 @@ const {
   karmaQueue,
   newKarmaCache
 } = index
+const { badger } = client.util
 
 exports.get = async (userId) => {
   let karma = 0
@@ -75,6 +76,10 @@ exports.add = async (userId, amount, options) => {
   }
   
   logger.log(logMessage, "addKarma")
+
+  if(await this.get(userId) >= 1000) {
+    await badger.awardBadge(userId, "kilokarma", false, "acquiring 1000 karma points (newly added badge!)")
+  }
 }
 
 exports.update = async () => {

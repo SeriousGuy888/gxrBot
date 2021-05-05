@@ -26,5 +26,9 @@
   "hundredaire": {
     "emoji": "🪙",
     "description": "Obtain a balance of 100 or more currency units."
+  },
+  "kilokarma": {
+    "emoji": "<:upvote:713823817004220416>",
+    "description": "Acquire 1000 karma points."
   }
 }
