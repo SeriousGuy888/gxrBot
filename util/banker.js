@@ -36,7 +36,7 @@ exports.addToBalance = async (userId, amount) => {
 
   logger.log(`Added ${amount} to balance of user ${userId}.`)
 
-  if(this.getBalance(userId) >= 100) {
+  if(await this.getBalance(userId) >= 100) {
     await badger.awardBadge(userId, "hundredaire", false, "getting a large amount of moolah")
   }
 }
