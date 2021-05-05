@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
       const responseData = response.data
       const dictionaryData = await csv().fromString(responseData)
 
-      const itemsPerPage = 6
+      const itemsPerPage = 3
       let maxPages = Math.ceil(dictionaryData.length / itemsPerPage)
 
       let page = 1
