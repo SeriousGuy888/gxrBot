@@ -33,6 +33,29 @@ exports.get = async (userId) => {
   return karma
 }
 
+exports.getTop = async (count) => {
+  const usersColl = db.collection("users")
+  
+  const snapshot = await usersColl
+    .orderBy("karma", "desc")
+    .limit(count + 1)
+    .get()
+
+  let topKarmas = []
+  snapshot.forEach(async doc => {
+    const data = doc.data()
+    let karma = data.karma
+
+    topKarmas.push({
+      user: `<@${doc.id}>`,
+      id: doc.id,
+      karma: karma,
+    })
+  })
+
+  return topKarmas
+}
+
 exports.add = async (userId, amount, options) => {
   const { logger } = client.util
 

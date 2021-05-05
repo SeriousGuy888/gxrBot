@@ -1,7 +1,8 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { Discord, config, db, karmaQueue, karmaCache } = index
-  const { embedder, messenger } = client.util
+  const { Discord, config, karmaQueue } = index
+  let { karmaCache } = index
+  const { embedder, karmanator, messenger } = client.util
 
   const settings = config.karma
   
@@ -31,24 +32,9 @@ exports.run = async (client, message, args) => {
     .setFooter(settings.lang.footer)
   embedder.addAuthor(leaderboardEmbed, message.author)
 
-  const usersColl = db.collection("users")
 
   if(karmaCache.length === 0) {
-    const snapshot = await usersColl
-      .orderBy("karma", "desc")
-      .limit(settings.leaderboard.top.total + 1)
-      .get()
-
-    snapshot.forEach(async doc => {
-      const data = doc.data()
-      let karma = data.karma
-  
-      karmaCache.push({
-        user: `<@${doc.id}>`,
-        id: doc.id,
-        karma: karma,
-      })
-    })
+    karmaCache = await karmanator.getTop(settings.leaderboard.top.total)
   }
 
   const getRankingStr = (rank, isAuthor) => {
