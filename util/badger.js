@@ -52,7 +52,7 @@ exports.awardBadge = async (userId, badge, remove, reason) => {
 
   await this.addBadge(userId, badge, remove)
 
-  const notifPrefs = (await preferencer.get(userId)).notifications
+  const notifPrefs = (await preferencer.get(userId)).notifications ?? true
   if(!remove && notifPrefs) {
     const emb = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)
