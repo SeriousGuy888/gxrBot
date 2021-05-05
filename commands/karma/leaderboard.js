@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, config, karmaQueue } = index
-  let { karmaCache } = index
+  let { karmaLeaderboardCache } = index
   const { embedder, karmanator, messenger } = client.util
 
   const settings = config.karma
@@ -33,8 +33,8 @@ exports.run = async (client, message, args) => {
   embedder.addAuthor(leaderboardEmbed, message.author)
 
 
-  if(karmaCache.length === 0) {
-    karmaCache = await karmanator.getTop(settings.leaderboard.top.total)
+  if(karmaLeaderboardCache.length === 0) {
+    karmaLeaderboardCache = await karmanator.getTop(settings.leaderboard.top.total)
   }
 
   const getRankingStr = (rank, isAuthor) => {
@@ -56,8 +56,8 @@ exports.run = async (client, message, args) => {
     }
   }
 
-  for(let i in karmaCache) {
-    let field = karmaCache[i]
+  for(let i in karmaLeaderboardCache) {
+    let field = karmaLeaderboardCache[i]
 
     if(i == settings.leaderboard.top.total) {
       // leaderboardEmbed.addField("*More Leaderboard Entries...*", `The DiscordAPI limits the amount of fields I can display in this embed.\nOnly the top ${settings.leaderboard.top.total} users are displayed here.\n\nIf you wish to see more users, you can visit the [web panel](${settings.lang.web_panel.leaderboard}) for more entries past the top ${settings.leaderboard.top.total}.\n\u200b\n\u200b`)

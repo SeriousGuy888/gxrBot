@@ -6,7 +6,6 @@ const {
   firebaseAdmin,
   db,
   karmaQueue,
-  karmaCache,
   newKarmaCache
 } = index
 
