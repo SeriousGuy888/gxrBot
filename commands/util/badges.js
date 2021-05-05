@@ -10,22 +10,15 @@ exports.run = async (client, message, args) => {
     embedder.addAuthor(emb, message.author)
       .setColor(config.main.colours.help)
       .setTitle("All Badges")
-      .setFooter("Use command `badges <badge id>` for a detailed description. Use command `mybadges` to see what badges you have.")
+      .setDescription([
+        "Here is a list of every available badge.",
+        "Use command `badges <badge id>` to see a specific badge.",
+        "Use command `mybadges` to see what badges you have.",
+        "",
+        `[What are badges?](${config.main.links.github_pages}#faq-badges)\n\n`
+      ].join("\n"))
 
-    let description = `[What are badges?](${config.main.links.github_pages}#faq-badges)\n\n`
-    for(const i in badgeData) {
-      let name = ""
-      if(badgeData[i].emoji)
-        name += badgeData[i].emoji + " "
-      name += `**${i.toUpperCase()}**\n`
-
-      description += name
-    }
-
-    emb.setDescription(description)
-
-
-    message.channel.send(emb)
+    await badger.paginateBadges(message, emb, Object.keys(badgeData), 1)
   }
   else {
     const badgeName = args[0].toLowerCase()
