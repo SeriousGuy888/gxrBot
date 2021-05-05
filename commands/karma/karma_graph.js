@@ -109,3 +109,5 @@ exports.help = async (client, message, args) => {
 
   message.channel.send(`Syntax: \`${prefix}karma_graph [Amount of Days]\``)
 }
+
+exports.disabled = "sudjfknsdfmoiekfl"

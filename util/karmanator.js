@@ -70,25 +70,25 @@ exports.update = async () => {
 
 
 
-  if(dbChanges) {
-    karmaCache.splice(0, karmaCache.length)
-    if(totalKarmaChanges) {
-      const dateStr = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-      const increment = firebaseAdmin.firestore.FieldValue.increment(totalKarmaChanges)
+  // if(dbChanges) {
+  //   karmaCache.splice(0, karmaCache.length)
+  //   if(totalKarmaChanges) {
+  //     const dateStr = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+  //     const increment = firebaseAdmin.firestore.FieldValue.increment(totalKarmaChanges)
 
-      const docRef = db
-        .collection("stats")
-        .doc("karma_votes")
-        .collection("dates")
-        .doc(dateStr)
-      const payload = {
-        total: increment,
-        timestamp: firebaseAdmin.firestore.FieldValue.serverTimestamp()
-      }
+  //     const docRef = db
+  //       .collection("stats")
+  //       .doc("karma_votes")
+  //       .collection("dates")
+  //       .doc(dateStr)
+  //     const payload = {
+  //       total: increment,
+  //       timestamp: firebaseAdmin.firestore.FieldValue.serverTimestamp()
+  //     }
 
-      await docRef.set(payload, { merge: true })
-    }
-  }
+  //     await docRef.set(payload, { merge: true })
+  //   }
+  // }
 }
 
 exports.countVote = async (reaction, user, removed) => {
