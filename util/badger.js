@@ -40,7 +40,7 @@ exports.addBadge = async (userId, badge, remove) => {
 
   badgeQueue[userId][badge] = { remove }
 
-  logger.log(`${remove ? "Removed" : "Granted"} badge \`${badge}\` to user ${userId}.`)
+  logger.log(`${remove ? "Removed" : "Granted"} badge \`${badge}\` ${remove ? "from" : "to"} user ${userId}.`)
 }
 
 exports.awardBadge = async (userId, badge, remove, reason) => {
