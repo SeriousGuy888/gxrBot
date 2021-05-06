@@ -5,24 +5,28 @@ exports.run = async (client, message, args) => {
   
 
   if(!config.admins.ids[message.author.id]) {
-    message.reply("no permission")
+    message.reply(`You are not listed as a ${config.main.botNames.lowerCamelCase} admin!`)
     return
   }
 
-  if(!args[0])
-    return message.channel.send("aaaaaaaaaaaaaa")
+  if(!args[0]) {
+    message.channel.send("who the dukc do i bea giving the badge to? you dukcing idot")
+    return
+  }
 
   let user
   if(args[0].toLowerCase() === "guild") {
-    if(!message.guild)
-      return message.channel.send("D: no guild")
+    if(!message.guild) return message.channel.send("D: no guild")
     user = args[0].toLowerCase()
   }
-  else
+  else {
     user = await commander.getMentionArgs(args[0], 0, message)
+  }
 
-  if(!args[1])
-    return message.channel.send("specify badge idot")
+  if(!args[1]) {
+    message.channel.send("what badge do you beas awarding? you dukcing idot")
+    return
+  }
 
   const badge = args[1].toLowerCase()
   const remove = !!args[2]
@@ -30,19 +34,17 @@ exports.run = async (client, message, args) => {
   if(user === "guild") {
     const users = (await message.guild.members.fetch()).map(u => u)
 
-    let inc = 0
-    for(const loopUser of users) {
-      if(loopUser.bot || loopUser.user.bot)
-        continue
+    for(let i = 0; i < users.length; i++) {
+      const loopUser = users[i]
+      if(loopUser.bot || loopUser.user.bot) continue
       badger.addBadge(loopUser.id, badge, remove)
-      inc++
     }
 
-    message.channel.send(`ok ${remove ? "removed" : "gave"} ${badge} to ${inc} non-bot users`)
+    message.reply(`ok all unrobotic users in this guild have ${remove ? "lost" : "received"} the badge ${badge}`)
   }
   else {
     badger.awardBadge(user.id, badge, remove, `manually awarded by ${message.author.tag}`)
-    message.channel.send(`ok ${remove ? "removed" : "gave"} ${badge} to ${user}`)
+    message.reply(`ok ${user} has ${remove ? "lost" : "received"} the badge ${badge}`)
   }
 }
 
