@@ -9,4 +9,5 @@ exports.run = async (client, message, args) => {
     .setFooter("thank you hoang for the idea")
   
   message.channel.send(emb)
+    .then(() => message.delete())
 }
