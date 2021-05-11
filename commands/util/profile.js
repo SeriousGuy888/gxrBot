@@ -49,7 +49,7 @@ exports.run = async (client, message, args) => {
 
   emb
     .addField("Member of", mutualGuilds.join("\n") || "This user does not share any of my known guilds.")
-    .addField("Stats (See full stats with `-stats`)", statText)
+    .addField("Stats (See full stats with `-stats`)", statText || "Not Found")
     .addField("Badges", "Psst! Badges have been moved to the `mybadges` command.")
 
 
