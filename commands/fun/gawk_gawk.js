@@ -4,9 +4,8 @@ exports.run = async (client, message, args) => {
 
   let emb = new Discord.MessageEmbed()
     .setColor(config.main.colours.success)
-    .setTitle("Gawk Gawk")
     .setDescription("AJFAAJFJAJAJFJFAJFJFJAAKJAJJ")
-    .setFooter("thank you hoang for the idea")
+    .setFooter("thank you hoang for the idea for this command")
   
   message.channel.send(emb)
     .then(() => message.delete())
