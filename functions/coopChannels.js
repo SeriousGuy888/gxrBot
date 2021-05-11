@@ -62,7 +62,8 @@ exports.deleteMessage = (message, errorMessage) => {
 
   if(!message.author.bot)
     messenger.dm(message.author.id, errorMessage)
-  message.delete({ timeout: 500 })
+
+  setTimeout(() => message.delete(), 500)
 }
 
 exports.punish = (message, mode, placeholders) => {
