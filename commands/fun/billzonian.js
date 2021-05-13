@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { axios, config, csv, Discord } = index
+  const { axios, csv, Discord } = index
   const { embedder, logger } = client.util
 
   const repoUrl = "https://github.com/SeriousGuy888/Billzonian"
@@ -145,7 +145,7 @@ exports.run = async (client, message, args) => {
         embedder.addBlankField(responseEmbed)
   
     
-        return await targetMessage.edit(responseEmbed)
+        return targetMessage.edit(responseEmbed)
           .then(async editedMsg => {
             const reactionEmojis = ["⏪", "◀️", "▶️", "⏩"]
             const reactionFilter = (reaction, user) => user.id === message.author.id && reactionEmojis.includes(reaction.emoji.name)
@@ -153,7 +153,8 @@ exports.run = async (client, message, args) => {
             editedMsg.awaitReactions(reactionFilter, { max: 1, time: 60000 })
               .then(async collected => {
                 const emojiName = collected.first().emoji.name
-                editedMsg.reactions.resolve(emojiName).users.remove(message.author).catch(() => {}) // remove user's reaction
+                editedMsg.reactions.resolve(emojiName).users.remove(message.author) // remove user's reaction
+                  .catch(() => { return })
                 switch(emojiName) {
                   case "⏪":
                     page = 1
@@ -170,7 +171,7 @@ exports.run = async (client, message, args) => {
                 }
                 page = Math.max(Math.min(page, maxPages), 1)
                 
-                editedMsg.edit(await displayDictionary(editedMsg))
+                editedMsg.edit(displayDictionary(editedMsg))
               })
               .catch(() => {
                 editedMsg.edit("No longer listening for reactions.", { embed: responseEmbed })
@@ -182,7 +183,7 @@ exports.run = async (client, message, args) => {
           })
       }
 
-      msg = await displayDictionary(msg)
+      msg = displayDictionary(msg)
     }
     else {
       message.channel.send("Request returned a status code that was not 200. Ask billzo to check the logs.")
