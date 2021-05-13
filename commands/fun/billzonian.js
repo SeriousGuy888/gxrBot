@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { axios, csv, Discord } = index
-  const { embedder, logger } = client.util
+  const { arrayHelper, embedder, logger } = client.util
 
   const repoUrl = "https://github.com/SeriousGuy888/Billzonian"
   const dictionaryUrl = "https://seriousguy888.github.io/Billzonian/vocabulary.csv"
@@ -93,15 +93,9 @@ exports.run = async (client, message, args) => {
 
 
         if(maxPages > 0) {
-          const moveArrayItem = (array, fromIndex, toIndex) => {
-            const arr = [...array]
-            arr.splice(toIndex, 0, ...arr.splice(fromIndex, 1))
-            return arr
-          }
-
           const exactMatchIndex = searchResults.findIndex(e => e.word.toLowerCase() === searchTerm && e.word) // empty strings dont count
           if(exactMatchIndex >= 0) {
-            searchResults = moveArrayItem(searchResults, exactMatchIndex, 0)
+            searchResults = arrayHelper.moveArrayItem(searchResults, exactMatchIndex, 0)
             searchResults[0].isExactMatch = true
           }
 
