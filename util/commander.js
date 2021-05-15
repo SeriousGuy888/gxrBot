@@ -245,7 +245,7 @@ exports.getMentionArgs = async (str, type, message, guildOnly) => {
         voiceId = message.member.voice.channelID
       }
 
-      const vc = message.guild.channels.resolve(queryId)
+      const vc = message.guild.channels.resolve(voiceId)
       if(!vc || vc.type !== "voice") {
         return null
       }
