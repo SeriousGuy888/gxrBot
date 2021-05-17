@@ -45,10 +45,10 @@ module.exports = async (client, message) => {
     index.propaganda(client)
   }, 1000)
 
-  schedule.scheduleJob("*/15 * * * *", async () => {
-    const channel = await client.channels.fetch("749728416827310181")
-    channel.send("e")
-  })
+  // schedule.scheduleJob("*/15 * * * *", async () => {
+  //   const channel = await client.channels.fetch("749728416827310181")
+  //   channel.send("e")
+  // })
 
   schedule.scheduleJob("*/5 * * * *", async () => {
     minecraftPinger.recordMinehut("cheezsurv4", "cheezsurv4")
