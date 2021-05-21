@@ -39,7 +39,7 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "\\w+ (died|passed away)",
+          "pattern": "\\w+ (deathed|died|passed away)",
           "flags": "gi"
         }
       },
