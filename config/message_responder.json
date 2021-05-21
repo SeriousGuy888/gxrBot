@@ -48,7 +48,7 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "owo",
+          "pattern": "( |^)owo( |$)",
           "flags": "gi"
         }
       },
@@ -57,7 +57,7 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "uwu",
+          "pattern": "( |^)uwu( |$)",
           "flags": "gi"
         }
       },
