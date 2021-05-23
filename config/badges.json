@@ -38,5 +38,9 @@
   "karma_2k": {
     "emoji": "<:upvote:713823817004220416>",
     "description": "Acquire 2000 karma points."
+  },
+  "karma_3k": {
+    "emoji": "<:upvote:713823817004220416>",
+    "description": "Acquire 3000 karma points."
   }
 }
