@@ -34,8 +34,7 @@ exports.run = async (client, message, args) => {
   if(user === "guild") {
     const users = (await message.guild.members.fetch()).map(u => u)
 
-    for(let i = 0; i < users.length; i++) {
-      const loopUser = users[i]
+    for(const loopUser of users) {
       if(loopUser.bot || loopUser.user.bot) continue
       badger.addBadge(loopUser.id, badge, remove)
     }
