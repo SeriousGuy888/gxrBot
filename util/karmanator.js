@@ -150,21 +150,18 @@ exports.countVote = async (reaction, user, removed) => {
 
   let message = reaction.message
 
-  // reactions of bots and reactions of the message author do not count
-  if(message.guild && message.guild.id !== config.main.guild.id)
+  if(
+    (message.guild && message.guild.id !== config.main.guild.id) ||
+    (user.bot || user.id === message.author.id) || // // reactions of bots and reactions of the message author do not count
+    (message.webhookID || message.author.system) // webhook and system message authors cannot be added
+  ) {
     return
-  if(user.bot || user.id === message.author.id)
-    return
-  if(message.webhookID || message.author.system) // webhook and system message authors cannot be added
-    return
+  }
 
-
-  let emoji
-
-  if(reaction.emoji instanceof Discord.GuildEmoji) 
+  let emoji = reaction.emoji.name
+  if(reaction.emoji instanceof Discord.GuildEmoji) {
     emoji = reaction.emoji.id
-  else
-    emoji = reaction.emoji.name
+  }
 
   for(let i in settings.emojis) {
     if(settings.emojis[i].id === emoji) {
