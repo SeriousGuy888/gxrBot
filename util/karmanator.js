@@ -81,7 +81,7 @@ exports.add = async (userId, amount, options) => {
   if(currentKarma >= 100) await badger.awardBadge(userId, "karma_100", false, "acquiring 100 karma points")
   if(currentKarma >= 1000) await badger.awardBadge(userId, "kilokarma", false, "acquiring 1000 karma points")
   if(currentKarma >= 2000) await badger.awardBadge(userId, "karma_2k", false, "acquiring 2000 karma points")
-  if(currentKarma >= 2000) await badger.awardBadge(userId, "karma_3k", false, "acquiring 3000 karma points")
+  if(currentKarma >= 3000) await badger.awardBadge(userId, "karma_3k", false, "acquiring 3000 karma points")
 }
 
 exports.update = async () => {
