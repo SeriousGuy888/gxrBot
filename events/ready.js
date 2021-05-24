@@ -20,7 +20,7 @@ module.exports = async (client, message) => {
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
 
   client.user.setPresence({ status: "online" })
-  client.user.setActivity(`affektion beas unkrat!`, { type: "PLAYING" })
+  client.user.setActivity(`Jasper for vcdeAict8ricr! He got 100 on a test once.`, { type: "PLAYING" })
   
   
   schedule.scheduleJob("0 * * * *", () => {
