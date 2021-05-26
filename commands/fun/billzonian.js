@@ -136,7 +136,7 @@ exports.run = async (client, message, args) => {
           }
         }
         else {
-          responseEmbed.addField("No Words Found :(", "Try double checking your search term?")
+          responseEmbed.addField("No Words Found :(", "Try double checking your search term?\nRecollect that `C` has beed nuked from Billzonian!")
         }
         embedder.addBlankField(responseEmbed)
   
