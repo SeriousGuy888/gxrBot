@@ -19,7 +19,7 @@ module.exports = (original, replaceRegex, replaceWith, duckDiacritics) => {
 
     for(let j = 0; j < replaceWith.length; j++) {
       let censorChar = replaceWith.charAt(j)
-      let originalChar = occurences[i].charAt(Math.ceil(j * letterRatio))
+      let originalChar = occurences[i].charAt(Math.floor(j * letterRatio))
 
       if(originalChar.match(/[A-Z]/)) replacedOccurence += censorChar.toUpperCase()
       else                            replacedOccurence += censorChar.toLowerCase()
