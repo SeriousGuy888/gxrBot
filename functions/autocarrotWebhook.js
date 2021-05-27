@@ -2,6 +2,7 @@ module.exports = (author, message) => {
   const index = require("../index.js")
   const { client, config } = index
   const { logger } = client.util
+  const { preserveCaseReplace } = client.functions
 
   
   const searchHookName = `${config.main.botNames.lowerCamelCase} AutoCarrot`
@@ -16,29 +17,7 @@ module.exports = (author, message) => {
     if(!str.trim()) return // if the message is empty
 
     // this function censors the regex filter provided and also keeps casing
-    const censorWord = (original, filter, censor) => {
-      let replacementResult = original
-      let diacriticsRemoved = original.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      let occurences = diacriticsRemoved.match(filter)
-      for(let i in occurences) {
-        let resWithPreservedCase = ""
-        let letterRatio = occurences[i].length / censor.length
-        for(let j = 0; j < censor.length; j++) {
-          let censorChar = censor.charAt(j)
-          let originalChar = occurences[i].charAt(Math.floor(j * letterRatio))
-  
-          if(originalChar.match(/[A-Z]/))
-            resWithPreservedCase += censorChar.toUpperCase()
-          else
-            resWithPreservedCase += censorChar.toLowerCase()
-        }
-        replacementResult = replacementResult
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .replace(occurences[i], resWithPreservedCase)
-      }
-      return replacementResult
-    }
+    const censorWord = (original, filter, censor) => preserveCaseReplace(original, filter, censor, true)
 
     // uses filters as regexes
     let correctedMessage = str
