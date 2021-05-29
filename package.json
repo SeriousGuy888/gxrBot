@@ -24,6 +24,7 @@
     "axios": "^0.21.1",
     "canvas": "^2.7.0",
     "csvtojson": "^2.0.10",
+    "discord-buttons": "^2.4.1",
     "discord.js": "^12.5.3",
     "dot-prop": "^5.3.0",
     "dotenv": "^8.2.0",

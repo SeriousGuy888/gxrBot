@@ -17,6 +17,10 @@ const client = new Discord.Client({
   }
 })
 
+const DiscordButtons = require("discord-buttons")(client)
+
+
+
 const config = require("./config/_config.js") // config file
 const prefix = config.main.prefix // bot prefix
 
@@ -58,6 +62,7 @@ let {
 
 let priorityExports = {
   Discord,
+  DiscordButtons,
   client,
   config,
   fs,
