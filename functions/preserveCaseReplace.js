@@ -1,25 +1,29 @@
-module.exports = (original, replaceRegex, replaceWith, duckDiacritics) => {
-  let replacementResult = original
-  let diacriticsRemoved = duckDiacritics ? original.normalize("NFD").replace(/[\u0300-\u036f]/g, "") : original
-  let occurences = diacriticsRemoved.match(replaceRegex)
-  
-  for(let i in occurences) {
-    let resWithPreservedCase = ""
-    let letterRatio = occurences[i].length / replaceWith.length
-    for(let j = 0; j < replaceWith.length; j++) {
-      let censorChar = replaceWith.charAt(j)
-      let originalChar = occurences[i].charAt(Math.floor(j * letterRatio))
-
-      if(originalChar.match(/[A-Z]/)) resWithPreservedCase += censorChar.toUpperCase()
-      else                            resWithPreservedCase += censorChar.toLowerCase()
-    }
-    
-    if(duckDiacritics) {
-      replacementResult = replacementResult
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-    }
-    replacementResult = replacementResult.replace(occurences[i], resWithPreservedCase)
+module.exports = (original, replaceWith, duckDiacritics) => {
+  let sanitised = original
+  if(duckDiacritics) {
+    sanitised = original
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
   }
-  return replacementResult
+  
+  if(!replaceWith) return
+
+  let result = ""
+  let letterRatio = sanitised.length / replaceWith.length
+  for(let i = 0; i < replaceWith.length; i++) {
+    let replacementChar = replaceWith.charAt(i)
+    let originalChar = sanitised.charAt(Math.floor(i * letterRatio))
+
+    if(originalChar.match(/[A-Z]/)) result += replacementChar.toUpperCase()
+    else                            result += replacementChar.toLowerCase()
+  }
+  
+  if(duckDiacritics) {
+    result = result
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+  }
+    
+
+  return result
 }
