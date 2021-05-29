@@ -19,5 +19,5 @@ exports.run = async (client, message, args) => {
     return preserveCaseReplace(matched, filters[matched.toLowerCase()])
   })
 
-  message.channel.send(newContent)
+  message.channel.send(newContent.slice(0, 2000))
 }
