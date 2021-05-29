@@ -14,9 +14,8 @@ exports.run = async (client, message, args) => {
   const originalContent = args.join(" ")
   let newContent = originalContent
 
-  for(let loopFilter in filters) {
-    newContent = preserveCaseReplace(newContent, new RegExp(loopFilter, "gi"), filters[loopFilter], false)
-  }
+  const searchRegex = new RegExp(Object.keys(filters).join("|"), "gi")
+  newContent = newContent.replace(searchRegex, matched => preserveCaseReplace(matched, filters[matched]))
 
   message.channel.send(newContent)
 }
