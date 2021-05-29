@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
   if(!args[0]) return
 
   const filters = {
-    "ow": "owo",
+    "o": "owo",
     "u": "uwu",
     "r": "w",
   }
