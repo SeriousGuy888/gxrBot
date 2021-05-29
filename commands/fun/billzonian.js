@@ -40,7 +40,7 @@ exports.run = async (client, message, args) => {
         for(let i in lines) {
           let number = `\`${(parseInt(i) + 1).toString() + "."}\``
           if(useLetters) {
-            const letters = "abcdefghijklmnopqrstuvwxyz"
+            const letters = "abðdefghijklmnopqrstuvwxyz"
             number = letters.charAt(i % letters.length) + "."
           }
           if(bulletPoints) {
