@@ -35,7 +35,7 @@ module.exports = (author, message) => {
             }
           }
     
-          return preserveCaseReplace(matched, replaceWith)
+          return preserveCaseReplace(matched, replaceWith, true)
       })
     }
 
