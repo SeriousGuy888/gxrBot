@@ -2,6 +2,7 @@ exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { axios, csv, Discord } = index
   const { arrayHelper, embedder, logger } = client.util
+  const { didYouMean } = client.functions
 
   const repoUrl = "https://github.com/SeriousGuy888/Billzonian"
   const dictionaryUrl = "https://seriousguy888.github.io/Billzonian/vocabulary.csv"
@@ -9,7 +10,7 @@ exports.run = async (client, message, args) => {
 
 
   const response = await axios.get(dictionaryUrl)
-  
+
   if(response.status === 200) {
     const responseData = response.data
     const dictionaryData = await csv().fromString(responseData)
@@ -135,13 +136,27 @@ exports.run = async (client, message, args) => {
         }
       }
       else {
-        responseEmbed.addField("No Words Found :(", [
-          "Try double checking your search term?",
-          "Remember that `C` has been removed from Billzonian!",
-          "",
-          "Attempt reverifying ðy seartsh term?",
-          "Rekollekt ðat `C` has beed nuked from Billzonian!"
-        ].join("\n"))
+        const allWords = dictionaryData.map(e => e.word)
+        const allSimilarities = didYouMean(searchTerm, allWords)
+        const topSimilarities = []
+
+        for(let i = 0; i < 8; i++) {
+          topSimilarities.push(allSimilarities[i].target)
+        }
+
+        const wordSuggestionsStr = "```\n" + topSimilarities.map(e => `- ${e}`).join("\n") + "```"
+
+
+        responseEmbed
+          .addField("No Words Found :(", [
+            "Try double checking your search term?",
+            "Remember that `C` has been removed from Billzonian!",
+            "",
+            "Attempt reverifying ðy seartsh term?",
+            "Rekollekt ðat `C` has beed nuked from Billzonian!"
+          ].join("\n"))
+          .addField("\u200b", "\u200b")
+          .addField("Did you mean one of these words?", wordSuggestionsStr.slice(0, 1024))
       }
       embedder.addBlankField(responseEmbed)
 
