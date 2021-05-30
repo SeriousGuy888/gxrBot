@@ -4,10 +4,8 @@ const {
   client,
   Discord,
   prefix,
-  stringSimilarity,
-  gameCache
 } = index
-const { gamePlayerData } = require("../cache.js")
+const { didYouMean } = client.functions
 
 
 exports.handle = async (message) => {
@@ -45,21 +43,14 @@ exports.handle = async (message) => {
 
     
     const badCommand = invalid => {
-      if(invalid)
-        message.channel.send("The requested command failed to run as it is not coded properly.") 
+      if(invalid) message.channel.send("The requested command failed to run as it is not coded properly.") 
       else {
-        const allCommandSimilarities = stringSimilarity.findBestMatch(commandName, client.publicCommandList).ratings
-        allCommandSimilarities.sort((a, b) => {
-          if(a.rating < b.rating)
-            return 1
-          if(a.rating > b.rating)
-            return -1
-          return 0
-        })
+        const allCommandSimilarities = didYouMean(commandName, client.publicCommandList)
 
         const topCommands = []
-        for(let i = 0; i < 5; i++)
+        for(let i = 0; i < 5; i++) {
           topCommands.push(allCommandSimilarities[i].target)
+        }
 
 
         const commandSuggestionsStr = "```md\n" + topCommands.map(e => `* ${e}`).join("\n") + "```"
