@@ -60,9 +60,9 @@ exports.run = async (client, message, args) => {
         searchTerm = params.toLowerCase()
         searchResults = dictionaryData.filter(e => {
           return (
-            e.word.toLowerCase().includes(searchTerm) ||
-            e.translation.toLowerCase().includes(searchTerm) ||
-            e.notes.toLowerCase().includes(searchTerm)
+            e.word.toLowerCase().includes(searchTerm)
+            || e.translation.toLowerCase().includes(searchTerm)
+            // || e.notes.toLowerCase().includes(searchTerm)
           )
         })
       }
