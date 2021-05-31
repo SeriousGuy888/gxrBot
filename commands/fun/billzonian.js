@@ -137,11 +137,12 @@ exports.run = async (client, message, args) => {
       }
       else {
         const allWords = dictionaryData.map(e => e.word)
-        const allSimilarities = didYouMean(searchTerm, allWords)
+        let allSimilarities = didYouMean(searchTerm, allWords).map(e => e.target)
+        allSimilarities = [...new Set(allSimilarities)] // remove duplicates from function return
         const topSimilarities = []
 
         for(let i = 0; i < 8; i++) {
-          topSimilarities.push(allSimilarities[i].target)
+          topSimilarities.push(allSimilarities[i])
         }
 
         const wordSuggestionsStr = "```\n" + topSimilarities.map(e => `- ${e}`).join("\n") + "```"
