@@ -35,17 +35,9 @@ module.exports = async (client, message) => {
     banker.updateInventories()
   }, 5 * 60 * 1000)
 
-  setInterval(() => {
-    minecraftPinger.update()
-  }, 30 * 60 * 1000)
-
-  setTimeout(async () => {
-    index.propaganda(client)
-  }, 1000)
-
-  schedule.scheduleJob("*/5 * * * *", async () => {
-    minecraftPinger.recordMinehut("cheezsurv4", "cheezsurv4")
-  })
+  setInterval(() => minecraftPinger.update(), 30 * 60 * 1000)
+  setTimeout(async () => index.propaganda(client), 1000)
+  schedule.scheduleJob("*/5 * * * *", async () => minecraftPinger.recordMinehut("cheezsurv4", "cheezsurv4"))
 
   schedule.scheduleJob("0 */6 * * *", () => {
     const emb = new Discord.MessageEmbed()
