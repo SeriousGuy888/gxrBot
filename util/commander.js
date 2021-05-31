@@ -147,7 +147,7 @@ exports.badCommand = (invalidCommand, message, commandName) => {
     }
 
 
-    const commandSuggestionsStr = "```md\n" + topCommands.map(e => `* ${e}`).join("\n") + "```"
+    const commandSuggestionsStr = "```\n" + topCommands.map(e => `- ${e}`).join("\n") + "```"
 
     const emb = new Discord.MessageEmbed()
     embedder.addAuthor(emb, message.author)
