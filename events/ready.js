@@ -8,7 +8,6 @@ module.exports = async (client, message) => {
     logger,
     messenger,
     minecraftPinger,
-    poller,
     preferencer,
     guildPreferencer,
     statTracker
@@ -16,7 +15,6 @@ module.exports = async (client, message) => {
   const { awaitOrders } = client.functions
 
   awaitOrders()
-  poller.closeOldPolls()
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
 
   client.user.setPresence({ status: "online" })
