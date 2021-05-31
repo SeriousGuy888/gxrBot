@@ -1,6 +1,6 @@
 module.exports = (client) => {
   const index = require("../index.js")
-  const { Discord, schedule } = index
+  const { config, Discord, schedule } = index
   const {
     badger,
     banker,
@@ -37,4 +37,18 @@ module.exports = (client) => {
       .setDescription("<#735708848333258822>")
     messenger.dm("414938441546203136", emb)
   })
+
+  // schedule.scheduleJob("* */12 * * *", async () => {
+  //   const channel = await client.channels.fetch("755590346636918946")
+  //   const literacyConfig = config.propaganda.literacy
+  //   const possibleTexts = literacyConfig.texts
+
+  //   const chosenText = "**Latest Propaganda**\n" + possibleTexts[Math.floor(Math.random() * possibleTexts.length)]
+  //   const messageChunks = chosenText.match(/(.|\n){1,2000}/g)
+
+
+  //   for(let loopChunk of messageChunks) {
+  //     channel.send(loopChunk)
+  //   }
+  // })
 }
