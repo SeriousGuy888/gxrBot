@@ -9,17 +9,8 @@ const { didYouMean } = client.functions
 
 
 exports.handle = async (message) => {
-  const {
-    embedder,
-    logger,
-    messenger,
-    timer,
-    guildPreferencer,
-    permisser,
-    statTracker,
-    gamer,
-  } = client.util
-  const { extractArgs } = this
+  const { embedder, logger, messenger, timer, guildPreferencer, permisser, statTracker, gamer } = client.util
+  const { badCommand, extractArgs } = this
 
   if(message.author.bot)
     return
@@ -41,30 +32,6 @@ exports.handle = async (message) => {
       return
     }
 
-    
-    const badCommand = invalid => {
-      if(invalid) message.channel.send("The requested command failed to run as it is not coded properly.") 
-      else {
-        const allCommandSimilarities = didYouMean(commandName, client.publicCommandList)
-
-        const topCommands = []
-        for(let i = 0; i < 5; i++) {
-          topCommands.push(allCommandSimilarities[i].target)
-        }
-
-
-        const commandSuggestionsStr = "```md\n" + topCommands.map(e => `* ${e}`).join("\n") + "```"
-
-        const emb = new Discord.MessageEmbed()
-        embedder.addAuthor(emb, message.author)
-          .setColor(config.main.colours.error)
-          .setTitle("Invalid Command")
-          .setDescription(`Did you mean one of these commands?\n${commandSuggestionsStr}`.slice(0, 2048))
-          .setFooter(`${prefix}help to see list of commands.`)
-        message.channel.send(emb)
-      }
-    }
-
 
     if(command && command.alias) {
       commandName = command.alias
@@ -73,7 +40,7 @@ exports.handle = async (message) => {
       command = client.commands.get(commandName)
     }
     if(!command) {
-      badCommand(false)
+      badCommand(false, message, commandName)
       return
     }
 
@@ -81,7 +48,7 @@ exports.handle = async (message) => {
       command.help(client, message, args)
     else {
       if(!command.run) {
-        badCommand(true)
+        badCommand(true, message, commandName)
         return
       }
       if(command.disabled) {
@@ -165,6 +132,33 @@ exports.handle = async (message) => {
     }
   }
 }
+
+
+exports.badCommand = (invalidCommand, message, commandName) => {
+  const { embedder } = client.util
+
+  if(invalidCommand) message.channel.send("The requested command exists but failed to run D:") 
+  else {
+    const allCommandSimilarities = didYouMean(commandName, client.publicCommandList)
+
+    const topCommands = []
+    for(let i = 0; i < 5; i++) {
+      topCommands.push(allCommandSimilarities[i].target)
+    }
+
+
+    const commandSuggestionsStr = "```md\n" + topCommands.map(e => `* ${e}`).join("\n") + "```"
+
+    const emb = new Discord.MessageEmbed()
+    embedder.addAuthor(emb, message.author)
+      .setColor(config.main.colours.error)
+      .setTitle("Invalid Command")
+      .setDescription(`Did you mean one of these commands?\n${commandSuggestionsStr}`.slice(0, 2048))
+      .setFooter(`${prefix}help to see list of commands.`)
+    message.channel.send(emb)
+  }
+}
+
 
 exports.extractArgs = (message) => {
   const args = message
