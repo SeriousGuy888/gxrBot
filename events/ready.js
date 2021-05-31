@@ -45,23 +45,9 @@ module.exports = async (client, message) => {
     index.propaganda(client)
   }, 1000)
 
-  // schedule.scheduleJob("*/15 * * * *", async () => {
-  //   const channel = await client.channels.fetch("749728416827310181")
-  //   channel.send("e")
-  // })
-
   schedule.scheduleJob("*/5 * * * *", async () => {
     minecraftPinger.recordMinehut("cheezsurv4", "cheezsurv4")
   })
-
-  // schedule.scheduleJob("0 0 * * *", () => {
-  //   const emb = new Discord.MessageEmbed()
-  //     .setColor("#23a1b1")
-  //     .setTitle("<:microsoft:829801007764471808> This is Microsoft")
-  //     .setDescription("Feed me moolah immediately or your :computer: will be :bricks:ed.")
-  //   messenger.dm("427925505581383721", emb) // liaosmdk
-  //   messenger.dm("393590581000929281", emb) // jajspoder
-  // })
 
   schedule.scheduleJob("0 */6 * * *", () => {
     const emb = new Discord.MessageEmbed()
