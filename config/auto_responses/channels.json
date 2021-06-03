@@ -170,6 +170,24 @@
       "reactions": [
         "#♟"
       ]
+    },
+    {
+      "enabled": true,
+      "conditional": {
+        "enabled": true,
+        "allRequired": false,
+        "conditions": [
+          {
+            "enabled": true,
+            "type": "regex",
+            "expression": "gartic ?(tele)?phone",
+            "flags": "gi"
+          }
+        ]
+      },
+      "reactions": [
+        "#☎"
+      ]
     }
   ],
   "634597235362889728": [
