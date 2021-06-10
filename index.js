@@ -177,7 +177,6 @@ for(let loopLog of logQueue)
 // function and util imports ↓
 
 const {
-  autocarrotWebhook,
   autoResponses,
   awaitOrders,
   commandHelpEmbed,
@@ -216,7 +215,6 @@ module.exports = {
   Canvas,
   Chess,
 
-  autocarrotWebhook,
   autoResponses,
   awaitOrders,
   commandHelpEmbed,

@@ -6,6 +6,7 @@ module.exports = async (client, message) => {
     logger,
     guildPreferencer,
   } = client.util
+  const { autocarrot } = client.functions
 
 
   commander.handle(message)
@@ -39,7 +40,6 @@ module.exports = async (client, message) => {
       )
         break autocarrot
 
-      const autocarrotWebhook = index.autocarrotWebhook
       const swearCensors = config.autocarrot.words
 
       let needsCorrecting = false
@@ -51,8 +51,7 @@ module.exports = async (client, message) => {
         }
       }
 
-      if(needsCorrecting)
-        autocarrotWebhook(message.author, message)
+      if(needsCorrecting) autocarrot(message.author, message)
     }
   }
 
