@@ -67,8 +67,7 @@ exports.deleteMessage = (message, errorMessage) => {
 }
 
 exports.punish = (message, mode, placeholders) => {
-  if(!message || !mode)
-    throw Error("Specify message and mode to penalize.")
+  if(!message || !mode) throw Error("Specify message and mode to penalize.")
   
   let scoldingMessage = "co-op error0"
   switch(mode) {
@@ -77,7 +76,7 @@ exports.punish = (message, mode, placeholders) => {
         scoldingMessage = "co-op error1"
         break
       }
-      scoldingMessage = `Hey, so you seem to have misspelt \`${placeholders[0]}\`. Don't worry, \`${placeholders[1]}\` is a very common misspelling (definitely). I've gone ahead and nuked your message. Try to be a better ~~cult~~ league member next time.`
+      scoldingMessage = `Hey, so you seem to have misspelled \`${placeholders[0]}\`. Don't worry, \`${placeholders[1]}\` is a very common misspelling (definitely). I've gone ahead and nuked your message. Try to be a better ~~cult~~ ~~league~~ republic member next time.`
       break
     case "ows":
       scoldingMessage = `Your contribution to the one word story may only **be one word** and you **may not have attachments**.`
