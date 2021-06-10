@@ -8,7 +8,7 @@ module.exports = async (client) => {
   logger.log(`${config.main.botNames.lowerCamelCase} successfully loaded ${process.env.DEV_MODE ? "in dev mode" : ""}`)
 
   client.user.setPresence({ status: "online" })
-  client.user.setActivity(`Jascism moment!`, { type: "LISTENING" })
+  client.user.setActivity(`jascism moment!`, { type: "PLAYING" })
   
   scheduleTasks(client)
 }
