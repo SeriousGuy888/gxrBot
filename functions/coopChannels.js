@@ -7,15 +7,28 @@ module.exports = (message) => {
 
   const cultLegal = (content, phrase) => {
     const liamCult = () => {
-      const leagues = config.coopchannels.liamLeagues
-      messenger.dm("427925505581383721", leagues[Math.floor(Math.random() * 64)])
+      const permutations = []
+
+      const letters = phrase.split("")
+      const permCount = 1 << phrase.length
+      
+      for(let perm = 0; perm < permCount; perm++) {
+        letters.reduce((currentPerm, letter, i) => {
+          letters[i] = (currentPerm & 1) ? letter.toUpperCase() : letter.toLowerCase()
+          return currentPerm >> 1
+        }, perm)
+      
+        const result = letters.join("")
+        permutations.push(result)
+      }
+
+      messenger.dm("427925505581383721", permutations[Math.floor(Math.random() * permutations.length)])
     }
 
     content = content.toLowerCase()
     phrase = phrase.toLowerCase()
     if(content === phrase && legal()) {
-      if(message.author.id !== "427925505581383721")
-        liamCult()
+      if(message.author.id !== "427925505581383721") liamCult()
       return true
     }
   }
