@@ -1,8 +1,4 @@
-## ~~g8cBot~~ g9lBot
-A bot with features exclusive to making the g9l better.
-
-*(Newly not grade 8! Can you imagine being a grade 8? I certainly can't)*
-
+## ~~g8cBot~~ ~~g9lBot~~ gxrBot
 
 **Features**
 
@@ -16,5 +12,3 @@ A bot with features exclusive to making the g9l better.
  - [x] A ping command
  - [x] Code stolen from the InsomniCheez codebase
  - [ ] Automatic homework completer
-
-> g9lBot: Infinitely in beta since December 12th, 2019
