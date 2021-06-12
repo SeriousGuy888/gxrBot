@@ -1,7 +1,7 @@
 {
-  "name": "g8c-bot",
+  "name": "gxr-bot",
   "version": "1.0.0",
-  "description": "Bot made for the G8C with features specific to it.",
+  "description": "Bot made for the GXR with features specific to it.",
   "engines": {
     "node": "14.x"
   },
