@@ -38,17 +38,8 @@ module.exports = (client) => {
     messenger.dm("414938441546203136", emb)
   })
 
-  // schedule.scheduleJob("* */12 * * *", async () => {
-  //   const channel = await client.channels.fetch("755590346636918946")
-  //   const literacyConfig = config.propaganda.literacy
-  //   const possibleTexts = literacyConfig.texts
-
-  //   const chosenText = "**Latest Propaganda**\n" + possibleTexts[Math.floor(Math.random() * possibleTexts.length)]
-  //   const messageChunks = chosenText.match(/(.|\n){1,2000}/g)
-
-
-  //   for(let loopChunk of messageChunks) {
-  //     channel.send(loopChunk)
-  //   }
-  // })
+  schedule.scheduleJob("30 */2 * * *", () => {
+      const channel = await client.channels.fetch("755590346636918946")
+      channel.send("jascism moment")
+  })
 }
