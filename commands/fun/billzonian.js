@@ -166,8 +166,9 @@ exports.run = async (client, message, args) => {
     embedder.addBlankField(responseEmbed)
 
 
-    return targetMessage.edit(responseEmbed)
+    return targetMessage.edit("pagdfs")
       .then(async editedMsg => {
+        editedMsg.edit(responseEmbed)
         const reactionEmojis = ["⏪", "◀️", "▶️", "⏩"]
         const reactionFilter = (reaction, user) => user.id === message.author.id && reactionEmojis.includes(reaction.emoji.name)
 
