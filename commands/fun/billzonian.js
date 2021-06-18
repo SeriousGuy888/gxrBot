@@ -79,7 +79,7 @@ exports.run = async (client, message, args) => {
       .setURL(dictionaryUrl)
       .setDescription([
         "`billzonian [page]` to go to a page, **or** `billzonian [search term]` to search.",
-        "`Alts` = Alt forms an spellings of the same word.",
+        "`Alts` = Alt forms and spellings of the same word.",
         "`IR` = Irregular!",
         "",
         "Is a word missing?",
