@@ -122,8 +122,8 @@ exports.run = async (client, message, args) => {
           `${wordData.word && "**" + wordData.word + "**"} \`${wordData.pos}\``,
           [
             wordData.isExactMatch && "⭐ __EXACT MATCH__ ⭐\n",
-            alts.length  && `Alts: ${alts.join(", ")}`,
             ipaReadings  && ipaReadings.map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`).join(" or "),
+            alts.length  && `Alts: ${alts.join(", ")}`,
             translation  && numberise(translation, false, false) + "\n",
             example      && numberise(example, true, false),
             notes        && numberise(notes, false, true),
