@@ -62,6 +62,7 @@ exports.run = async (client, message, args) => {
         return (
           e.word.toLowerCase().includes(searchTerm)
           || e.translation.toLowerCase().includes(searchTerm)
+          || e.alt_forms.toLowerCase().includes(searchTerm)
           // || e.notes.toLowerCase().includes(searchTerm)
         )
       })
@@ -78,7 +79,8 @@ exports.run = async (client, message, args) => {
       .setURL(dictionaryUrl)
       .setDescription([
         "`billzonian [page]` to go to a page, **or** `billzonian [search term]` to search.",
-        "`AF` = Alt Forms | `AS` = Alt Spellings | `IR` = Irregular!",
+        "`Alts` = Alt forms an spellings of the same word.",
+        "`IR` = Irregular!",
         "",
         "Is a word missing?",
         "Does a word bea missing?",
@@ -111,6 +113,7 @@ exports.run = async (client, message, args) => {
         }
 
         const ipaReadings = wordData.ipa.split("|")
+        const alts = wordData.alt_forms.split("|")
         const translation = wordData.translation
         const example = wordData.example
         const notes  = wordData.notes
@@ -119,6 +122,7 @@ exports.run = async (client, message, args) => {
           `${wordData.word && "**" + wordData.word + "**"} \`${wordData.pos}\``,
           [
             wordData.isExactMatch && "⭐ __EXACT MATCH__ ⭐\n",
+            alts.length  && `Alts: ${alts.join(", ")}`,
             ipaReadings  && ipaReadings.map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`).join(" or "),
             translation  && numberise(translation, false, false) + "\n",
             example      && numberise(example, true, false),
