@@ -19,6 +19,16 @@
       ]
     }
   ],
+  "855923632889921566": [
+    {
+      "comment": "g9l vaccine updates channel",
+      "enabled": true,
+      "reactions": [
+        "upvote",
+        "downvote"
+      ]
+    }
+  ],
   "620116327872462888": [
     {
       "comment": "g9l kali wisdom broadcast channel",
