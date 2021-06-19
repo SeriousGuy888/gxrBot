@@ -155,10 +155,7 @@ exports.run = async (client, message, args) => {
       responseEmbed
         .addField("No Words Found :(", [
           "Try double checking your search term?",
-          "Remember that `C` has been removed from Billzonian!",
-          "",
-          "Attempt reverifying ðy seartsh term?",
-          "Rekollekt ðat `C` has beed nuked from Billzonian!"
+          "Attempt reakratising cy search term?",
         ].join("\n"))
         .addField("\u200b", "\u200b")
         .addField("Did you mean one of these words?", wordSuggestionsStr.slice(0, 1024))
