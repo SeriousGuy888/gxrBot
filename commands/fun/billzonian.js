@@ -79,7 +79,7 @@ exports.run = async (client, message, args) => {
       .setURL(dictionaryUrl)
       .setDescription([
         "`billzonian [page]` to go to a page, **or** `billzonian [search term]` to search.",
-        "`Alts` = Alt forms and spellings of the same word.",
+        "`Alt` = Alt forms and spellings of the same word.",
         "`IR` = Irregular!",
         "",
         "Is a word missing?",
@@ -122,11 +122,11 @@ exports.run = async (client, message, args) => {
           `${wordData.word && "**" + wordData.word + "**"} \`${wordData.pos}\``,
           [
             wordData.isExactMatch && "⭐ __EXACT MATCH__ ⭐\n",
-            ipaReadings  && ipaReadings.map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`).join(" or "),
-            alts.length  && `Alts: ${alts.join(", ")}`,
-            translation  && numberise(translation, false, false) + "\n",
-            example      && numberise(example, true, false),
-            notes        && numberise(notes, false, true),
+            ipaReadings         && ipaReadings.map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`).join(" or "),
+            wordData.alt_forms  && `Alt: ${alts.map(e => "`" + e + "`").join(", ")}`,
+            translation         && numberise(translation, false, false) + "\n",
+            example             && numberise(example, true, false),
+            notes               && numberise(notes, false, true),
           ].filter(e => e).join("\n"),
           !wordData.isExactMatch // make field not inline if exact match
         )
