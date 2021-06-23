@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
   const responseData = response.data
   const dictionaryData = await csv().fromString(responseData)
 
-  const itemsPerPage = 3
+  const itemsPerPage = 4
   let maxPages = Math.ceil(dictionaryData.length / itemsPerPage)
 
   let page = 1
@@ -40,7 +40,7 @@ exports.run = async (client, message, args) => {
     for(let i in lines) {
       let number = `\`${(parseInt(i) + 1).toString() + "."}\``
       if(useLetters) {
-        const letters = "abðdefghijklmnopqrstuvwxyz"
+        const letters = "abcdefghijklmnopqrstuvwxyz"
         number = letters.charAt(i % letters.length) + "."
       }
       if(bulletPoints) {
@@ -97,11 +97,18 @@ exports.run = async (client, message, args) => {
 
 
     if(maxPages > 0) {
-      const exactMatchIndex = searchResults.findIndex(e => e.word.toLowerCase() === searchTerm && e.word) // empty strings dont count
-      if(exactMatchIndex >= 0) {
-        searchResults = arrayHelper.moveArrayItem(searchResults, exactMatchIndex, 0)
-        searchResults[0].isExactMatch = true
-      }
+      // const exactMatchIndex = searchResults.findIndex(e => e.word.toLowerCase() === searchTerm && e.word) // empty strings dont count
+      // if(exactMatchIndex >= 0) {
+      //   searchResults = arrayHelper.moveArrayItem(searchResults, exactMatchIndex, 0)
+      //   searchResults[0].isExactMatch = true
+      // }
+
+      searchResults.forEach(e => {
+        if(e.word && e.word.toLowerCase() === searchTerm) {
+          e.isExactMatch = true
+          searchResults = arrayHelper.moveArrayItem(searchResults, searchResults.indexOf(e), 0)
+        }
+      })
 
 
       for(let i = 0; i < itemsPerPage; i++) {
@@ -119,22 +126,18 @@ exports.run = async (client, message, args) => {
         const notes  = wordData.notes
 
         responseEmbed.addField(
-          `${wordData.word && "**" + wordData.word + "**"} \`${wordData.pos}\``,
+          `${wordData.word && "**" + wordData.word + "**"} \`${wordData.pos}\` ${wordData.isExactMatch ? "*(⭐ Exact Match)*" : ""}`,
           [
-            wordData.isExactMatch && "⭐ __EXACT MATCH__ ⭐\n",
             ipaReadings         && ipaReadings.map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`).join(" or "),
             wordData.alt_forms  && `Alt: ${alts.map(e => "`" + e + "`").join(", ")}`,
             translation         && numberise(translation, false, false) + "\n",
             example             && numberise(example, true, false),
             notes               && numberise(notes, false, true),
           ].filter(e => e).join("\n"),
-          !wordData.isExactMatch // make field not inline if exact match
+          true
         )
-        if(wordData.isExactMatch) {
-          embedder.addBlankField(responseEmbed)
-        }
 
-        if((i + 1) % 3 === 0) {
+        if((i + 1) % 2 === 0) {
           embedder.addBlankField(responseEmbed)
         }
       }
