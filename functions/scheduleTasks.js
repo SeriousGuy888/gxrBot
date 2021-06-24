@@ -40,6 +40,6 @@ module.exports = (client) => {
 
   schedule.scheduleJob("0 */12 * * *", async () => {
     const channel = await client.channels.fetch("755590346636918946")
-    channel.send("jakob finds gangabakalarachying to bea extremely joysome")
+    channel.send("jakob finds gangabakalarachying tu bea extremely joysome")
   })
 }
