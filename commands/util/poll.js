@@ -18,24 +18,15 @@ exports.run = async (client, message, args) => {
   if(!pollChannel.isText()) return message.channel.send("Specify a text channel!")
 
   switch(args[1].toLowerCase()) {
-    case "open":
-    case "start":
     case "create":
-      if(message.guild && !permisser.hasPermission(message.member, ["ADMINISTRATOR"])) {
-        if(pollChannel.id !== message.channel.id) {
-          pollChannel = await client.channels.fetch(message.channel.id)
-          message.channel.send(`Your poll channel setting was ignored because you do not have administrator permissions. Your poll will be created in this channel, where you are running the command.`)
-        }
+      if(!permisser.hasPermission(message.member, ["ADMINISTRATOR"])) {
+        pollChannel = message.channel
       }
 
-      const question = args.slice(2).join(" ")
-      if(!question) {
-        this.help(client, message, args)
-        return
-      }
+      const question = args.slice(2).join(" ").trim()
+      if(!question) return this.help(client, message, args)
 
-      const { attachments } = message
-      let attachmentImage = attachments.first()?.url
+      let attachmentImage = message.attachments.first()?.url
 
 
       let poll = {
@@ -43,18 +34,20 @@ exports.run = async (client, message, args) => {
         channel: pollChannel.id,
         image: attachmentImage,
         question,
-        type: 0,
         wip: true,
         options: new Set(),
       }
 
 
       const emb = await poller.getPollEmbed(poll)
-      
       const msg = await message.channel.send(emb)
       await msg.react(config.polls.emoji)
+
       const filter = (reaction, reactor) => (reactor.id === message.author.id)
-      const collector = msg.createReactionCollector(filter, { time: config.polls.collectorTimeout, dispose: true })
+      const collector = msg.createReactionCollector(filter, {
+        time: config.polls.collectorTimeout,
+        dispose: true
+      })
         .on("collect", async (reaction, reactor) => {
           collector.resetTimer({ time: config.polls.collectorTimeout })
 
@@ -71,7 +64,7 @@ exports.run = async (client, message, args) => {
           }
           else {
             if(reaction.emoji instanceof Discord.GuildEmoji) {
-              message.channel.send("Custom emojis cannot be used in these polls!")
+              message.channel.send("Custom emojis are currently not supported!")
               return
             }
             if(poll.options.size < config.polls.maxOptions) {
@@ -94,8 +87,6 @@ exports.run = async (client, message, args) => {
 
       break
     case "close":
-    case "stop":
-    case "end":
       const pollClosedStatus = await poller.stopPoll(args.slice(2).join(" "), message.author.id)
       const pollCloseEmb = new Discord.MessageEmbed()
       embedder.addAuthor(pollCloseEmb, message.author)
