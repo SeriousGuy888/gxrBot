@@ -107,34 +107,32 @@ exports.run = async (client, message, args) => {
 }
 
 exports.help = async (client, message, args) => {
-  const index = require("../../index.js")
-  const { config } = index
-  const { commandHelpEmbed } = client.functions
+  // const index = require("../../index.js")
+  // const { config } = index
+  // const { commandHelpEmbed } = client.functions
 
-  const embed = commandHelpEmbed(message, {
-    title: "**Poll Command**",
-    description: [
-      "Create a fancy poll with bar graphs!",
-      "Anybody is allowed to make a poll, not just server admins,",
-      "but you can only close a poll that you made."
-    ].join(" "),
-    syntax: `${config.main.prefix}poll <Channel> <(create <question>) | (close <Poll ID>)>`,
-    example: [
-      `**Create Poll in This Channel**`,
-      ` ${config.main.prefix}poll . create Election or Something:tm:`,
-      "",
-      `**End Poll in This Channel**`,
-      ` ${config.main.prefix}poll . close 1234213412341234`,
-      "",
-      `**Create Poll in Some Other Channel __SERVER ADMIN ONLY__**`,
-      ` ${config.main.prefix}poll 1234213412341234 create Election or Something:tm:`,
-      "",
-      `**End Poll in Some Other Channel**`,
-      ` ${config.main.prefix}poll 1234213412341234 close 1234213412341234`,
-    ].join("\n"),
-  })
+  // const embed = commandHelpEmbed(message, {
+  //   title: "**Poll Command**",
+  //   description: [
+  //     "Create a fancy poll with bar graphs!",
+  //     "Anybody is allowed to make a poll, not just server admins,",
+  //     "but you can only close a poll that you made."
+  //   ].join(" "),
+  //   syntax: `${config.main.prefix}poll <Channel> <(create <question>) | (close <Poll ID>)>`,
+  //   example: [
+  //     `**Create Poll in This Channel**`,
+  //     ` ${config.main.prefix}poll . create Election or Something:tm:`,
+  //     "",
+  //     `**End Poll in This Channel**`,
+  //     ` ${config.main.prefix}poll . close 1234213412341234`,
+  //     "",
+  //     `**Create Poll in Some Other Channel __SERVER ADMIN ONLY__**`,
+  //     ` ${config.main.prefix}poll 1234213412341234 create Election or Something:tm:`,
+  //     "",
+  //     `**End Poll in Some Other Channel**`,
+  //     ` ${config.main.prefix}poll 1234213412341234 close 1234213412341234`,
+  //   ].join("\n"),
+  // })
   
-  message.channel.send(embed)
+  message.channel.send("help message goes here")
 }
-
-exports.cooldown = 30
