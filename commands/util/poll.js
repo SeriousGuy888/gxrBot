@@ -8,6 +8,11 @@ exports.run = async (client, message, args) => {
     return
   }
 
+  if(!message.guild) {
+    message.channel.send("This command may only be executed in a guild!")
+    return
+  }
+
   let pollChannel = await commander.getMentionArgs(args[0], 1, message, true)
   if(!pollChannel)
     return message.channel.send("specify valid channel in guild!")
