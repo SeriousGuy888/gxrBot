@@ -52,7 +52,7 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
 
 
     const reactions = message?.reactions.cache
-    const allReactionKeys = reactions.firstKey(reactions.size) // get an array of all the reaction keys
+    const allReactionKeys = Array.from(reactions.keys())
     const options = []
 
     let maxCount = 0 // option with the highest vote count
