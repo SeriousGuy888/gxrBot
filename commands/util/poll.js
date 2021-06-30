@@ -118,16 +118,16 @@ exports.help = async (client, message, args) => {
     syntax: `${config.main.prefix}poll <Channel or "." for current channel> <(create <question>) | (close <Poll ID>)>`,
     example: [
       `**Create Poll in This Channel**`,
-      ` ${config.main.prefix}poll . create Election or Something:tm:`,
+      `${config.main.prefix}poll . create Election or Something:tm:`,
       "",
       `**End Poll in This Channel**`,
-      ` ${config.main.prefix}poll . close 1234213412341234`,
+      `${config.main.prefix}poll . close 1234213412341234`,
       "",
-      `**Create Poll in Some Other Channel`,
-      ` ${config.main.prefix}poll #channel-id-or-mention create Election or Something:tm:`,
+      `**Create Poll in Some Other Channel**`,
+      `${config.main.prefix}poll #channel-id-or-mention create Election or Something:tm:`,
       "",
       `**End Poll in Some Other Channel**`,
-      ` ${config.main.prefix}poll #channel-id-or-mention close 1234213412341234`,
+      `${config.main.prefix}poll #channel-id-or-mention close 1234213412341234`,
     ].join("\n"),
   })
   
