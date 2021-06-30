@@ -155,17 +155,3 @@ exports.stopPoll = async (channel, pollId, requester) => {
     message: `Closed [poll](${message.url}).`
   }
 }
-
-exports.closeOldPolls = async () => {
-  // const pollsColl = db.collection("polls")
-  // const querySnapshot = await pollsColl
-  //   .orderBy("timestamp", "asc")
-  //   .limit(1)
-  //   .get()
-  
-  // if(!querySnapshot.empty) {
-    // if(querySnapshot.docs[0].data().timestamp < Date.now() - 60 * 24 * 60 * 60 * 1000) {
-    //   this.stopPoll(querySnapshot.docs[0].data().id, client.user.id)
-    // }
-  // }
-}
