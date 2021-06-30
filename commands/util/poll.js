@@ -14,8 +14,8 @@ exports.run = async (client, message, args) => {
   }
 
   let pollChannel = await commander.getMentionArgs(args[0], 1, message, true)
-  if(!pollChannel)
-    return message.channel.send("specify valid channel in guild!")
+  if(!pollChannel) return message.channel.send("Please specify a valid channel that is in this guild!")
+  if(!pollChannel.isText()) return message.channel.send("Specify a text channel!")
 
   switch(args[1].toLowerCase()) {
     case "open":
