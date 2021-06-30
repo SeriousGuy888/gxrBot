@@ -1,86 +1,86 @@
 const index = require("../index.js")
 const { client, config, Discord, db, firebaseAdmin } = index
 const { embedder, messenger } = client.util
-const { serverTimestamp } = firebaseAdmin.firestore.FieldValue
 
 
-exports.getPollEmbed = async (pollObject, closed, message, timeoutClose) => {
-  const owner = await client.users.fetch(pollObject.owner)
-
+exports.getPollEmbed = async (pollObject, closed, message) => {
   const pollEmb = new Discord.MessageEmbed()
-  embedder.addAuthor(pollEmb, owner)
     .setColor("#dfdf23")
-    .setTitle(`Poll (${pollObject.type ? "Survey" : "Vote"} Mode)`)
-    .setDescription(pollObject.question)
+    .setTitle("Poll")
+    
+  if(pollObject) {
+    pollEmb.setDescription(pollObject.question)
+    
+    if(pollObject.wip) {
+      pollEmb
+        .setTitle("Setup Poll")
+        .addField("Channel", pollObject.channel)
+        .addField("Instructions for Poller", `React with ${config.polls.emoji} to **begin polling**.\nReact with any other emoji to **add an option**.`)
 
-  if(pollObject.wip) {
-    pollEmb
-      .addField("Channel", pollObject.channel)
-      .addField("Instructions for Poller", `React with ${config.polls.emoji} to **begin polling**.\nReact with any other emoji to **add an option**.`)
+      const options = [...pollObject.options] ?? []
+      if(!options.length) {
+        pollEmb.setFooter("Go on! Add an option!")
+      }
+      else {
+        for(let i = 0; i < options.length; i++) {
+          pollEmb.addField(`\`Option ${i + 1}\``, options[i], true)
+        }
+    
+        if(pollObject.wip && options.length >= config.polls.maxOptions) {
+          pollEmb.addField("Max Options Reached", `You can only have \`${config.polls.maxOptions}\` options in one poll.`, true)
+        }
+      }
+    }
+    else {
+      pollEmb.setFooter(`${config.main.prefix}poll ${message.channel.id} close ${pollObject.id}`)
+    }
+
+    if(pollObject.image) pollEmb.setImage(pollObject.image)
   }
-  else if(closed) {
+  if(closed) {
+    const originalEmbed = message.embeds[0]
+
     pollEmb
       .setColor("#bf2323")
-      .setTitle("Poll Closed")
-      .setFooter(timeoutClose ? "Poll Closed due to Expiration" : "Poll Closed")
+      .setTitle("Closed Poll")
+      .setDescription(originalEmbed.description || "[No Question Provided]")
+      .setFooter("Poll Closed")
       .setTimestamp()
-  }
-  else {
-    pollEmb.setFooter(`${config.main.prefix}poll ${message.channel.id} close ${pollObject.id}`)
-  }
+    if(originalEmbed.image) {
+      pollEmb.setImage(originalEmbed.image)
+    }
 
-  if(pollObject.image) {
-    pollEmb.setImage(pollObject.image)
-  }
 
-  embedder.addBlankField(pollEmb)
-
-  const options = [...pollObject.options] ?? []
-  if(!options.length && pollObject.wip) {
-    pollEmb.setFooter("Go on! Add an option!")
-  }
-  else {
     const reactions = message?.reactions.cache
     let resultsField = []
 
-    if(closed) {
-      let maxCount = 0 // option with the highest vote count
-      let total = 0
+    let maxCount = 0 // option with the highest vote count
+    let total = 0
 
+    const options = reactions.firstKey(reactions.size)
 
-      for(const opt of options) {
-        const reaction = reactions.get(opt)
-        total += reaction.count
-        maxCount = Math.floor(Math.max(maxCount, reaction.count - 1))
-      }
-      for(const i in options) {
-        const reaction = reactions.get(options[i])
-        const votes = reaction.count - 1
-
-        const barColour = config.polls.bars[i % config.polls.bars.length]
-        let barSize = Math.round((votes / maxCount) * config.polls.maxBarLength)
-        resultsField.push(reaction.emoji.name + ` | \`${votes}\` | ${barColour.repeat(barSize)}`)
-      }
-
-      pollEmb.addField("Results", resultsField.join("\n"))
+    for(const opt of options) {
+      const reaction = reactions.get(opt)
+      total += reaction.count
+      maxCount = Math.floor(Math.max(maxCount, reaction.count - 1))
     }
-    else {
-      for(let i = 0; i < options.length; i++) {
-        pollEmb.addField(`\`Option ${i + 1}\``, options[i], true)
-      }
+    for(const i in options) {
+      const reaction = reactions.get(options[i])
+      const votes = reaction.count - 1
+
+      const barColour = config.polls.bars[i % config.polls.bars.length]
+      let barSize = Math.round((votes / maxCount) * config.polls.maxBarLength)
+      resultsField.push(reaction.emoji.name + ` | \`${votes}\` | ${barColour.repeat(barSize)}`)
     }
 
-
-    if(pollObject.wip && options.length >= config.polls.maxOptions) {
-      pollEmb.addField("Max Options Reached", `You can only have \`${config.polls.maxOptions}\` options in one poll.`, true)
-    }
+    pollEmb.addField("Results", resultsField.join("\n"))
   }
 
   return pollEmb
 }
 
 exports.startPoll = async pollObject => {
-  const pollsColl = db.collection("polls")
+  // const pollsColl = db.collection("polls")
 
   const channel = await client.channels.fetch(pollObject.channel)
   pollObject.options = [...pollObject.options]
@@ -96,13 +96,12 @@ exports.startPoll = async pollObject => {
   }
 
   pollObject.wip = false
-  pollObject.timestamp = serverTimestamp()
-
+  pollObject.timestamp = new Date()
 
   const message = await messenger.loadingMessage(channel, { title: "Loading Poll..." })
   pollObject.id = message.id
   
-  await pollsColl.doc(message.id).set(pollObject)
+  // await pollsColl.doc(message.id).set(pollObject)
   
   const emb = await this.getPollEmbed(pollObject, false, message)
   message.edit(emb)
@@ -112,45 +111,43 @@ exports.startPoll = async pollObject => {
   })
 }
 
-exports.stopPoll = async (pollId, requester) => {
-  if(!pollId)
+exports.stopPoll = async (channel, pollId, requester) => {
+  if(!pollId) {
     return {
       error: true,
       message: "No Poll ID was provided."
     }
+  }
   
-  const pollRef = db.collection("polls").doc(pollId)
-  const doc = await pollRef.get()
-  const data = doc?.data()
+  // const pollRef = db.collection("polls").doc(pollId)
+  // const doc = await pollRef.get()
+  // const data = doc?.data()
 
-  if(!data) {
-    return {
-      error: true,
-      message: "Poll does not exist!"
-    }
+  // if(!data) {
+  //   return {
+  //     error: true,
+  //     message: "Poll does not exist!"
+  //   }
+  // }
+
+  const message = await channel.messages.fetch(pollId).catch(() => {})
+  if(
+    !message ||
+    message.author.id !== client.user.id ||
+    message.embeds[0].title !== "Poll"
+  ) {
+    return { error: true, message: "Invalid Poll ID" }
   }
 
-  const channel = await client.channels.fetch(data.channel)
-  const message = await channel.messages.fetch(pollId)
-
-  if(data.owner !== requester && requester !== client.user.id) {
-    return {
-      error: true,
-      message: `Only <@${data.owner}> is allowed to close this [poll](${message.url})!`
-    }
-  }
-
-  
   let messageNotFound = false
-
-  const emb = await this.getPollEmbed(data, true, message, requester === client.user.id)
-  await message.edit(emb)
-    .catch(() => messageNotFound = true)
-  await pollRef.delete()
+  const emb = await this.getPollEmbed(null, true, message)
+  await message.edit(emb).catch(() => messageNotFound = true)
+  
+  // await pollRef.delete()
   
   return {
     error: messageNotFound,
-    message: `Closed [poll](${message.url})${messageNotFound ? " but was not able to edit message I do not have access." : ""}.`
+    message: `Closed [poll](${message.url}).`
   }
 }
 
