@@ -52,18 +52,26 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
 
 
     const reactions = message?.reactions.cache
-    let resultsField = []
+    const allReactionKeys = reactions.firstKey(reactions.size) // get an array of all the reaction keys
+    const options = []
 
     let maxCount = 0 // option with the highest vote count
-    const options = reactions.firstKey(reactions.size) // get an array of all the reaction keys
+    let resultsField = []
 
-    for(const opt of options) {
-      const reaction = reactions.get(opt)
+    for(const key of allReactionKeys) {
+      const reaction = reactions.get(key)
+
+      if(!reaction.users.cache.has(client.user.id)) {
+        // don't count the reaction if the bot has not reacted to it
+        continue
+      }
+
+      options.push(key)
       maxCount = Math.floor(Math.max(maxCount, reaction.count - 1))
     }
     for(const i in options) {
       const reaction = reactions.get(options[i])
-      const votes = reaction.count - 1
+      const votes = reaction.count - 1 // remove the bot's own reaction from the final count
 
       const barColour = config.polls.bars[i % config.polls.bars.length]
       let barSize = Math.round((votes / maxCount) * config.polls.maxBarLength)
