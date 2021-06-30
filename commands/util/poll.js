@@ -12,6 +12,10 @@ exports.run = async (client, message, args) => {
     message.channel.send("This command may only be executed in a guild!")
     return
   }
+  if(!permisser.hasPermission(message.member, ["ADMINISTRATOR"])) {
+    message.channel.send("Administrator permissions are required for you to use this command!")
+    return
+  }
 
   let pollChannel = await commander.getMentionArgs(args[0], 1, message, true)
   if(!pollChannel) return message.channel.send("Please specify a valid channel that is in this guild!")
@@ -19,10 +23,6 @@ exports.run = async (client, message, args) => {
 
   switch(args[1].toLowerCase()) {
     case "create":
-      if(!permisser.hasPermission(message.member, ["ADMINISTRATOR"])) {
-        pollChannel = message.channel
-      }
-
       const question = args.slice(2).join(" ").trim()
       if(!question) return this.help(client, message, args)
 
@@ -87,13 +87,14 @@ exports.run = async (client, message, args) => {
 
       break
     case "close":
-      const pollClosedStatus = await poller.stopPoll(args.slice(2).join(" "), message.author.id)
+      const pollClosedStatus = await poller.stopPoll(pollChannel, args.slice(2).join(" "), message.author.id)
+
       const pollCloseEmb = new Discord.MessageEmbed()
       embedder.addAuthor(pollCloseEmb, message.author)
         .setColor(pollClosedStatus.error ? config.main.colours.error : config.main.colours.success)
         .setTitle("Close Poll")
         .setDescription(pollClosedStatus?.message)
-      
+
       message.channel.send(pollCloseEmb)
       break
     default:
