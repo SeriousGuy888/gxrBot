@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
     .setColor(settings.colours.karma)
     .setThumbnail(user.avatarURL({ dynamic: true }))
     .setTitle(`${user.tag}'s Karma`)
-    .setURL(`${settings.lang.web_panel.user_lookup}?ids=${user.id}`)
+    .setURL("https://youtu.be/-3WuQxnA7Hg")
     .setFooter(settings.lang.footer)
 
 
