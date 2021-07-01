@@ -70,7 +70,7 @@ exports.run = async (client, message, args) => {
 
     let karma = field.karma
     let emoji = karma > 0 ? positive : negative
-    let content = `${emoji} [${karma.toLocaleString()}](${getEasterLink})`
+    let content = `${emoji} [${karma.toLocaleString()}](${getEasterLink()})`
 
     if(karmaQueue[field.id])
       content += ` and ${karmaQueue[field.id]} pending`
