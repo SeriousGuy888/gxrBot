@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { Discord, config } = index
-  const { getUserArg } = client.functions
+  const { getUserArg, getEasterLink } = client.functions
   const { karmanator, messenger } = client.util
 
   const settings = config.karma
@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
     .setColor(settings.colours.karma)
     .setThumbnail(user.avatarURL({ dynamic: true }))
     .setTitle(`${user.tag}'s Karma`)
-    .setURL("https://youtu.be/-3WuQxnA7Hg")
+    .setURL(getEasterLink())
     .setFooter(settings.lang.footer)
 
 

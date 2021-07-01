@@ -3,6 +3,7 @@ exports.run = async (client, message, args) => {
   const { Discord, config, karmaQueue } = index
   let { karmaLeaderboardCache } = index
   const { embedder, karmanator, messenger } = client.util
+  const { getEasterLink } = client.functions
 
   const settings = config.karma
   
@@ -69,7 +70,7 @@ exports.run = async (client, message, args) => {
 
     let karma = field.karma
     let emoji = karma > 0 ? positive : negative
-    let content = `${emoji} [${karma.toLocaleString()}](https://youtu.be/Wu8mhzQe5tM")`
+    let content = `${emoji} [${karma.toLocaleString()}](${getEasterLink})`
 
     if(karmaQueue[field.id])
       content += ` and ${karmaQueue[field.id]} pending`
