@@ -63,12 +63,16 @@ exports.run = async (client, message, args) => {
             }
           }
           else {
-            if(reaction.emoji instanceof Discord.GuildEmoji) {
-              message.channel.send("Custom emojis are currently not supported!")
+            if(reaction.emoji.id && !reaction.emoji.available) {
+              // check if the emoji has an id >> if it does, it must be a custom emoji
+              // Discord.GuildEmoji only works for seeing if an emoji is in a server the bot is in
+              // reaction.emoji.available tests if the bot is allowed to use the emoji
+
+              message.channel.send(`${reaction.emoji.toString()} cannot be used as it is not from a server I am in!`)
               return
             }
             if(poll.options.size < config.polls.maxOptions) {
-              poll.options.add(reaction.emoji.name)
+              poll.options.add(reaction.emoji)
               const newEmb = await poller.getPollEmbed(poll)
               msg.edit(newEmb)
             }
