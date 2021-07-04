@@ -1,6 +1,6 @@
 const index = require("../index.js")
-const { client, config, Discord, db, firebaseAdmin } = index
-const { embedder, messenger } = client.util
+const { client, config, Discord } = index
+const { messenger } = client.util
 
 
 exports.getPollEmbed = async (pollObject, closed, message) => {
