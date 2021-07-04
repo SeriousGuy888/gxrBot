@@ -79,7 +79,7 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
       resultsField.push(reaction.emoji.toString() + ` | \`${votes}\` | ${barColour.repeat(barSize)}`)
     }
 
-    pollEmb.addField("Results", resultsField.join("\n"))
+    pollEmb.addField("Results", resultsField.join("\n") || "the poll was broken lol check the reactions i guess")
   }
 
   return pollEmb
