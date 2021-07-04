@@ -81,9 +81,9 @@ exports.run = async (client, message, args) => {
         .on("remove", async (reaction, reactor) => {
           collector.resetTimer({ time: config.polls.collectorTimeout })
 
-          if(reaction.emoji.name === config.polls.emoji)
-            return
-          poll.options.delete(reaction.emoji.name)
+          if(reaction.emoji.name === config.polls.emoji) return
+
+          poll.options.delete(reaction.emoji)
           const newEmb = await poller.getPollEmbed(poll)
           msg.edit(newEmb)
         })
