@@ -47,7 +47,7 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
       .setFooter("Poll Closed")
       .setTimestamp()
     if(originalEmbed.image) {
-      pollEmb.setImage(originalEmbed.image)
+      pollEmb.setImage(originalEmbed.image.url)
     }
 
 
