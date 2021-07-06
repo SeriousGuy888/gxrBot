@@ -145,14 +145,17 @@ exports.stopPoll = async (channel, pollId, requester) => {
     return { error: true, message: "Invalid Poll ID" }
   }
 
-  let messageNotFound = false
+  let duckingError = false
   const emb = await this.getPollEmbed(null, true, message)
-  await message.edit(emb).catch(() => messageNotFound = true)
+  await message.edit(emb).catch(err => {
+    console.log(err)
+    duckingError = true
+  })
   
   // await pollRef.delete()
   
   return {
-    error: messageNotFound,
-    message: `Closed [poll](${message.url}).`
+    error: duckingError,
+    message: duckingError ? "couldnt close poll due to some error i guess" : `Closed [poll](${message.url}).`
   }
 }
