@@ -7,7 +7,10 @@ exports.run = async (client, message, args) => {
     message.channel.send(`You cannot use this command outside of \`${config.main.guild.name}\`!`)
     return
   }
-  if(!args[1]) this.help(client, message, args)
+  if(!args[1]) {
+    this.help(client, message, args)
+    return
+  }
 
   const monthLengths = {
     long: [1, 3, 5, 7, 8, 10, 12],
