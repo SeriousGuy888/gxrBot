@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
   const { config, Discord } = index
-  const { commander, embedder } = client.util
+  const { embedder } = client.util
 
   if(message.guild && message.guild.id !== config.main.guild.id) {
     message.channel.send(`You cannot use this command outside of \`${config.main.guild.name}\`!`)
@@ -92,8 +92,8 @@ exports.help = async (client, message, args) => {
     ].join(" "),
     syntax: `${config.main.prefix}birthday <NUMERIC Month> <Day>`,
     example: [
-      `**Create Poll in This Channel**`,
-      `${config.main.prefix}poll . create Election or Something:tm:`,
+      `**My birthday is April 20th.**`,
+      `${config.main.prefix}birthday 4 20`,
     ].join("\n"),
   })
   
