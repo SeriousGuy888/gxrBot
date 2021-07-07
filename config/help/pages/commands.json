@@ -4,6 +4,7 @@
     "info": "See links for FAQ, web panel, source code, bug reports, and upcoming updates.",
     "avatar": "Get a user's avatar",
     "badges": "See information about badges.",
+    "birthday": "Tell Honag thy birthday",
     "commands": "(`cmds`) Automatically generated list of all public commands",
     "mybadges": "Badges",
     "ping": "Get bot latency",
