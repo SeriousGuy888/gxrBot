@@ -38,8 +38,8 @@ module.exports = (client) => {
     messenger.dm("414938441546203136", emb)
   })
 
-  schedule.scheduleJob("0 */12 * * *", async () => {
-    const channel = await client.channels.fetch("755590346636918946")
-    channel.send("jakob finds gangabakalarachying tu bea extremely joysome")
-  })
+  // schedule.scheduleJob("0 */12 * * *", async () => {
+  //   const channel = await client.channels.fetch("755590346636918946")
+  //   channel.send("jakob finds gangabakalarachying tu bea extremely joysome")
+  // })
 }
