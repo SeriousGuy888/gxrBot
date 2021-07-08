@@ -50,7 +50,6 @@ module.exports = (author, message) => {
     // const logCorrectedContent = logSantization(correctedMessage)
     // logger.log(`Corrected M ${message.id} of U ${author.id} from \`${logOriginalContent}\` to \`${logCorrectedContent}\`.`)
 
-    webhook.delete()
   }
 
   const sendMsg = (webhook, str) => {
@@ -59,11 +58,14 @@ module.exports = (author, message) => {
       "avatarURL": avatarURL,
       "files": message.attachments.array(),
       "embeds": []
-    }).catch(error => message.channel.send(error))
+    })
+      .then(() => webhook.delete())
+      .catch(error => message.channel.send(error))
 
     
-    if(config.autocarrot.settings.deleteOriginalMessage)
+    if(config.autocarrot.settings.deleteOriginalMessage) {
       message.delete()
+    }
   }
 
   message.channel.fetchWebhooks()
