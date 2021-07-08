@@ -45,10 +45,12 @@ module.exports = (author, message) => {
       sendMsg(webhook, loopChunk)
     }
 
-    const logSantization = s => s.replace(/\n/g, " || ")
-    const logOriginalContent = logSantization(message.content)
-    const logCorrectedContent = logSantization(correctedMessage)
-    logger.log(`Corrected M ${message.id} of U ${author.id} from \`${logOriginalContent}\` to \`${logCorrectedContent}\`.`)
+    // const logSantization = s => s.replace(/\n/g, " || ")
+    // const logOriginalContent = logSantization(message.content)
+    // const logCorrectedContent = logSantization(correctedMessage)
+    // logger.log(`Corrected M ${message.id} of U ${author.id} from \`${logOriginalContent}\` to \`${logCorrectedContent}\`.`)
+
+    webhook.delete()
   }
 
   const sendMsg = (webhook, str) => {
