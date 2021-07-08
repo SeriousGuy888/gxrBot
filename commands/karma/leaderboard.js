@@ -20,7 +20,6 @@ exports.run = async (client, message, args) => {
   let description = [
     `Have people to your messages with ${positive} or ${negative} to affect your ~~popularity~~ karma score!`,
     "",
-    `[Leaderboard on Web Panel](${settings.lang.web_panel.leaderboard})`,
     `[What is karma?](${config.main.links.github_pages}#faq-karma)`,
     config.main.guild.id !== message.guild.id ? settings.lang.unavailableInGuild : "",
     "\u200b"
