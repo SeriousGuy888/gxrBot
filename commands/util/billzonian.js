@@ -78,13 +78,11 @@ exports.run = async (client, message, args) => {
       .setTitle("The Billzonian-English Dictionary")
       .setURL(dictionaryUrl)
       .setDescription([
-        "`billzonian [page]` to go to a page, **or** `billzonian [search term]` to search.",
-        "`Alt` = Alt forms and spellings of the same word.",
-        "`IR` = Irregular!",
+        "Command Syntaxes: `billzonian [page num]` **or** `billzonian [search term]`",
+        "`Alt` indicates alternate forms and spellings of the same word.",
         "",
-        "Is a word missing?",
-        "Does a word bea missing?",
-        `[Make an issue here.](${repoUrl})`,
+        "This dictionary is not a complete collection of all Billzonian words, as there are quite a few Billzonian words and there are new ones being added all the time. You may see Billzonian words that are not (yet) documented in this dictionary.",
+        `If another word, old or new, is missing, you can [make an issue here.](${repoUrl})`,
         "",
         "------------------------------------------------",
         `:mag: Search Term: \`${searchTerm || "[None]"}\``,
