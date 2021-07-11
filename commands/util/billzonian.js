@@ -167,6 +167,11 @@ exports.run = async (client, message, args) => {
     return targetMessage.edit("pagdfs")
       .then(async editedMsg => {
         editedMsg.edit(responseEmbed)
+
+        if(maxPages <= 1) { // return when there are no words found or there is only one page
+          return
+        }
+
         const reactionEmojis = ["⏪", "◀️", "▶️", "⏩"]
         const reactionFilter = (reaction, user) => user.id === message.author.id && reactionEmojis.includes(reaction.emoji.name)
 
