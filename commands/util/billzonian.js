@@ -41,10 +41,10 @@ exports.run = async (client, message, args) => {
       let number = `\`${(parseInt(i) + 1).toString() + "."}\``
       if(useLetters) {
         const letters = "abcdefghijklmnopqrstuvwxyz"
-        number = letters.charAt(i % letters.length) + "."
+        number = "`" + letters.charAt(i % letters.length) + ".`"
       }
       if(bulletPoints) {
-        number = "•"
+        number = "\`•\`"
       }
 
       numberedLines.push(`${number} ${lines[i]}`)
@@ -127,9 +127,9 @@ exports.run = async (client, message, args) => {
           `${wordData.word && "**" + wordData.word + "**"} \`${wordData.pos}\` ${wordData.isExactMatch ? "*(⭐ Exact Match)*" : ""}`,
           [
             ipaReadings         && ipaReadings.map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`).join(" or "),
-            wordData.alt_forms  && `Alt: ${alts.map(e => "`" + e + "`").join(", ")}`,
+            wordData.alt_forms  && `\`Alt:\` ${alts.join(", ")}`,
             translation         && numberise(translation, false, false) + "\n",
-            example             && numberise(example, true, false),
+            example             && numberise(example, true, false) + "\n",
             notes               && numberise(notes, false, true),
           ].filter(e => e).join("\n"),
           true
