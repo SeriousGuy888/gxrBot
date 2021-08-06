@@ -4,10 +4,10 @@ exports.run = async (client, message, args) => {
   const logger = client.util.get("logger")
 
   if(message.author.id !== config.admins.superadmin.id)
-    return message.channel.send("You may not use this dev command!")
+    return message.channel.send({ content: "You may not use this dev command!" })
 
   logger.uploadLogs(`Log upload request from ${message.author.tag}`)
-    .then(() => message.channel.send(`Logs have been uploaded to <#${config.logger.uploads.channel}>.`))
+    .then(() => message.channel.send({ content: `Logs have been uploaded to <#${config.logger.uploads.channel}>.` }))
   
   logger.log(`${message.author.id} requested log upload`, "logs command")
 }
