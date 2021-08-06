@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => {
 
   if(message.author.id === config.admins.superadmin.id) {
     if(args[0]) {
-      message.channel.send(changelogEmb)
+      message.channel.send({ embeds: [changelogEmb] })
     }
     else {
       for(const guildId in config.main.knownGuilds) {
@@ -42,7 +42,7 @@ exports.run = async (client, message, args) => {
           continue
         
   
-        changelogChannel.send(changelogEmb)
+        changelogChannel.send({ embeds: [changelogEmb] })
         await delay(5000)
       }
     }
