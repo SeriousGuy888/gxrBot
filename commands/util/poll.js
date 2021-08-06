@@ -9,17 +9,17 @@ exports.run = async (client, message, args) => {
   }
 
   if(!message.guild) {
-    message.channel.send("This command may only be executed in a guild!")
+    message.reply({ content: "This command may only be executed in a guild!" })
     return
   }
   if(!permisser.hasPermission(message.member, ["ADMINISTRATOR"])) {
-    message.channel.send("Administrator permissions are required for you to use this command!")
+    message.reply({ content: "Administrator permissions are required for you to use this command!" })
     return
   }
 
   let pollChannel = await commander.getMentionArgs(args[0], 1, message, true)
-  if(!pollChannel) return message.channel.send("Please specify a valid channel that is in this guild!")
-  if(!pollChannel.isText()) return message.channel.send("Specify a text channel!")
+  if(!pollChannel) return message.reply({ content: "Please specify a valid channel that is in this guild!" })
+  if(!pollChannel.isText()) return message.reply({ content:  "Specify a text channel!" })
 
   switch(args[1].toLowerCase()) {
     case "create":
@@ -40,11 +40,12 @@ exports.run = async (client, message, args) => {
 
 
       const emb = await poller.getPollEmbed(poll)
-      const msg = await message.channel.send(emb)
+      const msg = await message.reply({ embeds: [emb] })
       await msg.react(config.polls.emoji)
 
       const filter = (reaction, reactor) => (reactor.id === message.author.id)
-      const collector = msg.createReactionCollector(filter, {
+      const collector = msg.createReactionCollector({
+        filter,
         time: config.polls.collectorTimeout,
         dispose: true
       })
@@ -55,7 +56,7 @@ exports.run = async (client, message, args) => {
             const startPollResult = await poller.startPoll(poll)
             if(startPollResult?.error) {
               poll.options = new Set()
-              message.channel.send(startPollResult.message)
+              message.reply({ content: startPollResult.message })
               reaction.users.remove(reactor)
             }
             else {
@@ -68,13 +69,13 @@ exports.run = async (client, message, args) => {
               // Discord.GuildEmoji only works for seeing if an emoji is in a server the bot is in
               // reaction.emoji.available tests if the bot is allowed to use the emoji
 
-              message.channel.send(`${reaction.emoji.toString()} cannot be used as it is not from a server I am in!`)
+              message.reply({ content: `${reaction.emoji.toString()} cannot be used as it is not from a server I am in!` })
               return
             }
             if(poll.options.size < config.polls.maxOptions) {
               poll.options.add(reaction.emoji)
               const newEmb = await poller.getPollEmbed(poll)
-              msg.edit(newEmb)
+              msg.edit({ embeds: [newEmb] })
             }
           }
         })
@@ -85,9 +86,9 @@ exports.run = async (client, message, args) => {
 
           poll.options.delete(reaction.emoji)
           const newEmb = await poller.getPollEmbed(poll)
-          msg.edit(newEmb)
+          msg.edit({ embeds: [newEmb] })
         })
-        .on("end", collected => msg.edit("No longer listening for reactions."))
+        .on("end", collected => msg.edit({ content: "No longer listening for reactions." }))
 
       break
     case "close":
@@ -99,7 +100,7 @@ exports.run = async (client, message, args) => {
         .setTitle("Close Poll")
         .setDescription(pollClosedStatus?.message)
 
-      message.channel.send(pollCloseEmb)
+      message.reply({ embeds: [pollCloseEmb] })
       break
     default:
       this.help(client, message, args)
@@ -135,7 +136,5 @@ exports.help = async (client, message, args) => {
     ].join("\n"),
   })
   
-  message.channel.send(embed)
+  message.reply({ embeds: [embed] })
 }
-
-exports.disabled = "temp disabled during discord.js v13 update"

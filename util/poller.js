@@ -110,7 +110,7 @@ exports.startPoll = async pollObject => {
   // await pollsColl.doc(message.id).set(pollObject)
   
   const emb = await this.getPollEmbed(pollObject, false, message)
-  message.edit(emb)
+  message.edit({ embeds: [emb] })
 
   pollObject.options.forEach(async opt => {
     await message.react(opt)
@@ -124,17 +124,6 @@ exports.stopPoll = async (channel, pollId, requester) => {
       message: "No Poll ID was provided."
     }
   }
-  
-  // const pollRef = db.collection("polls").doc(pollId)
-  // const doc = await pollRef.get()
-  // const data = doc?.data()
-
-  // if(!data) {
-  //   return {
-  //     error: true,
-  //     message: "Poll does not exist!"
-  //   }
-  // }
 
   const message = await channel.messages.fetch(pollId).catch(() => {})
   if(
@@ -147,12 +136,10 @@ exports.stopPoll = async (channel, pollId, requester) => {
 
   let duckingError = false
   const emb = await this.getPollEmbed(null, true, message)
-  await message.edit(emb).catch(err => {
+  await message.edit({ embeds: [emb] }).catch(err => {
     console.log(err)
     duckingError = true
   })
-  
-  // await pollRef.delete()
   
   return {
     error: duckingError,
