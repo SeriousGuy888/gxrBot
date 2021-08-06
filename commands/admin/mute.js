@@ -83,3 +83,5 @@ exports.help = async (client, message, args) => {
 
   return message.channel.send(emb)
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"

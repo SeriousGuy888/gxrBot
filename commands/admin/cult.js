@@ -12,5 +12,5 @@ exports.run = async (client, message, args) => {
     .addField("Channel", `<#${cultConfig.channel}>`)
     .addField("Phrase", cultConfig.phrase)
   
-  message.channel.send(emb)
+  message.channel.send({ embeds: [emb] })
 }

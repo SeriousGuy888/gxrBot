@@ -11,5 +11,5 @@ exports.run = async (client, message, args) => {
     .setDescription("*OWS channel options have been moved to the config due to infrequent use. You can no longer set them with this command.*")
     .addField("Channel", `<#${owsConfig.channel}>`)
   
-  message.channel.send(emb)
+  message.channel.send({ embeds: [emb] })
 }

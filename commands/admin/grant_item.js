@@ -48,3 +48,5 @@ exports.run = async (client, message, args) => {
 }
 
 exports.cooldown = 3
+
+exports.disabled = "temp disabled during discord.js v13 update"
