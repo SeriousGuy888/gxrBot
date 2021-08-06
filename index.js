@@ -12,9 +12,7 @@ const client = new Discord.Client({
     "GUILD_MEMBER",
     "REACTION"
   ],
-  ws: {
-    intents: new Discord.Intents(Discord.Intents.ALL)
-  }
+  intents: new Discord.Intents(Discord.Intents.ALL)
 })
 
 
