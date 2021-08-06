@@ -11,5 +11,5 @@ exports.run = async (client, message, args) => {
     .setImage(user.displayAvatarURL({ dynamic: true, size: 2048 }))
   embedder.addAuthor(emb, user, "%tag%'s Avatar")
 
-  message.channel.send(emb)
+  message.channel.send({ embeds: [emb] })
 }

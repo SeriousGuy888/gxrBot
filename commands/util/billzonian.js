@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
 
 
   
-  let msg = await message.channel.send("dictionary")
+  let msg = await message.channel.send({ content: "dictionary" })
 
   
   const numberise = (str, useLetters, bulletPoints) => {
@@ -166,7 +166,7 @@ exports.run = async (client, message, args) => {
 
     return targetMessage.edit("pagdfs")
       .then(async editedMsg => {
-        editedMsg.edit(responseEmbed)
+        editedMsg.edit({ embeds: [responseEmbed] })
 
         if(maxPages <= 1) { // return when there are no words found or there is only one page
           return
@@ -196,10 +196,10 @@ exports.run = async (client, message, args) => {
             }
             page = Math.max(Math.min(page, maxPages), 1)
             
-            editedMsg.edit(displayDictionary(editedMsg))
+            editedMsg.edit({ embeds: [displayDictionary(editedMsg)] })
           })
           .catch(() => {
-            editedMsg.edit("No longer listening for reactions.", { embed: responseEmbed })
+            editedMsg.edit("No longer listening for reactions.", { embeds: [responseEmbed] })
           })
         
         for(const loopEmoji of reactionEmojis) {
@@ -210,3 +210,5 @@ exports.run = async (client, message, args) => {
 
   msg = displayDictionary(msg)
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"

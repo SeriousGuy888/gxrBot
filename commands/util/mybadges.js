@@ -16,3 +16,5 @@ exports.run = async (client, message, args) => {
 
   badger.paginateBadges(message, embed, badges, 1)
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"

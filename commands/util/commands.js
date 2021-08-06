@@ -21,3 +21,5 @@ exports.run = async (client, message, args) => {
   for(let loopChunk of commandListMessage.match(/.{1,2000}/gs))
     message.channel.send(loopChunk)
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"

@@ -60,3 +60,5 @@ exports.run = async (client, message, args) => {
   const responseEmbed = await prefEmbed()
   message.channel.send(responseEmbed)
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"
