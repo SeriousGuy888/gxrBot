@@ -5,18 +5,18 @@ exports.run = async (client, message, args) => {
   
 
   if(!config.admins.ids[message.author.id]) {
-    message.reply(`You are not listed as a ${config.main.botNames.lowerCamelCase} admin!`)
+    message.reply({ content: `You are not listed as a ${config.main.botNames.lowerCamelCase} admin!` })
     return
   }
 
   if(!args[0]) {
-    message.channel.send("who the dukc do i bea giving the badge to? you dukcing idot")
+    message.reply({ content: "who the dukc do i bea giving the badge to? you dukcing idot" })
     return
   }
 
   let user
   if(args[0].toLowerCase() === "guild") {
-    if(!message.guild) return message.channel.send("D: no guild")
+    if(!message.guild) return message.reply({ content: "D: no guild" })
     user = args[0].toLowerCase()
   }
   else {
@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
   }
 
   if(!args[1]) {
-    message.channel.send("what badge do you beas awarding? you dukcing idot")
+    message.reply({ content: "what badge do you beas awarding? you dukcing idot" })
     return
   }
 
@@ -39,14 +39,12 @@ exports.run = async (client, message, args) => {
       badger.addBadge(loopUser.id, badge, remove)
     }
 
-    message.reply(`ok all unrobotic users in this guild have ${remove ? "lost" : "received"} the badge ${badge}`)
+    message.reply({ content: `ok all unrobotic users in this guild have ${remove ? "lost" : "received"} the badge ${badge}` })
   }
   else {
     badger.awardBadge(user.id, badge, remove, `manually awarded by ${message.author.tag}`)
-    message.reply(`ok ${user} has ${remove ? "lost" : "received"} the badge ${badge}`)
+    message.reply({ content: `ok ${user} has ${remove ? "lost" : "received"} the badge ${badge}` })
   }
 }
 
 exports.cooldown = 3
-
-exports.disabled = "temp disabled during discord.js v13 update"
