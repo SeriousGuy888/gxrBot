@@ -4,7 +4,7 @@ const fs = require("fs")
 const path = require("path")
 
 const Discord = require("discord.js")
-const { Client, Intents } = Discord
+const { Client, Collection, Intents } = Discord
 const client = new Client({
   partials: [ // discord client with partials
     "USER",
@@ -110,6 +110,7 @@ client.logs = {}
 // command cooldowns
 client.commandCooldowns = {}
 
+
 // setup ↓
 
 let logQueue = []
@@ -185,6 +186,34 @@ for(let loopLog of logQueue)
 
 
 // setup ↑
+
+
+
+
+// new slash commands ↓
+// now using discord.js collections rather than enmap
+// https://discordjs.guide/command-handling/
+
+client.scommands = new Collection()
+const scommandFiles = fs
+  .readdirSync("./scommands")
+  .filter(file => file.endsWith(".js"))
+
+
+let slashCommandData = []
+
+for(const file of scommandFiles) {
+  const scommand = require(`./scommands/${file}`)
+  client.scommands.set(scommand.name, scommand)
+  
+  slashCommandData.push({
+    name: scommand.name,
+    description: scommand.description
+  })
+}
+
+
+// new slash commands ↑
 // function and util imports ↓
 
 const {

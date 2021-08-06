@@ -2,29 +2,12 @@ const config = require("../config/_config.js")
 const settings = config.main
 
 module.exports = async (client) => {
-  const slashCommandData = [
-    {
-      name: "ping",
-      description: "Replies with Pong!",
-    },
-    {
-      name: "echo",
-      description: "Plagiaraises your message",
-      options: [
-        {
-          name: "content",
-          type: "STRING",
-          description: "What to echo back",
-          required: true
-        }
-      ]
-    }
-  ]
+  const slashCommandData = [...client.scommands.values()]
 
-  await client.guilds.cache.get(settings.testGuildId)?.commands.set(slashCommandData)
-    .catch(err => console.error(`Error deploying slash commands to test server.`, err))
-  await client.application?.commands.set(slashCommandData)
-    .catch(err => console.error(`Error deploying slash commands globally.`, err))
-
-  console.log("🎉 Deployed Slash Commands!")
+  client.guilds.cache.get(settings.testGuildId)?.commands.set(slashCommandData)
+    .then(() => console.log("🎉 Deployed slash commands to test server!"))
+    .catch(err => console.error(`Error deploying slash commands to test server.\n`, err))
+  client.application?.commands.set(slashCommandData)
+    .then(() => console.log("🎉 Deployed slash commands globally!"))
+    .catch(err => console.error(`Error deploying slash commands globally.\n`, err))
 }
