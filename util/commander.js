@@ -47,12 +47,16 @@ exports.handle = async (message) => {
     if(config.main.commands.help.flags.includes(args[0]) && command.help)
       command.help(client, message, args)
     else {
-      if(!command.run) {
-        badCommand(true, message, commandName)
-        return
-      }
       if(command.disabled) {
         message.reply({ content: `This command is disabled for the following reason: \`${command.disabled}\`` })
+        return
+      }
+      if(command.moved) {
+        const emb = new Discord.MessageEmbed()
+          .setColor(config.main.colours.error)
+          .setTitle(`Moved to \`/${command.moved}\``)
+          .setDescription(`Discord is being a poopyhead and trying to get bots to use slash commands that are better in every way or something like that. This command has been moved to the slash command \`/${command.moved}\`.`)
+        message.reply({ embeds: [emb] })
         return
       }
       if(message.guild) {
@@ -103,6 +107,10 @@ exports.handle = async (message) => {
 
         // sets last used timestamp for the command so command cooldown can be applied again
         client.commandCooldowns[commandName][message.author.id] = new Date()
+      }
+      if(!command.run) {
+        badCommand(true, message, commandName)
+        return
       }
       command.run(client, message, args)
       statTracker.add(message.author.id, "commands_run", 1)

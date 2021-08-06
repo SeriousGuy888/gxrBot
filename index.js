@@ -163,7 +163,7 @@ loadJsFiles("./commands/", (name, command, directory, file) => {
     return queueLog(`[✖] Failed to load COMMAND from \`${file}\``)
   queueLog(`[✓] Loaded COMMAND \`${file}\``) // log on load
   client.commands.set(name, command)
-  if(!command.dev && !command.disabled)
+  if(!command.dev && !command.disabled && !command.moved)
     client.publicCommandList.push(name)
 })
 
