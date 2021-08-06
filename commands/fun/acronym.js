@@ -57,3 +57,5 @@ exports.run = async (client, message, args) => {
 exports.help = async (client, message, args) => {
   message.channel.send("this is a command that when given an acronym, will give you an expansion of that acronym")
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"

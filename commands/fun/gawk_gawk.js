@@ -7,6 +7,6 @@ exports.run = async (client, message, args) => {
     .setDescription("AJFAAJFJAJAJFJFAJFJFJAAKJAJJ")
     .setFooter("thank you hoang for the idea for this command")
   
-  message.channel.send(emb)
+  message.channel.send({ embeds: [emb] })
     .then(() => message.delete())
 }

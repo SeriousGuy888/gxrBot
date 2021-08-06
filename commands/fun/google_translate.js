@@ -68,3 +68,5 @@ exports.help = async (client, message, args) => {
 
   message.channel.send(embed)
 }
+
+exports.disabled = "oeuf"
