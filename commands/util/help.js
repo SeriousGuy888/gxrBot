@@ -64,15 +64,9 @@ exports.run = async (client, message, args) => {
       emb.addField(fieldTitle.toUpperCase(), content, true)
     }
 
-    message.channel.send(emb)
+    message.channel.send({ embeds: [emb] })
   }
   
-  if(!args[0])
-    noArgs()
-  else
-    message.channel.send(readFile(args[0]))
-}
-
-exports.help = async (client, message, args) => {
-  message.channel.send("this is the ducking help command idot. oiasdlaskmlkn stupid just run it without arguments youian ")
+  if(!args[0]) noArgs()
+  else message.channel.send({ content: readFile(args[0]) })
 }
