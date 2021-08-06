@@ -47,7 +47,6 @@ const Enmap = require("enmap") // used for loading in the commands and functions
 const QuickChart = require("quickchart-js")
 const emoji = require("emojilib") // for automatic emoji thing for auto reactions
 const emojiDictionary = require("emoji-dictionary") // also emojis
-const translate = require("translate-google") // google translate i think
 const schedule = require("node-schedule") // node scheduler
 const stringSimilarity = require("string-similarity")
 const axios = require("axios")
@@ -218,7 +217,6 @@ module.exports = {
   QuickChart,
   emoji,
   emojiDictionary,
-  translate,
   schedule,
   ytdl,
   axios,

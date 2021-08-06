@@ -40,7 +40,6 @@
     "quickchart-js": "^1.3.0",
     "say": "^0.16.0",
     "string-similarity": "^4.0.4",
-    "translate-google": "^1.4.3",
     "ytdl": "^1.4.1"
   }
 }
