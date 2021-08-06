@@ -52,7 +52,7 @@ exports.handle = async (message) => {
         return
       }
       if(command.disabled) {
-        message.channel.send(`This command is disabled for the following reason: \`${command.disabled}\``)
+        message.channel.send({ content: `This command is disabled for the following reason: \`${command.disabled}\`` })
         return
       }
       if(message.guild) {
@@ -75,7 +75,7 @@ exports.handle = async (message) => {
                 .setTitle(`Command \`${commandName}\` is disabled in this server.`)
                 .setDescription(`Ask an admin to reenable this command if you want to use it. ${adminBypass ? "Admins are allowed to bypass this." : ""}`)
                 .setFooter(`${prefix}config is the command to do so`)
-              message.channel.send(emb) // send error message
+              message.channel.send({ embeds: [emb] }) // send error message
               return
             }
           }
@@ -96,7 +96,7 @@ exports.handle = async (message) => {
               .setTitle(`Command \`${commandName}\` is on cooldown.`)
               .setDescription(`You must wait \`${timeString}\` before using this command again.`)
               .setFooter("Please stop bullying my database.")
-            message.channel.send(emb) // send error message
+            message.channel.send({ embeds: [emb]}) // send error message
             return // stop
           }
         }
@@ -137,7 +137,7 @@ exports.handle = async (message) => {
 exports.badCommand = (invalidCommand, message, commandName) => {
   const { embedder } = client.util
 
-  if(invalidCommand) message.channel.send("The requested command exists but failed to run D:") 
+  if(invalidCommand) message.channel.send({ content: "The requested command exists but failed to run D:" }) 
   else {
     const allCommandSimilarities = didYouMean(commandName, client.publicCommandList)
 
@@ -155,7 +155,7 @@ exports.badCommand = (invalidCommand, message, commandName) => {
       .setTitle("Invalid Command")
       .setDescription(`Did you mean one of these commands?\n${commandSuggestionsStr}`.slice(0, 2048))
       .setFooter(`${prefix}help to see list of commands.`)
-    message.channel.send(emb)
+    message.channel.send({ embeds: [emb] })
   }
 }
 
