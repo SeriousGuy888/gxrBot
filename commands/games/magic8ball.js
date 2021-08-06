@@ -29,5 +29,8 @@ exports.help = async (client, message, args) => {
     .setTitle("**__Magic 8 Sphere__**")
     .setDescription("Ask a question after the command.")
 
-  message.channel.send(embed)
+  message.channel.send({ embeds: [embed] })
 }
+
+
+exports.disabled = "temp disabled during discord.js v13 update"

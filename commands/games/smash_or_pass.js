@@ -122,3 +122,5 @@ exports.run = async (client, message, args) => {
         // })
     })
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"

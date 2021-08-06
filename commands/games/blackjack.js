@@ -194,3 +194,5 @@ exports.run = async (client, message, args) => {
       delete gameData[message.author.id]
     })
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"

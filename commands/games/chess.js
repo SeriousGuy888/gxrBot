@@ -211,5 +211,7 @@ exports.help = async (client, message, args) => {
     ].join("\n"),
   })
   
-  message.channel.send(embed)
+  message.channel.send({ embeds: embed })
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"

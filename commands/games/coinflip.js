@@ -17,5 +17,7 @@ exports.run = async (client, message, args) => {
     .setTitle(rim ? "Rim" : flipResult ? "Heads" : "Tails")
   if(rim) emb.setFooter(`The coin landed on the side. Wow, there's only a 1 in ${rimChance} chance of that :O.`)
 
-  message.channel.send(emb)
+  message.channel.send({ embeds: emb })
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"
