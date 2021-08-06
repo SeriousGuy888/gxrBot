@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
     
 
 
-  const msg = await message.channel.send(pingEmb)
+  const msg = await message.channel.send({ embeds: [pingEmb] })
 
   const getRoundTripLatency = () => msg.createdTimestamp - message.createdTimestamp
   const getEmbedDescription = () => {
@@ -35,9 +35,9 @@ exports.run = async (client, message, args) => {
   }
 
   pingEmb.setDescription(getEmbedDescription())
-  msg.edit(pingEmb)
+  msg.edit({ embeds: [pingEmb] })
 }
 
 exports.help = async (client, message, args) => {
-  message.channel.send("returns the bot ping and the bot uptime")
+  message.channel.send({ content: "returns the bot ping and the bot uptime" })
 }
