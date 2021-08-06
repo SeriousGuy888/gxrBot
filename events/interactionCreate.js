@@ -11,7 +11,7 @@ module.exports = async (client, interaction) => {
     try {
       await client.scommands
         .get(interaction.commandName)
-        .execute(interaction)
+        .execute(interaction, interaction.options.data)
     } catch(err) {
       console.error(err)
       await interaction.reply({
