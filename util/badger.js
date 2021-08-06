@@ -150,9 +150,9 @@ exports.paginateBadges = async (message, embed, badges, page) => {
   const emojis = ["⏪", "◀️", "▶️", "⏩"]
   const emb = await badgeEmbed(page)
 
-  await msg.edit(emb)
+  await msg.edit({ embeds: [emb] })
   const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
-  const collector = msg.createReactionCollector(filter, { time: 30000 })
+  const collector = msg.createReactionCollector({ filter, time: 30000 })
     .on("collect", async (reaction, reactor) => {
       reaction.users.remove(reactor).catch(() => {})
       collector.resetTimer()
@@ -174,7 +174,7 @@ exports.paginateBadges = async (message, embed, badges, page) => {
       page = Math.max(Math.min(maxPages, page), 1)
 
       const newEmb = await badgeEmbed(page)
-      msg.edit(newEmb)
+      msg.edit({ embeds: [newEmb] })
     })
     .on("end", collected => { msg.edit("No longer collecting reactions.") })
   for(const emoji of emojis) {

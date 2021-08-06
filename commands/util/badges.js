@@ -7,7 +7,6 @@ exports.run = async (client, message, args) => {
 
   if(!args[0]) {
     const emb = new Discord.MessageEmbed()
-    embedder.addAuthor(emb, message.author)
       .setColor(config.main.colours.help)
       .setTitle("All Badges")
       .setDescription([
@@ -25,7 +24,6 @@ exports.run = async (client, message, args) => {
     const badge = badgeData[badgeName]
 
     const emb = new Discord.MessageEmbed()
-    embedder.addAuthor(emb, message.author)
       .setColor(config.main.colours.success)
       .setTitle(badgeName.toUpperCase())
       .setFooter("Use command `mybadges` to see what badges you have.")
@@ -39,8 +37,6 @@ exports.run = async (client, message, args) => {
         .setDescription(badge.description || "No description provided.")
     }
 
-    message.channel.send(emb)
+    message.reply({ embeds: [emb] })
   }
 }
-
-exports.disabled = "temp disabled during discord.js v13 update"
