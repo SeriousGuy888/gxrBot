@@ -53,11 +53,12 @@ module.exports = (author, message) => {
   }
 
   const sendMsg = (webhook, str) => {
-    webhook.send(str, {
-      "username": author.username,
-      "avatarURL": avatarURL,
-      "files": message.attachments.array(),
-      "embeds": []
+    webhook.send({
+      content: str,
+      username: author.username,
+      avatarURL: avatarURL,
+      files: [...message.attachments.values()],
+      embeds: []
     })
       .then(() => webhook.delete())
       .catch(error => message.channel.send(error))

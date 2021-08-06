@@ -33,7 +33,7 @@ module.exports = async (client, message) => {
       if( // don't autocarrot if
         message.author.id == client.user.id || // is client
         config.autocarrot.settings.exempt.bots && message.author.bot || // bots are exempted and user is bot
-        config.autocarrot.settings.exempt.webhooks && message.webhookID || // webhooks are exempted and author is webhook
+        config.autocarrot.settings.exempt.webhooks && message.webhookId || // webhooks are exempted and author is webhook
         config.autocarrot.settings.exempt.userList.includes(message.author.id) || // user is exempted
         config.autocarrot.settings.exempt.channels.includes(message.channel.id) || // channel is exempted
         pauseAutocarrotCache[message.author.id] && config.autocarrot.settings.pause.timespan >= (new Date().getTime() - pauseAutocarrotCache[message.author.id].issued.getTime()) / 1000 // user has paused autocarrot
