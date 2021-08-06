@@ -6,32 +6,29 @@
 const index = require("../index.js")
 const { client, config, Discord } = index
 
-exports.sanitize = async content => {
+exports.sanitise = async content => {
   if(typeof content !== "string")
     return content
 
-  let sanitizedContent = content.match(/(.|\n){1,2000}/g)[0]
-  if(sanitizedContent.length === 0)
-    sanitizedContent = "**Error:** Message Empty"
+  let sanitisedContent = content.match(/(.|\n){1,2000}/g)[0]
+  if(sanitisedContent.length === 0) sanitisedContent = "**Error:** Message Empty"
   
-  return sanitizedContent
+  return sanitisedContent
 }
 
 exports.send = async (channel, content) => {
-  let sanitizedContent
+  let sanitisedContent
 
-  if(typeof content === "string")
-    this.sanitize(content).then(c => sanitizedContent = c)
-  else
-    sanitizedContent = content
+  if(typeof content === "string") this.sanitise(content).then(c => sanitisedContent = c)
+  else sanitisedContent = content
 
-  return await channel.send(sanitizedContent)
+  return await channel.send(typeof sanitisedContent === "string" ? { content: sanitisedContent } : sanitisedContent)
 }
 
 exports.dm = async (userId, content, callback) => {
   const user = await client.users.fetch(userId)
-  const sanitized = await this.sanitize(content)
-  user.send(sanitized)
+  const sanitised = await this.sanitise(content)
+  user.send(typeof sanitised === "string" ? { content: sanitised } : sanitised )
     .then(msg => {
       if(callback)
         callback(msg)
@@ -51,7 +48,7 @@ exports.loadingMessage = async (channel, options) => {
   if(options.footer)
     emb.setFooter(options.footer)
   
-  return await this.send(channel, emb)
+  return await this.send(channel, { embeds: [emb] })
 }
 
 exports.errorMessage = async (channelOrMessage, options, newMessage) => {
@@ -66,8 +63,6 @@ exports.errorMessage = async (channelOrMessage, options, newMessage) => {
   if(options.footer)
     emb.setFooter(options.footer)
   
-  if(newMessage)
-    return await this.send(channelOrMessage, emb)
-  else
-    return await channelOrMessage.edit(emb)
+  if(newMessage) return await this.send(channelOrMessage, { embeds: [emb] })
+  else return await channelOrMessage.edit({ embeds: [emb] })
 }
