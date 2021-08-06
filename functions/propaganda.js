@@ -1,4 +1,6 @@
 module.exports = async (client) => {
+  return // NOSONAR
+
   const index = require("../index.js")
   const { config, googleTts, logger } = index
   const propagandaMessages = config.propaganda.messages
