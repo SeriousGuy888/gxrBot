@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => {
   const index = require("../../index.js")
-  const { config, prefix, Discord, DiscordButtons } = index
+  const { config, prefix, Discord } = index
   const { timer, commander } = client.util
   
   const age = await timer.convert(new Date() - client.user.createdAt)
@@ -35,20 +35,7 @@ exports.run = async (client, message, args) => {
   }
 
   pingEmb.setDescription(getEmbedDescription())
-  
-  
-
-  const button = new DiscordButtons.MessageButton()
-    .setStyle("gray")
-    .setID("ping_useless")
-    .setLabel("Useless Button")
-  
-  msg.edit({
-    embed: pingEmb,
-    buttons: [
-      button,
-    ],
-  })
+  msg.edit(pingEmb)
 }
 
 exports.help = async (client, message, args) => {
