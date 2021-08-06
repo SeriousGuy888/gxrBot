@@ -1,26 +1,17 @@
 exports.run = async (client, message, args) => {
-  const { messenger, permisser } = client.util
+  const { permisser } = client.util
 
-  if(!args[0])
-    return this.help(client, message, args)
-
+  if(!args[0]) return this.help(client, message, args)
 
   const guild = message.guild
   if(guild) {
-    if(!await permisser.permissionEmbed(message.member, ["ADMINISTRATOR", "MANAGE_MESSAGES"], false, message.channel))
+    if(!await permisser.permissionEmbed(message.member, ["ADMINISTRATOR", "MANAGE_MESSAGES"], false, message.channel)) {
       return
+    }
   }
 
-  await message.channel.send(args.join(" "))
-
-  if(args[0] == "https://cdn.discordapp.com/attachments/587805308382871553/871951989272088596/AAWUweVpqqP62NAPKagQms7UEYWLCELsFzc5WDsVPZgZc6GdqVgGsZKEF8GP0YPCnUR43Wn2NBc9znokQ2xyQIbbftOv5MLCOlqG.png"){
-    const newsChannel = await client.channels.fetch("587769144619958275").catch(() => {})
-    await newsChannel.send(args.join(" "))
-    await messenger.dm("323170410818437130", args.join(" "))
-  }
-
-  if(message.deletable)
-    message.delete()
+  await message.channel.send({ content: args.join(" ") })
+  if(message.deletable) message.delete()
 }
 
 exports.help = async (client, message, args) => {
@@ -38,5 +29,5 @@ exports.help = async (client, message, args) => {
     ].join("\n"),
   })
   
-  message.channel.send(embed)
+  message.channel.send({ embeds: embed })
 }
