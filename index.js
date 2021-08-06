@@ -11,7 +11,7 @@ const client = new Client({
     "CHANNEL",
     "MESSAGE",
     "GUILD_MEMBER",
-    "REACTION"
+    "REACTION",
   ],
   intents: [ // i guess Intents.ALL doesnt exist
     Intents.FLAGS.GUILDS,
@@ -29,7 +29,11 @@ const client = new Client({
     Intents.FLAGS.DIRECT_MESSAGES,
     Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
     Intents.FLAGS.DIRECT_MESSAGE_TYPING,
-  ]
+  ],
+  allowedMentions: {
+    parse: ["users", "roles"],
+    repliedUser: false,
+  },
 })
 
 
