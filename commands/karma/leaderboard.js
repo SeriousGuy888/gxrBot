@@ -78,5 +78,5 @@ exports.run = async (client, message, args) => {
       leaderboardEmbed.addField("\u200b", "\u200b")
   }
   
-  msg.edit(leaderboardEmbed)
+  msg.edit({ embeds: [leaderboardEmbed] })
 }

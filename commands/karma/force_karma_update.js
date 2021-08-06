@@ -4,7 +4,7 @@ exports.run = async (client, message, args) => {
   const { karmanator } = client.util
 
   if(message.author.id === config.admins.superadmin.id) {
-    message.reply("ok updating karma")
+    message.reply({ content: "ok updating karma" })
     karmanator.update()
   }
 }

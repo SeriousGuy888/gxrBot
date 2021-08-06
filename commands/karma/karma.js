@@ -34,5 +34,5 @@ exports.run = async (client, message, args) => {
     config.main.guild.id !== message.guild.id ? settings.lang.unavailableInGuild : ""
   ].join("\n"))
 
-  msg.edit(responseEmbed)
+  msg.edit({ embeds: [responseEmbed] })
 }
