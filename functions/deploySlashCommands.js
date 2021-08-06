@@ -3,7 +3,11 @@ const settings = config.main
 
 module.exports = async (client) => {
   const slashCommandData = [...client.scommands.values()]
-  slashCommandData.push({ name: "borken", description: "borken" })
+
+  const testGuildCommandData = [...client.scommands.values()]
+  testGuildCommandData.push({ name: "borken" })
+  testGuildCommandData.map(e => e.description = "🧪 Test guild slash command.")
+
 
   client.guilds.cache.get(settings.testGuildId)?.commands.set(slashCommandData)
     .then(() => console.log("🎉 Deployed slash commands to test server!"))
