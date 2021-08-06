@@ -9,13 +9,13 @@ exports.run = async (client, message, args) => {
   const allMembers = await guild.members.fetch()
   const authorGuildMember = allMembers.find(gm => gm.id === message.author.id)
 
-    let queryId = authorGuildMember.voice.channelID
+    let queryId = authorGuildMember.voice.channelId
 
     const vc = guild.channels.resolve(queryId)
-    if(!vc || vc.type !== "voice")
-      return message.channel.send("Specified channel ID is not of a voice channel in this guild.")
+    if(!vc || vc.type !== "GUILD_VOICE")
+      return message.channel.send({ content: "Specified channel ID is not of a voice channel in this guild." })
     
-    const membersInVc = allMembers.filter(gm => gm.voice.channelID && gm.voice.channelID === vc.id)
+    const membersInVc = allMembers.filter(gm => gm.voice.channelId && gm.voice.channelId === vc.id)
     if(Array.from(membersInVc).length === 0) {
       outputEmbed
         .setColor(config.main.colours.error)
@@ -32,10 +32,10 @@ exports.run = async (client, message, args) => {
         .setDescription(`${impostor.toString().split(",")[1]}`)
         .setFooter("Reasoning: N/A")
       if(!impostor)
-        message.channel.send("aaaaaaaaaaa no impostor found dukc this")
+        message.channel.send({ content: "aaaaaaaaaaa no impostor found dukc this" })
     }
 
-  return message.channel.send(outputEmbed)
+  return message.channel.send({ embeds: [outputEmbed] })
 }
 
 exports.help = async (client, message, args) => {
@@ -48,5 +48,5 @@ exports.help = async (client, message, args) => {
     .setTitle("Impostor Help")
     .setDescription("Tells you the impostor.")
     .setFooter("(100% Accurate)")
-  return message.channel.send(emb)
+  return message.channel.send({ embeds: [emb] })
 }
