@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
 
   const guild = message.guild
   if(!guild) {
-    message.channel.send("This command must be executed in a discord server!")
+    message.channel.send({ content: "This command must be executed in a discord server!" })
     return
   }
 
@@ -81,10 +81,10 @@ exports.run = async (client, message, args) => {
         page = Math.max(Math.min(maxPages, page), 1)
 
         const newEmb = await prefEmbed(page)
-        msg.edit(newEmb)
+        msg.edit({ embeds: [newEmb] })
       })
       .on("exit", collected => {
-        msg.edit("No longer collecting reactions.")
+        msg.edit({ content: "No longer collecting reactions." })
       })
     for(const emoji of emojis)
       await msg.react(emoji)
@@ -98,10 +98,10 @@ exports.run = async (client, message, args) => {
 
 
   if(!guildPreferencer.isValid(prefName)) {
-    message.channel.send("Invalid preference name!")
+    message.channel.send({ content: "Invalid preference name!" })
     return
   }
   
   const status = await guildPreferencer.set(guild.id, prefName, prefValue)
-  message.channel.send(status)
+  message.channel.send({ content: status })
 }
