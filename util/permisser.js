@@ -15,7 +15,7 @@ exports.hasPermission = (guildMember, permissionFlags, all) => {
   let permissionsAllowed = []
   for(const loopPermissionFlag of permissionArr) {
     const permission = Discord.Permissions.FLAGS[loopPermissionFlag.toUpperCase()]
-    permissionsAllowed.push(guildMember.hasPermission(permission))
+    permissionsAllowed.push(guildMember.permissions.has(permission))
   }
 
   if(all)
