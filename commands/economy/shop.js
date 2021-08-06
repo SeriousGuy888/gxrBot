@@ -96,3 +96,5 @@ exports.run = async (client, message, args) => {
 
   msg = await displayShop(msg)
 }
+
+exports.disabled = "temp disabled during discord.js v13 update"
