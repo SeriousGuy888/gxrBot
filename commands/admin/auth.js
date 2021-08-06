@@ -24,3 +24,5 @@ exports.run = async (client, message, args) => {
 exports.help = async (client, message, args) => {
   message.channel.send("gives you an auth token for the web panel")
 }
+
+exports.disabled = "oeuf"
