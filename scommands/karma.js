@@ -15,9 +15,8 @@ module.exports = {
     }
   ],
   defer: true,
-  execute: async (interaction, args) => {
-    const [userArg] = args
-    const user = userArg?.user || interaction.user
+  execute: async (interaction, options) => {
+    const user = options.getUser("user") || interaction.user
 
     const responseEmbed = new Discord.MessageEmbed()
       .setColor(settings.colours.karma)

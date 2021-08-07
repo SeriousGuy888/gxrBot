@@ -9,8 +9,7 @@ module.exports = {
   name: "leaderboard",
   description: "Karma Leaderboard",
   defer: true,
-  execute: async (interaction, args) => {
-  
+  execute: async (interaction, options) => {
     const { positive, negative } = settings.leaderboard.emojis
   
     let description = [

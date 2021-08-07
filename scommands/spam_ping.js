@@ -31,12 +31,11 @@ module.exports = {
   ],
   defer: false,
   cooldown: 60,
-  execute: async (interaction, args) => {
-    let [userArg, times, ghostPing, customMessage] = args
-    let user = userArg.user
-    times = Math.max(Math.min(times.value, 25), 1)
-    ghostPing = !!ghostPing?.value
-    customMessage = customMessage ? customMessage.value.slice(0, 500) : "get pinged lol"
+  execute: async (interaction, options) => {
+    const user = options.getUser("user")
+    const times = Math.max(Math.min(options.getInteger("times"), 25), 1)
+    const ghostPing = !!options.getBoolean("ghost_ping")
+    const customMessage = options.getString("custom_message")?.slice(0, 500) || "get pinged lol"
   
     const responseEmbed = new Discord.MessageEmbed()
       .setColor(config.main.colours.success)

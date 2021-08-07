@@ -6,7 +6,7 @@ module.exports = {
   name: "ping",
   description: "Returns information about my ping and uptime.",
   defer: true,
-  execute: async (interaction, args) => {
+  execute: async (interaction, options) => {
     const age = await timer.convert(new Date() - client.user.createdAt)
     let ageYears = (age.d / 365).toFixed(2)
   

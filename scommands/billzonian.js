@@ -22,7 +22,7 @@ module.exports = {
     }
   ],
   defer: true,
-  execute: async (interaction, args) => {
+  execute: async (interaction, options) => {
     const response = await axios.get(dictionaryUrl)
     if(response.status !== 200) return interaction.followUp("An error occurred while requesting the dictionary data.")
 
@@ -34,7 +34,7 @@ module.exports = {
     let page = 1
     let pageSpecified = false
 
-    const params = args[0]?.value ?? ""
+    const params = options.getString("word_or_page") || ""
     const paramsInt = Math.abs(parseInt(params))
     if(paramsInt) {
       page = Math.min(paramsInt, maxPages)

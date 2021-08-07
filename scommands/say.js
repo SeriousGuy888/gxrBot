@@ -10,8 +10,8 @@ module.exports = {
     }
   ],
   defer: false,
-  execute: async (interaction, args) => {
-    const [content] = args
+  execute: async (interaction, options) => {
+    const content = options.getString("content")
     await interaction.reply({ content: content.value.slice(0, 2000) })
   }
 }

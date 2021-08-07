@@ -39,12 +39,11 @@ module.exports = {
     },
   ],
   defer: true,
-  execute: async (interaction, args) => {
-    const [subcommand] = args
-
+  execute: async (interaction, options) => {
+    const subcommand = options.getSubcommand()
     const badgeData = badger.badgeData()
 
-    switch(subcommand.name) {
+    switch(subcommand) {
       case "list":
         const listEmb = new Discord.MessageEmbed()
           .setColor(config.main.colours.help)
