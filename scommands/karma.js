@@ -1,7 +1,7 @@
 const index = require("../index.js")
 const { client, config, Discord } = index
-const { getUserArg, getEasterLink } = client.functions
-const { karmanator, messenger } = client.util
+const { getEasterLink } = client.functions
+const { karmanator } = client.util
 const settings = config.karma
 
 module.exports = {
