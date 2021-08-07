@@ -3,7 +3,7 @@ module.exports = (message) => {
   const { client, config, banker } = index
   const { messenger, badger, statTracker } = client.util
 
-  const legal = () => message.attachments.array().length === 0
+  const legal = () => [...message.attachments.values()].length === 0
 
   const cultLegal = (content, phrase) => {
     const liamCult = () => {
