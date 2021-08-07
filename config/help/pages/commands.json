@@ -24,7 +24,6 @@
     "blackjack": "Play blackjack.",
     "coinflip": "Flip a coin.",
     "hangman": "(`hoang`) Play hangman with %lowername% because %lowername% is very lonely.",
-    "magic8ball": "(`8ball`) Very accurate magic 8 ball.",
     "minesweeper": "(`mines`) PLay minesweeper but bad. You will get free %lowername% moolah from it though!",
     "rock_paper_scissors": "(`rps`) Play rock paper scissors against %lowername%."
   },
