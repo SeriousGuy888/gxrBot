@@ -109,7 +109,7 @@ exports.updateBadges = async () => {
   await batch.commit()
 }
 
-exports.paginateBadges = async (message, embed, badges, page) => {
+exports.paginateBadges = async (interaction, embed, badges, page) => {
   const { messenger } = client.util
 
 
@@ -166,22 +166,16 @@ exports.paginateBadges = async (message, embed, badges, page) => {
 
     return { embeds: [embed], components: [row] }
   }
-
-
-  const msg = await messenger.loadingMessage(message.channel, {
-    colour: config.main.colours.help,
-    title: `Getting badges...`
-  })
   
 
   const msgData = await badgeEmbed(page)
-  await msg.edit(msgData)
+  const msg = await interaction.followUp(msgData)
 
   const filter = (inter) => {
-    if(inter.user.id === message.author.id) return true
+    if(inter.user.id === interaction.user.id) return true
     else {
       inter.reply({
-        content: `Only ${message.author.toString()} is allowed to use this button.`,
+        content: `Only ${interaction.user.toString()} is allowed to use this button.`,
         ephemeral: true
       }).catch(() => {})
       return false
