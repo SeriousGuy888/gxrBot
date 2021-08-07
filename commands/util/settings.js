@@ -26,7 +26,7 @@ exports.run = async (client, message, args) => {
 
     const emb = await prefEmbed()
 
-    msg.edit(emb)
+    msg.edit({ embeds: [emb] })
     return
   }
 
@@ -48,17 +48,15 @@ exports.run = async (client, message, args) => {
   }
 
   if(!preferencer.isValid(prefName)) {
-    message.channel.send("Invalid preference name!")
+    message.reply({ content: "Invalid preference name!" })
     return
   }
   if(prefValue === null) {
-    message.channel.send("Invalid value! Specify `Y` or `N`")
+    message.reply({ content: "Invalid value! Specify `Y` or `N`" })
     return
   }
 
   await preferencer.set(message.author.id, prefName, prefValue)
   const responseEmbed = await prefEmbed()
-  message.channel.send(responseEmbed)
+  message.reply({ embeds: [responseEmbed] })
 }
-
-exports.disabled = "temp disabled during discord.js v13 update"
