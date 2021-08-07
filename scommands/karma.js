@@ -14,6 +14,7 @@ module.exports = {
       description: "The user whose karma score you want to check."
     }
   ],
+  defer: true,
   execute: async (interaction, args) => {
     const [userArg] = args
     const user = userArg?.user || interaction.user

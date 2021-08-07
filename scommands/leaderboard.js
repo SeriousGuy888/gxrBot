@@ -8,6 +8,7 @@ const settings = config.karma
 module.exports = {
   name: "leaderboard",
   description: "Karma Leaderboard",
+  defer: true,
   execute: async (interaction, args) => {
   
     const { positive, negative } = settings.leaderboard.emojis

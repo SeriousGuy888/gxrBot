@@ -9,8 +9,9 @@ module.exports = {
       required: true
     }
   ],
+  defer: false,
   execute: async (interaction, args) => {
     const [content] = args
-    await interaction.followUp({ content: content.value.slice(0, 2000) })
+    await interaction.reply({ content: content.value.slice(0, 2000) })
   }
 }

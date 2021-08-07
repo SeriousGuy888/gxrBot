@@ -21,6 +21,7 @@ module.exports = {
       description: "WORD to search for OR a PAGE NUMBER."
     }
   ],
+  defer: true,
   execute: async (interaction, args) => {
     const response = await axios.get(dictionaryUrl)
     if(response.status !== 200) return interaction.followUp("An error occurred while requesting the dictionary data.")
