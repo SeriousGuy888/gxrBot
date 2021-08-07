@@ -86,7 +86,6 @@ module.exports = {
 
 
       const responseEmbed = new Discord.MessageEmbed()
-      embedder.addAuthor(responseEmbed, interaction.user)
         .setColor("#fca503")
         .setTitle("The Billzonian-English Dictionary")
         .setURL(dictionaryUrl)
