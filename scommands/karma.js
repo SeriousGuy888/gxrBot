@@ -16,8 +16,7 @@ module.exports = {
   ],
   execute: async (interaction, args) => {
     const [userArg] = args
-    const userId = userArg?.value
-    const user = userId ? await client.users.fetch(userId) : interaction.user
+    const user = userArg?.user || interaction.user
 
     const responseEmbed = new Discord.MessageEmbed()
       .setColor(settings.colours.karma)
