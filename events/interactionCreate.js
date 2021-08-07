@@ -65,7 +65,7 @@ module.exports = async (client, interaction) => {
       }
 
       if(scommand.defer) await interaction.deferReply()
-      await scommand.execute(interaction, interaction.options.data)
+      await scommand.execute(interaction, interaction.options)
     } catch(err) {
       console.error(err)
       await interaction.reply({
