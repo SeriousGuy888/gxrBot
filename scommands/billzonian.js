@@ -205,7 +205,10 @@ module.exports = {
         const filter = (inter) => {
           if(inter.user.id === interaction.user.id) return true
           else {
-            inter.reply({ content: `Only ${interaction.user.tag} is allowed to use this button.`, ephemeral: true })
+            inter.reply({
+              content: `Only ${interaction.user.toString()} is allowed to use this button. Use \`/billzonian\` for yourself to browse the dictionary.`,
+              ephemeral: true
+            }).catch(() => {})
             return false
           }
         }
