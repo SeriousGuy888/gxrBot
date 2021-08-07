@@ -1,7 +1,7 @@
 module.exports = async (client, interaction) => {
   const index = require("../index.js")
   const { Discord, config } = index
-  const { timer } = client.util
+  const { guildPreferencer, permisser, timer } = client.util
 
   if(interaction.isCommand()) { // https://discord.js.org/#/docs/main/stable/class/CommandInteraction
     const scommand = client.scommands.get(interaction.commandName)
@@ -14,8 +14,30 @@ module.exports = async (client, interaction) => {
     }
     
     try {
-      const scommand = client.scommands.get(interaction.commandName)
-      
+      if(interaction.inGuild()) {
+        const prefs = await guildPreferencer.get(interaction.guild.id)
+        const adminBypass = prefs.admins_bypass_disabled_commands
+
+        if(prefs.disabled_commands) {
+          const disabledCommands = prefs.disabled_commands
+            .split(",")
+            .map(e => e.trim().toLowerCase())
+          
+          if(disabledCommands.includes(scommand.name)) { // command is disabled
+            if(
+              !permisser.hasPermission(interaction.member, ["ADMINISTRATOR", "MANAGE_GUILD"]) || // member is not admin or
+              !adminBypass // admins cannot bypass disabled commands
+            ) {
+              const emb = new Discord.MessageEmbed()
+                .setColor(config.main.colours.error)
+                .setTitle(`Slash Command \`/${scommand.name}\` is disabled in this server.`)
+                .setDescription(`Ask an admin to reenable this command if you want to use it. ${adminBypass ? "Admins are allowed to bypass this." : ""}`)
+              interaction.reply({ embeds: [emb] })
+              return
+            }
+          }
+        }
+      }
       if(scommand.cooldown) {
         const cooldown = scommand.cooldown * 1000
         if(!client.commandCooldowns[`/${scommand.name}`]) client.commandCooldowns[`/${scommand.name}`] = {}
