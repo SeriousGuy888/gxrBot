@@ -47,13 +47,7 @@ module.exports = {
   
   
   
-    const delay = ms => {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          resolve(2)
-        }, ms)
-      })
-    }
+    const delay = require("util").promisify(setTimeout)
   
   
     const ping = async (w, str) => {
