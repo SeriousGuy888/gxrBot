@@ -1,9 +1,9 @@
-const { Discord } = require("../index.js")
 const index = require("../index.js")
-const { client, config, firebaseAdmin, db } = index
+const { client, config, Discord, firebaseAdmin, db } = index
 const badgeData = config.badges
 let { badgeQueue } = index
 const { arrayRemove, arrayUnion } = firebaseAdmin.firestore.FieldValue
+const { MessageActionRow, MessageButton } = Discord
 
 
 exports.getBadges = async userId => {
@@ -114,7 +114,7 @@ exports.paginateBadges = async (message, embed, badges, page) => {
 
 
   let maxPages
-  const badgeEmbed = async (currentPage) => {
+  const badgeEmbed = async (currentPage, disableButtons) => {
     embed.fields = []
 
     const itemsPerPage = 6
@@ -135,9 +135,36 @@ exports.paginateBadges = async (message, embed, badges, page) => {
       embed.addField(`${badgeEmoji} ${badge.toUpperCase()}`, badgeDesc, true)
     }
 
-    embed.setFooter(`Page ${currentPage} of ${maxPages}`)
+    const row = new MessageActionRow().addComponents(
+      new MessageButton()
+        .setCustomId("first")
+        .setLabel("<<")
+        .setStyle("SECONDARY")
+        .setDisabled(page <= 1),
+      new MessageButton()
+        .setCustomId("prev")
+        .setLabel("<")
+        .setStyle("SECONDARY")
+        .setDisabled(page <= 1),
+      new MessageButton()
+        .setCustomId("curr")
+        .setLabel(`Page ${page} of ${maxPages}`)
+        .setStyle("PRIMARY")
+        .setDisabled(true),
+      new MessageButton()
+        .setCustomId("next")
+        .setLabel(">")
+        .setStyle("SECONDARY")
+        .setDisabled(page >= maxPages),
+      new MessageButton()
+        .setCustomId("last")
+        .setLabel(">>")
+        .setStyle("SECONDARY")
+        .setDisabled(page >= maxPages),
+    )
+    if(disableButtons) row.components.map(comp => comp.setDisabled(true))
 
-    return embed
+    return { embeds: [embed], components: [row] }
   }
 
 
@@ -147,39 +174,50 @@ exports.paginateBadges = async (message, embed, badges, page) => {
   })
   
 
-  const emojis = ["⏪", "◀️", "▶️", "⏩"]
-  const emb = await badgeEmbed(page)
+  const msgData = await badgeEmbed(page)
+  await msg.edit(msgData)
 
-  await msg.edit({ embeds: [emb] })
-  const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
-  const collector = msg.createReactionCollector({ filter, time: 30000 })
-    .on("collect", async (reaction, reactor) => {
-      reaction.users.remove(reactor).catch(() => {})
+  const filter = (inter) => {
+    if(inter.user.id === message.author.id) return true
+    else {
+      inter.reply({
+        content: `Only ${message.author.toString()} is allowed to use this button.`,
+        ephemeral: true
+      }).catch(() => {})
+      return false
+    }
+  }
+
+  const collector = msg.createMessageComponentCollector({ filter, time: 60000 })
+    .on("collect", async (inter) => {
       collector.resetTimer()
-      
-      switch(reaction.emoji.name) {
-        case "⏪":
+
+      const buttonId = inter.customId
+      switch(buttonId) {
+        case "first":
           page = 1
           break
-        case "◀️":
+        case "prev":
           page--
           break
-        case "▶️":
+        case "next":
           page++
           break
-        case "⏩":
+        case "last":
           page = maxPages
           break
       }
+
       page = Math.max(Math.min(maxPages, page), 1)
 
-      const newEmb = await badgeEmbed(page)
-      msg.edit({ embeds: [newEmb] })
+      inter.deferUpdate().catch(() => {})
+      let newMsgData = await badgeEmbed(page)
+      msg.edit(newMsgData)
     })
-    .on("end", collected => { msg.edit("No longer collecting reactions.") })
-  for(const emoji of emojis) {
-    await msg.react(emoji)
-  }
+    .on("end", async () => {
+      let newMsgData = await badgeEmbed(page, true)
+      msg.edit(newMsgData)
+    })
 }
 
 exports.badgeData = () => badgeData
