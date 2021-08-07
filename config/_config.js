@@ -12,7 +12,6 @@ module.exports = {
   badges:             require("./badges.json"),
   karma:              require("./karma.json"),
   logger:             require("./logger.json"),
-  magic8ball:         require("./magic8ball.json"),
   messageResponder:   require("./message_responder.json"),
   minesweeper:        require("./minesweeper.json"),
   mute:               require("./mute.json"),
