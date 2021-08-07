@@ -21,6 +21,7 @@ module.exports = {
 
     if(anonymous) {
       await interaction.channel.send({ content })
+      await interaction.reply({ content: "ok", ephemeral: true })
     }
     else {
       await interaction.reply({ content })
