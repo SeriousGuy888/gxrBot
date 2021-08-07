@@ -12,6 +12,6 @@ module.exports = {
   defer: false,
   execute: async (interaction, options) => {
     const content = options.getString("content")
-    await interaction.reply({ content: content.value.slice(0, 2000) })
+    await interaction.reply({ content: content.slice(0, 2000) })
   }
 }
