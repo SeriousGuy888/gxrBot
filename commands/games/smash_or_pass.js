@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
   let smashes = 0
   let passes = 0
 
-  const people = (await guild.members.fetch()).array()
+  const people = [...(await guild.members.fetch()).values()]
   
   const getBasicEmbed = () => {
     const emb = new Discord.MessageEmbed()
