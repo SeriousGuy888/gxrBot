@@ -11,6 +11,6 @@ module.exports = {
   ],
   execute: async (interaction, args) => {
     const [content] = args
-    await interaction.followUp({ content: content.value })
+    await interaction.followUp({ content: content.value.slice(0, 2000) })
   }
 }
