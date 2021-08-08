@@ -201,49 +201,50 @@ module.exports = {
       return targetMessage.edit({
         embeds: [responseEmbed],
         components: [row]
-      }).then(editedMsg => {
-        const filter = (inter) => {
-          if(inter.user.id === interaction.user.id) return true
-          else {
-            inter.reply({
-              content: `Only ${interaction.user.toString()} is allowed to use this button. Use \`/billzonian\` for yourself to browse the dictionary.`,
-              ephemeral: true
-            }).catch(() => {})
-            return false
-          }
-        }
-
-        const collector = editedMsg.channel.createMessageComponentCollector({ filter, max: 1, time: 60000 })
-
-        collector.on("end", (collected) => {
-          if(collector.endReason) {
-            if(!collected.first()) return
-            const buttonId = collected.first().customId
-            switch(buttonId) {
-              case "first":
-                page = 1
-                break
-              case "prev":
-                page--
-                break
-              case "next":
-                page++
-                break
-              case "last":
-                page = maxPages
-                break
-            }
-  
-            collected.first().deferUpdate().catch(() => {})
-            displayDictionary(editedMsg)
-          }
-          else { // if the timer expired, edit message and disable all buttons
-            displayDictionary(editedMsg, true)
-          }
-        })
       })
     }
 
-    msg = displayDictionary(msg)
+    msg = await displayDictionary(msg)
+
+    const filter = (inter) => {
+      if(inter.user.id === interaction.user.id) return true
+      else {
+        inter.reply({
+          content: `Only ${interaction.user.toString()} is allowed to use this button. Use \`/billzonian\` for yourself to browse the dictionary.`,
+          ephemeral: true
+        }).catch(() => {})
+        return false
+      }
+    }
+
+    const collector = msg.channel.createMessageComponentCollector({ filter, time: 60000 })
+      .on("collect", async (inter) => {
+        collector.resetTimer()
+
+        const buttonId = inter.customId
+        switch(buttonId) {
+          case "first":
+            page = 1
+            break
+          case "prev":
+            page--
+            break
+          case "next":
+            page++
+            break
+          case "last":
+            page = maxPages
+            break
+        }
+
+        page = Math.max(Math.min(maxPages, page), 1)
+
+        inter.deferUpdate().catch(() => {})
+        displayDictionary(msg)
+      })
+      .on("end", async () => {
+        // if the timer expired, edit message and disable all buttons
+        displayDictionary(msg, true)
+      })
   }
 }
