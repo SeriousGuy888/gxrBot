@@ -72,6 +72,6 @@ exports.uploadLogs = async (reason, dontCreateNewFile) => {
             this.setup()
         })
       })
-      .catch(e => channel.send(`Error uploading logs: ${e}`))
+      .catch(e => channel.send({ content: `Error uploading logs: ${e}` }))
   })
 }
