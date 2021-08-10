@@ -65,7 +65,7 @@ exports.uploadLogs = async (reason, dontCreateNewFile) => {
       this.setup()
     }
 
-    channel.send(`---\n\n**Log Upload**\nReason: ${reason}`, { files: [logs.file.path] }) // upload log file
+    channel.send({ content: `---\n\n**Log Upload**\nReason: ${reason}`, files: [logs.file.path] }) // upload log file
       .then(() => {
         fs.unlink(logs.file.path, () => { // delete file
           if(!dontCreateNewFile)
