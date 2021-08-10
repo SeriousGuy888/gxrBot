@@ -50,9 +50,18 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
       pollEmb.setImage(originalEmbed.image.url)
     }
 
+    let reactions
+    let cacheChannel = message.guild.channels.cache.get(message.channel.id)
 
-    const reactions = message?.reactions.cache
-    const allReactionKeys = Array.from(reactions.keys())
+    await cacheChannel.messages.fetch(message.id)
+      .then((reactionMessage) => {
+        reactions = reactionMessage
+          .reactions
+          .cache
+          .each(async (reaction) => reaction.users.fetch())
+      })
+
+    const allReactionKeys = [...reactions.keys()]
     const options = []
 
     let maxCount = 0 // option with the highest vote count
@@ -60,7 +69,7 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
     for(const key of allReactionKeys) {
       const reaction = reactions.get(key)
 
-      if(!reaction.users.cache.has(client.user.id)) {
+      if(!reaction.me) {
         // don't count the reaction if the bot has not reacted to it
         continue
       }
