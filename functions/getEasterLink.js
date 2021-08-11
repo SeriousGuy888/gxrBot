@@ -13,7 +13,7 @@ const links = [
   "https://youtu.be/IFe9wiDfb0E",         // life, ruined by lawyers
   "https://youtu.be/gYpQLLy8TY4",         // is this the krusty krab in 24 languages
   "https://youtu.be/wEt8fWWPGvA",         // we have technology in 24 languages
-  "https://youtu.be/cmpg-qiPYa8",         // vscode code prettifier
+  "https://youtu.be/ReblZ7o7lu4",         // bad apple but lyricjlksdolksd
   "https://youtu.be/QMNGEY8OZqo",         // 24 hours of death part 1
   "http://howdovaccinescauseautism.com/", // try reading the link
   "http://endless.horse/",                // horse?
