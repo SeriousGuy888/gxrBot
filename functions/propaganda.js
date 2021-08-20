@@ -1,29 +1,39 @@
-module.exports = async (client) => {
-  return // NOSONAR
+// https://discordjs.guide/#before-you-begin
 
+module.exports = async (client) => {
   const index = require("../index.js")
   const { config, googleTts, logger } = index
+  const voice = require("@discordjs/voice")
+
   const propagandaMessages = config.propaganda.messages
   const interviewItems = config.propaganda.interview
   const newsItems = config.propaganda.news
   const placeholders = config.propaganda.placeholders
   const settings = config.propaganda.settings
 
-  const broadcast = client.voice.createBroadcast()
+
+
+  const player = voice.createAudioPlayer()
   const connections = []
 
   for(const channelId of Object.keys(settings.channels)) {
     const channel = await client.channels.cache.get(channelId)
-    connections.push(await channel.join().catch(() => {}))
+    const connection = voice.joinVoiceChannel({
+      channelId: channel.id,
+      guildId: channel.guild.id,
+      adapterCreator: channel.guild.voiceAdapterCreator,
+    })
+
+    connections.push(connection)
     logger.log(`Broadcasting propaganda to channel ${channelId}.`)
   }
 
   for(const connection of connections) {
     if(!connection)
       continue
-    connection.play(broadcast)
+    connection.subscribe(player)
     setInterval(() => {
-      connection.play(broadcast)
+      connection.subscribe(player)
     }, 1000 * 60 * 10)
   }
 
@@ -143,12 +153,13 @@ module.exports = async (client) => {
       }
   
       const { url } = piece
-      await broadcast.play(url)
-        .on("finish", async () => {
-          urls.shift()
-          play(urls[0])
-        })
-        .on("error", async err => console.error)
+      const audioResource = voice.createAudioResource(url)
+      player.play(audioResource)
+      player.once(voice.AudioPlayerStatus.Idle, async () => {
+        urls.shift()
+        play(urls[0])
+      })
+      player.on("error", async err => console.error)
     }
     await play(urls[0])
   }

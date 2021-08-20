@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/SeriousGuy888/G8C-Bot#readme",
   "dependencies": {
+    "@discordjs/voice": "^0.6.0",
     "@ninjapixel/chess": "^1.0.0",
     "axios": "^0.21.1",
     "canvas": "^2.8.0",
@@ -34,6 +35,7 @@
     "firebase-admin": "^9.11.0",
     "google-tts-api": "^2.0.2",
     "i": "^0.3.6",
+    "libsodium-wrappers": "^0.7.9",
     "node-schedule": "^1.3.3",
     "npm": "^7.20.3",
     "opusscript": "0.0.7",
