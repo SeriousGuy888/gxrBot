@@ -159,7 +159,7 @@ module.exports = async (client) => {
         urls.shift()
         play(urls[0])
       })
-      player.on("error", async err => console.error)
+      player.once("error", async err => console.error)
     }
     await play(urls[0])
   }
