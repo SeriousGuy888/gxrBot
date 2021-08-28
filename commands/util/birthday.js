@@ -60,7 +60,7 @@ exports.run = async (client, message, args) => {
 
   const filter = (reaction, reactor) => (reaction.emoji.name === emoji) && (reactor.id === message.author.id)
   const collector = msg.createReactionCollector({ max: 1, time: 15000, filter })
-  collector.on("collect", () => {
+  collector.on("collect", async () => {
     const responseEmbed = new Discord.MessageEmbed()
     embedder.addAuthor(responseEmbed, message.author)
       .setColor(config.main.colours.success)
