@@ -98,6 +98,7 @@ module.exports = {
           `:mag: Search Term: \`${searchTerm || "[None]"}\``,
           "\u200b",
         ].join("\n"))
+        .setFooter(`Page ${page} of ${maxPages}`)
       
 
 
@@ -165,38 +166,71 @@ module.exports = {
       embedder.addBlankField(responseEmbed)
 
 
-      const row = new MessageActionRow().addComponents(
-        new MessageButton()
-          .setCustomId("first")
-          .setLabel("<<")
-          .setStyle("SECONDARY")
-          .setDisabled(page <= 1),
-        new MessageButton()
-          .setCustomId("prev")
-          .setLabel("<")
-          .setStyle("SECONDARY")
-          .setDisabled(page <= 1),
-        new MessageButton()
-          .setCustomId("curr")
-          .setLabel(`Page ${page} of ${maxPages}`)
-          .setStyle("PRIMARY")
-          .setDisabled(true),
-        new MessageButton()
-          .setCustomId("next")
-          .setLabel(">")
-          .setStyle("SECONDARY")
-          .setDisabled(page >= maxPages),
-        new MessageButton()
-          .setCustomId("last")
-          .setLabel(">>")
-          .setStyle("SECONDARY")
-          .setDisabled(page >= maxPages),
-      )
-      if(disableButtons) row.components.map(comp => comp.setDisabled(true))
+      const rows = [
+        new MessageActionRow().addComponents(
+          new MessageButton()
+            .setCustomId("first")
+            .setLabel("First")
+            .setStyle("SUCCESS")
+            .setDisabled(page <= 1),
+          new MessageButton()
+            .setCustomId("prev3")
+            .setLabel("< 3")
+            .setStyle("SECONDARY")
+            .setDisabled(page <= 3),
+          new MessageButton()
+            .setCustomId("prev")
+            .setLabel("<")
+            .setStyle("PRIMARY")
+            .setDisabled(page <= 1),
+          new MessageButton()
+            .setCustomId("next")
+            .setLabel(">")
+            .setStyle("PRIMARY")
+            .setDisabled(page >= maxPages),
+          new MessageButton()
+            .setCustomId("next3")
+            .setLabel("3 >")
+            .setStyle("SECONDARY")
+            .setDisabled(page >= maxPages - 3),
+        ),
+        new MessageActionRow().addComponents(
+          new MessageButton()
+            .setCustomId("last")
+            .setLabel("Last")
+            .setStyle("SUCCESS")
+            .setDisabled(page >= maxPages),
+          new MessageButton()
+            .setCustomId("prev10")
+            .setLabel("< 10")
+            .setStyle("SECONDARY")
+            .setDisabled(page <= 10),
+          new MessageButton()
+            .setCustomId("prev5")
+            .setLabel("< 5")
+            .setStyle("SECONDARY")
+            .setDisabled(page <= 5),
+          new MessageButton()
+            .setCustomId("next5")
+            .setLabel("5 >")
+            .setStyle("SECONDARY")
+            .setDisabled(page >= maxPages - 5),
+          new MessageButton()
+            .setCustomId("next10")
+            .setLabel("10 >")
+            .setStyle("SECONDARY")
+            .setDisabled(page >= maxPages - 10),
+        )
+      ]
+      if(disableButtons) {
+        rows.forEach(row => {
+          row.components.map(comp => comp.setDisabled(true))
+        })
+      }
 
       return targetMessage.edit({
         embeds: [responseEmbed],
-        components: [row]
+        components: rows,
       })
     }
 
@@ -222,11 +256,29 @@ module.exports = {
           case "first":
             page = 1
             break
+          case "prev10":
+            page -= 10
+            break
+          case "prev5":
+            page -= 5
+            break
+          case "prev3":
+            page -= 3
+            break
           case "prev":
             page--
             break
           case "next":
             page++
+            break
+          case "next3":
+            page += 3
+            break
+          case "next5":
+            page += 5
+            break
+          case "next10":
+            page += 10
             break
           case "last":
             page = maxPages
