@@ -290,7 +290,6 @@ beforeShutdown(async () => {
   await badger.updateBadges()
   await banker.updateBalances()
   await banker.updateInventories()
-  await client.util.minecraftPinger.update()
   
   await client.util.logger.uploadLogs("Automatic log upload on exit.", true)
   console.log("Shutting down!")
