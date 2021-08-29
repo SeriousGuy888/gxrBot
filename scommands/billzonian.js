@@ -171,13 +171,8 @@ module.exports = {
           new MessageButton()
             .setCustomId("first")
             .setLabel("First")
-            .setStyle("SUCCESS")
-            .setDisabled(page <= 1),
-          new MessageButton()
-            .setCustomId("prev3")
-            .setLabel("< 3")
             .setStyle("SECONDARY")
-            .setDisabled(page <= 3),
+            .setDisabled(page <= 1),
           new MessageButton()
             .setCustomId("prev")
             .setLabel("<")
@@ -189,32 +184,27 @@ module.exports = {
             .setStyle("PRIMARY")
             .setDisabled(page >= maxPages),
           new MessageButton()
-            .setCustomId("next3")
-            .setLabel("3 >")
-            .setStyle("SECONDARY")
-            .setDisabled(page >= maxPages - 3),
-        ),
-        new MessageActionRow().addComponents(
-          new MessageButton()
             .setCustomId("last")
             .setLabel("Last")
-            .setStyle("SUCCESS")
+            .setStyle("SECONDARY")
             .setDisabled(page >= maxPages),
+        ),
+        new MessageActionRow().addComponents(
           new MessageButton()
             .setCustomId("prev10")
             .setLabel("< 10")
             .setStyle("SECONDARY")
             .setDisabled(page <= 10),
           new MessageButton()
-            .setCustomId("prev5")
-            .setLabel("< 5")
+            .setCustomId("prev3")
+            .setLabel("< 3")
             .setStyle("SECONDARY")
-            .setDisabled(page <= 5),
+            .setDisabled(page <= 3),
           new MessageButton()
-            .setCustomId("next5")
-            .setLabel("5 >")
+            .setCustomId("next3")
+            .setLabel("3 >")
             .setStyle("SECONDARY")
-            .setDisabled(page >= maxPages - 5),
+            .setDisabled(page >= maxPages - 3),
           new MessageButton()
             .setCustomId("next10")
             .setLabel("10 >")
@@ -259,9 +249,6 @@ module.exports = {
           case "prev10":
             page -= 10
             break
-          case "prev5":
-            page -= 5
-            break
           case "prev3":
             page -= 3
             break
@@ -273,9 +260,6 @@ module.exports = {
             break
           case "next3":
             page += 3
-            break
-          case "next5":
-            page += 5
             break
           case "next10":
             page += 10
