@@ -60,11 +60,11 @@ module.exports = async (message) => {
 
       if(messageList) {
         for(let loopMessage of messageList) {
-          message.channel.send(loopMessage.content, { embed: loopMessage.embed ? loopMessage.embed : null }).then(msg => {
+          message.channel.send({ content: loopMessage.content, embed: loopMessage.embed || null }).then(msg => {
             if(loopMessage.options.autoDelete.enabled) {
               let timeout = loopMessage.options.autoDelete.timeout
               timeout = Math.min(Math.max(timeout, 1), 60 * 1000) // clamp timeout between 1ms and 1min
-              msg.delete({ timeout })
+              setTimeout(msg.delete, timeout)
             }
           })
         }

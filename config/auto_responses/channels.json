@@ -41,11 +41,11 @@
   ],
   "735708848333258822": [
     {
-      "comment": "g9l daiia fact channel",
+      "comment": "g9l dasaily fact channel",
       "enabled": true,
       "messages": [
         {
-          "content": "@noteveryone get not ghost pinged lol",
+          "content": "@everyone get not ghost pinged lol",
           "options": {
             "autoDelete": {
               "enabled": true,
