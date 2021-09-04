@@ -64,7 +64,7 @@ module.exports = async (message) => {
             if(loopMessage.options.autoDelete.enabled) {
               let timeout = loopMessage.options.autoDelete.timeout
               timeout = Math.min(Math.max(timeout, 1), 60 * 1000) // clamp timeout between 1ms and 1min
-              setTimeout(msg.delete, timeout)
+              setTimeout(() => { msg.delete() }, timeout)
             }
           })
         }

@@ -45,7 +45,7 @@
       "enabled": true,
       "messages": [
         {
-          "content": "@everyone get not ghost pinged lol",
+          "content": "@everyone get ghost pinged lol also can this message delete itself pls thanks",
           "options": {
             "autoDelete": {
               "enabled": true,
