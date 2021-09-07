@@ -125,7 +125,7 @@ module.exports = {
           const example = wordData.example
           const notes  = wordData.notes
 
-          let ipaReadingsString = "No transcription provided."
+          let ipaReadingsString = "No IPA transcription provided."
           if(wordData.ipa) {
             ipaReadingsString = ipaReadings
               .map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`)
