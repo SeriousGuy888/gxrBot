@@ -125,10 +125,17 @@ module.exports = {
           const example = wordData.example
           const notes  = wordData.notes
 
+          let ipaReadingsString = "No transcription provided."
+          if(ipaReadings.length) {
+            ipaReadingsString = ipaReadings
+              .map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`)
+              .join(" or ")
+          }
+
           responseEmbed.addField(
             `${wordData.word && "**" + wordData.word + "**"} \`${wordData.pos}\` ${wordData.isExactMatch ? "*(⭐ Exact Match)*" : ""}`,
             [
-              ipaReadings         && ipaReadings.map(e => `/[${e}](http://ipa-reader.xyz/?text=${e.replace(/ /g, "%20")})/`).join(" or "),
+              ipaReadingsString,
               wordData.alt_forms  && `\`Alt:\` ${alts.join(", ")}`,
               translation         && numberise(translation, false, false) + "\n",
               example             && numberise(example, true, false) + "\n",
