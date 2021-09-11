@@ -28,10 +28,6 @@
         "pass": {
           "pattern": "lonely|sad|depress(ed|ion)|heart(broken|break)|glum|miser(y|able)|sorrow|gloom",
           "flags": "gi"
-        },
-        "fail": {
-          "pattern": "not really",
-          "flags": "gi"
         }
       },
       "response": ":("
