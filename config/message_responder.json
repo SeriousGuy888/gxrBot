@@ -102,17 +102,6 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "cheezsurv",
-          "flags": "gi"
-        }
-      },
-      "reactions": [
-        "🧀"
-      ]
-    },
-    {
-      "conditions": {
-        "pass": {
           "pattern": "\\\"(You see)?(, )?doing teachers would be really fun\\.?\\\" ?- ?Jakob",
           "flags": "gi"
         }
