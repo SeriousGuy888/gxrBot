@@ -48,26 +48,6 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "( |^)owo( |$)",
-          "flags": "gi"
-        }
-      },
-      "reactions": [
-        "704343800742412468"
-      ]
-    },
-    {
-      "conditions": {
-        "pass": {
-          "pattern": "( |^)uwu( |$)",
-          "flags": "gi"
-        }
-      },
-      "response": "uwu"
-    },
-    {
-      "conditions": {
-        "pass": {
           "pattern": "smh",
           "flags": "gi"
         }
