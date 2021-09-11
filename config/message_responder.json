@@ -53,7 +53,7 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "(thy|your) (mom|mother)",
+          "pattern": "(thy|your) (mom|mother|booka)",
           "flags": "gi"
         }
       },
@@ -62,7 +62,7 @@
     {
       "conditions": {
         "pass": {
-          "pattern": "(thy|your) (dad|father)",
+          "pattern": "(thy|your) (dad|father|shooka)",
           "flags": "gi"
         }
       },
