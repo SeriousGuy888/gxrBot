@@ -17,7 +17,7 @@ module.exports = async (message) => {
     let failCondition = new RegExp(loopCase.conditions.fail?.pattern ?? (Math.random() * 50000).toString(), loopCase.conditions.fail?.flags ?? "")
     
     if(content.match(passCondition) && !message.content.match(failCondition)) {
-      if(loopCase.response && !config.main.blacklistedChannels.includes(message.channel.id)) {
+      if(loopCase.response && !config.main.commands.blacklistedChannels.includes(message.channel.id)) {
         message.channel.send(loopCase.response)
       }
       if(loopCase.reactions) {
