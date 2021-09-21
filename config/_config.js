@@ -1,7 +1,6 @@
 module.exports = {
   autocarrot:         require("./autocarrot/_autocarrot.js"),
   autoResponses:      require("./auto_responses/_auto_responses.js"),
-  billzo:             require("./billzo/_billzo.js"),
   coopchannels:       require("./coopchannels/_coopchannels.js"),
   economy:            require("./economy/_economy.js"),
   hangman:            require("./hangman/_hangman.js"),
