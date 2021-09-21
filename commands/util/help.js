@@ -22,8 +22,8 @@ exports.run = async (client, message, args) => {
   const noArgs = () => {
     const fields = require("../../config/help/pages/commands.json")
     let description = [
-      `The prefix is \`${prefix}\`.`,
-      "Use the prefix before a command name to use that command."
+      `The prefix is \`${prefix}\`. Use the prefix before a command name to use that command.`,
+      "There are also slash commands! Type `/` to see available slash commands.",
     ]
 
     if(config.main.guild.id !== message.guild.id) {
