@@ -2,10 +2,8 @@
   "basic": {
     "help": "(`h`) %lowername% help command",
     "avatar": "Get a user's avatar",
-    "badges": "See information about badges.",
     "birthday": "Tell Honag thy birthday",
     "commands": "(`cmds`) Automatically generated list of all public commands",
-    "mybadges": "Badges",
     "ping": "Get bot latency",
     "poll": "(`polls`) Make polls with bar graphs :D. Run command for more info.",
     "profile": "(`prof`) See a user's %lowername% profile.",
@@ -13,11 +11,7 @@
     "web": "Get web panel link"
   },
   "fun": {
-    "acronym": "Specify a word or acronym and get an expansion of the acronym.",
-    "billzonian": "(`bzo`) Billzonian-English dictionary!+",
-    "google_translate": "(`gt`) Translate a phrase through several languages.",
-    "impostor": "Who's the impostor?",
-    "spam_ping": "Spam ping or ghost ping a user!"
+    "impostor": "Who's the impostor?"
   },
   "games": {
     "blackjack": "Play blackjack.",
@@ -37,17 +31,12 @@
     "shop": "See all the items that exist.",
     "use": "Use an inventory item."
   },
-  "karma": {
-    "leaderboard": "(`lb`) See the karma leaderboard.",
-    "karma": "See someone's or your own karma score."
-  },
   "admin": {
     "auth": "For signing in to the admin web panel.",
     "config": "(`guild_settings`, `server_settings`) Edit %lowername% settings for this particular Discord server.",
     "cult": "Set the cult channel.",
     "mute": "Force mute and unmute everyone in a specified VC.",
     "ows": "Set up the one word story channel.",
-    "say": "Make %lowername% say something.",
     "slowmode": "Set a slowmode in a channel"
   }
 }
