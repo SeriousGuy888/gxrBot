@@ -1,1 +1,1 @@
-this.moved = "spam_ping"
+exports.moved = "spam_ping"
