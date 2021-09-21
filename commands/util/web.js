@@ -7,7 +7,5 @@ exports.run = async (client, message, args) => {
     .setTitle("Web Panel Link")
     .setDescription(`[Here](${config.main.links.web_panel})`)
   
-  message.channel.send(emb)
+  message.channel.send({ embeds: [emb] })
 }
-
-exports.disabled = "temp disabled during discord.js v13 update"
