@@ -3,10 +3,10 @@ exports.run = async (client, message, args) => {
   const { config, Discord } = index
   const { embedder } = client.util
 
-  // if(message.guild && message.guild.id !== config.main.guild.id) {
-  //   message.channel.send({ content: `You cannot use this command outside of \`${config.main.guild.name}\`!` })
-  //   return
-  // }
+  if(!message.guild || message.guild.id !== config.main.guild.id) {
+    message.channel.send({ content: `You cannot use this command outside of \`${config.main.guild.name}\`!` })
+    return
+  }
   if(!args[1]) {
     this.help(client, message, args)
     return
