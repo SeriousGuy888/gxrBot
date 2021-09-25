@@ -7,17 +7,13 @@ module.exports = async (message) => {
   const literalIdPrefix = config.autoResponses.settings.literalIdPrefix
   const emojiKey = config.autoResponses.settings.emojiKey
   const channelData = config.autoResponses.channels
+  const presets = config.autoResponses.presets
 
-  if(message.author.id === client.user.id)
-    return
-  if(!channelData[message.channel.id])
-    return
+  const processResponse = async response => {
+    if(!response.enabled)
+      return
 
-  for(let loopResponse of channelData[message.channel.id]) {
-    if(!loopResponse.enabled)
-      continue
-
-    const conditional = loopResponse.conditional
+    const conditional = response.conditional
     let satisfiesConditions = false
 
     if(!conditional) satisfiesConditions = true
@@ -28,7 +24,7 @@ module.exports = async (message) => {
         const conditionList = conditional.conditions
         if(!conditionList) {
           logger.log(`Missing autoresponse condition list for channel ${message.channel.id}!`)
-          break
+          return
         }
         for(let loopCondition of conditionList) {
           if(!loopCondition.enabled) continue
@@ -53,9 +49,9 @@ module.exports = async (message) => {
     }
 
     if(satisfiesConditions) {
-      const messageList = loopResponse.messages
-      const reactionList = loopResponse.reactions
-      const { autoEmoji } = loopResponse
+      const messageList = response.messages
+      const reactionList = response.reactions
+      const { autoEmoji } = response
 
       if(messageList) {
         for(let loopMessage of messageList) {
@@ -119,5 +115,22 @@ module.exports = async (message) => {
         }
       }
     }
+  }
+
+
+  if(message.author.id === client.user.id) return
+
+
+  for(const preset of presets) {
+    if(!preset.channels.includes(message.channel.id)) continue
+    for(const response of preset.responses) {
+      processResponse(response)
+    }
+  }
+
+
+  if(!channelData[message.channel.id]) return
+  for(let response of channelData[message.channel.id]) {
+    processResponse(response)
   }
 }

@@ -1,0 +1,16 @@
+[
+  {
+    "responses": [
+      {
+        "enabled": true,
+        "reactions": [
+          "upvote",
+          "downvote"
+        ]
+      }
+    ],
+    "channels": [
+      "739976529437524029"
+    ]
+  }
+]
