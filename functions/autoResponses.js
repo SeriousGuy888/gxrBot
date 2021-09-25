@@ -41,7 +41,6 @@ module.exports = async (message) => {
           }
           else {
             logger.log(`Unknown autoresponse condition type ${loopCondition.type} in autoresponse for channel ${message.channel.id}; skipping.`)
-            continue
           }
         }
 
