@@ -1,54 +1,4 @@
 {
-  "587793838265991171": [
-    {
-      "comment": "g9l memes channel",
-      "enabled": true,
-      "reactions": [
-        "upvote",
-        "downvote"
-      ]
-    }
-  ],
-  "587772424729264139": [
-    {
-      "comment": "g9l discord announcements channel",
-      "enabled": true,
-      "reactions": [
-        "upvote",
-        "downvote"
-      ]
-    }
-  ],
-  "855923632889921566": [
-    {
-      "comment": "g9l vaccine updates channel",
-      "enabled": true,
-      "reactions": [
-        "upvote",
-        "downvote"
-      ]
-    }
-  ],
-  "620116327872462888": [
-    {
-      "comment": "g9l kali wisdom broadcast channel",
-      "enabled": true,
-      "reactions": [
-        "upvote",
-        "downvote"
-      ]
-    }
-  ],
-  "886074633395273758": [
-    {
-      "comment": "kash wisdom",
-      "enabled": true,
-      "reactions": [
-        "upvote",
-        "downvote"
-      ]
-    }
-  ],
   "735708848333258822": [
     {
       "comment": "g9l dasaily fact channel",
@@ -63,10 +13,6 @@
             }
           }
         }
-      ],
-      "reactions": [
-        "upvote",
-        "downvote"
       ]
     },
     {
@@ -76,36 +22,6 @@
         "maxEmojiCount": 10,
         "blacklistNationalFlags": true
       }
-    }
-  ],
-  "749428233270853681": [
-    {
-      "comment": "g9l billzo's news",
-      "enabled": true,
-      "reactions": [
-        "upvote",
-        "downvote"
-      ]
-    }
-  ],
-  "774517456009297920": [
-    {
-      "comment": "g9l andy's channel",
-      "enabled": true,
-      "reactions": [
-        "upvote",
-        "downvote"
-      ]
-    }
-  ],
-  "785961206024372287": [
-    {
-      "comment": "g9l luwucas uwu",
-      "enabled": true,
-      "reactions": [
-        "upvote",
-        "downvote"
-      ]
     }
   ],
   "738234090779574386": [
@@ -122,8 +38,6 @@
       "comment": "g9l game night news",
       "enabled": true,
       "reactions": [
-        "upvote",
-        "downvote",
         "gamenight"
       ]
     },
