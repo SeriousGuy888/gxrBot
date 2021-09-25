@@ -120,17 +120,24 @@ module.exports = async (message) => {
 
   if(message.author.id === client.user.id) return
 
-
-  for(const preset of presets) {
-    if(!preset.channels.includes(message.channel.id)) continue
-    for(const response of preset.responses) {
-      processResponse(response)
+  // some sort of witchcraft that allows all of the
+  // preset reactions to happen before the channel
+  // specific stuff happens
+  const asyncForEach = async (array, callback) => {
+    for(let ind = 0; ind < array.length; ind++) {
+      await callback(array[ind], ind, array)
     }
   }
 
+  await asyncForEach(presets, async preset => {
+    if(!preset.channels.includes(message.channel.id)) return
+    for(const response of preset.responses) {
+      await processResponse(response)
+    }
+  })
 
   if(!channelData[message.channel.id]) return
-  for(let response of channelData[message.channel.id]) {
+  await channelData[message.channel.id].forEach(response => {
     processResponse(response)
-  }
+  })
 }
