@@ -85,9 +85,7 @@
         }
       },
       "reactions": [
-        "📗",
-        "🦉",
-        "🔪"
+        "🦉"
       ]
     },
     {
@@ -98,17 +96,6 @@
         }
       },
       "response": "that's not a thing you can say"
-    },
-    {
-      "conditions": {
-        "pass": {
-          "pattern": "\\\"(You see)?(, )?doing teachers would be really fun\\.?\\\" ?- ?Jakob",
-          "flags": "gi"
-        }
-      },
-      "reactions": [
-        "😮"
-      ]
     }
   ]
 }
