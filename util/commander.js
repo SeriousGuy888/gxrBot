@@ -147,6 +147,7 @@ exports.badCommand = (invalidCommand, message, commandName) => {
 
   if(invalidCommand) message.reply({ content: "The requested command exists but failed to run D:" }) 
   else {
+    /*
     const allCommandSimilarities = didYouMean(commandName, client.publicCommandList)
 
     const topCommands = []
@@ -164,6 +165,7 @@ exports.badCommand = (invalidCommand, message, commandName) => {
       .setDescription(`Did you mean one of these commands?\n${commandSuggestionsStr}`.slice(0, 2048))
       .setFooter(`${prefix}help to see list of commands.`)
     message.reply({ embeds: [emb] })
+    */
   }
 }
 
