@@ -23,8 +23,12 @@ module.exports = {
   ],
   defer: true,
   execute: async (interaction, options) => {
-    const response = await axios.get(dictionaryUrl)
-    if(response.status !== 200) return interaction.followUp("An error occurred while requesting the dictionary data.")
+    const response = await axios.get(dictionaryUrl).catch(() => {
+      interaction.followUp({ content: "Could not fetch dictionary data. Ask billzo to fix this." })
+    })
+    if(!response)
+      return
+
 
     const responseData = response.data
     const dictionaryData = await csv().fromString(responseData)
