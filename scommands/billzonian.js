@@ -31,10 +31,7 @@ module.exports = {
 
 
     // const responseData = response.data
-    const dictionaryData = JSON.parse(
-      JSON.stringify(response.data).replace(/\ufeff/g, "")
-      // jekyll jsonifies my csv and leaves \ufeff chars everywhere
-    )
+    const dictionaryData = response.data
 
     const itemsPerPage = 4
     let maxPages = Math.ceil(dictionaryData.length / itemsPerPage)
