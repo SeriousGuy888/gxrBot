@@ -33,7 +33,7 @@ module.exports = {
     // const responseData = response.data
     const dictionaryData = JSON.parse(
       JSON.stringify(response.data).replace(/\ufeff/g, "")
-      // jekyll jsonifies my css and leaves \ufeff chars everywhere
+      // jekyll jsonifies my csv and leaves \ufeff chars everywhere
     )
 
     const itemsPerPage = 4
