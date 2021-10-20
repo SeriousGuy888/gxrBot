@@ -9,7 +9,7 @@ const csv = require("csvtojson")
 const { MessageActionRow, MessageButton } = Discord
 
 const repoUrl = "https://github.com/SeriousGuy888/Billzonian"
-const dictionaryUrl = "https://seriousguy888.github.io/Billzonian/vocabulary.json"
+const dictionaryUrl = "https://seriousguy888.github.io/Billzonian/vocabulary.csv"
   
 module.exports = {
   name: "billzonian",
@@ -30,8 +30,8 @@ module.exports = {
       return
 
 
-    // const responseData = response.data
-    const dictionaryData = response.data
+    const responseData = response.data
+    const dictionaryData = await csv().fromString(responseData)
 
     const itemsPerPage = 4
     let maxPages = Math.ceil(dictionaryData.length / itemsPerPage)
@@ -77,10 +77,10 @@ module.exports = {
         searchTerm = params.toLowerCase()
         searchResults = dictionaryData.filter(e => {
           return (
-            e.word?.toLowerCase().includes(searchTerm)
-            || e.translation?.toLowerCase().includes(searchTerm)
-            || e.alt_forms?.toLowerCase().includes(searchTerm)
-            // || e.notes?.toLowerCase().includes(searchTerm)
+            e.word.toLowerCase().includes(searchTerm)
+            || e.translation.toLowerCase().includes(searchTerm)
+            || e.alt_forms.toLowerCase().includes(searchTerm)
+            // || e.notes.toLowerCase().includes(searchTerm)
           )
         })
       }
@@ -123,11 +123,11 @@ module.exports = {
             break
           }
 
-          const ipaReadings = wordData?.ipa?.split("|")
-          const alts = wordData?.alt_forms?.split("|")
-          const translation = wordData?.translation
-          const example = wordData?.example
-          const notes  = wordData?.notes
+          const ipaReadings = wordData.ipa.split("|")
+          const alts = wordData.alt_forms.split("|")
+          const translation = wordData.translation
+          const example = wordData.example
+          const notes  = wordData.notes
 
           let ipaReadingsString = "No IPA transcription provided."
           if(wordData.ipa) {
