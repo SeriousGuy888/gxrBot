@@ -65,6 +65,7 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
     const options = []
 
     let maxCount = 0 // option with the highest vote count
+    let totalVotes = 0
 
     for(const key of allReactionKeys) {
       const reaction = reactions.get(key)
@@ -76,16 +77,19 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
 
       options.push(key)
       maxCount = Math.floor(Math.max(maxCount, reaction.count - 1))
+      totalVotes += reaction.count - 1
     }
 
     let resultsField = []
     for(const i in options) {
       const reaction = reactions.get(options[i])
       const votes = reaction.count - 1 // remove the bot's own reaction from the final count
+      const votePercentage = `${Math.round(votes / totalVotes * 100) / 100}%`
 
       const barColour = config.polls.bars[i % config.polls.bars.length]
-      let barSize = Math.round((votes / maxCount) * config.polls.maxBarLength)
-      resultsField.push(reaction.emoji.toString() + ` | \`${votes}\` | ${barColour.repeat(barSize)}`)
+      const barSize = Math.round((votes / maxCount) * config.polls.maxBarLength)
+
+      resultsField.push(reaction.emoji.toString() + ` | \`${votes} (${votePercentage})\` | ${barColour.repeat(barSize)}`)
     }
 
     pollEmb.addField("Results", resultsField.join("\n") || "the poll was broken lol check the reactions i guess")
