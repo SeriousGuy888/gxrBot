@@ -84,7 +84,7 @@ exports.getPollEmbed = async (pollObject, closed, message) => {
     for(const i in options) {
       const reaction = reactions.get(options[i])
       const votes = reaction.count - 1 // remove the bot's own reaction from the final count
-      const votePercentage = (Math.round(votes / totalVotes * 10000) / 100) || 0
+      const votePercentage = `${(Math.round(votes / totalVotes * 10000) / 100) || 0}`.padStart(6, " ")
 
       const barColour = config.polls.bars[i % config.polls.bars.length]
       const barSize = Math.round((votes / maxCount) * config.polls.maxBarLength)
