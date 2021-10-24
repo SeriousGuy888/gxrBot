@@ -13,8 +13,7 @@ module.exports = {
     const { positive, negative } = settings.leaderboard.emojis
   
     let description = [
-      `Have people to your messages with ${positive} or ${negative} to affect your ~~popularity~~ karma score!`,
-      "",
+      `React to messages with ${positive} or ${negative} to change the author's karma score.`,
       `[What is karma?](${config.main.links.github_pages}#faq-karma)`,
       config.main.guild.id !== interaction.guild.id ? settings.lang.unavailableInGuild : "",
       "\u200b"
@@ -22,7 +21,7 @@ module.exports = {
   
     const leaderboardEmbed = new Discord.MessageEmbed()
       .setColor(settings.colours.karma)
-      .setTitle("Discord Karma Leaderboard")
+      .setTitle("Karma Leaderboard")
       .setDescription(description.join("\n"))
       .setFooter(settings.lang.footer)
   
