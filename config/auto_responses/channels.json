@@ -294,5 +294,14 @@
         "skribbl"
       ]
     }
+  ],
+  "904206408357150720": [
+    {
+      "enabled": true,
+      "reactions": [
+        "#🍑",
+        "downvote"
+      ]
+    }
   ]
 }
