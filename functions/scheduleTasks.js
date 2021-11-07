@@ -27,11 +27,11 @@ module.exports = (client) => {
 
   setTimeout(async () => index.propaganda(client), 1000)
 
-  schedule.scheduleJob("0 * * * *", () => {
+  schedule.scheduleJob("0 0 * * *", () => {
     const emb = new Discord.MessageEmbed()
       .setColor("#c32323")
       .setTitle("fakt pls")
       .setDescription("<#735708848333258822>")
-    messenger.dm("636530890826055691", emb)
+    messenger.dm("636530890826055691", { content: "fakt pls", embeds: [emb] })
   })
 }

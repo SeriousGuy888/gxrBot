@@ -22,7 +22,7 @@ exports.send = async (channel, content) => {
   if(typeof content === "string") this.sanitise(content).then(c => sanitisedContent = c)
   else sanitisedContent = content
 
-  return await channel.send(typeof sanitisedContent === "string" ? { content: sanitisedContent } : sanitisedContent)
+  return channel.send(typeof sanitisedContent === "string" ? { content: sanitisedContent } : sanitisedContent)
 }
 
 exports.dm = async (userId, content, callback) => {
