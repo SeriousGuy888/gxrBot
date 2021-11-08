@@ -33,5 +33,6 @@ module.exports = (client) => {
       .setTitle("fakt pls")
       .setDescription("<#735708848333258822>")
     messenger.dm("636530890826055691", { content: "fakt pls", embeds: [emb] })
+    messenger.dm("323170410818437130", { content: "fakt pls", embeds: [emb] }) // todo: remove
   })
 }
