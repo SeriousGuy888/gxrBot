@@ -5,6 +5,7 @@
 
 const index = require("../index.js")
 const { client, config, Discord } = index
+const { logger } = client.util
 
 exports.sanitise = async content => {
   if(typeof content !== "string")
@@ -33,7 +34,9 @@ exports.dm = async (userId, content, callback) => {
       if(callback)
         callback(msg)
     })
-    .catch(() => {})
+    .catch(err => {
+      logger.log(`Failed to send dm to ${userId} (${user.tag}) due to error ${err}`)
+    })
 }
 
 exports.loadingMessage = async (channel, options) => {
