@@ -9,6 +9,7 @@ module.exports = {
   main:               require("./_main.json"),
   admins:             require("./admins.json"),
   badges:             require("./badges.json"),
+  birthdays:          require("./birthdays.json"),
   karma:              require("./karma.json"),
   logger:             require("./logger.json"),
   messageResponder:   require("./message_responder.json"),
