@@ -28,11 +28,15 @@ module.exports = (client) => {
 
   setTimeout(async () => index.propaganda(client), 1000)
 
-  schedule.scheduleJob("0 0 * * *", () => {
+  schedule.scheduleJob("30 0 * * *", () => {
     const emb = new Discord.MessageEmbed()
-      .setColor("#c32323")
-      .setTitle("fakt pls")
-      .setDescription("<#735708848333258822>")
+      .setColor("RANDOM")
+      .setTitle("A Letter")
+      .setDescription([
+        "A nov ver of c Daremily reqwested beas.",
+        "",
+        "<#735708848333258822>"
+      ].join("\n"))
     messenger.dm("636530890826055691", { content: "fakt pls", embeds: [emb] })
   })
 
