@@ -58,7 +58,7 @@ module.exports = (client) => {
 
     const emb = new Discord.MessageEmbed()
       .setColor("FUCHSIA")
-      .setTitle(":cake: Birthdays Today! [test send with timezone fixed]")
+      .setTitle(":cake: Birthdays Today!")
       .setDescription(`Here are the birthdays I have on my list today!\n\`\`\`${todaysBirthdays.join(", ")}\`\`\``)
       .setFooter("Birthdays for " + date.toISOString().split("T")[0])
 
