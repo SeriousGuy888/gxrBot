@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
   // https://discord.js.org
   const guild = message.guild
   if(!guild) {
-    message.channel.send("This command must be executed in a discord server! (Because )")
+    message.channel.send({ content: "This command must be executed in a discord server! (Because )" })
     return
   }
 
@@ -41,8 +41,8 @@ exports.run = async (client, message, args) => {
 
       candidateEmbed
         .setDescription(introduction)
-        .addField(`${settings.emojis.smash} Smashes`, smashes, true)
-        .addField(`${settings.emojis.pass} Passes`, passes, true)
+        .addField(`${settings.emojis.smash} Smashes`, `${smashes} people`, true)
+        .addField(`${settings.emojis.pass} Passes`, `${passes} people`, true)
         .addField("\u200b", `Please make a choice within ${settings.timeout} seconds.\nReact with ${settings.emojis.stop} to stop playing immediately.`)
         .setFooter(`Remaining: ${people.length}`)
     }
@@ -74,13 +74,13 @@ exports.run = async (client, message, args) => {
 
   const roundOne = getCandidate()
   let currentCandidate = roundOne.user
-  const msg = await message.channel.send("How did you find this command?", { embed: roundOne.embed })
+  const msg = await message.channel.send({ content: "How did you find this command?", embeds: [roundOne.embed] })
 
   const emojis = Object.values(settings.emojis)
-  emojis.forEach(async emoji => await msg.react(emoji))
+  emojis.forEach(async emoji => msg.react(emoji))
   const filter = (reaction, reactor) => (emojis.includes(reaction.emoji.name)) && (reactor.id === message.author.id)
 
-  const collector = msg.createReactionCollector(filter, { time: settings.timeout * 1000 })
+  const collector = msg.createReactionCollector({ filter, time: settings.timeout * 1000 })
     .on("collect", async (reaction, reactor) => {
       reaction.users.remove(reactor).catch(() => {})
       collector.resetTimer()
@@ -111,16 +111,11 @@ exports.run = async (client, message, args) => {
       const { embed, user } = getCandidate()
       currentCandidate = user
       if(currentCandidate && !endGame)
-        msg.edit(embed)
+        msg.edit({ embeds: [embed] })
       else
         collector.stop()
     })
     .on("end", async collected => {
-      msg.edit(getCandidate(true).embed)
-        // .then(m => {
-        //   msg.edit(`No longer listening for reactions.\n(Results: ${m.url})`)
-        // })
+      msg.edit({ embeds: [getCandidate(true).embed] })
     })
 }
-
-exports.disabled = "temp disabled during discord.js v13 update"
