@@ -55,7 +55,7 @@ exports.handle = async (message) => {
         const emb = new Discord.MessageEmbed()
           .setColor(config.main.colours.error)
           .setTitle(`Moved to \`/${command.moved}\``)
-          .setDescription(`Discord is being a poopyhead and trying to get bots to use slash commands that are better in every way or something like that. This command has been moved to the slash command \`/${command.moved}\`.`)
+          .setDescription(`use slash command \`/${command.moved}\`.`)
         message.reply({ embeds: [emb] })
         return
       }
